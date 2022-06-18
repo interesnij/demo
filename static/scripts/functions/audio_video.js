@@ -12,7 +12,7 @@ function get_video_dop(){
   styles = document.querySelectorAll(".my_color_settings");
   style = styles[styles.length- 1];
   settings = [];
-  if (style.href.indexOf("white") != -1){
+  if (style.href.indexOf("a") != -1){
     settings += ["images/video_white",'#eeeeee','#FFFFFF']
   } else {
     settings += ["images/video_dark",'#000000','#000000']
@@ -23,7 +23,7 @@ function get_audio_dop(){
   styles = document.querySelectorAll(".my_color_settings");
   style = styles[styles.length- 1];
   settings = [];
-  if (style.href.indexOf("white") != -1){
+  if (style.href.indexOf("a") != -1){
     settings += ["images/audio_white",'#eeeeee','#FFFFFF']
   } else {
     settings += ["images/audio_dark",'#000000','#000000']
@@ -506,4 +506,4 @@ on('#ajax', 'click', '.music_list_item', function() {
           _link.send( null );
         }};
         playlist_link.send( null );
-        }; 
+        };
