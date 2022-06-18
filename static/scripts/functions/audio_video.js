@@ -475,7 +475,7 @@ on('#ajax', 'click', '.music_list_item', function() {
 
 function save_playlist(list_id, post_link, counter) {
   var playlist_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  playlist_link.open( 'GET', post_link, true );
+  playlist_link.open( 'POST', post_link, true );
   playlist_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   playlist_link.onreadystatechange = function () {
