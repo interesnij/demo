@@ -486,6 +486,8 @@ function save_playlist(list_id, post_link, counter) {
 
       for(i=0; i < data.length; i++) {
         console.log(data[i].url);
+        console.log(data[i].title);
+        console.log(data[i].image);
         _source=data[i].url;
         _title=data[i].title;
         _thumbPath=data[i].image;
