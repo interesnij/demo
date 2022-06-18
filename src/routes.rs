@@ -36,6 +36,6 @@ pub fn routes(cfg: &mut web::ServiceConfig) {
     .configure(progs::progs_routes)
     .configure(admin_routes)
     .configure(pages::pages_routes)
-    .route("/{slug}/", web::get().to(pages::link_page));
+    .route("/{slug}/", web::get().to(pages::link_page))
     ;
 }
