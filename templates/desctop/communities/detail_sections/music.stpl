@@ -13,7 +13,7 @@
     </div>
 
     <% for object in community.get_6_tracks().iter() { %>
-    <div class="card border-top">
+    <div class="card border-top" list-pk="<%= object.music_list_id %>">
         <div class="p-1">
             <div class="media" music-counter="">
               <figure>

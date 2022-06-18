@@ -460,19 +460,20 @@ function dragElement(elmnt){var pos1=0,pos2=0,pos3=0,pos4=0;document.querySelect
 on('#ajax', 'click', '.music_list_item', function() {
   counter = 0;
   parents = this.parentElement.parentElement.parentElement.parentElement;
-  list_pk = parents.getAttribute('data-pk');
+  if (parents.getAttribute('data-pk')) {
+    list_pk = parents.getAttribute('data-pk');
+  }
+  else if (this.getAttribute('list-pk')){
+    list_pk = this.getAttribute('list-pk');
+  }
   list_items = parents.querySelectorAll(".list-group-item");
-  console.log(list_items, "list_items");
   pk = this.parentElement.parentElement.parentElement.getAttribute("data-pk");
-  console.log(pk, "pk");
   for (i=0; i < list_items.length; i++) {
     if (list_items[i].getAttribute("data-pk") == pk) {
       counter = i;
-
-      console.log("eeee");
     }
   }
-  console.log(counter);
+
   saved_playlist = document.body.querySelector("#saved_playlist");
   if (saved_playlist.getAttribute("data-pk") != list_pk) {
       save_playlist(list_pk, '/users/progs/save_playlist/' + list_pk + "/", counter);
