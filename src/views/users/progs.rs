@@ -121,7 +121,6 @@ pub async fn save_playlist(session: Session, list_id: web::Path<i32>) -> web::Js
         let _request_user = get_request_user_data(&session);
         let _list = get_music_list(*list_id);
         _list.save_playlist(_request_user);
-        let tracks_list = TracksData;
         for track in _list.get_items().iter() {
             tracks_list.tracks.push(TrackData {
                 url:   track.file,

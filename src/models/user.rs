@@ -2181,7 +2181,7 @@ impl User {
             return _musics_list;
         }
     }
-    pub fn get_saved_playlist(&self) -> Vec<MusicList> {
+    pub fn get_saved_playlist(&self) -> MusicList {
         let profile = self.get_profile();
         if profile.playlist == 0 {
             return self.get_music_list();
