@@ -7,7 +7,7 @@
 </div>
 
 </div>
-
+<% include!("audio_playlist.stpl"); %>
 
 <div class='card video_fullscreen' style='display:none'>
 <span class="video_btn_big">
