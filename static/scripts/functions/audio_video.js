@@ -466,8 +466,10 @@ on('#ajax', 'click', '.music_list_item', function() {
   for (i=0; i < list_items.length; i++) {
     if (list_items[i].getAttribute("data-pk") == pk) {
       counter = i;
+      console.log("eeee");
     }
   }
+  console.log(counter);
   saved_playlist = document.body.querySelector("#saved_playlist");
   if (saved_playlist.getAttribute("data-pk") != list_pk) {
       save_playlist(list_pk, '/users/progs/save_playlist/' + list_pk + "/", counter);
