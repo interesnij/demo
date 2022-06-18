@@ -1546,7 +1546,7 @@ impl MusicList {
 
         let _connection = establish_connection();
         let profile = user.get_profile();
-        diesel::update(profile)
+        diesel::update(&profile)
             .set(schema::user_profiles::playlist.eq(self.id))
             .get_result::<UserProfile>(&_connection)
             .expect("E");
