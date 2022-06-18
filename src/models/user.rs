@@ -2180,7 +2180,7 @@ impl User {
                 .expect("Error saving music_list_position.");
             return _musics_list;
         }
-    }
+    } 
     pub fn get_saved_playlist(&self) -> MusicList {
         let profile = self.get_profile();
         if profile.playlist == 0 {

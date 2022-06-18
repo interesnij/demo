@@ -766,7 +766,7 @@ pub fn add_edited_good(pk: i32) -> String {
             good.get_price(), "</p></div></div>");
 }
 
-pub fn add_music(pk: i32, is_staff: bool, user_id: i32) -> String {
+pub fn add_music(pk: i32, is_staff: bool, user_id: i32, class: String) -> String {
     use crate::schema::musics::dsl::musics;
     use crate::models::Music;
     let _connection = establish_connection();
@@ -792,11 +792,11 @@ pub fn add_music(pk: i32, is_staff: bool, user_id: i32) -> String {
     }
 
     return concat_string!(
-        "<div class='music' data-path='", music.file, "' data-pk='", music.id.to_string(),
+        "<div class='music music_item' data-path='", music.file, "' data-pk='", music.id.to_string(),
         "' list-pk='", music.music_list_id.to_string(),
         "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'
         music-counter=''>", music.get_s_image(),
-        "<div class='media-body' style='display: flex;'><h6 class='music_list_post music_title'><a>",
+        "<div class='media-body' style='display: flex;'><h6 class='", class," music_title'><a>",
         music.title, "</a></h6><span class='span_btn' data-pk='", music.id.to_string(),
         "'><span class='dropdown' style='position: inherit;'><a class='btn_default drop pointer'>
         <svg class='svg_info' fill='currentColor' viewBox='0 0 24 24'><path d='M0 0h24v24H0z'
@@ -805,7 +805,7 @@ pub fn add_music(pk: i32, is_staff: bool, user_id: i32) -> String {
         music.id.to_string(), "'>",
         drops, "</div></span</span></div></div></div>");
 }
-pub fn add_edited_music(pk: i32) -> String {
+pub fn add_edited_music(pk: i32, class: String) -> String {
     use crate::schema::musics::dsl::musics;
     use crate::models::Music;
     let _connection = establish_connection();
@@ -829,11 +829,11 @@ pub fn add_edited_music(pk: i32) -> String {
         stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
         ><polygon points='5 3 19 12 5 21 5 3'></polygon></svg></span>
         <span style='margin-left: 10px; margin-right: 40px; overflow: hidden;'>
-        <h6 class='music_list_item pointer music_title' style='padding-top: 4px;'>
+        <h6 class='", class," pointer music_title' style='padding-top: 4px;'>
         <a>", music.title, "</a></h6></span></div>");
 }
 
-pub fn add_anon_music(pk: i32) -> String {
+pub fn add_anon_music(pk: i32, class: String) -> String {
     use crate::schema::musics::dsl::musics;
     use crate::models::Music;
     let _connection = establish_connection();
@@ -850,10 +850,10 @@ pub fn add_anon_music(pk: i32) -> String {
     let drops = "<span class='dropdown-item copy_link'>Копировать ссылку</span>".to_string();
 
     return concat_string!(
-        "<div class='music' data-path='", music.file,
-        "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'
-        music-counter=''>", music.get_s_image(),
-        "<div class='media-body' style='display: flex;'><h6 class='music_list_post music_title'><a>",
+        "<div class='music music_item' data-path='", music.file,
+        "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'",
+        music.get_s_image(),
+        "<div class='media-body' style='display: flex;'><h6 class='", class," music_title'><a>",
         music.title, "</a></h6><span class='span_btn' data-pk='", music.id.to_string(),
         "'><span class='dropdown' style='position: inherit;'><a class='btn_default drop pointer'>
         <svg class='svg_info' fill='currentColor' viewBox='0 0 24 24'><path d='M0 0h24v24H0z'
@@ -1344,7 +1344,7 @@ pub fn post_elements(attach: String, user_id: i32) -> String {
                 "pho" => add_photo(pk, "post_photo".to_string()),
                 "vid" => add_video(pk, "post_video".to_string()),
                 "goo" => add_good(pk),
-                "mus" => add_music(pk, user.is_moderator(), user_id),
+                "mus" => add_music(pk, user.is_moderator(), user_id, "music_list_post".to_string()),
                 "doc" => add_doc(pk, user.is_moderator(), user_id),
                 "sur" => add_survey(pk, user.is_moderator(), user_id),
                 "use" => add_user(pk),
@@ -1378,7 +1378,7 @@ pub fn anon_post_elements(attach: String) -> String {
                 "pho" => add_photo(pk, "post_photo".to_string()),
                 "vid" => add_video(pk, "post_video".to_string()),
                 "goo" => add_good(pk),
-                "mus" => add_anon_music(pk),
+                "mus" => add_anon_music(pk, "music_list_post".to_string()),
                 "doc" => add_anon_doc(pk),
                 "sur" => add_anon_survey(pk),
                 "use" => add_user(pk),
@@ -1411,7 +1411,7 @@ pub fn edit_post_elements(attach: String) -> String {
                 "pho" => add_edited_photo(pk, "post_photo".to_string()),
                 "vid" => add_edited_video(pk, "post_video".to_string()),
                 "goo" => add_edited_good(pk),
-                "mus" => add_edited_music(pk),
+                "mus" => add_edited_music(pk, "music_list_post".to_string()),
                 "doc" => add_edited_doc(pk),
                 "sur" => add_edited_survey(pk),
                 "use" => add_edited_user(pk),
@@ -1457,7 +1457,7 @@ pub fn comment_elements(attach: String, user_id: i32) -> String {
                 "pho" => add_photo(pk, "comment_photo".to_string()),
                 "vid" => add_video(pk, "comment_video".to_string()),
                 "goo" => add_good(pk),
-                "mus" => add_music(pk, user.is_moderator(), user_id),
+                "mus" => add_music(pk, user.is_moderator(), user_id, "music_list_comment".to_string()),
                 "doc" => add_doc(pk, user.is_moderator(), user_id),
                 "sur" => add_survey(pk, user.is_moderator(), user_id),
                 "use" => add_user(pk),
@@ -1491,7 +1491,7 @@ pub fn anon_comment_elements(attach: String) -> String {
                 "pho" => add_photo(pk, "comment_photo".to_string()),
                 "vid" => add_video(pk, "comment_video".to_string()),
                 "goo" => add_good(pk),
-                "mus" => add_anon_music(pk),
+                "mus" => add_anon_music(pk, "music_list_comment".to_string()),
                 "doc" => add_anon_doc(pk),
                 "sur" => add_anon_survey(pk),
                 "use" => add_user(pk),
@@ -1524,7 +1524,7 @@ pub fn edit_comment_elements(attach: String) -> String {
                 "pho" => add_edited_photo(pk, "comment_photo".to_string()),
                 "vid" => add_edited_video(pk, "comment_video".to_string()),
                 "goo" => add_edited_good(pk),
-                "mus" => add_edited_music(pk),
+                "mus" => add_edited_music(pk, "music_list_comment".to_string()),
                 "doc" => add_edited_doc(pk),
                 "sur" => add_edited_survey(pk),
                 "use" => add_edited_user(pk),
@@ -1570,7 +1570,7 @@ pub fn message_elements(attach: String, user_id: i32) -> String {
                 "pho" => add_photo(pk, "message_photo".to_string()),
                 "vid" => add_video(pk, "message_video".to_string()),
                 "goo" => add_good(pk),
-                "mus" => add_music(pk, user.is_moderator(), user_id),
+                "mus" => add_music(pk, user.is_moderator(), user_id, "music_list_message".to_string()),
                 "doc" => add_doc(pk, user.is_moderator(), user_id),
                 "sur" => add_survey(pk, user.is_moderator(), user_id),
                 "use" => add_user(pk),
@@ -1604,7 +1604,7 @@ pub fn anon_message_elements(attach: String) -> String {
                 "pho" => add_photo(pk, "message_photo".to_string()),
                 "vid" => add_video(pk, "message_video".to_string()),
                 "goo" => add_good(pk),
-                "mus" => add_anon_music(pk),
+                "mus" => add_anon_music(pk, "music_list_message".to_string()),
                 "doc" => add_anon_doc(pk),
                 "sur" => add_anon_survey(pk),
                 "use" => add_user(pk),
@@ -1637,7 +1637,7 @@ pub fn edit_message_elements(attach: String) -> String {
                 "pho" => add_edited_photo(pk, "message_photo".to_string()),
                 "vid" => add_edited_video(pk, "message_video".to_string()),
                 "goo" => add_edited_good(pk),
-                "mus" => add_edited_music(pk),
+                "mus" => add_edited_music(pk, "music_list_message".to_string()),
                 "doc" => add_edited_doc(pk),
                 "sur" => add_edited_survey(pk),
                 "use" => add_edited_user(pk),
