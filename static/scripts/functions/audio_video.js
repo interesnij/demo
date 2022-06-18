@@ -483,6 +483,7 @@ function save_playlist(list_id, post_link, counter) {
       tracks = JSON.parse(playlist_link.responseText);
 
       for(i=0; i < tracks.length; i++) {
+        console.log(tracks[i].url);
         _source=tracks[i].url;
         _title=tracks[i].title;
         _thumbPath=tracks[i].image;
