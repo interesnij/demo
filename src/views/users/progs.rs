@@ -2,6 +2,7 @@
 use actix_web::{
     HttpResponse,
     web,
+    web::Json,
 };
 use crate::utils::{
     is_signed_in,
@@ -11,6 +12,7 @@ use crate::utils::{
 };
 use actix_session::Session;
 //use crate::diesel::{ExpressionMethods,RunQueryDsl};
+use serde::{Deserialize, Serialize};
 
 
 pub fn progs_urls(config: &mut web::ServiceConfig) {
@@ -21,6 +23,7 @@ pub fn progs_urls(config: &mut web::ServiceConfig) {
     config.route("/users/progs/follow/{id}/", web::post().to(user_follow));
     config.route("/users/progs/follow_view/{id}/", web::post().to(user_follow_view));
     config.route("/users/progs/unfollow/{id}/", web::post().to(user_unfollow));
+    config.route("/users/progs/save_playlist/{id}/", web::post().to(save_playlist));
 }
 
 pub async fn user_friend(session: Session, user_id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
@@ -96,5 +99,38 @@ pub async fn user_unblock(session: Session, user_id: web::Path<i32>) -> actix_we
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body("ok"))
     } else {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
+    }
+}
+
+pub async fn save_playlist(session: Session, list_id: web::Path<i32>) -> web::Json<LoadTracks> {
+    #[derive(Deserialize, Serialize, Debug)]
+    struct TrackData {
+        pub url:    String,
+        pub title:  String,
+        pub image:  String,
+    }
+    #[derive(Deserialize, Serialize, Debug)]
+    struct TracksData {
+        pub tracks: Vec<TrackData>,
+    }
+    let mut tracks_list: TracksData = Vec::new();
+
+    if is_signed_in(&session) {
+        use crate::utils::get_music_list;
+
+        let _request_user = get_request_user_data(&session);
+        let _list = get_music_list(*list_id);
+        _list.save_playlist(_request_user);
+        let tracks_list = TracksData;
+        for track in _list.get_items().iter() {
+            tracks_list.tracks.push(TrackData {
+                url:   track.file,
+                title: track.title,
+                image: track.get_image(),
+            });
+        }
+        return Json(tracks_list)
+    } else {
+        return Json(tracks_list)
     }
 }

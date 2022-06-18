@@ -1540,6 +1540,18 @@ impl MusicList {
             .expect("E");
        return true;
     }
+
+    pub fn save_playlist(&self, user: User) -> () {
+        use crate::models::UserProfile;
+
+        let _connection = establish_connection();
+        let profile = self.get_profile();
+        diesel::update(profile)
+            .set(schema::user_profiles::playlist.eq(self.id))
+            .get_result::<MusicList>(&_connection)
+            .expect("E");
+        //return true;
+    }
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
         if self.community_id.is_some() {
             let community = self.get_community();
