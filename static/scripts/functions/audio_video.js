@@ -461,11 +461,14 @@ on('#ajax', 'click', '.music_list_item', function() {
   counter = 0;
   parents = this.parentElement.parentElement.parentElement.parentElement;
   list_pk = parents.getAttribute('data-pk');
-  list_items = parents.querySelectorAll(".drag_item");
+  list_items = parents.querySelectorAll(".list-group-item");
+  console.log(list_items, "list_items");
   pk = this.getAttribute("data-pk");
+  console.log(pk, "pk");
   for (i=0; i < list_items.length; i++) {
     if (list_items[i].getAttribute("data-pk") == pk) {
       counter = i;
+
       console.log("eeee");
     }
   }
