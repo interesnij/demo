@@ -20,7 +20,7 @@
         <% } %>
 			   data-add="track_copy"
 			   data-track-id="<%= track.id %>">
-        <p><span class="custom_color" style="font-weight:bold"><%= track.title %></span></p>
+        <p><a><%= track.title %></span></a>
       </li>
     <% } %>
 	<% } else { %>
