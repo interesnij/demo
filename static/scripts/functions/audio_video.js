@@ -440,12 +440,7 @@ function music_onReady(){console.log("Аудио плеер готов");}
       }}catch{null}
     }
     function music_onPlay(){
-        div = document.createElement("div");
-        div.innerHTML = music_player.getTrackTitle();
-        try{
-        title = "¶ " + music_player.getTrackTitle().innerHTML}
-        catch {title = "Без названия"}
-
+        title = "¶ " + music_player.getTrackTitle()}
         console.log("Воспроизводится трек: " + title);
         document.title = title;
         if(document.querySelector(".user_status")){
