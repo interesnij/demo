@@ -462,7 +462,7 @@ on('#ajax', 'click', '.music_list_item', function() {
   parents = this.parentElement.parentElement.parentElement.parentElement;
   list_pk = parents.getAttribute('data-pk');
   saved_playlist = document.body.querySelector("#saved_playlist");
-  if (!saved_playlist.getAttribute("data-pk") != list_pk) {
+  if (saved_playlist.getAttribute("data-pk") != list_pk) {
       save_playlist(list_pk, '/users/progs/save_playlist/' + list_pk + "/", counter);
       saved_playlist.setAttribute("data-pk", list_pk);
   } else {
