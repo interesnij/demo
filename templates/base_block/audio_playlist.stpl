@@ -33,7 +33,7 @@
       data-thumbpath="/static/images/news_small1.jpg"
       data-add="track_copy"
       data-track-id="0">
-     <p><span style="font-weight:bold; color:#FF0000;">Радио по умолчанию</span></p>
+     <p><a style="font-weight:bold; color:#FF0000;">Радио по умолчанию</a></p>
     </li>
   <% } %>
 </ul>

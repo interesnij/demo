@@ -443,7 +443,7 @@ function music_onReady(){console.log("Аудио плеер готов");}
         div = document.createElement("div");
         div.innerHTML = music_player.getTrackTitle();
         try{
-        title = "¶ " + div.querySelector('span').innerHTML}
+        title = "¶ " + music_player.getTrackTitle()}
         catch {title = "Без названия"}
 
         console.log("Воспроизводится трек: " + title);
