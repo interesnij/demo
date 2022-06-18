@@ -481,9 +481,6 @@ function save_playlist(list_id, post_link, counter) {
   playlist_link.onreadystatechange = function () {
     if ( playlist_link.readyState == 4 && playlist_link.status == 200 ) {
       data = JSON.parse(playlist_link.responseText).tracks.reverse();
-      console.log(data);
-      console.log(data.length);
-
       for(i=0; i < data.length; i++) {
         title = data[i].title;
         if (title.indexOf(".") != -1) {
@@ -494,7 +491,7 @@ function save_playlist(list_id, post_link, counter) {
         _thumbPath=data[i].image;
                 //_duration=list[i].getAttribute("data-duration");
                 //time = msToTime(_duration);
-        music_player.addTrack(_source, _title, _thumbPath, null, true, false, null) // 4 позиция - время (time)
+        music_player.addTrack(_source, title, _thumbPath, null, true, false, null) // 4 позиция - время (time)
       }
 
       music_player.loadPlaylist(0);
