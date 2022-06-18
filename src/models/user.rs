@@ -2182,7 +2182,7 @@ impl User {
         }
     }
     pub fn get_saved_playlist(&self) -> Vec<Music> {
-        private = self.get_profile();
+        let private = self.get_profile();
         if private.playlist == 0 {
             return self.get_music_list().get_paginate_items(30, 0);
         }
