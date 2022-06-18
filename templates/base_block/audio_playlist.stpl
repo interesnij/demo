@@ -25,7 +25,7 @@
         <% } %>
 			   data-add="track_copy"
 			   data-track-id="<%= track.id %>">
-        <p><a style="font-weight:bold"><%= track.title %></a></p>
+        <a style="font-weight:bold"><%= track.title %></a>
       </li>
     <% } %>
 	<% } else { %>
