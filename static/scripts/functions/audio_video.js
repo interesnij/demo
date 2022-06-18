@@ -306,11 +306,11 @@ music_player = new FWDMSP({
     skinPath:get_audio_dop()[0],
     showSoundCloudUserNameInTitle:"no",   // показывать имя пользователя soundcloud
     showMainBackground:"no",  						// показать общий фон
-    verticalPosition:"bottom",                    // расположение плеера
+    verticalPosition:"bottom",            // расположение плеера
     rightClickContextMenu:"developer",
     useDeepLinking:"no",									// использовать глубокие ссылки - защита от перехвата. Не будет работать с souncloud
     rightClickContextMenu:"no",           // показ контекстног меню по щелчку правой кнопкой мыши
-    addKeyboardSupport:"no",             // добавить поддержку клавиатуры
+    addKeyboardSupport:"yes",             // добавить поддержку клавиатуры
     animate:"yes",												// фнимация
     autoPlay:"no",												// автостарт плеера
     loop:"no",														// повтор песни
@@ -328,7 +328,7 @@ music_player = new FWDMSP({
     expandBackground:"no",
     showBuyButton:"yes",
     showPlaylistItemBuyButton:"no",
-    titleColor:get_audio_dop()[3],                 // цвет названия
+    titleColor:get_audio_dop()[3],        // цвет названия
     timeColor:"#919191",                  // цвет времени
 
     // настройки выравнивания и размера контроллера (подробно описаны в документации!)
@@ -379,7 +379,7 @@ music_player = new FWDMSP({
     showPlayListByDefault:"no",          // показывть плейлист по умолчанию
     showPlaylistItemPlayButton:"yes",    // показать кнопку воспроизведения элемента плейлиста
     addScrollBarMouseWheelSupport:"yes",  // прокручивать колесиком мыши
-    showTracksNumbers:"yes",							// показывать номер трека
+    showTracksNumbers:"no",							// показывать номер трека
     playlistBackgroundColor:get_audio_dop()[3],    // цвет фона плейлиста
     trackTitleNormalColor:"#737373",      // цвет заголовка трека
     trackTitleSelectedColor:get_audio_dop()[3],    // цвет заголовка выбранного трека
