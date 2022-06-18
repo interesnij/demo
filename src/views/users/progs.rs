@@ -103,7 +103,7 @@ pub async fn user_unblock(session: Session, user_id: web::Path<i32>) -> actix_we
 }
 
 #[derive(Deserialize, Serialize, Debug)]
-struct TrackData {
+pub struct TrackData {
     pub url:    String,
     pub title:  String,
     pub image:  String,
