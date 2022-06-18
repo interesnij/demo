@@ -439,8 +439,8 @@ function music_onReady(){console.log("Аудио плеер готов");}
         document.querySelector(".user_status").innerHTML = "Музыка приостановлена";
       }}catch{null}
     }
-    function music_onPlay(){
-        title = "¶ " + music_player.getTrackTitle()}
+    function music_onPlay() {
+        title = "¶ " + music_player.getTrackTitle();
         console.log("Воспроизводится трек: " + title);
         document.title = title;
         if(document.querySelector(".user_status")){
