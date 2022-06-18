@@ -463,8 +463,8 @@ on('#ajax', 'click', '.music_list_item', function() {
   if (parents.getAttribute('data-pk')) {
     list_pk = parents.getAttribute('data-pk');
   }
-  else if (this.getAttribute('list-pk')){
-    list_pk = this.getAttribute('list-pk');
+  else if (this.parentElement.parentElement.parentElement.getAttribute('list-pk')){
+    list_pk = this.parentElement.parentElement.parentElement.getAttribute('list-pk');
   }
   list_items = parents.querySelectorAll(".list-group-item");
   pk = this.parentElement.parentElement.parentElement.getAttribute("data-pk");
