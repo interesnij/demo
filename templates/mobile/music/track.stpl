@@ -1,5 +1,4 @@
-
-<li class="drag_item list-group-item" style="padding:5px">
+<li data-pk="<%= object.id %>" class="drag_item list-group-item" style="padding:5px">
     <div class="media" music-counter="" style="align-items: unset;position: relative;">
       <figure>
         <a class="pointer music_list_item">

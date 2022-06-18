@@ -458,9 +458,16 @@ function dragElement(elmnt){var pos1=0,pos2=0,pos3=0,pos4=0;document.querySelect
 
 
 on('#ajax', 'click', '.music_list_item', function() {
-  counter = this.parentElement.parentElement.getAttribute('music-counter') - 1;
+  counter = 0;
   parents = this.parentElement.parentElement.parentElement.parentElement;
   list_pk = parents.getAttribute('data-pk');
+  list_items = parents.querySelectorAll(".drag_item");
+  pk = this.getAttribute("data-pk");
+  for (i=0; i < list_items.length; i++) {
+    if (list_items[i].getAttribute("data-pk") == pk) {
+      counter = i;
+    }
+  }
   saved_playlist = document.body.querySelector("#saved_playlist");
   if (saved_playlist.getAttribute("data-pk") != list_pk) {
       save_playlist(list_pk, '/users/progs/save_playlist/' + list_pk + "/", counter);
