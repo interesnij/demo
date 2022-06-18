@@ -20,7 +20,7 @@
         <% } %>
 			   data-add="track_copy"
 			   data-track-id="<%= track.id %>">
-        <p><a><%= track.title %></span></a>
+        <p><a><%= track.title %></a></p>
       </li>
     <% } %>
 	<% } else { %>
