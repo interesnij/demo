@@ -1,5 +1,5 @@
-<li data-pk="<%= object.id %>" class="list-group-item" style="padding:5px">
-    <div class="media" music-counter="" style="align-items: unset;position: relative;">
+<li data-pk="<%= object.id %>" class="list-group-item music_item" style="padding:5px">
+    <div class="media" style="align-items: unset;position: relative;">
       <figure>
         <a class="pointer music_list_item">
           <%- object.get_image() %>

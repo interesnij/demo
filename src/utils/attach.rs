@@ -792,7 +792,8 @@ pub fn add_music(pk: i32, is_staff: bool, user_id: i32) -> String {
     }
 
     return concat_string!(
-        "<div class='music' data-path='", music.file,
+        "<div class='music' data-path='", music.file, "' data-pk='", music.id.to_string(),
+        "' list-pk='", music.music_list_id.to_string(),
         "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'
         music-counter=''>", music.get_s_image(),
         "<div class='media-body' style='display: flex;'><h6 class='music_list_post music_title'><a>",
