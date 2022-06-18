@@ -1545,7 +1545,7 @@ impl MusicList {
         use crate::models::UserProfile;
 
         let _connection = establish_connection();
-        let profile = self.get_profile();
+        let profile = user.get_profile();
         diesel::update(profile)
             .set(schema::user_profiles::playlist.eq(self.id))
             .get_result::<UserProfile>(&_connection)
