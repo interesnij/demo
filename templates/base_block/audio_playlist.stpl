@@ -5,7 +5,7 @@
 			<p class="minimalWhiteCategoriesTitle"><span class="boldWhite">Название: </span><%= playlist.name %></p>
 			<p class="minimalWhiteCategoriesType"><span class="boldWhite">Треков: </span><%= playlist.count %></p>
 			<% if playlist.description.is_some() { %>
-				<p class="minimalWhiteCategoriesDescription"><%= playlist.as_deref().unwrap() %></p>
+				<p class="minimalWhiteCategoriesDescription"><%= playlist.image.as_deref().unwrap() %></p>
 				<% } else { %>
 					<p class="minimalWhiteCategoriesDescription">Без описания</p>
 				<% } %>
