@@ -109,7 +109,7 @@ struct TrackData {
     pub image:  String,
 }
 #[derive(Deserialize, Serialize, Debug)]
-struct TracksData {
+pub struct TracksData {
     pub tracks: Vec<TrackData>,
 }
 pub async fn save_playlist(session: Session, list_id: web::Path<i32>) -> web::Json<TracksData> {
