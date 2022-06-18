@@ -480,16 +480,15 @@ function save_playlist(list_id, post_link, counter) {
 
   playlist_link.onreadystatechange = function () {
     if ( playlist_link.readyState == 4 && playlist_link.status == 200 ) {
-      data = JSON.parse(playlist_link.responseText);
+      data = JSON.parse(playlist_link.responseText).tracks;
       console.log(data);
-      console.log(data.tracks);
-      console.log(data[0]);
+      console.log(data.length);
 
-      for(i=0; i < tracks.length; i++) {
-        console.log(tracks[i].url);
-        _source=tracks[i].url;
-        _title=tracks[i].title;
-        _thumbPath=tracks[i].image;
+      for(i=0; i < data.length; i++) {
+        console.log(data[i].url);
+        _source=data[i].url;
+        _title=data[i].title;
+        _thumbPath=data[i].image;
                 //_duration=list[i].getAttribute("data-duration");
                 //time = msToTime(_duration);
         music_player.addTrack(_source, _title, _thumbPath, null, true, false, null) // 4 позиция - время (time)
