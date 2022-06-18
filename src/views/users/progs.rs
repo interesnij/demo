@@ -125,8 +125,8 @@ pub async fn save_playlist(session: Session, list_id: web::Path<i32>) -> web::Js
         _list.save_playlist(_request_user);
         for track in _list.get_items().iter() {
             tracks_list.tracks.push(TrackData {
-                url:   track.file,
-                title: track.title,
+                url:   track.file.clone(),
+                title: track.title.clone(),
                 image: track.get_image(),
             });
         }
