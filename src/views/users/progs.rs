@@ -114,7 +114,7 @@ struct TracksData {
 }
 pub async fn save_playlist(session: Session, list_id: web::Path<i32>) -> web::Json<TracksData> {
     let mut tracks_list: TracksData = TracksData {
-        tracks: Vec::new();
+        tracks: Vec::new(),
     };
 
     if is_signed_in(&session) {
