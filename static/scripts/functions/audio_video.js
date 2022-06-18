@@ -480,7 +480,7 @@ function save_playlist(list_id, post_link, counter) {
 
   playlist_link.onreadystatechange = function () {
     if ( playlist_link.readyState == 4 && playlist_link.status == 200 ) {
-      data = JSON.parse(playlist_link.responseText).tracks;
+      data = JSON.parse(playlist_link.responseText).tracks.reverse();
       console.log(data);
       console.log(data.length);
 
