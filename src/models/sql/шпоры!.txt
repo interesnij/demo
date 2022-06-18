@@ -1,0 +1,117 @@
+item[..1].parse().unwrap()
+=================
+use crate::utils::get_users_from_ids;
+return get_users_from_ids(vec!);
+==============
+n.iter().any(|&i| i=="-i")
+==============
+let self_attach = self.attach.as_deref().unwrap().split(",").collect::<Vec<_>>();
+===============
+let mut stack = Vec::new();
+for _item in _friends.iter() {
+    stack.push(_item.target_user_id);
+};
+============
+.order(schema::chats::id.desc())
+============
+diesel::delete(blog_images.filter(schema::blog_images::blog.eq(_blog_id)))
+  .execute(&_connection)
+  .expect("E");
+============
+let new_tag = NewTagItems {
+    tag_id: *tag_id.1,
+    service_id: 0,
+    tag_created: chrono::Local::now().naive_utc(),
+};
+diesel::insert_into(schema::tags_items::table)
+    .values(&new_tag)
+    .get_result::<TagItems>(&_connection)
+    .expect("Error.");
+===============
+let _blog_id : i32 = *_id;
+let _blog = blogs.filter(schema::blogs::id.eq(_blog_id)).load::<Blog>(&_connection).expect("E");
+diesel::update(&_category)
+    .set(schema::blog_categories::blog_count.eq(_category.blog_count - 1))
+    .get_result::<BlogCategories>(&_connection)
+    .expect("Error.");
+================
+_post_list_positions
+      .into_iter()
+      .nth(0)
+      .unwrap()
+============
+pub fn count_communities_ru(&self) -> String {
+    use crate::utils::get_count_for_ru;
+
+    return get_count_for_ru (
+        self.count_communities(),
+        " сообщество".to_string(),
+        " сообщества".to_string(),
+        " сообществ".to_string(),
+    );
+}
+===========
+Приватность - видимость профиля:
+0. can_see_all - для кого профиль открыт
+1. can_see_community
+2. can_see_info
+3. can_see_friend
+4. can_send_message
+5. can_add_in_chat
+6. can_see_post
+7. can_see_photo
+8. can_see_good
+9. can_see_video
+10. can_see_music
+11. can_see_planner
+12. can_see_doc
+13. can_see_planner
+14. can_see_survey
+
+Приватность - видимость профиля для анонима:
+0. can_see_all - для кого профиль открыт
+1. can_see_community
+2. can_see_info
+3. can_see_friend
+4. can_see_post
+5. can_see_photo
+6. can_see_good
+7. can_see_video
+8. can_see_music
+9. can_see_planner
+10. can_see_doc
+11. can_see_planner
+12. can_see_survey
+
+
+===========
+Приватность - видимость сообщества:
+0. can_see_info
+1. can_see_member
+2. can_send_message
+3. can_see_doc
+4. can_see_music
+5. can_see_survey
+6. can_see_post
+7. can_see_photo
+8. can_see_good
+9. can_see_video
+10. can_see_planner
+11. can_see_forum
+12. can_see_stat
+13. can_see_settings
+
+Приватность - видимость сообщества для анонима:
+0. can_see_info
+1. can_see_member
+2. can_see_doc
+3. can_see_music
+4. can_see_survey
+5. can_see_post
+6. can_see_photo
+7. can_see_good
+8. can_see_video
+9. can_see_planner
+10. can_see_forum
+11. can_see_stat
+12. can_see_settings
