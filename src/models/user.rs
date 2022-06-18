@@ -2184,11 +2184,13 @@ impl User {
     pub fn get_saved_playlist(&self) -> Vec<Music> {
         let private = self.get_profile();
         if private.playlist == 0 {
-            return self.get_music_list().get_paginate_items(30, 0);
+            let list = self.get_music_list();
+            return list.get_paginate_items(30, 0);
         }
         else {
             use crate::utils::get_music_list;
-            return get_music_list(private.playlist).get_paginate_items(30, 0);
+            let list = get_music_list(private.playlist);
+            return list.get_paginate_items(30, 0);
         }
     }
     pub fn get_video_list(&self) -> VideoList {
