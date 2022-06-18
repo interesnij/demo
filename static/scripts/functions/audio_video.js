@@ -481,6 +481,8 @@ function save_playlist(list_id, post_link, counter) {
   playlist_link.onreadystatechange = function () {
     if ( playlist_link.readyState == 4 && playlist_link.status == 200 ) {
       tracks = JSON.parse(playlist_link.responseText);
+      console.log(tracks);
+      console.log(tracks.length);
 
       for(i=0; i < tracks.length; i++) {
         console.log(tracks[i].url);
