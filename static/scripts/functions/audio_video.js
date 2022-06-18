@@ -485,11 +485,12 @@ function save_playlist(list_id, post_link, counter) {
       console.log(data.length);
 
       for(i=0; i < data.length; i++) {
-        console.log(data[i].url);
-        console.log(data[i].title);
-        console.log(data[i].image);
+        title = data[i].title;
+        if (title.indexOf(".") != -1) {
+          title = title.split(".")[0];
+        }
         _source=data[i].url;
-        _title=data[i].title;
+        _title=title;
         _thumbPath=data[i].image;
                 //_duration=list[i].getAttribute("data-duration");
                 //time = msToTime(_duration);
