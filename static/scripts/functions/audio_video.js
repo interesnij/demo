@@ -462,17 +462,19 @@ on('#ajax', 'click', '.music_list_item', function() {
   parents = this.parentElement.parentElement.parentElement.parentElement;
   if (parents.getAttribute('data-pk')) {
     list_pk = parents.getAttribute('data-pk');
+    list_items = parents.querySelectorAll(".list-group-item");
+    pk = this.parentElement.parentElement.parentElement.getAttribute("data-pk");
+    for (i=0; i < list_items.length; i++) {
+      if (list_items[i].getAttribute("data-pk") == pk) {
+        counter = i;
+      }
+    }
   }
   else if (parents.getAttribute('list-pk')){
     list_pk = parents.getAttribute('list-pk');
+    counter = parents.getAttribute('data-counter')
   }
-  list_items = parents.querySelectorAll(".list-group-item");
-  pk = this.parentElement.parentElement.parentElement.getAttribute("data-pk");
-  for (i=0; i < list_items.length; i++) {
-    if (list_items[i].getAttribute("data-pk") == pk) {
-      counter = i;
-    }
-  }
+
 
   saved_playlist = document.body.querySelector("#saved_playlist");
   if (saved_playlist.getAttribute("data-pk") != list_pk) {

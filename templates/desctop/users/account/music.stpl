@@ -11,8 +11,8 @@
       </a>
     </div>
 
-    <% for object in user.get_6_tracks().iter() { %>
-    <div class="card border-top" list-pk="<%= object.music_list_id %>">
+    <% for (i, object) in user.get_6_tracks().iter().enumerate() { %>
+    <div class="card border-top music_item" data-counter="<%= i %>" list-pk="<%= object.music_list_id %>">
         <div class="p-1">
             <div class="media" music-counter="">
               <figure>
