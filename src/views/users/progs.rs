@@ -102,17 +102,17 @@ pub async fn user_unblock(session: Session, user_id: web::Path<i32>) -> actix_we
     }
 }
 
-pub async fn save_playlist(session: Session, list_id: web::Path<i32>) -> web::Json<LoadTracks> {
-    #[derive(Deserialize, Serialize, Debug)]
-    struct TrackData {
-        pub url:    String,
-        pub title:  String,
-        pub image:  String,
-    }
-    #[derive(Deserialize, Serialize, Debug)]
-    struct TracksData {
-        pub tracks: Vec<TrackData>,
-    }
+#[derive(Deserialize, Serialize, Debug)]
+struct TrackData {
+    pub url:    String,
+    pub title:  String,
+    pub image:  String,
+}
+#[derive(Deserialize, Serialize, Debug)]
+struct TracksData {
+    pub tracks: Vec<TrackData>,
+}
+pub async fn save_playlist(session: Session, list_id: web::Path<i32>) -> web::Json<TracksData> {
     let mut tracks_list: TracksData = Vec::new();
 
     if is_signed_in(&session) {
