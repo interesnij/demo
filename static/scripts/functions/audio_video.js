@@ -430,7 +430,7 @@ FWDMSPUtils.onReady(function() {
 function show_play_items(block) {
   id = music_player.getTrackId();
   console.log("id: " + id);
-  if (id == "undefined") {
+  if (id == undefined) {
     return;
   }
 
