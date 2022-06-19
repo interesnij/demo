@@ -447,17 +447,22 @@ function music_onPlay() {
       document.querySelector(".user_status").innerHTML = title;
     }
     list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
+    console.log("list_pk: " + list_pk);
     if (document.body.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
+      console.log("Есть плейлисты");
       lists = document.body.querySelectorAll('[playlist-pk=' + '"' + list_pk + '"' + ']');
+
       for (i=0; i < lists.length; i++) {
         if (lists[i].classList.contains("list_item")) {
           lists[i].style.background = "red";
-        } 
+          console.log("playlist red");
+        }
         else {
           list_items = lists[i].querySelectorAll(".music_item");
           for (i=0; i < list_items.length; i++) {
             if (i == id) {
               list_items[i].style.background = "red";
+              console.log("track red");
             }
           }
         }
