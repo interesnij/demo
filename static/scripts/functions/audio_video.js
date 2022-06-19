@@ -450,23 +450,17 @@ function music_onPlay() {
     console.log("list_pk: " + list_pk);
     if (document.body.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
       console.log("Есть плейлисты");
-      lists = document.body.querySelectorAll('[playlist-pk=' + '"' + list_pk + '"' + ']');
 
-      for (i=0; i < lists.length; i++) {
-        if (lists[i].classList.contains("list_item")) {
-          lists[i].style.background = "red";
+      playlists = document.body.querySelectorAll('.playlist');
+      for (i=0; i < playlists.length; i++) {
+        if (playlists[i].getAttribute("playlist-pk") == list_pk) {
+          playlists[i].style.background = "red";
           console.log("playlist red");
         }
-        else {
-          list_items = lists[i].querySelectorAll(".music_item");
-          for (i=0; i < list_items.length; i++) {
-            if (i == id) {
-              list_items[i].style.background = "red";
-              console.log("track red");
-            }
-          }
-        }
       }
+
+      lists = document.body.querySelectorAll('[playlist-pk=' + '"' + list_pk + '"' + ']');
+      console.log(lists);
     }
     try { video_player.pause() } catch {null}
 };
