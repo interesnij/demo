@@ -427,6 +427,10 @@ music_player = new FWDMSP({
             music_player.addListener(FWDMSP.PAUSE, music_onPause);
         });
 
+console.log("PLAY: ", FWDMSP.PLAY);
+console.log("PAUSE: ", FWDMSP.PAUSE);
+console.log("READY: ", FWDMSP.READY);
+
 function music_onReady(){console.log("Аудио плеер готов");}
 
 function music_onPause() {
@@ -478,6 +482,8 @@ function music_onPlay() {
     }
     try { video_player.pause() } catch {null}
 };
+
+function music_onPlay() {)
 
 function dragElement(elmnt){var pos1=0,pos2=0,pos3=0,pos4=0;document.querySelector("#draggable-header").onmousedown=dragMouseDown;document.querySelector("#draggable-resize").onmousedown=resizeMouseDown;function dragMouseDown(e){e=e||window.event;e.preventDefault();pos3=e.clientX;pos4=e.clientY;document.onmouseup=closeDragElement;document.onmousemove=elementDrag}function resizeMouseDown(e){e=e||window.event;e.preventDefault();pos3=0;pos4=0;document.onmouseup=closeDragElement;document.onmousemove=elementResize}function elementResize(e){e=e||window.event;e.preventDefault();var content=document.querySelector(".draggable");var width=content.offsetWidth;var height=content.offsetHeight;pos1=(e.clientX-width)-content.offsetLeft;pos2=(e.clientY-height)-content.offsetTop;content.style.width=width+pos1+'px';content.style.height=height+pos2+'px'}function elementDrag(e){e=e||window.event;e.preventDefault();pos1=pos3-e.clientX;pos2=pos4-e.clientY;pos3=e.clientX;pos4=e.clientY;elmnt.style.top=(elmnt.offsetTop-pos2)+"px";elmnt.style.left=(elmnt.offsetLeft-pos1)+"px"}function closeDragElement(){document.onmouseup=null;document.onmousemove=null}}
 
