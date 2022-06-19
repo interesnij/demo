@@ -9,7 +9,7 @@
   position: relative;
   border-radius: var(--border-width);
 }
-.attach_container. .gradient-border {
+.attach_container .gradient-border {
   --border-width: 2px !important;
   border-radius: var(--border-width) !important;
 }
