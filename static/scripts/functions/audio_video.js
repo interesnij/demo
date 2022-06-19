@@ -469,7 +469,7 @@ function show_play_items(block) {
     }
     for (i=0; i < items.length; i++) {
       if (items[i].querySelector(".track_title").innerHTML == title) {
-        tracks[id].classList.add("border");
+        items[id].classList.add("border");
       }
     }
   }
