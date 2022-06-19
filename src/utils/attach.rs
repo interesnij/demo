@@ -256,7 +256,7 @@ pub fn add_music_list(pk: i32) -> String {
         image = "<svg fill='currentColor' class='svg_default border' style='width:120px;height:120px;' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path d='M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z'/></svg>".to_string();
     }
     return concat_string!(
-        "<div style='flex-basis: 100%;' class='card'><div class='card-body' owner-pk='",
+        "<div style='flex-basis: 100%;' class='card playlist'><div class='card-body' owner-pk='",
         owner, "' playlist-pk='", list.id.to_string(),
         "' style='padding: 8px;padding-bottom: 0;'><div style='display:flex'>
         <figure><a class='load_music_list btn_default pointer'>",
@@ -292,7 +292,7 @@ pub fn add_edited_music_list(pk: i32) -> String {
     }
 
     return concat_string!(
-        "<div class='folder' owner-pk='", owner,
+        "<div class='folder playlist' owner-pk='", owner,
         "' playlist-pk='", list.id.to_string(),
         "' style='text-align: center;padding: 3px;'><span><input type='hidden' name='attach_items'
         value='lmu", list.id.to_string(),

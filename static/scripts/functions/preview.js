@@ -392,7 +392,7 @@ function create_preview_music(img_src, pk, counter){
 };
 function create_preview_playlist(name, pk, count){
   $div = document.createElement("div");
-  $div.classList.add("handle");
+  $div.classList.add("handle", "playlist");
   $div.style.flexBasis = "100%";
   $div.style.position = "relative";
   $div.setAttribute("playlist-pk", pk);

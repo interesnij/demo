@@ -15,8 +15,8 @@
        <% for object in lists.iter() { %>
        <% if object.community_id.is_some() { %>
          <% let community = object.get_community(); %>
-       <li class="list_item drag_item playlist" data-pk="<%= object.id %>" playlist-pk="<%= object.id %>">
-           <div class="card file-manager-item folder border community" data-pk="<%= object.community_id.unwrap() %>"
+       <li class="list_item drag_item playlist" data-pk="<%= object.id %>">
+           <div class="card file-manager-item folder border community" data-pk="<%= object.community_id.unwrap() %>">
                <div class="card-img-top file-logo-wrapper">
                  <div class="d-flex align-items-center justify-content-center w-100">
                    <svg class="pointer load_music_list svg_default" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -39,8 +39,8 @@
        </li>
        <% } else { %>
          <% let creator = object.get_creator(); %>
-       <li class="list_item drag_item playlist" data-pk="<%= object.id %>" playlist-pk="<%= object.id %>">
-           <div class="card file-manager-item folder border" data-pk="<%= object.user_id %>"
+       <li class="list_item drag_item playlist" data-pk="<%= object.id %>">
+           <div class="card file-manager-item folder border" data-pk="<%= object.user_id %>">
                <div class="card-img-top file-logo-wrapper">
                  <div class="d-flex align-items-center justify-content-center w-100">
                    <svg class="pointer load_music_list svg_default" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
