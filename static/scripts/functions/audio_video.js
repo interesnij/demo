@@ -427,20 +427,20 @@ FWDMSPUtils.onReady(function() {
   music_player.addListener(FWDMSP.PAUSE, music_onPause);
 });
 
-function show_play_items() {
+function show_play_items(block) {
   id = music_player.getTrackId();
   console.log("id: " + id);
 
   list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
   console.log("list_pk: " + list_pk);
-  if (document.body.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
+  if (block.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
     console.log("Есть плейлисты");
 
-    items = document.body.querySelectorAll('.track');
+    items = block.querySelectorAll('.track');
     for (i=0; i < items.length; i++) {
       items[i].classList.remove("border");
     }
-  playlists = document.body.querySelectorAll('.playlist');
+  playlists = block.querySelectorAll('.playlist');
   for (i=0; i < playlists.length; i++) {
     playlists[i].classList.remove("play");
   }
@@ -462,10 +462,10 @@ function show_play_items() {
 }
 }
 
-function get_music_player_support() {
+function get_music_player_support(block) {
   if (music_player.getCurrentTime() != "00:00") {
     console.log(music_player.getCurrentTime());
-    show_play_items();
+    show_play_items(block);
   }
 }
 
@@ -486,7 +486,7 @@ function music_onPlay() {
     if(document.querySelector(".user_status")) {
       document.querySelector(".user_status").innerHTML = title;
     }
-    show_play_items();
+    show_play_items(document.body);
     try { video_player.pause() } catch {null}
 };
 
