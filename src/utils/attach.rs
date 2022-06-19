@@ -796,7 +796,7 @@ pub fn add_music(pk: i32, is_staff: bool, user_id: i32, class: String) -> String
         "' playlist-pk='", music.music_list_id.to_string(),
         "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'
         music-counter=''>", music.get_s_image(),
-        "<div class='media-body' style='display: flex;'><h6 class='", class," music_title'><a>",
+        "<div class='media-body' style='display: flex;'><h6 class='", class," music_title'><a class='track_title'>",
         music.title, "</a></h6><span class='span_btn' data-pk='", music.id.to_string(),
         "'><span class='dropdown' style='position: inherit;'><a class='btn_default drop pointer'>
         <svg class='svg_info' fill='currentColor' viewBox='0 0 24 24'><path d='M0 0h24v24H0z'
@@ -830,7 +830,7 @@ pub fn add_edited_music(pk: i32, class: String) -> String {
         ><polygon points='5 3 19 12 5 21 5 3'></polygon></svg></span>
         <span style='margin-left: 10px; margin-right: 40px; overflow: hidden;'>
         <h6 class='", class," pointer music_title' style='padding-top: 4px;'>
-        <a>", music.title, "</a></h6></span></div>");
+        <a class='track_title'>", music.title, "</a></h6></span></div>");
 }
 
 pub fn add_anon_music(pk: i32, class: String) -> String {
@@ -854,7 +854,7 @@ pub fn add_anon_music(pk: i32, class: String) -> String {
         "' playlist-pk='", music.music_list_id.to_string(),
         "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'",
         music.get_s_image(),
-        "<div class='media-body' style='display: flex;'><h6 class='", class," music_title'><a>",
+        "<div class='media-body' style='display: flex;'><h6 class='", class," music_title'><a class='track_title'>",
         music.title, "</a></h6><span class='span_btn' data-pk='", music.id.to_string(),
         "'><span class='dropdown' style='position: inherit;'><a class='btn_default drop pointer'>
         <svg class='svg_info' fill='currentColor' viewBox='0 0 24 24'><path d='M0 0h24v24H0z'

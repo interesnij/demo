@@ -436,6 +436,7 @@ function show_play_items(block) {
 
   list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
   console.log("list_pk: " + list_pk);
+  title = music_player.getTrackTitle();
   if (block.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
 
     items = block.querySelectorAll('.track');
@@ -461,13 +462,9 @@ function show_play_items(block) {
         }
       }
     }
-    attach_blocks = block.querySelectorAll('.attach_container');
-    for (i=0; i < attach_blocks.length; i++) {
-      if (attach_blocks[i].querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
-        tracks = attach_blocks[i].querySelectorAll('.track');
-        if (tracks.length > 0) {
-          tracks[id].classList.add("border");
-        }
+    for (i=0; i < items.length; i++) {
+      if (items[i].querySelector(".track_title").innerHTML = title) {
+        tracks[id].classList.add("border");
       }
     }
   }
