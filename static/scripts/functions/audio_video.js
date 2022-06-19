@@ -426,10 +426,46 @@ FWDMSPUtils.onReady(function() {
   music_player.addListener(FWDMSP.PLAY, music_onPlay);
   music_player.addListener(FWDMSP.PAUSE, music_onPause);
 });
+
+function show_play_items() {
+  id = music_player.getTrackId();
+  console.log("id: " + id);
+
+  list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
+  console.log("list_pk: " + list_pk);
+  if (document.body.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
+    console.log("Есть плейлисты");
+
+    items = document.body.querySelectorAll('.track');
+    for (i=0; i < items.length; i++) {
+      items[i].classList.remove("border");
+    }
+  playlists = document.body.querySelectorAll('.playlist');
+  for (i=0; i < playlists.length; i++) {
+    playlists[i].classList.remove("play");
+  }
+  for (i=0; i < playlists.length; i++) {
+    console.log("playlist!");
+    if (playlists[i].getAttribute("data-pk") == list_pk) {
+      if (playlists[i].classList.contains("is_paginate")) {
+        tracks = playlists[i].querySelectorAll('.track');
+        if (tracks.length > 0) {
+          tracks[id].classList.add("border");
+        }
+      }
+      else {
+        playlists[i].classList.add("play");
+        console.log("playlist play!");
+      }
+    }
+  }
+}
+}
+
 function get_music_player_support() {
   if (music_player.getCurrentTime() != "00:00") {
     console.log(music_player.getCurrentTime());
-    music_onPlay();
+    show_play_items();
   }
 }
 
@@ -446,42 +482,11 @@ function music_onPause() {
 
 function music_onPlay() {
     title = "¶ " + music_player.getTrackTitle();
-    id = music_player.getTrackId();
-    console.log("id: " + id);
     document.title = title;
     if(document.querySelector(".user_status")) {
       document.querySelector(".user_status").innerHTML = title;
     }
-    list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
-    console.log("list_pk: " + list_pk);
-    if (document.body.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
-      console.log("Есть плейлисты");
-
-      items = document.body.querySelectorAll('.track');
-      for (i=0; i < items.length; i++) {
-        items[i].classList.remove("border");
-      }
-
-      playlists = document.body.querySelectorAll('.playlist');
-      for (i=0; i < playlists.length; i++) {
-        playlists[i].classList.remove("play");
-      }
-      for (i=0; i < playlists.length; i++) {
-        console.log("playlist!");
-        if (playlists[i].getAttribute("data-pk") == list_pk) {
-          if (playlists[i].classList.contains("is_paginate")) {
-            tracks = playlists[i].querySelectorAll('.track');
-            if (tracks.length > 0) {
-              tracks[id].classList.add("border");
-            }
-          }
-          else {
-            playlists[i].classList.add("play");
-            console.log("playlist play!");
-          }
-        }
-      }
-    }
+    show_play_items();
     try { video_player.pause() } catch {null}
 };
 
