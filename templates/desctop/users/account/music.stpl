@@ -21,7 +21,7 @@
                 </a>
               </figure>
                 <div class="media-body" style="line-height: 10px;">
-                    <h6 class="music_list_item mb-0" style="cursor:pointer"><a><%- object.title %></a></h6>
+                    <h6 class="music_list_item mb-0" style="cursor:pointer"><a class="track_title"><%- object.title %></a></h6>
                     <% if object.album_id.is_some() { %>
                       <%- object.album_id.unwrap() %>
                     <% } else { %>
