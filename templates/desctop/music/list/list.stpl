@@ -45,7 +45,7 @@
       <span id="onload_info"></span>
     </form>
   </div>
-  <div class="card mb-2">
+  <div class="mb-2">
     <div class="card-body">
       <ul class="is_paginate drag_container is_stat_list playlist" playlist-pk="<%= list.id %>" data-pk="<%= list.id %>" data-type="mus">
 

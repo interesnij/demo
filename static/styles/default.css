@@ -356,12 +356,12 @@ p .small_badge {
     text-align: center;
     border-radius: 4px;
     width: 200px;
+    margin-right: 1em;
+    padding-left: 2px;
 }
 .file-manager-item {
     border: 1px solid #EBE9F1;
-    margin-bottom: 1.6rem;
     box-shadow: none;
-    margin-right: 1rem;
     -webkit-transition: none;
     transition: none;
 }
