@@ -451,20 +451,27 @@ function music_onPlay() {
     if (document.body.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
       console.log("Есть плейлисты");
 
+      items = document.body.querySelectorAll('.track');
+      for (i=0; i < items.length; i++) {
+        items[i].classList.remove("border");
+      }
+
       playlists = document.body.querySelectorAll('.playlist');
+      for (i=0; i < playlists.length; i++) {
+        playlists[i].classList.remove("play");
+      }
       for (i=0; i < playlists.length; i++) {
         console.log("playlist!");
         if (playlists[i].getAttribute("data-pk") == list_pk) {
           if (playlists[i].classList.contains("is_paginate")) {
-            console.log("playlist is_paginate!");
             tracks = playlists[i].querySelectorAll('.track');
             if (tracks.length > 0) {
-              tracks[id].style.background = "red";
+              tracks[id].classList.add("border");
             }
           }
           else {
-            playlists[i].style.background = "red";
-            console.log("playlist red!");
+            playlists[i].classList.add("play");
+            console.log("playlist play!");
           }
         }
       }
