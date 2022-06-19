@@ -215,7 +215,7 @@ impl Chat {
 
         let _connection = establish_connection();
         let new_chat_form = NewChat {
-            name: Some(name[..100].to_string()),
+            name: Some(name.unwrap()[..100].to_string()),
             types: types,
             community_id: community_id,
             user_id: creator.id,
@@ -273,7 +273,7 @@ impl Chat {
         let _connection = establish_connection();
 
         let edit_chat_form = EditChat {
-            name: Some(name[..100].to_string()),
+            name: Some(name.unwrap()[..100].to_string()),
             image: image,
             description: description,
             reactions: reactions,
