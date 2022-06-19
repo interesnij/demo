@@ -582,7 +582,7 @@ impl SurveyList {
 
         let _connection = establish_connection();
         let new_list_form = NewSurveyList {
-            name: name,
+            name: name[..100].to_string(),
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -753,7 +753,7 @@ impl SurveyList {
         let _connection = establish_connection();
 
             let edit_survey_list = EditSurveyList{
-                name: name,
+                name: name[..100].to_string(),
                 description: description,
                 image: image,
                 can_see_el: can_see_el.clone(),
@@ -1331,7 +1331,7 @@ impl SurveyList {
           .expect("Error.");
 
         let new_survey_form = NewSurvey {
-            title: title,
+            title: title[..100].to_string(),
             community_id: community_id,
             user_id: user_id,
             survey_list_id: self.id,
@@ -1764,7 +1764,7 @@ impl Survey {
         let _connection = establish_connection();
 
         let edit_survey = EditSurvey {
-            title: title,
+            title: title[..100].to_string(),
             image: image,
             is_anonymous: is_anonymous,
             is_multiple: is_multiple,

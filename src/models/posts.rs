@@ -828,7 +828,7 @@ impl PostList {
         let _connection = establish_connection();
 
         let new_post_list = NewPostList {
-            name: name,
+            name: name[..100].to_string(),
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -1102,7 +1102,7 @@ impl PostList {
         }
 
         let edit_post_list = EditPostList{
-            name: name,
+            name: name[..100].to_string(),
             description: descr,
             image: image,
             can_see_el: can_see_el.clone(),

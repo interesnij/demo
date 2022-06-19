@@ -596,7 +596,7 @@ impl DocList {
 
         let _connection = establish_connection();
         let new_list_form = NewDocList {
-            name: name,
+            name: name[..100].to_string(),
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -767,7 +767,7 @@ impl DocList {
         let _connection = establish_connection();
 
             let edit_doc_list = EditDocList{
-                name: name,
+                name: name[..100].to_string(),
                 description: description,
                 image: image,
                 can_see_el: can_see_el.clone(),
@@ -1333,7 +1333,7 @@ impl DocList {
         let _connection = establish_connection();
 
         let new_doc_form = NewDoc {
-            title: title,
+            title: title[..200].to_string(),
             community_id: community_id,
             user_id: user_id,
             doc_list_id: self.id,

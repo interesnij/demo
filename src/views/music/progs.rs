@@ -453,7 +453,7 @@ pub async fn edit_track(session: Session, mut payload: Multipart, _id: web::Path
                         let data = chunk.expect("split_payload err chunk");
                         if let Ok(s) = str::from_utf8(&data) {
                             let data_string = s.to_string();
-                            form.title = data_string;
+                            form.title = data_string[..100].to_string();
                         }
                     }
                 }

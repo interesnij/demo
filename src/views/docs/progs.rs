@@ -483,7 +483,7 @@ pub async fn edit_doc(session: Session, mut payload: Multipart, _id: web::Path<i
                     if let Ok(s) = str::from_utf8(&data) {
                         let data_string = s.to_string();
                         if field.name() == "title" {
-                            form.title = data_string;
+                            form.title = data_string[..200].to_string();
                         }
                         else if field.name() == "types_2" {
                             form.types_2 = data_string;

@@ -811,7 +811,7 @@ impl MusicList {
 
         let _connection = establish_connection();
         let new_list_form = NewMusicList {
-            name: name,
+            name: name[..100].to_string(),
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -982,7 +982,7 @@ impl MusicList {
         let _connection = establish_connection();
 
             let edit_music_list = EditMusicList{
-                name: name,
+                name: name[..100].to_string(),
                 description: description,
                 image: image,
                 can_see_el: can_see_el.clone(),

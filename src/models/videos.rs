@@ -829,7 +829,7 @@ impl VideoList {
 
         let _connection = establish_connection();
         let new_list_form = NewVideoList {
-            name: name,
+            name: name[..100].to_string(),
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -1104,7 +1104,7 @@ impl VideoList {
         }
 
         let edit_video_list = EditVideoList {
-            name: name,
+            name: name[..100].to_string(),
             description: descr,
             image: image,
             can_see_el: can_see_el.clone(),
@@ -1778,7 +1778,7 @@ impl VideoList {
           .expect("Error.");
 
         let new_video_form = NewVideo {
-          title: title,
+          title: title[..100].to_string(),
           community_id: community_id,
           user_id: user_id,
           video_list_id: self.id,
@@ -2217,7 +2217,7 @@ impl Video {
         let _connection = establish_connection();
 
         let edit_video = EditVideo {
-            title: title,
+            title: title[..100].to_string(),
             preview: preview,
             image: image,
             description: description,

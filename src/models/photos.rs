@@ -309,7 +309,7 @@ impl PhotoList {
     pub fn create_photo(&self, community_id: Option<i32>, user_id: i32,
         preview: String, file: String) -> Photo {
 
-        let _connection = establish_connection();  
+        let _connection = establish_connection();
 
         let new_photo_form = NewPhoto {
           community_id: community_id,
@@ -848,7 +848,7 @@ impl PhotoList {
 
         let _connection = establish_connection();
         let new_list_form = NewPhotoList{
-            name: name,
+            name: name[..100].to_string(),
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -1122,7 +1122,7 @@ impl PhotoList {
         }
 
         let edit_photo_list = EditPhotoList{
-            name: name,
+            name: name[..100].to_string(),
             description: descr,
             cover_photo: image,
             can_see_el: can_see_el.clone(),

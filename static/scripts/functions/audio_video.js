@@ -437,7 +437,6 @@ function show_play_items(block) {
   list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
   console.log("list_pk: " + list_pk);
   if (block.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
-    console.log("Есть плейлисты");
 
     items = block.querySelectorAll('.track');
     for (i=0; i < items.length; i++) {
@@ -450,7 +449,6 @@ function show_play_items(block) {
     }
 
     for (i=0; i < playlists.length; i++) {
-      console.log("playlist!");
       if (playlists[i].getAttribute("data-pk") == list_pk) {
         if (playlists[i].classList.contains("is_paginate")) {
           tracks = playlists[i].querySelectorAll('.track');
@@ -460,7 +458,15 @@ function show_play_items(block) {
         }
         else {
           playlists[i].classList.add("play");
-          console.log("playlist play!");
+        }
+      }
+    }
+    attach_blocks = block.querySelectorAll('.attach_container');
+    for (i=0; i < attach_blocks.length; i++) {
+      if (attach_blocks[i].getAttribute("playlist-pk") == list_pk) {
+        tracks = attach_blocks[i].querySelectorAll('.track');
+        if (tracks.length > 0) {
+          tracks[id].classList.add("border");
         }
       }
     }
