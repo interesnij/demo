@@ -257,6 +257,7 @@ function create_fullscreen(url, type_class, need_drag_items) {
             console.log("need_drag_items!");
             get_dragula(".worker_drag_container")
           }
+          get_music_player_support($loader);
       }
   };
   link.send();
@@ -310,6 +311,7 @@ function change_this_fullscreen(_this, type_class) {
 
           create_window_stat_list($loader);
           append_items_in_stat_list($loader, $new_elements);
+          get_music_player_support($loader);
 
           if (!_page_time) {
             view_timer(120, $new_window_list)
