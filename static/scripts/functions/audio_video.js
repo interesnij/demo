@@ -427,6 +427,9 @@ FWDMSPUtils.onReady(function() {
   music_player.addListener(FWDMSP.PAUSE, music_onPause);
 });
 function get_music_player_support() {
+  console.log("support!");
+  console.log(FWDMSP.PLAY);
+  console.log(music_player.play());
   FWDMSP.PLAY;
 }
 
