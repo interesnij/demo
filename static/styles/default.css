@@ -356,8 +356,8 @@ p .small_badge {
     text-align: center;
     border-radius: 4px;
     width: 200px;
-    margin-right: 1em;
-    padding-left: 2px;
+    margin-right: 0.8em;
+    padding: 2px;
 }
 .file-manager-item {
     border: 1px solid #EBE9F1;
