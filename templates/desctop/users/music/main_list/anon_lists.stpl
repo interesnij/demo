@@ -11,11 +11,11 @@
 </div>
 <div class="row no-gutters" style="overflow-x: auto;">
    <div class="col-12">
-   <ul class="drag_list" data-type="ldo" style="width:max-content;list-style: none;">
+   <ul class="drag_list" data-type="lmu" style="width:max-content;list-style: none;">
        <% for object in lists.iter() { %>
        <% if object.community_id.is_some() { %>
          <% let community = object.get_community(); %>
-       <li class="list_item drag_item" data-pk="<%= object.id %>"> playlist-pk="<%= object.id %>">
+       <li class="list_item drag_item" data-pk="<%= object.id %>" playlist-pk="<%= object.id %>">
            <div class="card file-manager-item folder border community" data-pk="<%= object.community_id.unwrap() %>"
                <div class="card-img-top file-logo-wrapper">
                  <div class="d-flex align-items-center justify-content-center w-100">
@@ -39,7 +39,7 @@
        </li>
        <% } else { %>
          <% let creator = object.get_creator(); %>
-       <li class="list_item drag_item" data-pk="<%= object.id %>"> playlist-pk="<%= object.id %>">
+       <li class="list_item drag_item" data-pk="<%= object.id %>" playlist-pk="<%= object.id %>">
            <div class="card file-manager-item folder border" data-pk="<%= object.user_id %>"
                <div class="card-img-top file-logo-wrapper">
                  <div class="d-flex align-items-center justify-content-center w-100">

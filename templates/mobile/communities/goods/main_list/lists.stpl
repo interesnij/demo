@@ -11,7 +11,7 @@
 </div>
 <div class="row no-gutters" style="overflow-x: auto;">
    <div class="col-12">
-   <ul class="drag_list" data-type="ldo" style="width:max-content;list-style: none;">
+   <ul class="drag_list" data-type="lgo" style="width:max-content;list-style: none;">
        <% for object in lists.iter() { %>
        <% if object.community_id.is_some() { %>
          <% let community = object.get_community(); %>
