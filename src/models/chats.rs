@@ -217,7 +217,8 @@ impl Chat {
         if name.is_some() {
             let name_unwrap = name.unwrap();
             if name_unwrap.len() > 99 {
-            _name = Some(name_unwrap[..100].to_string());
+                _name = Some(name_unwrap[..100].to_string());
+            }
         }
         else {
             _name = name;
