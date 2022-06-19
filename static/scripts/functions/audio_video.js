@@ -429,6 +429,11 @@ FWDMSPUtils.onReady(function() {
 
 function show_play_items(block) {
   id = music_player.getTrackId();
+  title = music_player.getTrackTitle();
+  document.title = "¶ " + title;
+  if(document.querySelector(".user_status")) {
+    document.querySelector(".user_status").innerHTML = "¶ " + title;
+  }
   console.log("id: " + id);
   if (id == undefined) {
     return;
@@ -436,7 +441,7 @@ function show_play_items(block) {
 
   list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
   console.log("list_pk: " + list_pk);
-  title = music_player.getTrackTitle();
+
   if (block.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
 
     items = block.querySelectorAll('.track');
@@ -489,11 +494,6 @@ function music_onPause() {
 }
 
 function music_onPlay() {
-    title = "¶ " + music_player.getTrackTitle();
-    document.title = title;
-    if(document.querySelector(".user_status")) {
-      document.querySelector(".user_status").innerHTML = title;
-    }
     show_play_items(document.body);
     try { video_player.pause() } catch {null}
 };
