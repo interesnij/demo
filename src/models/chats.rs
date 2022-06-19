@@ -213,7 +213,7 @@ impl Chat {
         community_id: Option<i32>, types: i16,
         users_ids: Option<String>) -> Chat {
 
-        let _name: Option<String> = None;
+        let mut _name: Option<String> = None;
         if name.is_some() {
             let name_unwrap = name.unwrap();
             if name_unwrap.len() > 99 {
