@@ -710,6 +710,7 @@ function list_block_load(target_block, response_block, link) {
        get_dragula(".drag_container");
        get_dragula(".drag_list");
        create_pagination(target_block);
+       show_play_items(target_block);
     }};
     request.upload.onprogress = function(event) {
       console.log( 'начало работы');
