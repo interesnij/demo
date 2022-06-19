@@ -890,8 +890,15 @@ impl GoodList {
         };
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
         let new_list_form = NewGoodList{
-            name:            name[..100].to_string(),
+            name:            _name,
             community_id:    community_id,
             user_id:         creator.id,
             types:           2,
@@ -1163,9 +1170,16 @@ impl GoodList {
         }
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
 
         let edit_good_list = EditGoodList{
-            name: name[..100].to_string(),
+            name: _name,
             description: descr,
             image: image,
             can_see_el: can_see_el.clone(),
@@ -1831,6 +1845,13 @@ impl GoodList {
         images: Vec<String>) -> Good {
 
         let _connection = establish_connection();
+        let _title: String;
+        if title.len() > 99 {
+            _title = title[..100].to_string();
+        }
+        else {
+            _title = title;
+        }
 
         diesel::update(&*self)
           .set(schema::good_lists::count.eq(self.count + 1))
@@ -1838,7 +1859,7 @@ impl GoodList {
           .expect("Error.");
 
         let new_good_form = NewGood {
-            title: title[..100].to_string(),
+            title: _title,
             community_id: community_id,
             category_id: category_id,
             user_id: user_id,
@@ -2058,9 +2079,16 @@ impl Good {
         use crate::schema::good_images::dsl::good_images;
 
         let _connection = establish_connection();
+        let _title: String;
+        if title.len() > 99 {
+            _title = title[..100].to_string();
+        }
+        else {
+            _title = title;
+        }
 
         let edit_good = EditGood {
-            title: title[..100].to_string(),
+            title: _title,
             price: price,
             description: description,
             image: image,

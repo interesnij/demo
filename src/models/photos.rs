@@ -847,8 +847,15 @@ impl PhotoList {
         };
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
         let new_list_form = NewPhotoList{
-            name: name[..100].to_string(),
+            name: _name,
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -1112,6 +1119,13 @@ impl PhotoList {
         use crate::schema::photo_list_perms::dsl::photo_list_perms;
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
         let mut descr: Option<String> = Some("".to_string());
         let mut react: Option<String> = Some("".to_string());
         if description.is_some() {
@@ -1122,7 +1136,7 @@ impl PhotoList {
         }
 
         let edit_photo_list = EditPhotoList{
-            name: name[..100].to_string(),
+            name: _name,
             description: descr,
             cover_photo: image,
             can_see_el: can_see_el.clone(),

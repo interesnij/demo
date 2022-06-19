@@ -213,9 +213,19 @@ impl Chat {
         community_id: Option<i32>, types: i16,
         users_ids: Option<String>) -> Chat {
 
+        let _name: Option<String>;
+        if name.is_some() {
+            let name_unwrap = name.unwrap();
+            if name_unwrap.len() > 99 {
+            _name = Some(name_unwrap[..100].to_string());
+        }
+        else {
+            _name = name;
+        }
+
         let _connection = establish_connection();
         let new_chat_form = NewChat {
-            name: Some(name.unwrap()[..100].to_string()),
+            name: _name,
             types: types,
             community_id: community_id,
             user_id: creator.id,

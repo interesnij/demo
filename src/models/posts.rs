@@ -826,9 +826,16 @@ impl PostList {
         };
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
 
         let new_post_list = NewPostList {
-            name: name[..100].to_string(),
+            name: _name,
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -1092,6 +1099,13 @@ impl PostList {
         use crate::schema::post_list_perms::dsl::post_list_perms;
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
         let mut descr: Option<String> = Some("".to_string());
         let mut react: Option<String> = Some("".to_string());
         if description.is_some() {
@@ -1102,7 +1116,7 @@ impl PostList {
         }
 
         let edit_post_list = EditPostList{
-            name: name[..100].to_string(),
+            name: _name,
             description: descr,
             image: image,
             can_see_el: can_see_el.clone(),

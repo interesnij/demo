@@ -595,8 +595,15 @@ impl DocList {
         };
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
         let new_list_form = NewDocList {
-            name: name[..100].to_string(),
+            name: _name,
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -765,9 +772,16 @@ impl DocList {
         use crate::schema::doc_list_perms::dsl::doc_list_perms;
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
 
             let edit_doc_list = EditDocList{
-                name: name[..100].to_string(),
+                name: _name,
                 description: description,
                 image: image,
                 can_see_el: can_see_el.clone(),
@@ -1331,9 +1345,16 @@ impl DocList {
         types_2: String, file: String) -> Doc {
 
         let _connection = establish_connection();
+        let _title: String;
+        if title.len() > 199 {
+            _title = title[..200].to_string();
+        }
+        else {
+            _title = title;
+        }
 
         let new_doc_form = NewDoc {
-            title: title[..200].to_string(),
+            title: _title,
             community_id: community_id,
             user_id: user_id,
             doc_list_id: self.id,
@@ -1682,9 +1703,16 @@ impl Doc {
     }
     pub fn edit_doc(&self, title: String, types_2: String) -> &Doc {
         let _connection = establish_connection();
+        let _title: String;
+        if title.len() > 199 {
+            _title = title[..200].to_string();
+        }
+        else {
+            _title = title;
+        }
 
         let edit_doc = EditDoc {
-            title: title,
+            title: _title,
             types_2: types_2,
         };
         diesel::update(self)

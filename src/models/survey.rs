@@ -581,8 +581,15 @@ impl SurveyList {
         };
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
         let new_list_form = NewSurveyList {
-            name: name[..100].to_string(),
+            name: _name,
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -751,9 +758,16 @@ impl SurveyList {
         use crate::schema::survey_list_perms::dsl::survey_list_perms;
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
 
             let edit_survey_list = EditSurveyList{
-                name: name[..100].to_string(),
+                name: _name,
                 description: description,
                 image: image,
                 can_see_el: can_see_el.clone(),
@@ -1325,13 +1339,20 @@ impl SurveyList {
         is_multiple: bool, is_no_edited: bool, time_end: Option<String>) -> Survey {
 
         let _connection = establish_connection();
+        let _title: String;
+        if title.len() > 99 {
+            _title = title[..100].to_string();
+        }
+        else {
+            _title = title;
+        }
         diesel::update(&*self)
           .set(schema::survey_lists::count.eq(self.count + 1))
           .get_result::<SurveyList>(&_connection)
           .expect("Error.");
 
         let new_survey_form = NewSurvey {
-            title: title[..100].to_string(),
+            title: _title,
             community_id: community_id,
             user_id: user_id,
             survey_list_id: self.id,
@@ -1761,10 +1782,18 @@ impl Survey {
     pub fn edit_survey(&self, title: String,
         image: Option<String>, is_anonymous: bool, is_multiple: bool,
         is_no_edited: bool, time_end:Option<String>) -> &Survey {
+
         let _connection = establish_connection();
+        let _title: String;
+        if title.len() > 99 {
+            _title = title[..100].to_string();
+        }
+        else {
+            _title = title;
+        }
 
         let edit_survey = EditSurvey {
-            title: title[..100].to_string(),
+            title: _title,
             image: image,
             is_anonymous: is_anonymous,
             is_multiple: is_multiple,

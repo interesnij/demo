@@ -828,8 +828,15 @@ impl VideoList {
         };
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
         let new_list_form = NewVideoList {
-            name: name[..100].to_string(),
+            name: _name,
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -1093,6 +1100,13 @@ impl VideoList {
         use crate::schema::video_list_perms::dsl::video_list_perms;
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
 
         let mut descr: Option<String> = Some("".to_string());
         let mut react: Option<String> = Some("".to_string());
@@ -1104,7 +1118,7 @@ impl VideoList {
         }
 
         let edit_video_list = EditVideoList {
-            name: name[..100].to_string(),
+            name: _name,
             description: descr,
             image: image,
             can_see_el: can_see_el.clone(),
@@ -1771,6 +1785,13 @@ impl VideoList {
     ) -> Video {
 
         let _connection = establish_connection();
+        let _title: String;
+        if title.len() > 99 {
+            _title = title[..100].to_string();
+        }
+        else {
+            _title = title;
+        }
 
         diesel::update(&*self)
           .set(schema::video_lists::count.eq(self.count + 1))
@@ -1778,7 +1799,7 @@ impl VideoList {
           .expect("Error.");
 
         let new_video_form = NewVideo {
-          title: title[..100].to_string(),
+          title: _title,
           community_id: community_id,
           user_id: user_id,
           video_list_id: self.id,
@@ -2215,9 +2236,16 @@ impl Video {
         comment_enabled: bool, category_id: Option<i32>) -> Video {
 
         let _connection = establish_connection();
+        let _title: String;
+        if title.len() > 99 {
+            _title = title[..100].to_string();
+        }
+        else {
+            _title = title;
+        }
 
         let edit_video = EditVideo {
-            title: title[..100].to_string(),
+            title: _title,
             preview: preview,
             image: image,
             description: description,

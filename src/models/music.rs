@@ -810,8 +810,15 @@ impl MusicList {
         };
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
         let new_list_form = NewMusicList {
-            name: name[..100].to_string(),
+            name: _name,
             community_id: community_id,
             user_id: creator.id,
             types: 2,
@@ -980,9 +987,16 @@ impl MusicList {
         use crate::schema::music_list_perms::dsl::music_list_perms;
 
         let _connection = establish_connection();
+        let _name: String;
+        if name.len() > 99 {
+            _name = name[..100].to_string();
+        }
+        else {
+            _name = name;
+        }
 
             let edit_music_list = EditMusicList{
-                name: name[..100].to_string(),
+                name: _name,
                 description: description,
                 image: image,
                 can_see_el: can_see_el.clone(),
@@ -1576,7 +1590,7 @@ impl MusicList {
         }
 
         let new_music_form = NewMusic {
-            title: _title, 
+            title: _title,
             community_id: community_id,
             user_id: user_id,
             music_list_id: self.id,
