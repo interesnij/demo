@@ -507,7 +507,7 @@ on('#ajax', 'click', '.music_list_item', function() {
     }
     else {
       music_player.pause();
-      track.classList.remove('pause');
+      track.classList.add('pause');
       return;
     }
   }
