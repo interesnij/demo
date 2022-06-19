@@ -443,7 +443,7 @@ function show_play_items(block) {
     items = block.querySelectorAll('.track');
     for (i=0; i < items.length; i++) {
       items[i].classList.remove("play_track", "gradient-border");
-    } 
+    }
 
     playlists = block.querySelectorAll('.playlist');
     for (i=0; i < playlists.length; i++) {
@@ -482,11 +482,11 @@ function music_onReady(){console.log("Аудио плеер готов");}
 
 function music_onPause() {
   try {
-      title = music_player.getTrackTitle();
       document.title = "Музыка приостановлена";
       if(document.querySelector(".user_status")){
         document.querySelector(".user_status").innerHTML = "Музыка приостановлена";
-  }}catch{null}
+      }
+  } catch { null }
 }
 
 function music_onPlay() {
@@ -498,12 +498,24 @@ function dragElement(elmnt){var pos1=0,pos2=0,pos3=0,pos4=0;document.querySelect
 
 
 on('#ajax', 'click', '.music_list_item', function() {
+  track = this.parentElement.parentElement.parentElement;
+  if (track.classList.contains('gradient-border')) {
+    if (track.classList.contains('pause')) {
+      music_player.play();
+      track.classList.remove('pause');
+    }
+    else {
+      music_player.pause();
+      track.classList.remove('pause');
+    }
+  }
+
   counter = 0;
-  parents = this.parentElement.parentElement.parentElement.parentElement;
+  parents = track.parentElement;
   if (parents.getAttribute('playlist-pk')) {
     list_pk = parents.getAttribute('playlist-pk');
     list_items = parents.querySelectorAll(".list-group-item");
-    pk = this.parentElement.parentElement.parentElement.getAttribute("data-pk");
+    pk = track.getAttribute("data-pk");
     for (i=0; i < list_items.length; i++) {
       if (list_items[i].getAttribute("data-pk") == pk) {
         counter = i;
