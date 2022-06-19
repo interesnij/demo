@@ -793,7 +793,7 @@ pub fn add_music(pk: i32, is_staff: bool, user_id: i32, class: String) -> String
 
     return concat_string!(
         "<div class='music music_item' data-path='", music.file, "' data-pk='", music.id.to_string(),
-        "' list-pk='", music.music_list_id.to_string(),
+        "' playlist-pk='", music.music_list_id.to_string(),
         "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'
         music-counter=''>", music.get_s_image(),
         "<div class='media-body' style='display: flex;'><h6 class='", class," music_title'><a>",
@@ -851,6 +851,7 @@ pub fn add_anon_music(pk: i32, class: String) -> String {
 
     return concat_string!(
         "<div class='music music_item' data-path='", music.file,
+        "' playlist-pk='", music.music_list_id.to_string(),
         "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'",
         music.get_s_image(),
         "<div class='media-body' style='display: flex;'><h6 class='", class," music_title'><a>",

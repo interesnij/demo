@@ -432,12 +432,26 @@ function music_onReady(){console.log("Аудио плеер готов");}
 function dragElement(elmnt){var pos1=0,pos2=0,pos3=0,pos4=0;document.querySelector("#draggable-header").onmousedown=dragMouseDown;document.querySelector("#draggable-resize").onmousedown=resizeMouseDown;function dragMouseDown(e){e=e||window.event;e.preventDefault();pos3=e.clientX;pos4=e.clientY;document.onmouseup=closeDragElement;document.onmousemove=elementDrag}function resizeMouseDown(e){e=e||window.event;e.preventDefault();pos3=0;pos4=0;document.onmouseup=closeDragElement;document.onmousemove=elementResize}function elementResize(e){e=e||window.event;e.preventDefault();var content=document.querySelector(".draggable");var width=content.offsetWidth;var height=content.offsetHeight;pos1=(e.clientX-width)-content.offsetLeft;pos2=(e.clientY-height)-content.offsetTop;content.style.width=width+pos1+'px';content.style.height=height+pos2+'px'}function elementDrag(e){e=e||window.event;e.preventDefault();pos1=pos3-e.clientX;pos2=pos4-e.clientY;pos3=e.clientX;pos4=e.clientY;elmnt.style.top=(elmnt.offsetTop-pos2)+"px";elmnt.style.left=(elmnt.offsetLeft-pos1)+"px"}function closeDragElement(){document.onmouseup=null;document.onmousemove=null}}
 
 on('#ajax', 'click', '.music_list_item', function() {
-  counter = this.parentElement.parentElement.getAttribute('music-counter') - 1;
+  counter = 0;
   parents = this.parentElement.parentElement.parentElement.parentElement;
-  list_pk = parents.getAttribute('data-pk');
-  saved_playlist = document.body.querySelector(".saved_playlist");
-  if (!saved_playlist.getAttribute("data-pk") != list_pk) {
-      save_playlist("list_" + list_pk, '/users/progs/save_playlist/' + list_pk + "/", counter);
+  if (parents.getAttribute('data-pk')) {
+    list_pk = parents.getAttribute('data-pk');
+    list_items = parents.querySelectorAll(".list-group-item");
+    pk = this.parentElement.parentElement.parentElement.getAttribute("data-pk");
+    for (i=0; i < list_items.length; i++) {
+      if (list_items[i].getAttribute("data-pk") == pk) {
+        counter = i;
+      }
+    }
+  }
+  else if (parents.getAttribute('list-pk')){
+    list_pk = parents.getAttribute('list-pk');
+    counter = parents.getAttribute('data-counter')
+  }
+
+  saved_playlist = document.body.querySelector("#saved_playlist");
+  if (saved_playlist.getAttribute("data-pk") != list_pk) {
+      save_playlist(list_pk, '/users/progs/save_playlist/' + list_pk + "/", counter);
       saved_playlist.setAttribute("data-pk", list_pk);
   } else {
       music_player.loadPlaylist(0);
@@ -449,19 +463,23 @@ on('#ajax', 'click', '.music_list_item', function() {
 
 function save_playlist(list_id, post_link, counter) {
   var playlist_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  playlist_link.open( 'GET', post_link, true );
+  playlist_link.open( 'POST', post_link, true );
   playlist_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   playlist_link.onreadystatechange = function () {
     if ( playlist_link.readyState == 4 && playlist_link.status == 200 ) {
-      tracks = JSON.parse(playlist_link.responseText).data.tracks;
-      for(i=0; i < tracks.length; i++) {
-        _source=tracks[i].url;
-        _title=tracks[i].title;
-        _thumbPath=tracks[i].image;
+      data = JSON.parse(playlist_link.responseText).tracks.reverse();
+      for(i=0; i < data.length; i++) {
+        title = data[i].title;
+        if (title.indexOf(".") != -1) {
+          title = title.split(".")[0];
+        }
+        _source=data[i].url;
+        _title=title;
+        _thumbPath=data[i].image;
                 //_duration=list[i].getAttribute("data-duration");
                 //time = msToTime(_duration);
-        music_player.addTrack(_source, _title, _thumbPath, null, true, false, null) // 4 позиция - время (time)
+        music_player.addTrack(_source, title, _thumbPath, null, true, false, null) // 4 позиция - время (time)
       }
 
       music_player.loadPlaylist(0);

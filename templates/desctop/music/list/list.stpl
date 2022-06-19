@@ -47,7 +47,7 @@
   </div>
   <div class="card mb-2">
     <div class="card-body">
-      <ul class="is_paginate drag_container is_stat_list" data-pk="<%= list.id %>" data-type="mus">
+      <ul class="is_paginate drag_container is_stat_list" playlist-pk="<%= list.id %>" data-pk="<%= list.id %>" data-type="mus">
 
         <% if object_list.len() > 0 { %>
 

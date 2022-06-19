@@ -15,7 +15,7 @@
 <% let playlist_items = playlist.get_paginate_items(30, 0); %>
 <ul data-pk="<%= playlist.id %>" id="saved_playlist" style="display:none;">
 
-  <% if playlist_items.len() > 0 { %>
+  <% if playlist_items.len() > 0 { %> 
     <% for track in playlist_items.iter() { %>
       <li data-path="<%= track.file %>"
         <% if track.image.is_some() { %>

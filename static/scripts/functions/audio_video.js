@@ -440,11 +440,28 @@ function music_onPause() {
 
 function music_onPlay() {
     title = "¶ " + music_player.getTrackTitle();
-    console.log("Воспроизводится трек: " + title);
-    console.log("id: " + music_player.getTrackId());
+    id = music_player.getTrackId();
+    console.log("id: " + id);
     document.title = title;
-    if(document.querySelector(".user_status")){
+    if(document.querySelector(".user_status")) {
       document.querySelector(".user_status").innerHTML = title;
+    }
+    list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
+    if (document.body.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
+      lists = document.body.querySelectorAll('[playlist-pk=' + '"' + list_pk + '"' + ']');
+      for (i=0; i < lists.length; i++) {
+        if (lists[i].classList.contains("list_item")) {
+          lists[i].style.background = "red";
+        } 
+        else {
+          list_items = lists[i].querySelectorAll(".music_item");
+          for (i=0; i < list_items.length; i++) {
+            if (i == id) {
+              list_items[i].style.background = "red";
+            }
+          }
+        }
+      }
     }
     try { video_player.pause() } catch {null}
 };
@@ -455,8 +472,8 @@ function dragElement(elmnt){var pos1=0,pos2=0,pos3=0,pos4=0;document.querySelect
 on('#ajax', 'click', '.music_list_item', function() {
   counter = 0;
   parents = this.parentElement.parentElement.parentElement.parentElement;
-  if (parents.getAttribute('data-pk')) {
-    list_pk = parents.getAttribute('data-pk');
+  if (parents.getAttribute('playlist-pk')) {
+    list_pk = parents.getAttribute('playlist-pk');
     list_items = parents.querySelectorAll(".list-group-item");
     pk = this.parentElement.parentElement.parentElement.getAttribute("data-pk");
     for (i=0; i < list_items.length; i++) {
@@ -465,11 +482,10 @@ on('#ajax', 'click', '.music_list_item', function() {
       }
     }
   }
-  else if (parents.getAttribute('list-pk')){
-    list_pk = parents.getAttribute('list-pk');
+  else if (parents.getAttribute('playlist-pk')){
+    list_pk = parents.getAttribute('playlist-pk');
     counter = parents.getAttribute('data-counter')
   }
-
 
   saved_playlist = document.body.querySelector("#saved_playlist");
   if (saved_playlist.getAttribute("data-pk") != list_pk) {

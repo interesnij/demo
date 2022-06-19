@@ -350,9 +350,9 @@ function focus_block(value) {
 };
 
 on('#ajax', 'click', '.music_list_post', function() {
-  var track_id = this.parentElement.parentElement.getAttribute('music-counter');
-  item = this.parentElement.parentElement.parentElement.parentElement;
-  var item_pk = item.getAttribute('data-pk');
+  counter = 0;
+  attach_container = this.parentElement.parentElement.parentElement.parentElement;
+  saved_playlist = document.body.querySelector("#saved_playlist");
   if (!document.body.classList.contains("item_" + item_pk)){
     document.querySelector("body").classList = "";
     document.querySelector("body").classList.add("item_" + item_pk);

@@ -3,6 +3,9 @@
   height: 35px;
   width: 100%;
 }
+.music_item .span_btn {
+  padding-top: 5px;
+}
 .t_f {
   cursor: pointer;
 }
