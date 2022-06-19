@@ -1569,7 +1569,7 @@ impl MusicList {
         let _connection = establish_connection();
 
         let new_music_form = NewMusic {
-            title: title,
+            title: title[..100],
             community_id: community_id,
             user_id: user_id,
             music_list_id: self.id,
