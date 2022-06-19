@@ -430,6 +430,9 @@ FWDMSPUtils.onReady(function() {
 function show_play_items(block) {
   id = music_player.getTrackId();
   console.log("id: " + id);
+  if (!id) {
+    return;
+  }
 
   list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
   console.log("list_pk: " + list_pk);
