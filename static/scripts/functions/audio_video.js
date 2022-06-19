@@ -453,12 +453,14 @@ function music_onPlay() {
 
       playlists = document.body.querySelectorAll('.playlist');
       for (i=0; i < playlists.length; i++) {
+        console.log("playlist!");
         if (playlists[i].getAttribute("data-pk") == list_pk) {
           playlists[i].style.background = "red";
           console.log("playlist red!");
           tracks = playlists[i].querySelectorAll('.track');
-          console.log(tracks);
-          tracks[id].style.background = "red";
+          if (tracks.length > 0) {
+            tracks[id].style.background = "red";
+          }
         }
       }
     }
