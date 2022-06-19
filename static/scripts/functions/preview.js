@@ -364,7 +364,7 @@ function create_preview_music(img_src, pk, counter){
 
   media_body = _this.querySelector(".media-body");
 
-  $div.classList.add("music", "handle");
+  $div.classList.add("music", "handle", "track");
   $div.style.display = "flex";
   $div.style.margin = "5px";
   $div.style.posution = "relative";

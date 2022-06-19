@@ -12,7 +12,7 @@
     </div>
 
     <% for (i, object) in user.get_6_tracks().iter().enumerate() { %>
-    <div class="card border-top music_item" data-counter="<%= i %>" playlist-pk="<%= object.music_list_id %>">
+    <div class="card border-top music_item track" data-counter="<%= i %>" playlist-pk="<%= object.music_list_id %>">
         <div class="p-1">
             <div class="media" music-counter="">
               <figure>

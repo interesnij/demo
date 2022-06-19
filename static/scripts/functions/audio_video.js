@@ -433,8 +433,6 @@ function show_play_items(block) {
 
   list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
   console.log("list_pk: " + list_pk);
-  console.log(block);
-  console.log(block.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']'));
   if (block.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
     console.log("Есть плейлисты");
 
@@ -442,26 +440,28 @@ function show_play_items(block) {
     for (i=0; i < items.length; i++) {
       items[i].classList.remove("border");
     }
-  playlists = block.querySelectorAll('.playlist');
-  for (i=0; i < playlists.length; i++) {
-    playlists[i].classList.remove("play");
-  }
-  for (i=0; i < playlists.length; i++) {
-    console.log("playlist!");
-    if (playlists[i].getAttribute("data-pk") == list_pk) {
-      if (playlists[i].classList.contains("is_paginate")) {
-        tracks = playlists[i].querySelectorAll('.track');
-        if (tracks.length > 0) {
-          tracks[id].classList.add("border");
+
+    playlists = block.querySelectorAll('.playlist');
+    for (i=0; i < playlists.length; i++) {
+      playlists[i].classList.remove("play");
+    }
+
+    for (i=0; i < playlists.length; i++) {
+      console.log("playlist!");
+      if (playlists[i].getAttribute("data-pk") == list_pk) {
+        if (playlists[i].classList.contains("is_paginate")) {
+          tracks = playlists[i].querySelectorAll('.track');
+          if (tracks.length > 0) {
+            tracks[id].classList.add("border");
+          }
         }
-      }
-      else {
-        playlists[i].classList.add("play");
-        console.log("playlist play!");
+        else {
+          playlists[i].classList.add("play");
+          console.log("playlist play!");
+        }
       }
     }
   }
-}
 }
 
 function get_music_player_support(block) {
