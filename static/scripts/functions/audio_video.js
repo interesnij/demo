@@ -457,6 +457,7 @@ function music_onPlay() {
           playlists[i].style.background = "red";
           console.log("playlist red!");
           tracks = playlists[i].querySelectorAll('.track');
+          console.log(tracks);
           tracks[id].style.background = "red";
         }
       }
