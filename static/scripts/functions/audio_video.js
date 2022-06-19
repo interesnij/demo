@@ -442,12 +442,12 @@ function show_play_items(block) {
   if (block.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
     items = block.querySelectorAll('.track');
     for (i=0; i < items.length; i++) {
-      items[i].classList.remove("play_track", "gradient-border");
+      items[i].classList.remove("play_track", "gradient-border", "pause");
     }
 
     playlists = block.querySelectorAll('.playlist');
     for (i=0; i < playlists.length; i++) {
-      playlists[i].classList.remove("play_list", "gradient-border");
+      playlists[i].classList.remove("play_list", "gradient-border", "pause");
     }
 
     for (i=0; i < playlists.length; i++) {
@@ -503,10 +503,12 @@ on('#ajax', 'click', '.music_list_item', function() {
     if (track.classList.contains('pause')) {
       music_player.play();
       track.classList.remove('pause');
+      return;
     }
     else {
       music_player.pause();
       track.classList.remove('pause');
+      return;
     }
   }
 
