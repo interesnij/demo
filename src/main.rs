@@ -41,7 +41,7 @@ async fn main() -> std::io::Result<()> {
             .service(media_files)
             .configure(routes)
     })
-    .bind("194.58.119.147:9001")? 
+    .bind("194.58.119.147:9002")? 
     .run()
     .await
 }
