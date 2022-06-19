@@ -430,7 +430,7 @@ FWDMSPUtils.onReady(function() {
 function show_play_items(block) {
   id = music_player.getTrackId();
   console.log("id: " + id);
-  if (id == undefined || music_player.getCurrentTime() == "00:00") {
+  if (id == undefined) {
     return;
   }
 
