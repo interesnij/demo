@@ -460,7 +460,7 @@ function show_play_items(block) {
           playlists[i].classList.add("play");
         }
       }
-    }
+    } 
     attach_blocks = block.querySelectorAll('.attach_container');
     for (i=0; i < attach_blocks.length; i++) {
       if (attach_blocks[i].getAttribute("playlist-pk") == list_pk) {
