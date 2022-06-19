@@ -460,13 +460,15 @@ function music_onPlay() {
       }
       tracks = document.body.querySelectorAll('.music_item');
       for (i=0; i < tracks.length; i++) {
-        if (tracks[i].getAttribute("playlist-pk") == list_pk) {
-          tracks[i].style.background = "red";
-          console.log("tracks red!");
-        }
-        else if (tracks[i].parentElement.getAttribute("playlist-pk") == list_pk) {
-          tracks[i].style.background = "red";
-          console.log("tracks red!");
+        if (id=i) {
+          if (tracks[i].getAttribute("playlist-pk") == list_pk) {
+            tracks[i].style.background = "red";
+            console.log("tracks red!");
+          }
+          else if (tracks[i].parentElement.getAttribute("playlist-pk") == list_pk) {
+            tracks[i].style.background = "red";
+            console.log("tracks red!");
+          }
         }
       }
 
