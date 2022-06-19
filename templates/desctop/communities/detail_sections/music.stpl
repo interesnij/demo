@@ -14,7 +14,7 @@
 
     <% for (i, object) in community.get_6_tracks().iter().enumerate() { %>
     <div data-counter="<%= i %>" class="border-top music_item track" playlist-pk="<%= object.music_list_id %>" style="padding: 2px;">
-        <div class="">
+        <div>
             <div class="media current_color">
               <figure>
                 <a class="pointer music_list_item">
