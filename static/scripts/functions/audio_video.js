@@ -456,25 +456,9 @@ function music_onPlay() {
         if (playlists[i].getAttribute("data-pk") == list_pk) {
           playlists[i].style.background = "red";
           console.log("playlist red!");
+          tracks = playlists[i].querySelectorAll('.track');
+          tracks[id].style.background = "red";
         }
-        tracks = playlists[i].querySelectorAll('.track');
-        for (a=0; a < tracks.length; a++) {
-          if (id=a) {
-            tracks[a].style.background = "red";
-            console.log("tracks red!");
-          }
-        }
-      }
-      items = document.body.querySelectorAll('.music_item');
-      for (i=0; i < items.length; i++) {
-          if (i=id && items[i].getAttribute("playlist-pk") == list_pk) {
-            items[i].style.background = "red";
-            console.log("tracks red!");
-          }
-          else if (i=id && items[i].parentElement.getAttribute("playlist-pk") == list_pk) {
-            items[i].style.background = "red";
-            console.log("tracks red!");
-          }
       }
     }
     try { video_player.pause() } catch {null}
