@@ -1567,9 +1567,16 @@ impl MusicList {
         file: String, image: Option<String>) -> Music {
 
         let _connection = establish_connection();
+        let _title: String;
+        if title.len() > 99 {
+            _title = title[..100].to_string();
+        }
+        else {
+            _title = title;
+        }
 
         let new_music_form = NewMusic {
-            title: title[..100].to_string(),
+            title: _title, 
             community_id: community_id,
             user_id: user_id,
             music_list_id: self.id,
