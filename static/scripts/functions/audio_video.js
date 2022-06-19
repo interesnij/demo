@@ -427,8 +427,8 @@ FWDMSPUtils.onReady(function() {
   music_player.addListener(FWDMSP.PAUSE, music_onPause);
 });
 function get_music_player_support() {
-  console.log("support!");
   console.log(music_player.getCurrentTime());
+  console.log(music_player.getCurrentTime() == "00:00");
 }
 
 function music_onReady(){console.log("Аудио плеер готов");}
