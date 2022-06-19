@@ -421,15 +421,14 @@ music_player = new FWDMSP({
     atbButtonBackgroundSelectedColor:get_audio_dop()[3], // цвет фона выбранной кнопки "от / до"
   });
 
-    FWDMSPUtils.onReady(function(){
-            music_player.addListener(FWDMSP.READY, music_onReady);
-            music_player.addListener(FWDMSP.PLAY, music_onPlay);
-            music_player.addListener(FWDMSP.PAUSE, music_onPause);
-        });
-
-console.log("PLAY: ", FWDMSP.PLAY);
-console.log("PAUSE: ", FWDMSP.PAUSE);
-console.log("READY: ", FWDMSP.READY);
+FWDMSPUtils.onReady(function() {
+  music_player.addListener(FWDMSP.READY, music_onReady);
+  music_player.addListener(FWDMSP.PLAY, music_onPlay);
+  music_player.addListener(FWDMSP.PAUSE, music_onPause);
+});
+function get_music_player_support() {
+  FWDMSP.PLAY;
+}
 
 function music_onReady(){console.log("Аудио плеер готов");}
 

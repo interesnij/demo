@@ -806,6 +806,7 @@ function ajax_get_reload(url) {
             get_dragula(".drag_container");
             get_dragula(".drag_list");
             get_document_opacity_1();
+            get_music_player_support(); 
             console.log("статистика",  $all_stat);
         }
     }
