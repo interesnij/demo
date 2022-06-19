@@ -1,8 +1,8 @@
 <% if user.is_have_music() { %>
-<div class="card mb-3">
+<div class="mb-3">
     <div class="p-1">
       <a href="/id<%= user.id %>/music/" class="ajax">
-        <div class="media">
+        <div class="media current_color">
             <div class="media-body">
                 <h6 class="content-color-primary mb-0">Аудиозаписи </h6>
             </div>
@@ -12,8 +12,8 @@
     </div>
 
     <% for (i, object) in user.get_6_tracks().iter().enumerate() { %>
-    <div class="card border-top music_item track" data-counter="<%= i %>" playlist-pk="<%= object.music_list_id %>">
-        <div class="p-1">
+    <div class="border-top music_item track" data-counter="<%= i %>" playlist-pk="<%= object.music_list_id %>" style="padding: 2px;">
+        <div class="">
             <div class="media" music-counter="">
               <figure>
                 <a class="pointer music_list_item">
