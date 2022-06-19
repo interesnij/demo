@@ -428,8 +428,7 @@ FWDMSPUtils.onReady(function() {
 });
 function get_music_player_support() {
   console.log("support!");
-  console.log(FWDMSP.UPDATE_TIME);
-  console.log(music_player.play);
+  console.log(music_player.getCurrentTime());
 }
 
 function music_onReady(){console.log("Аудио плеер готов");}
