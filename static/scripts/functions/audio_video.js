@@ -455,11 +455,16 @@ function music_onPlay() {
       for (i=0; i < playlists.length; i++) {
         console.log("playlist!");
         if (playlists[i].getAttribute("data-pk") == list_pk) {
-          playlists[i].style.background = "red";
-          console.log("playlist red!");
-          tracks = playlists[i].querySelectorAll('.track');
-          if (tracks.length > 0) {
-            tracks[id].style.background = "red";
+          if (playlists[i].classList.contains("is_paginate")) {
+            console.log("playlist is_paginate!");
+            tracks = playlists[i].querySelectorAll('.track');
+            if (tracks.length > 0) {
+              tracks[id].style.background = "red";
+            }
+          }
+          else {
+            playlists[i].style.background = "red";
+            console.log("playlist red!");
           }
         }
       }
