@@ -124,6 +124,7 @@ function create_fullscreen(url, type_class) {
               };
             }
           }
+          get_music_player_support($loader);
       }
   };
   link.send();
@@ -164,6 +165,7 @@ function change_this_fullscreen(_this, type_class) {
           if ($loader.querySelector(".data_display")) {
             $loader.style.overflowY = "unset";
           }
+          get_music_player_support($loader);
       }
   };
   link.send();
