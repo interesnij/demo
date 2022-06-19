@@ -463,11 +463,13 @@ function show_play_items(block) {
         }
       }
     }
-    for (i=0; i < items.length; i++) {
-      if (items[i].querySelector(".track_title").innerHTML == title) {
-        items[i].classList.add("play_track", "gradient-border");
+    try {
+      for (i=0; i < items.length; i++) {
+        if (items[i].querySelector(".track_title").innerHTML == title) {
+          items[i].classList.add("play_track", "gradient-border");
+        }
       }
-    }
+    } catch { null };
   }
 }
 
