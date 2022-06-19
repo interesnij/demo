@@ -14,11 +14,11 @@ on('#ajax', 'click', '.load_attach_playlist', function() {
 on('#ajax', 'click', '.load_music_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   if (parent.getAttribute("owner-pk")) {
-    playlist_pk = parent.getAttribute("playlist-pk");
+    playlist_pk = parent.getAttribute("data-pk");
     owner_pk = parent.getAttribute("owner-pk");
   }
   else {
-    playlist_pk = parent.getAttribute("playlist-pk");
+    playlist_pk = parent.getAttribute("data-pk");
     owner_pk = null;
   };
 

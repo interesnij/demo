@@ -455,25 +455,27 @@ function music_onPlay() {
       for (i=0; i < playlists.length; i++) {
         if (playlists[i].getAttribute("data-pk") == list_pk) {
           playlists[i].style.background = "red";
-          console.log("playlist red");
+          console.log("playlist red!");
         }
-      }
-      tracks = document.body.querySelectorAll('.music_item');
-      for (i=0; i < tracks.length; i++) {
-        if (id=i) {
-          if (tracks[i].getAttribute("playlist-pk") == list_pk) {
-            tracks[i].style.background = "red";
-            console.log("tracks red!");
-          }
-          else if (tracks[i].parentElement.getAttribute("playlist-pk") == list_pk) {
+        tracks = playlists[i].querySelectorAll('.track');
+        for (a=0; a < tracks.length; i++) {
+          if (id=i) {
             tracks[i].style.background = "red";
             console.log("tracks red!");
           }
         }
       }
-
-      lists = document.body.querySelectorAll('[playlist-pk=' + '"' + list_pk + '"' + ']');
-      console.log(lists);
+      items = document.body.querySelectorAll('.music_item');
+      for (i=0; i < items.length; i++) {
+          if (i=id && items[i].getAttribute("playlist-pk") == list_pk) {
+            items[i].style.background = "red";
+            console.log("tracks red!");
+          }
+          else if (i=id && items[i].parentElement.getAttribute("playlist-pk") == list_pk) {
+            items[i].style.background = "red";
+            console.log("tracks red!");
+          }
+      }
     }
     try { video_player.pause() } catch {null}
 };
