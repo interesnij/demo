@@ -428,6 +428,7 @@ FWDMSPUtils.onReady(function() {
 });
 function get_music_player_support() {
   if (music_player.getCurrentTime() != "00:00") {
+    console.log(music_player.getCurrentTime());
     music_onPlay();
   }
 }
