@@ -433,6 +433,8 @@ function show_play_items(block) {
 
   list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
   console.log("list_pk: " + list_pk);
+  console.log(block);
+  console.log(block.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']'));
   if (block.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
     console.log("Есть плейлисты");
 
