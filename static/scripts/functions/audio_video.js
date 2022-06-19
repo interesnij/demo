@@ -484,16 +484,16 @@ function music_onReady(){console.log("Аудио плеер готов");}
 
 function music_onPause() {
   try {
-      document.title = "Музыка приостановлена";
-      if(document.querySelector(".user_status")){
-        document.querySelector(".user_status").innerHTML = "Музыка приостановлена";
-      }
+    document.title = "Музыка приостановлена";
+    if(document.querySelector(".user_status")){
+      document.querySelector(".user_status").innerHTML = "Музыка приостановлена";
+    }
   } catch { null }
 }
 
 function music_onPlay() {
     show_play_items(document.body);
-    try { video_player.pause() } catch {null}
+    try { video_player.pause() } catch { null }
 };
 
 function dragElement(elmnt){var pos1=0,pos2=0,pos3=0,pos4=0;document.querySelector("#draggable-header").onmousedown=dragMouseDown;document.querySelector("#draggable-resize").onmousedown=resizeMouseDown;function dragMouseDown(e){e=e||window.event;e.preventDefault();pos3=e.clientX;pos4=e.clientY;document.onmouseup=closeDragElement;document.onmousemove=elementDrag}function resizeMouseDown(e){e=e||window.event;e.preventDefault();pos3=0;pos4=0;document.onmouseup=closeDragElement;document.onmousemove=elementResize}function elementResize(e){e=e||window.event;e.preventDefault();var content=document.querySelector(".draggable");var width=content.offsetWidth;var height=content.offsetHeight;pos1=(e.clientX-width)-content.offsetLeft;pos2=(e.clientY-height)-content.offsetTop;content.style.width=width+pos1+'px';content.style.height=height+pos2+'px'}function elementDrag(e){e=e||window.event;e.preventDefault();pos1=pos3-e.clientX;pos2=pos4-e.clientY;pos3=e.clientX;pos4=e.clientY;elmnt.style.top=(elmnt.offsetTop-pos2)+"px";elmnt.style.left=(elmnt.offsetLeft-pos1)+"px"}function closeDragElement(){document.onmouseup=null;document.onmousemove=null}}
