@@ -396,7 +396,6 @@ music_player = new FWDMSP({
     defaultPlaybackRate:1, //min - 0.5 / max - 3 // скорость воспроизведения по умолчанию (от 0,5 до 3)
     playbackRateWindowTextColor:"#888888",// цвет текста на окне выбора скорости
 
-    //search bar settings
     showSearchBar:"no",                  // показывать секцию поиска треков
     showSortButtons:"yes",                // показывать секцию сортировки треков
     searchInputColor:"#999999",						// цвет секции поиска
@@ -404,14 +403,12 @@ music_player = new FWDMSP({
     inputSearchTextOffsetTop:1,           // смещение текста ввода поиска сверху
     inputSearchOffsetLeft:0,              // смещение текста ввода поиска слева
 
-    //opener settings
     openerAlignment:"right",              // открывание
     showOpener:"yes",                     // показывать эффект
     showOpenerPlayPauseButton:"yes",      // показывать кнопку плей / пауза
     openerEqulizerOffsetLeft:3,           // сдвигание эквалайзера слева
     openerEqulizerOffsetTop:-1,           // сдвигание эквалайзера сверху
 
-    //a to b loop
     atbTimeBackgroundColor:"transparent", // цвет фона "от / до"
     atbTimeTextColorNormal:"#888888",     // цвет текста "от / до"
     atbTimeTextColorSelected:get_audio_dop()[3],   // цвет выбранного текста "от / до"
@@ -430,28 +427,27 @@ FWDMSPUtils.onReady(function() {
 function show_play_items(block) {
   id = music_player.getTrackId();
   title = music_player.getTrackTitle();
-  document.title = "¶ " + title;
-  if(document.querySelector(".user_status")) {
-    document.querySelector(".user_status").innerHTML = "¶ " + title;
+  if (title != undefined) {
+    document.title = "¶ " + title;
+    if(document.querySelector(".user_status")) {
+      document.querySelector(".user_status").innerHTML = "¶ " + title;
+    }
   }
-  console.log("id: " + id);
   if (id == undefined) {
     return;
   }
 
   list_pk = document.body.querySelector("#saved_playlist").getAttribute("data-pk");
-  console.log("list_pk: " + list_pk);
 
   if (block.querySelector('[playlist-pk=' + '"' + list_pk + '"' + ']')) {
-
     items = block.querySelectorAll('.track');
     for (i=0; i < items.length; i++) {
-      items[i].classList.remove("border");
-    }
+      items[i].classList.remove("play_track", "gradient-border");
+    } 
 
     playlists = block.querySelectorAll('.playlist');
     for (i=0; i < playlists.length; i++) {
-      playlists[i].classList.remove("play");
+      playlists[i].classList.remove("play_list", "gradient-border");
     }
 
     for (i=0; i < playlists.length; i++) {
@@ -459,17 +455,17 @@ function show_play_items(block) {
         if (playlists[i].classList.contains("is_paginate")) {
           tracks = playlists[i].querySelectorAll('.track');
           if (tracks.length > 0) {
-            tracks[id].classList.add("border");
+            tracks[id].classList.add("play_track", "gradient-border");
           }
         }
         else {
-          playlists[i].classList.add("play");
+          playlists[i].classList.add("play_list", "gradient-border");
         }
       }
     }
     for (i=0; i < items.length; i++) {
       if (items[i].querySelector(".track_title").innerHTML == title) {
-        items[i].classList.add("border");
+        items[i].classList.add("play_track", "gradient-border");
       }
     }
   }
