@@ -90,8 +90,8 @@ body {
   background-color: #ffffff;
 }
 
-.card, .mobile_naw, .card_fullscreen {
-  background-color: white;
+.card, .mobile_naw, .card_fullscreen, .current_color {
+  background-color: white !important;
 }
 
 a.media:hover {

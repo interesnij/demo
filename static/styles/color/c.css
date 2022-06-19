@@ -79,8 +79,8 @@ body {
   background-color: #582a72;
 }
 
-.card, .mobile_naw, .card_fullscreen {
-  background-color: #3e214e;
+.card, .mobile_naw, .card_fullscreen, .current_color {
+  background-color: #3e214e !important;
 }
 
 a.media:hover {

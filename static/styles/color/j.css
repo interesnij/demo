@@ -84,8 +84,8 @@ body {
   background-color: #3c99f5;
 }
 
-.card, .mobile_naw, .card_fullscreen {
-  background-color: #0774df;
+.card, .mobile_naw, .card_fullscreen, .current_color {
+  background-color: #0774df !important;
 }
 
 a.media:hover {

@@ -5,7 +5,7 @@
 }
 
 .gradient-border {
-  --border-width: 3px;
+  --border-width: 1px;
   position: relative;
   border-radius: var(--border-width);
 }

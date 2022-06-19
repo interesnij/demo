@@ -83,9 +83,8 @@ body {
   background-color: #006544;
 }
 
-.card, .mobile_naw,
-.card_fullscreen {
-  background-color: #006544;
+.card, .mobile_naw, .card_fullscreen, .current_color {
+  background-color: #006544 !important;
 }
 audio::-webkit-media-controls-panel {
   background-color: navajowhite;
