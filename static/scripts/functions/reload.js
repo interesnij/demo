@@ -18,7 +18,7 @@ function create_tracks_keys() {
   for (var i = 0; i < tracks.length; i++) {
     list.push(tracks[i].getAttribute("data-track-id"));
   }
-  playlist.setAttribute("data-ids", "[" + list + "]");
+  playlist.setAttribute("data-ids", list);
 }
 create_tracks_keys();
 

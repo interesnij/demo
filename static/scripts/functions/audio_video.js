@@ -468,7 +468,8 @@ function show_play_items(block) {
   title = music_player.getTrackTitle();
   console.log("counter" + counter);
   console.log("ids" + playlist.getAttribute("data-ids"));
-  track_id = playlist.getAttribute("data-ids")[counter];
+  data_ids = playlist.getAttribute("data-ids").split(",");
+  track_id = data_ids[counter];
 
   console.log("play track" + track_id);
 
