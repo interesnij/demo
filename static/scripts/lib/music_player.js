@@ -1799,7 +1799,7 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 								return self.id
 							},
 							this.getPk = function() {
-								return self.data.playlist_ar[pId].buy
+								console.log(self.data);
 							},
 							this.getTrackTitle = function() {
 								if (self.isAPIReady_bl) return self.data.playlist_ar[self.id].title
