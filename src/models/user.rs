@@ -2190,7 +2190,7 @@ impl User {
         // mes<id> - сообщение
         // cpo<id> - коммент записи (и т.д)
         let types = self.get_profile().saved_playlist;
-        let tracks: Vec<Music>;
+        let tracks: Vec<Music>; 
         let name: String;
         let image: String;
         let description: String;
