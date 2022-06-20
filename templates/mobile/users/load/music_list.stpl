@@ -2,7 +2,7 @@
 <span data-title="Мои аудиозаписи - <%= list.name %>">
 <% if object_list.len() > 0 { %>
 
-<ul class="is_block_paginate">
+<ul class="is_block_paginate is_paginate" playlist-pk="<%= list.id %>">
 <% for object in object_list.iter() { %>
 <li class="border-top music_item track" data-pk="<%= object.id %>" playlist-pk="<%= object.music_list_id %>">
   <div style="display:flex" music-pk="<%= object.id %>" music-counter="">
