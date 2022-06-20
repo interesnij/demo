@@ -425,18 +425,6 @@ FWDMSPUtils.onReady(function() {
 });
 
 function show_active_track(block, list_pk, track_pk) {
-  // уберем все подсветки плейлистов и треков
-  items = block.querySelectorAll('.track');
-  for (i=0; i < items.length; i++) {
-    items[i].classList.remove("play_track", "gradient-border", "pause");
-  }
-
-  playlists = block.querySelectorAll('.playlist');
-  for (i=0; i < playlists.length; i++) {
-    playlists[i].classList.remove("play_list", "gradient-border", "pause");
-  }
-  // ---- //
-
   for (i=0; i < playlists.length; i++) {
     if (playlists[i].getAttribute("data-pk") == list_pk) {
       if (playlists[i].classList.contains("is_paginate")) {
@@ -455,7 +443,21 @@ function show_active_track(block, list_pk, track_pk) {
       }
     }
   } catch { null };
-}
+};
+
+function remove_play_items(block) {
+  // уберем все подсветки плейлистов и треков
+  items = block.querySelectorAll('.track');
+  for (i=0; i < items.length; i++) {
+    items[i].classList.remove("play_track", "gradient-border", "pause");
+  }
+
+  playlists = block.querySelectorAll('.playlist');
+  for (i=0; i < playlists.length; i++) {
+    playlists[i].classList.remove("play_list", "gradient-border", "pause");
+  }
+  // ---- //
+};
 
 function show_play_items(block) {
   playlist = document.body.querySelector("#saved_playlist");
@@ -499,6 +501,7 @@ function show_play_items(block) {
   }
     console.log("play list" + list_id);
   // отражаем проигрываемый трек и плейлист
+  remove_play_items(block);
   show_active_track(block, list_id, track_id);
 }
 
@@ -513,13 +516,14 @@ function music_onReady(){console.log("Аудио плеер готов");}
 function music_onPause() {
   try {
     document.title = "Музыка приостановлена";
-    if(document.querySelector(".user_status")){
+    if (document.querySelector(".user_status")) {
       document.querySelector(".user_status").innerHTML = "Музыка приостановлена";
     }
   } catch { null }
-}
+};
 
 function music_onPlay() {
+    remove_play_items(document.body);
     show_play_items(document.body);
     try { video_player.pause() } catch { null }
 };
@@ -558,7 +562,6 @@ on('#ajax', 'click', '.music_list_item', function() {
       if (FWDMSP.LOAD_PLAYLIST_COMPLETE) {
         setTimeout(function() {
           music_player.playSpecificTrack("list_" + list_pk, counter);
-          show_play_items(document.body.querySelector("#ajax"));
         }, 50);
       }
   }
