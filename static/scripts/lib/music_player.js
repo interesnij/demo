@@ -1799,9 +1799,9 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 								return self.id
 							},
 							this.getPk = function(pId) {
-								null == pId && (pId = self.id);
-									console.log(self.data.playlist_ar[pId].title);
-									console.log(self.data.playlist_ar[pId].buy);
+								//null == pId && (pId = self.id);
+								console.log("pId", self.data.playlist_ar[pId].buy);
+								console.log("self.id", self.data.playlist_ar[self.id].buy);
 							},
 							this.getTrackTitle = function() {
 								if (self.isAPIReady_bl) return self.data.playlist_ar[self.id].title
