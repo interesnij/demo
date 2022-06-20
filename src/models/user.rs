@@ -2212,6 +2212,13 @@ impl User {
             description = playlist.get_descriptions();
             name = playlist.name;
             types = "lis".to_string() + &playlist.id.to_string();
+
+            let _connection = establish_connection();
+            let profile = self.get_profile();
+            diesel::update(&profile)
+                .set(schema::user_profiles::saved_playlist.eq(types.clone()))
+                .get_result::<UserProfile>(&_connection)
+                .expect("E");
         }
         else {
             let pk: i32 = types[3..].parse().unwrap();
