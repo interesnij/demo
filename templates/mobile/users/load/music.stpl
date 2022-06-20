@@ -41,7 +41,7 @@
 
 <ul class="is_block_paginate">
 <% for object in object_list.iter() { %>
-<li class="list-group-item music_item track" playlist-pk="<%= object.music_list_id %>">
+<li class="list-group-item music_item track" data-pk="<%= object.id %>" playlist-pk="<%= object.music_list_id %>">
   <div style="display:flex" music-pk="<%= object.id %>">
       <figure>
         <a class="pointer music_list_item">
