@@ -1827,7 +1827,7 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 									null == pId && (pId = self.id);
 									var track_id = self.data.playlist_ar[pId].buy;
 									//var can_add = self.data.playlist_ar[pId].can_add;
-									console.log(track_id);
+									return track_id;
 								}
 							},
 							this.playFirstTrack = function() {
