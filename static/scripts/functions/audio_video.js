@@ -462,6 +462,7 @@ function show_play_items(block) {
   counter = music_player.getTrackId();
   title = music_player.getTrackTitle();
   track_id = playlist.getAttribute("data-ids")[counter];
+  console.log("play track" track_id);
 
   if (title != undefined) {
     title_replace = title.replace(/<\/?[^>]+(>|$)/g, "");
@@ -493,6 +494,7 @@ function show_play_items(block) {
       }
     }
   }
+    console.log("play list" list_id);
   // отражаем проигрываемый трек и плейлист
   show_active_track(block, list_id, track_id);
 }
