@@ -96,9 +96,9 @@ pub struct Artist {
     pub repost:      i32,
     pub copy:        i32,
     pub position:    i16,
-    pub can_see_el:  String,
     pub listen:      i32,
     pub lists:       i32,
+    pub can_see_el:  String,
 }
 
 impl Artist {
@@ -114,9 +114,9 @@ impl Artist {
             repost: 0,
             copy: 0,
             position: position,
-            can_see_el: "a".to_string(),
             listen: 0,
             lists: 0,
+            can_see_el: "a".to_string(),
         };
         let new_artist = diesel::insert_into(schema::artists::table)
             .values(&new_form)
@@ -136,9 +136,9 @@ impl Artist {
             repost: self.repost,
             copy: self.copy,
             position: position,
-            can_see_el: self.can_see_el.clone(),
             listen: self.listen,
             lists: self.lists,
+            can_see_el: self.can_see_el.clone(),
         };
         diesel::update(self)
             .set(new_form)
@@ -159,9 +159,9 @@ pub struct NewArtist {
     pub repost:      i32,
     pub copy:        i32,
     pub position:    i16,
-    pub can_see_el:  String,
     pub listen:      i32,
     pub lists:       i32,
+    pub can_see_el:  String,
 }
 
 /////// MusicList //////
@@ -1529,10 +1529,10 @@ impl MusicList {
         let new_music_form = NewMusic {
             title: _title,
             community_id: community_id,
-            artist_id: artist_id,
             user_id: user_id,
             music_list_id: self.id,
             genre_id: genre_id,
+            artist_id: artist_id,
             types: "a".to_string(),
             file: file,
             image: image,
@@ -1607,10 +1607,10 @@ pub struct Music {
     pub id:            i32,
     pub title:         String,
     pub community_id:  Option<i32>,
-    pub artist_id:     Option<i32>,
     pub user_id:       i32,
     pub music_list_id: i32,
     pub genre_id:      Option<i32>,
+    pub artist_id:     Option<i32>,
     pub types:         String,
     pub file:          String,
     pub image:         Option<String>,
@@ -1627,10 +1627,10 @@ pub struct Music {
 pub struct NewMusic {
     pub title:         String,
     pub community_id:  Option<i32>,
-    pub artist_id:     Option<i32>,
     pub user_id:       i32,
     pub music_list_id: i32,
     pub genre_id:      Option<i32>,
+    pub artist_id:     Option<i32>,
     pub types:         String,
     pub file:          String,
     pub image:         Option<String>,

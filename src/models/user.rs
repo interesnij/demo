@@ -2306,7 +2306,7 @@ impl User {
                 tracks = comment.get_attach_tracks();
                 description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
-            } 
+            }
             else if code == "cvi".to_string() {
                 use crate::utils::get_video_comment;
                 let comment = get_video_comment(pk);
