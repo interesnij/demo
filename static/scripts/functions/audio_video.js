@@ -536,6 +536,7 @@ on('#ajax', 'click', '.music_list_item', function() {
       return;
     }
   }
+  music_player.getPk();
 
   counter = 0;
   parents = track.parentElement;
