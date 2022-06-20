@@ -11,6 +11,17 @@ function get_dragula(block) {
     //.on('out', function (el, container) {console.log("over!");;});
 };
 
+function create_tracks_keys() {
+  var playlist = document.body.querySelector("#saved_playlist");
+  var tracks = playlist.querySelectorAll("li");
+  list = [];
+  for (var i = 0; i < tracks.length; i++) {
+    list.push(tracks[i].getAttribute("data-track-id"));
+  }
+  playlist.setAttribute("data-ids", list);
+}
+create_tracks_keys();
+
 var $serf_history = [], $new_window_list = [], $new_elements = [];
 var user_info = document.body.querySelector(".userpic");
 var $request_user_id = user_info.getAttribute("data-id");

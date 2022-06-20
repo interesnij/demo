@@ -424,7 +424,7 @@ FWDMSPUtils.onReady(function() {
   music_player.addListener(FWDMSP.PAUSE, music_onPause);
 });
 
-function show_active_track(block, pk, id) {
+function show_active_track(block, list_pk, track_pk) {
   // уберем все подсветки плейлистов и треков
   items = block.querySelectorAll('.track');
   for (i=0; i < items.length; i++) {
@@ -438,12 +438,9 @@ function show_active_track(block, pk, id) {
   // ---- //
 
   for (i=0; i < playlists.length; i++) {
-    if (playlists[i].getAttribute("data-pk") == pk) {
+    if (playlists[i].getAttribute("data-pk") == list_pk) {
       if (playlists[i].classList.contains("is_paginate")) {
-        tracks = playlists[i].querySelectorAll('.track');
-        if (tracks.length > 0) {
-          tracks[id].classList.add("play_track", "gradient-border");
-        }
+        console.log("Обнаружен проигрываемый список плейлиста!")ж
       }
       else {
         playlists[i].classList.add("play_list", "gradient-border");
@@ -547,7 +544,6 @@ on('#ajax', 'click', '.music_list_item', function() {
       counter = i;
     }
   }
-  music_player.buy_2();
 
   saved_playlist = document.body.querySelector("#saved_playlist");
   current_type = "lis" + list_pk;
