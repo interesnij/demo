@@ -187,7 +187,7 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 		}
 		var S = e.D = {};
 		S.b = {}, S.frames = {
-			
+
 		};
 		var y = {
 				title: ["TIT2", "TT2"],
@@ -1797,6 +1797,9 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 							},
 							this.getTrackId = function() {
 								return self.id
+							},
+							this.getPk = function() {
+								return self.data.playlist_ar[pId].buy
 							},
 							this.getTrackTitle = function() {
 								if (self.isAPIReady_bl) return self.data.playlist_ar[self.id].title
