@@ -461,11 +461,12 @@ function show_active_track(block, pk, id) {
 
 function show_play_items(block) {
   counter = music_player.getTrackId();
-  title = music_player.getTrackTitle().replace(/<\/?[^>]+(>|$)/g, "");
+  title = music_player.getTrackTitle();
   if (title != undefined) {
-    document.title = "¶ " + title;
+    title_replace = title.replace(/<\/?[^>]+(>|$)/g, "");
+    document.title = "¶ " + title_replace;
     if(document.querySelector(".user_status")) {
-      document.querySelector(".user_status").innerHTML = "¶ " + title;
+      document.querySelector(".user_status").innerHTML = "¶ " + title_replace;
     }
   }
   if (counter == undefined) {
