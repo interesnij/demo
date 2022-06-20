@@ -52,7 +52,8 @@ CREATE TABLE user_profiles (
     favorite_books VARCHAR(500),
     favorite_game  VARCHAR(500),
     about          VARCHAR(500),
-    survey         INT NOT NULL,
+    survey         INT NOT NULL, 
+    saved_playlist VARCHAR(100) NOT NULL, --id сохраненный плейлист.
 
     CONSTRAINT fk_user_profile
         FOREIGN KEY(user_id)
