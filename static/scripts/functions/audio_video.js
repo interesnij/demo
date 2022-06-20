@@ -460,8 +460,11 @@ function remove_play_items(block) {
 };
 
 function show_play_items(block) {
-  playlist = document.body.querySelector("#saved_playlist");
   counter = music_player.getTrackId();
+  if (counter == undefined) {
+    return;
+  }
+  playlist = document.body.querySelector("#saved_playlist");
   title = music_player.getTrackTitle();
   console.log("counter" + counter);
   console.log("ids" + playlist.getAttribute("data-ids"));
@@ -475,9 +478,6 @@ function show_play_items(block) {
     if (document.querySelector(".user_status")) {
       document.querySelector(".user_status").innerHTML = "¶ " + title_replace;
     }
-  }
-  if (counter == undefined) {
-    return;
   }
 
   type = playlist.getAttribute("data-type");
