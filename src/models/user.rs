@@ -2205,6 +2205,15 @@ impl User {
         let mut image = "".to_string();
         let mut description = "".to_string();
 
+        if types.len() < 4 {
+            let _connection = establish_connection();
+            let profile = self.get_profile();
+            diesel::update(&profile)
+                .set(schema::user_profiles::saved_playlist.eq("lis".to_string() + self.get_music_list().id.to_string()))
+                .get_result::<UserProfile>(&_connection)
+                .expect("E");
+        }
+
         if types == "".to_string() {
             let playlist = self.get_music_list();
             tracks = playlist.get_paginate_items(30,0);
@@ -2212,13 +2221,6 @@ impl User {
             description = playlist.get_descriptions();
             name = playlist.name;
             types = "lis".to_string() + &playlist.id.to_string();
-
-            let _connection = establish_connection();
-            let profile = self.get_profile();
-            diesel::update(&profile)
-                .set(schema::user_profiles::saved_playlist.eq(types.clone()))
-                .get_result::<UserProfile>(&_connection)
-                .expect("E");
         }
         else {
             let pk: i32 = types[3..].parse().unwrap();
