@@ -497,8 +497,7 @@ function show_play_items(block) {
 }
 
 function get_music_player_support(block) {
-  if (music_player.getCurrentTime() != "00:00") {
-    console.log(music_player.getCurrentTime());
+  if (music_player.getCurrentTime() && music_player.getCurrentTime() != "00:00") {
     show_play_items(block);
   }
 }
