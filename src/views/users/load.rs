@@ -659,7 +659,7 @@ pub async fn surveys_list_load(session: Session, req: HttpRequest, list_id: web:
 
 
 pub async fn music_load(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
-    use crate::models::Music;
+    use crate::models::{Music, MusicList};
 
     let (is_desctop, page) = get_list_variables(req);
     let mut next_page_number = 0;
