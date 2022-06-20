@@ -3083,28 +3083,6 @@ impl VideoComment {
        return true;
     }
 
-    pub fn get_playlist_image(&self) -> String {
-        let item = self.get_item();
-        if item.community_id.is_some() {
-            let community = item.get_community();
-            if community.b_avatar.is_some() {
-                return community.b_avatar.as_deref().unwrap().to_string();
-            }
-            else {
-                return "/static/images/news_small3.jpg".to_string();
-            }
-        }
-        else {
-            let creator = item.get_creator();
-            if creator.b_avatar.is_some() {
-                return creator.b_avatar.as_deref().unwrap().to_string();
-            }
-            else {
-                return "/static/images/news_small3.jpg".to_string();
-            }
-        }
-    }
-
     pub fn delete_item(&self) -> bool {
         let _connection = establish_connection();
         let user_types = &self.types;

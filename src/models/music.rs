@@ -378,7 +378,7 @@ impl MusicList {
             return self.description.as_deref().unwrap().to_string();
         }
         else {
-            "Без описания".to_string();
+            return "Без описания".to_string();
         }
     }
     pub fn is_user_list(&self, user: User) -> bool {
@@ -2007,9 +2007,9 @@ impl Music {
             list.create_track (
                 item.title.clone(),
                 item.community_id,
-                item.artist_id,
                 list.user_id,
                 item.genre_id,
+                item.artist_id,
                 item.file.clone(),
                 item.image.clone(),
             );

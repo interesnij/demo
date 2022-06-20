@@ -114,28 +114,31 @@ pub struct PlaylistData {
     pub name:        String,
     pub image:       String,
     pub description: String,
+    pub types:       String,
 }
 pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::Json<PlaylistData> {
     let mut data: PlaylistData = PlaylistData {
         tracks:      Vec::new(),
-        name:        "".to_string,
-        image:       "".to_string,
-        description: "".to_string,
+        name:        "".to_string(),
+        image:       "".to_string(),
+        description: "".to_string(),
+        types:       "".to_string(),
     };
 
     if is_signed_in(&session) {
         use crate::utils::get_music_list;
+        use crate::models::Music;
 
         let _request_user = get_request_user_data(&session);
         let _types = types.into_inner();
-        _request_user.save_playlist(&_types); 
+        _request_user.save_playlist(&_types);
 
         let tracks: Vec<Music>;
         let name: String;
         let image: String;
         let description: String;
 
-        if types == "".to_string() {
+        if _types == "".to_string() {
             let playlist = _request_user.get_music_list();
             tracks = playlist.get_paginate_items(30,0);
             name = playlist.name;
@@ -143,8 +146,8 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
             description = playlist.get_descriptions();
         }
         else {
-            let pk: i32 = types[3..].parse().unwrap();
-            let code = &types[..3];
+            let pk: i32 = _types[3..].parse().unwrap();
+            let code = &_types[..3];
 
             if code == "lis".to_string() {
                 use crate::utils::get_music_list;
@@ -278,6 +281,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
             name:        name,
             image:       image,
             description: description,
+            types: _types,
         };
         return Json(data)
     } else {
