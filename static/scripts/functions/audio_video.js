@@ -561,11 +561,14 @@ on('#ajax', 'click', '.music_list_item', function() {
   }
 });
 
-function add_html_tracks_in_player (tracks) {
+function add_html_tracks_in_player (html) {
+  span = document.createElement("div");
+  span.innerHTML = html;
+  tracks = span.querySelectorAll(".li");
   for (i=0; i < tracks.length; i++) {
-    _source=tracks[i].getAttribute("data-file");
-    _title=tracks[i].querySelector(".new_title").innerHTML;
-    _thumbPath="/static/images/news_small3.jpg";
+    _source = tracks[i].getAttribute("data-file");
+    _title = tracks[i].querySelector(".new_title").innerHTML;
+    _thumbPath = "/static/images/news_small3.jpg";
     music_player.addTrack(_source, title, _thumbPath, null, true, false, null)
   }
 };

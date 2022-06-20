@@ -122,7 +122,7 @@ on('body', 'change', '.case_all_input', function() {
         lenta.insertAdjacentHTML('afterBegin', response.innerHTML);
         lenta.querySelector(".items_empty") ? document.body.querySelector(".items_empty").style.display = "none" : null;
         if (case_audio) {
-          add_html_tracks_in_player (response.innerHTML);
+          add_html_tracks_in_player (response);
         }
       }
   }};
