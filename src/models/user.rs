@@ -281,6 +281,15 @@ impl User {
         }
     }
 
+    pub fn save_playlist(&self, types: &String) -> () {
+        let _connection = establish_connection();
+        let profile = self.get_profile();
+        diesel::update(&profile)
+            .set(schema::user_profiles::saved_playlist.eq(types))
+            .get_result::<UserProfile>(&_connection)
+            .expect("E");
+    }
+
     pub fn get_slug(&self) -> String {
         return "@".to_string() + &self.link.replace("/", "").to_string();
     }

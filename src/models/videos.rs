@@ -33,6 +33,7 @@ use crate::models::{
     Post,
     Message,
     Reaction,
+    Music,
 };
 use actix_web::web::Json;
 

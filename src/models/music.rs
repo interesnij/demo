@@ -1492,17 +1492,6 @@ impl MusicList {
        return true;
     }
 
-    pub fn save_playlist(&self, user: &User, types: &String) -> () {
-        use crate::models::UserProfile;
-
-        let _connection = establish_connection();
-        let profile = user.get_profile();
-        diesel::update(&profile)
-            .set(schema::user_profiles::saved_playlist.eq(types))
-            .get_result::<UserProfile>(&_connection)
-            .expect("E");
-        //return true;
-    }
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
         if self.community_id.is_some() {
             let community = self.get_community();

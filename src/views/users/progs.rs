@@ -128,7 +128,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
 
         let _request_user = get_request_user_data(&session);
         let _types = types.into_inner();
-        _list.save_playlist(&_request_user, &_types);
+        _request_user.save_playlist(&_types); 
 
         let tracks: Vec<Music>;
         let name: String;
@@ -136,7 +136,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
         let description: String;
 
         if types == "".to_string() {
-            let playlist = self.get_music_list();
+            let playlist = _request_user.get_music_list();
             tracks = playlist.get_paginate_items(30,0);
             name = playlist.name;
             image = playlist.get_image();
