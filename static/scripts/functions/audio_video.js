@@ -553,6 +553,7 @@ on('#ajax', 'click', '.music_list_item', function() {
   if (saved_playlist.getAttribute("data-type") != current_type) {
       save_playlist(list_pk, '/users/progs/save_playlist/' + current_type + "/", counter);
       saved_playlist.setAttribute("data-pk", list_pk);
+      show_play_items(docement.body.querySelector("#ajax"));
   } else {
       music_player.loadPlaylist(0);
       if (FWDMSP.LOAD_PLAYLIST_COMPLETE) {
