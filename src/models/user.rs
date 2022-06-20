@@ -2205,7 +2205,7 @@ impl User {
         let mut image = "".to_string();
         let mut description = "".to_string();
 
-        if types.len() < 4 {
+        if types.len() < 4 || types.contains("null") {
             let _connection = establish_connection();
             let profile = self.get_profile();
             types = "lis".to_string() + &self.get_music_list().id.to_string();
