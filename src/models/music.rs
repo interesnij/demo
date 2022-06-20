@@ -1492,13 +1492,13 @@ impl MusicList {
        return true;
     }
 
-    pub fn save_playlist(&self, user: User) -> () {
+    pub fn save_playlist(&self, user: &User, types: &String) -> () {
         use crate::models::UserProfile;
 
         let _connection = establish_connection();
         let profile = user.get_profile();
         diesel::update(&profile)
-            .set(schema::user_profiles::playlist.eq(self.id))
+            .set(schema::user_profiles::saved_playlist.eq(types))
             .get_result::<UserProfile>(&_connection)
             .expect("E");
         //return true;

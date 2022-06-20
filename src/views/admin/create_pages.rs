@@ -1139,7 +1139,7 @@ pub async fn edit_music_album_page(session: Session, cat_id: web::Path<i32>) -> 
                 .load::<Artist>(&_connection)
                 .expect("E.");
 
-            let all_albums = music_albums
+            let all_albums = music_lists
                 .filter(schema::music_lists::artist_id.is_not_none())
                 .load::<MusicList>(&_connection)
                 .expect("E.");
@@ -1149,7 +1149,7 @@ pub async fn edit_music_album_page(session: Session, cat_id: web::Path<i32>) -> 
             struct Template {
                 music_album:  MusicList,
                 all_artists:  Vec<Artist>,
-                all_albums:   Vec<MusicAlbum>,
+                all_albums:   Vec<MusicList>,
             }
             let body = Template {
                 music_album:  music_album,

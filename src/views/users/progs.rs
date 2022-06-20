@@ -23,7 +23,7 @@ pub fn progs_urls(config: &mut web::ServiceConfig) {
     config.route("/users/progs/follow/{id}/", web::post().to(user_follow));
     config.route("/users/progs/follow_view/{id}/", web::post().to(user_follow_view));
     config.route("/users/progs/unfollow/{id}/", web::post().to(user_unfollow));
-    config.route("/users/progs/save_playlist/{id}/", web::post().to(save_playlist));
+    config.route("/users/progs/save_playlist/{types}/", web::post().to(save_playlist));
 }
 
 pub async fn user_friend(session: Session, user_id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
@@ -109,29 +109,177 @@ pub struct TrackData {
     pub image:  String,
 }
 #[derive(Deserialize, Serialize, Debug)]
-pub struct TracksData {
-    pub tracks: Vec<TrackData>,
+pub struct PlaylistData {
+    pub tracks:      Vec<TrackData>,
+    pub name:        String,
+    pub image:       String,
+    pub description: String,
 }
-pub async fn save_playlist(session: Session, list_id: web::Path<i32>) -> web::Json<TracksData> {
-    let mut tracks_list: TracksData = TracksData {
-        tracks: Vec::new(),
-    }; 
+pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::Json<TracksData> {
+    let mut data: PlaylistData = PlaylistData {
+        tracks:      Vec::new(),
+        name:        "".to_string,
+        image:       "".to_string,
+        description: "".to_string,
+    };
 
     if is_signed_in(&session) {
         use crate::utils::get_music_list;
 
         let _request_user = get_request_user_data(&session);
-        let _list = get_music_list(*list_id);
-        _list.save_playlist(_request_user);
-        for track in _list.get_items().iter() {
-            tracks_list.tracks.push(TrackData {
-                url:   track.file.clone(),
-                title: track.title.clone(),
-                image: track.get_image(),
-            });
+        let _types = types.into_inner()
+        _list.save_playlist(&_request_user, &_types);
+
+        let name: String;
+        let image: String;
+        let description: String;
+
+        if types == "".to_string() {
+            let playlist = self.get_music_list();
+            tracks = playlist.get_paginate_items(30,0);
+            name = playlist.name;
+            image = playlist.get_image();
+            description = playlist.get_descriptions();
         }
-        return Json(tracks_list)
+        else {
+            let pk: i32 = types[3..].parse().unwrap();
+            let code = &types[..3];
+
+            if code == "lis".to_string() {
+                use crate::utils::get_music_list;
+                let playlist = get_music_list(pk);
+                tracks = playlist.get_paginate_items(30,0);
+                name = playlist.name;
+                image = playlist.get_image();
+                description = playlist.get_descriptions();
+            }
+            else if code == "pos".to_string() {
+                use crate::utils::get_post;
+                let post = get_post(pk);
+                if post.community_id.is_some() {
+                    let community = post.get_community();
+                    name = community.name;
+                    if community.b_avatar.is_some() {
+                        image = community.b_avatar.as_deref().unwrap().to_string();
+                    }
+                    else {
+                        image = "/static/images/news_small3.jpg".to_string();
+                    }
+                }
+                else {
+                    let creator = post.get_creator();
+                    name = creator.get_full_name();
+                    if creator.b_avatar.is_some() {
+                        image = creator.b_avatar.as_deref().unwrap().to_string();
+                    }
+                    else {
+                        image = "/static/images/news_small3.jpg".to_string();
+                    }
+                }
+                tracks = post.get_attach_tracks();
+                description = "Аудиозаписи поста";
+            }
+            else if code == "mes".to_string() {
+                use crate::utils::get_message;
+                let message = get_message(pk);
+
+                let creator = message.get_creator();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                tracks = message.get_attach_tracks();
+                description = "Аудиозаписи сообщения";
+                name = creator.get_full_name();
+            }
+            else if code == "cpo".to_string() {
+                use crate::utils::get_post_comment;
+                let comment = get_post_comment(pk);
+
+                let creator = comment.get_commenter();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                let creator = comment.get_creator();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                tracks = comment.get_attach_tracks();
+                description = "Аудиозаписи сообщения";
+                name = creator.get_full_name();
+            }
+            else if code == "cgo".to_string() {
+                use crate::utils::get_good_comment;
+                let comment = get_good_comment(pk);
+
+                let creator = comment.get_commenter();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                tracks = comment.get_attach_tracks();
+                description = "Аудиозаписи сообщения";
+                name = creator.get_full_name();
+            }
+            else if code == "cph".to_string() {
+                use crate::utils::get_photo_comment;
+                let comment = get_photo_comment(pk);
+
+                let creator = comment.get_commenter();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                tracks = comment.get_attach_tracks();
+                description = "Аудиозаписи сообщения";
+                name = creator.get_full_name();
+            }
+            else if code == "cvi".to_string() {
+                use crate::utils::get_video_comment;
+                let comment = get_video_comment(pk);
+
+                let creator = comment.get_commenter();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                tracks = comment.get_attach_tracks();
+                description = "Аудиозаписи сообщения";
+                name = creator.get_full_name();
+            }
+        }
+
+        let mut stack = Vec::new();
+        for track in tracks.iter() {
+            stack.push (
+                TrackData {
+                    url:   track.file.clone(),
+                    title: track.title.clone(),
+                    image: track.get_image(),
+                });
+        }
+        data = PlaylistData {
+            tracks:      stack,
+            name:        name,
+            image:       image,
+            description: description,
+        };
+        return Json(data)
     } else {
-        return Json(tracks_list)
+        return Json(data)
     }
 }
