@@ -547,7 +547,7 @@ on('#ajax', 'click', '.music_list_item', function() {
       counter = i;
     }
   }
-  music_player.buy();
+  music_player.buy_2();
 
   saved_playlist = document.body.querySelector("#saved_playlist");
   current_type = "lis" + list_pk;

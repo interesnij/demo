@@ -1826,7 +1826,12 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 								if (self.isAPIReady_bl) {
 									null == pId && (pId = self.id);
 									var track_id = self.data.playlist_ar[pId].buy;
-									//var can_add = self.data.playlist_ar[pId].can_add;
+									return track_id;
+								}
+							},
+							this.buy_2 = function() {
+								if (self.isAPIReady_bl) {
+									var track_id = self.data.playlist_ar[self.id].buy;
 									return track_id;
 								}
 							},
