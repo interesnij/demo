@@ -1009,7 +1009,7 @@ pub async fn create_music_album(session: Session, mut payload: Multipart) -> act
                 _request_user.id.to_string()
             ).await;
 
-            let new_list = MusicList::create_list (
+            MusicList::create_list (
                 _request_user,
                 form.name,
                 form.description,
@@ -1056,7 +1056,7 @@ pub async fn edit_music_album(session: Session, mut payload: Multipart, album_id
             album.edit_list (
                 form.name,
                 form.description,
-                form.image, 
+                form.image,
                 "a".to_string(),
                 "o".to_string(),
                 "a".to_string(),
