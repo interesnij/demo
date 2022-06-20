@@ -450,7 +450,7 @@ function show_active_track(block, pk, id) {
       }
     }
   }
-  console.log(items);
+
   try {
     for (i=0; i < items.length; i++) {
       if (items[i].getAttribute("playlist-pk") == pk) {
@@ -536,7 +536,6 @@ on('#ajax', 'click', '.music_list_item', function() {
       return;
     }
   }
-  music_player.getPk();
 
   counter = 0;
   parents = track.parentElement;
@@ -548,6 +547,7 @@ on('#ajax', 'click', '.music_list_item', function() {
       counter = i;
     }
   }
+  music_player.getPk();
 
   saved_playlist = document.body.querySelector("#saved_playlist");
   current_type = "lis" + list_pk;
