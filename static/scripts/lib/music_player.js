@@ -1798,11 +1798,11 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 							this.getTrackId = function() {
 								return self.id
 							},
-							this.getPk = function(pId) {
+							//this.getPk = function(pId) {
 								//null == pId && (pId = self.id);
-								console.log("pId", self.data.playlist_ar[pId].buy);
-								console.log("self.id", self.data.playlist_ar[self.id].buy);
-							},
+							//	console.log("pId", self.data.playlist_ar[pId].buy);
+							//	console.log("self.id", self.data.playlist_ar[self.id].buy);
+							//},
 							this.getTrackTitle = function() {
 								if (self.isAPIReady_bl) return self.data.playlist_ar[self.id].title
 							},
@@ -1826,8 +1826,8 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 								if (self.isAPIReady_bl) {
 									null == pId && (pId = self.id);
 									var track_id = self.data.playlist_ar[pId].buy;
-									var can_add = self.data.playlist_ar[pId].can_add;
-									console.log("номер дорожки: " + pId, "id трека: " + track_id, "возможность добавить: " + can_add);
+									//var can_add = self.data.playlist_ar[pId].can_add;
+									console.log(track_id);
 								}
 							},
 							this.playFirstTrack = function() {
