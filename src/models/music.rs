@@ -1165,7 +1165,7 @@ impl MusicList {
 
         let _connection = establish_connection();
         return artists
-            .filter(schema::artists::id.eq(self.artist_id))
+            .filter(schema::artists::id.eq(self.artist_id.unwrap()))
             .load::<Artist>(&_connection)
             .expect("E")
             .into_iter()
@@ -1514,7 +1514,7 @@ impl MusicList {
     }
 
     pub fn create_track(&self, title: String, community_id: Option<i32>,
-        user_id: i32, genre_id: Option<i32>, album_id: Option<i32>,
+        user_id: i32, genre_id: Option<i32>, artist_id: Option<i32>,
         file: String, image: Option<String>) -> Music {
 
         let _connection = establish_connection();
@@ -1529,10 +1529,10 @@ impl MusicList {
         let new_music_form = NewMusic {
             title: _title,
             community_id: community_id,
+            artist_id: artist_id,
             user_id: user_id,
             music_list_id: self.id,
             genre_id: genre_id,
-            album_id: album_id,
             types: "a".to_string(),
             file: file,
             image: image,
@@ -1899,7 +1899,7 @@ impl Music {
 
         let _connection = establish_connection();
         return artists
-            .filter(schema::artists::id.eq(self.artist_id))
+            .filter(schema::artists::id.eq(self.artist_id.unwrap()))
             .load::<Artist>(&_connection)
             .expect("E")
             .into_iter()
@@ -2018,9 +2018,9 @@ impl Music {
             list.create_track (
                 item.title.clone(),
                 item.community_id,
+                item.artist_id,
                 list.user_id,
                 item.genre_id,
-                item.album_id,
                 item.file.clone(),
                 item.image.clone(),
             );
@@ -2041,13 +2041,12 @@ impl Music {
         return true;
     }
     pub fn edit_music(&self, title: String, genre_id: Option<i32>,
-        album_id: Option<i32>, image: Option<String>) -> &Music {
+        image: Option<String>) -> &Music {
         let _connection = establish_connection();
 
         let edit_music = EditMusic {
             title: title,
             genre_id: genre_id,
-            album_id: album_id,
             image: image,
         };
         diesel::update(self)
