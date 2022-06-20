@@ -2207,9 +2207,9 @@ impl User {
         if types == "".to_string() {
             let playlist = self.get_music_list();
             tracks = playlist.get_paginate_items(30,0);
-            name = playlist.name;
             image = playlist.get_image();
             description = playlist.get_descriptions();
+            name = playlist.name;
         }
         else {
             let pk: i32 = types[3..].parse().unwrap();
@@ -2219,9 +2219,9 @@ impl User {
                 use crate::utils::get_music_list;
                 let playlist = get_music_list(pk);
                 tracks = playlist.get_paginate_items(30,0);
-                name = playlist.name;
                 image = playlist.get_image();
                 description = playlist.get_descriptions();
+                name = playlist.name;
             }
             else if code == "pos".to_string() {
                 use crate::utils::get_post;
