@@ -450,6 +450,7 @@ function show_active_track(block, pk, id) {
       }
     }
   }
+  console.log(items);
   try {
     for (i=0; i < items.length; i++) {
       if (items[i].getAttribute("playlist-pk") == pk) {
