@@ -39,10 +39,10 @@
 <span class="load_block">
 <% if object_list.len() > 0 { %>
 
-<div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_block_paginate">
+<div class="is_block_paginate">
 <% for object in object_list.iter() { %>
-<div class="list-group-item">
-  <div style="display:flex" music-pk="<%= object.id %>" music-counter="">
+<div class="list-group-item music_item track" playlist-pk="<%= object.music_list_id %>">
+  <div style="display:flex" music-pk="<%= object.id %>">
       <figure>
         <a class="pointer music_list_item">
           <%- object.get_image() %>
