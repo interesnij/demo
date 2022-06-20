@@ -438,8 +438,8 @@ function show_active_track(block, list_pk, track_pk) {
 
   try {
     for (i=0; i < items.length; i++) {
-      if (items[i].getAttribute("track-pk")*1 == track_pk) {
-        items[id].classList.add("play_track", "gradient-border");
+      if (items[i].getAttribute("track-pk") == track_pk) {
+        items[i].classList.add("play_track", "gradient-border");
       }
     }
   } catch { null };
