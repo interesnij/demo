@@ -2199,10 +2199,10 @@ impl User {
         // mes<id> - сообщение
         // cpo<id> - коммент записи (и т.д)
         let types = self.get_profile().saved_playlist;
-        let tracks: Vec<Music>;
-        let name: String;
-        let image: String;
-        let description: String;
+        let mut tracks: Vec<Music> = Vec::new();
+        let mut name = "".to_string();
+        let mut image = "".to_string();
+        let mut description = "".to_string();
 
         if types == "".to_string() {
             let playlist = self.get_music_list();
