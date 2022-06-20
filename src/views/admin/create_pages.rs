@@ -511,97 +511,6 @@ pub async fn edit_artist_page(session: Session, cat_id: web::Path<i32>) -> actix
     }
 }
 
-pub async fn create_music_album_page(session: Session) -> actix_web::Result<HttpResponse> {
-    if !is_signed_in(&session) {
-        Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
-    }
-    else {
-        let _request_user = get_request_user_data(&session);
-
-        if _request_user.is_supermanager() {
-            use crate::schema::artists::dsl::artists;
-            use crate::schema::music_albums::dsl::music_albums;
-            use crate::models::{Artist,MusicAlbum};
-
-            let _connection = establish_connection();
-            let all_artists = artists
-                .load::<Artist>(&_connection)
-                .expect("E.");
-
-            let all_albums = music_albums
-                .load::<MusicAlbum>(&_connection)
-                .expect("E.");
-
-            #[derive(TemplateOnce)]
-            #[template(path = "desctop/admin/created/create_music_album.stpl")]
-            struct Template {
-                all_artists:  Vec<Artist>,
-                all_albums:   Vec<MusicAlbum>,
-            }
-            let body = Template {
-                all_artists:  all_artists,
-                all_albums:   all_albums,
-            }
-            .render_once()
-            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
-            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
-        }
-        else {
-            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
-        }
-    }
-}
-
-pub async fn edit_music_album_page(session: Session, cat_id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
-    if !is_signed_in(&session) {
-        Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
-    }
-    else {
-        let _request_user = get_request_user_data(&session);
-        if _request_user.is_supermanager() {
-            use crate::schema::music_albums::dsl::music_albums;
-            use crate::schema::artists::dsl::artists;
-            use crate::models::{MusicAlbum,Artist};
-
-            let _connection = establish_connection();
-            let music_album = music_albums
-                .filter(schema::music_albums::id.eq(*cat_id))
-                .load::<MusicAlbum>(&_connection)
-                .expect("E.")
-                .into_iter()
-                .nth(0)
-                .unwrap();
-
-            let all_artists = artists
-                .load::<Artist>(&_connection)
-                .expect("E.");
-
-            let all_albums = music_albums
-                .load::<MusicAlbum>(&_connection)
-                .expect("E.");
-
-            #[derive(TemplateOnce)]
-            #[template(path = "desctop/admin/created/edit_music_album.stpl")]
-            struct Template {
-                music_album:  MusicAlbum,
-                all_artists:  Vec<Artist>,
-                all_albums:   Vec<MusicAlbum>,
-            }
-            let body = Template {
-                music_album:  music_album,
-                all_artists:  all_artists,
-                all_albums:   all_albums,
-            }
-            .render_once()
-            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
-            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
-        }
-        else {
-            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
-        }
-    }
-}
-
 pub async fn create_stickers_category_page(session: Session) -> actix_web::Result<HttpResponse> {
     if !is_signed_in(&session) {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
@@ -1153,6 +1062,99 @@ pub async fn edit_reaction_page(session: Session, cat_id: web::Path<i32>) -> act
             let body = Template {
                 reaction:      reaction,
                 all_reactions: all_reactions,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        }
+        else {
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
+        }
+    }
+}
+
+pub async fn create_music_album_page(session: Session) -> actix_web::Result<HttpResponse> {
+    if !is_signed_in(&session) {
+        Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
+    }
+    else {
+        let _request_user = get_request_user_data(&session);
+
+        if _request_user.is_supermanager() {
+            use crate::schema::artists::dsl::artists;
+            use crate::schema::music_lists::dsl::music_lists;
+            use crate::models::{Artist, MusicList};
+
+            let _connection = establish_connection();
+            let all_artists = artists
+                .load::<Artist>(&_connection)
+                .expect("E.");
+
+            let all_albums = music_lists
+                .filter(schema::music_lists::artist_id.is_not_none())
+                .load::<MusicList>(&_connection)
+                .expect("E.");
+
+            #[derive(TemplateOnce)]
+            #[template(path = "desctop/admin/created/create_music_album.stpl")]
+            struct Template {
+                all_artists:  Vec<Artist>,
+                all_albums:   Vec<MusicList>,
+            }
+            let body = Template {
+                all_artists:  all_artists,
+                all_albums:   all_albums,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        }
+        else {
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
+        }
+    }
+}
+
+pub async fn edit_music_album_page(session: Session, cat_id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+    if !is_signed_in(&session) {
+        Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
+    }
+    else {
+        let _request_user = get_request_user_data(&session);
+        if _request_user.is_supermanager() {
+            use crate::schema::music_lists::dsl::music_lists;
+            use crate::schema::artists::dsl::artists;
+            use crate::models::{MusicList, Artist};
+
+            let _connection = establish_connection();
+            let music_album = music_lists
+                .filter(schema::music_lists::id.eq(*cat_id))
+                .load::<MusicList>(&_connection)
+                .expect("E.")
+                .into_iter()
+                .nth(0)
+                .unwrap();
+
+            let all_artists = artists
+                .load::<Artist>(&_connection)
+                .expect("E.");
+
+            let all_albums = music_albums
+                .filter(schema::music_lists::artist_id.is_not_none())
+                .load::<MusicList>(&_connection)
+                .expect("E.");
+
+            #[derive(TemplateOnce)]
+            #[template(path = "desctop/admin/created/edit_music_album.stpl")]
+            struct Template {
+                music_album:  MusicList,
+                all_artists:  Vec<Artist>,
+                all_albums:   Vec<MusicAlbum>,
+            }
+            let body = Template {
+                music_album:  music_album,
+                all_artists:  all_artists,
+                all_albums:   all_albums,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;

@@ -51,7 +51,6 @@ use crate::models::{
     Post,
 };
 
-
 #[derive(Queryable, Serialize, Identifiable, Associations)]
 #[belongs_to(User)]
 pub struct UserProfile {
@@ -79,7 +78,7 @@ pub struct UserProfile {
     pub favorite_game:  Option<String>,
     pub about:          Option<String>,
     pub survey:         i32,
-    pub playlist:       i32,
+    pub saved_playlist: String,
 }
 
 #[derive(Deserialize, Insertable)]
@@ -108,7 +107,7 @@ pub struct NewUserProfile {
     pub favorite_game:  Option<String>,
     pub about:          Option<String>,
     pub survey:         i32,
-    pub playlist:       i32,
+    pub saved_playlist: String,
 }
 
 /////// UserLocation //////

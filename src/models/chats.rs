@@ -2165,6 +2165,26 @@ pub struct NewMessage {
 }
 
 impl Message {
+    pub fn get_playlist_image(&self) -> String {
+        if self.community_id.is_some() {
+            let community = self.get_community();
+            if community.b_avatar.is_some() {
+                return community.b_avatar.as_deref().unwrap().to_string();
+            }
+            else {
+                return "/static/images/news_small3.jpg".to_string();
+            }
+        }
+        else {
+            let creator = self.get_creator();
+            if creator.b_avatar.is_some() {
+                return creator.b_avatar.as_deref().unwrap().to_string();
+            }
+            else {
+                return "/static/images/news_small3.jpg".to_string();
+            }
+        }
+    }
     pub fn get_or_create_chat_and_send_message(&self, creator: User,
         user: &User, repost_id: Option<i32>, content: Option<String>,
         attach: Option<String>, voice: Option<String>,

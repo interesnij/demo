@@ -1338,7 +1338,7 @@ impl User {
                 favorite_game: None,
                 about: None,
                 survey: 0,
-                playlist: 0,
+                saved_playlist: "".to_string(),
             };
             let profile = diesel::insert_into(schema::user_profiles::table)
                 .values(&_new_profile)
@@ -2148,20 +2148,22 @@ impl User {
             use crate::models::{NewMusicList, UserMusicListPosition, NewUserMusicListPosition};
 
             let new_list = NewMusicList{
-                    name:          "Основной список".to_string(),
-                    community_id:   None,
-                    user_id:        self.id,
-                    types:          1,
-                    description:     None,
-                    image:           None,
-                    created:         chrono::Local::now().naive_utc(),
-                    count:           0,
-                    repost:          0,
-                    copy:            0,
-                    position:        0,
-                    can_see_el:      "a".to_string(),
-                    create_el:       "g".to_string(),
-                    copy_el:         "g".to_string(),
+                    name:         "Основной список".to_string(),
+                    community_id: None,
+                    artist_id:    None,
+                    user_id:      self.id,
+                    types:        1,
+                    description:  None,
+                    image:        None,
+                    created:      chrono::Local::now().naive_utc(),
+                    count:        0,
+                    repost:       0,
+                    copy:         0,
+                    position:     0,
+                    listen:       0,
+                    can_see_el:   "a".to_string(),
+                    create_el:    "g".to_string(),
+                    copy_el:      "g".to_string(),
                 };
             let _musics_list = diesel::insert_into(schema::music_lists::table)
                 .values(&new_list)
@@ -2180,16 +2182,148 @@ impl User {
                 .expect("Error saving music_list_position.");
             return _musics_list;
         }
-    } 
-    pub fn get_saved_playlist(&self) -> MusicList {
-        let profile = self.get_profile();
-        if profile.playlist == 0 {
-            return self.get_music_list();
+    }
+    pub fn get_saved_playlist(&self) -> (Vec<Music>, String, String, String, String) {
+        // Пусто - основной плейлист пользователя
+        // lis<id> - список П. или С.
+        // pos<id> - запись
+        // mes<id> - сообщение
+        // cpo<id> - коммент записи (и т.д)
+        let types = self.get_profile().saved_playlist;
+        let tracks: Vec<Music>;
+        let name: String;
+        let image: String;
+        let description: String;
+
+        if types == "".to_string() {
+            let playlist = self.get_music_list();
+            tracks = playlist.get_paginate_items(30,0);
+            name = playlist.name;
+            image = playlist.get_image();
+            description = playlist.get_descriptions();
         }
         else {
-            use crate::utils::get_music_list;
-            return get_music_list(profile.playlist);
+            let pk: i32 = types[3..].parse().unwrap();
+            let code = &types[..3];
+
+            if code == "lis".to_string() {
+                use crate::utils::get_music_list;
+                let playlist = get_music_list(pk);
+                tracks = playlist.get_paginate_items(30,0);
+                name = playlist.name;
+                image = playlist.get_image();
+                description = playlist.get_descriptions();
+            }
+            else if code == "pos".to_string() {
+                use crate::utils::get_post;
+                let post = get_post(pk);
+                if post.community_id.is_some() {
+                    let community = post.get_community();
+                    name = community.name;
+                    if community.b_avatar.is_some() {
+                        image = community.b_avatar.as_deref().unwrap().to_string();
+                    }
+                    else {
+                        image = "/static/images/news_small3.jpg".to_string();
+                    }
+                }
+                else {
+                    let creator = post.get_creator();
+                    name = creator.get_full_name();
+                    if creator.b_avatar.is_some() {
+                        image = creator.b_avatar.as_deref().unwrap().to_string();
+                    }
+                    else {
+                        image = "/static/images/news_small3.jpg".to_string();
+                    }
+                }
+                tracks = post.get_attach_tracks();
+                description = "Аудиозаписи поста";
+            }
+            else if code == "mes".to_string() {
+                use crate::utils::get_message;
+                let message = get_message(pk);
+
+                let creator = message.get_creator();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                tracks = message.get_attach_tracks();
+                description = "Аудиозаписи сообщения";
+                name = creator.get_full_name();
+            }
+            else if code == "cpo".to_string() {
+                use crate::utils::get_post_comment;
+                let comment = get_post_comment(pk);
+
+                let creator = comment.get_commenter();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                let creator = comment.get_creator();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                tracks = comment.get_attach_tracks();
+                description = "Аудиозаписи сообщения";
+                name = creator.get_full_name();
+            }
+            else if code == "cgo".to_string() {
+                use crate::utils::get_good_comment;
+                let comment = get_good_comment(pk);
+
+                let creator = comment.get_commenter();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                tracks = comment.get_attach_tracks();
+                description = "Аудиозаписи сообщения";
+                name = creator.get_full_name();
+            }
+            else if code == "cph".to_string() {
+                use crate::utils::get_photo_comment;
+                let comment = get_photo_comment(pk);
+
+                let creator = comment.get_commenter();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                tracks = comment.get_attach_tracks();
+                description = "Аудиозаписи сообщения";
+                name = creator.get_full_name();
+            }
+            else if code == "cvi".to_string() {
+                use crate::utils::get_video_comment;
+                let comment = get_video_comment(pk);
+
+                let creator = comment.get_commenter();
+                if creator.b_avatar.is_some() {
+                    image = creator.b_avatar.as_deref().unwrap().to_string();
+                }
+                else {
+                    image = "/static/images/news_small3.jpg".to_string();
+                }
+                tracks = comment.get_attach_tracks();
+                description = "Аудиозаписи сообщения";
+                name = creator.get_full_name();
+            }
         }
+        return (tracks, name, image, description, types);
     }
     pub fn get_video_list(&self) -> VideoList {
         use crate::schema::video_lists::dsl::video_lists;

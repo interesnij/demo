@@ -10,48 +10,24 @@ CREATE TABLE artists (
     id          SERIAL PRIMARY KEY,
     name        VARCHAR(100) NOT NULL,
     description VARCHAR(500),
-    image       VARCHAR(500),
+    image       VARCHAR(500) NOT NULL,
     created     TIMESTAMP NOT NULL,
 
     count       INT NOT NULL,
     repost      INT NOT NULL,
     copy        INT NOT NULL,
     position    SMALLINT NOT NULL,
+    listen      INT NOT NULL, 
+    lists       INT NOT NULL,
 
     can_see_el  "char" NOT NULL
-);
-
-CREATE TABLE music_albums (
-    id              SERIAL PRIMARY KEY,
-    name            VARCHAR(100) NOT NULL,
-    artist_id       INT,
-    user_id         INT NOT NULL,
-    description     VARCHAR(500),
-    image           VARCHAR(500),
-    created         TIMESTAMP NOT NULL,
-
-    count           INT NOT NULL,
-    repost          INT NOT NULL,
-    copy            INT NOT NULL,
-    position        SMALLINT NOT NULL,
-
-    can_see_el      "char" NOT NULL,
-    create_el       "char" NOT NULL,
-    copy_el         "char" NOT NULL,
-
-    CONSTRAINT fk_music_albums_creator
-        FOREIGN KEY(user_id)
-            REFERENCES users(id),
-
-    CONSTRAINT fk_music_albums_artist
-        FOREIGN KEY(artist_id)
-            REFERENCES artists(id)
 );
 
 CREATE TABLE music_lists (
     id              SERIAL PRIMARY KEY,
     name            VARCHAR(100) NOT NULL,
     community_id    INT,
+    artist_id       INT,
     user_id         INT NOT NULL,
     types           SMALLINT NOT NULL,
     description     VARCHAR(500),
@@ -62,6 +38,7 @@ CREATE TABLE music_lists (
     repost          INT NOT NULL,
     copy            INT NOT NULL,
     position        SMALLINT NOT NULL,
+    listen          INT NOT NULL,
 
     can_see_el      "char" NOT NULL,
     create_el       "char" NOT NULL,
@@ -83,7 +60,7 @@ CREATE TABLE musics (
     user_id       INT NOT NULL,
     music_list_id INT NOT NULL,
     genre_id      INT,
-    album_id      INT,
+    artist_id     INT,
     types         "char" NOT NULL,
     file          VARCHAR(500) NOT NULL,
     image         VARCHAR(500),
@@ -93,6 +70,7 @@ CREATE TABLE musics (
     repost        INT NOT NULL,
     copy          INT NOT NULL,
     position      SMALLINT NOT NULL,
+    listen        INT NOT NULL,
 
     CONSTRAINT fk_music_creator
         FOREIGN KEY(user_id)

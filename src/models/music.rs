@@ -3,7 +3,6 @@ use crate::schema;
 use crate::schema::{
     sound_genres,
     artists,
-    music_albums,
     music_lists,
     musics,
     user_music_list_collections,
@@ -88,21 +87,23 @@ pub struct NewSoundGenre {
 /////// Artist //////
 #[derive(Debug, Queryable, Serialize, Identifiable)]
 pub struct Artist {
-    pub id:           i32,
-    pub name:         String,
-    pub description:  Option<String>,
-    pub image:        Option<String>,
-    pub created:      chrono::NaiveDateTime,
-    pub count:        i32,
-    pub repost:       i32,
-    pub copy:         i32,
-    pub position:     i16,
-    pub can_see_el:   String,
+    pub id:          i32,
+    pub name:        String,
+    pub description: Option<String>,
+    pub image:       String,
+    pub created:     chrono::NaiveDateTime,
+    pub count:       i32,
+    pub repost:      i32,
+    pub copy:        i32,
+    pub position:    i16,
+    pub can_see_el:  String,
+    pub listen:      i32,
+    pub lists:       i32,
 }
 
 impl Artist {
     pub fn create_artist(name: String, description:Option<String>,
-        image:Option<String>, position:i16) -> Artist {
+        image:String, position:i16) -> Artist {
         let _connection = establish_connection();
         let new_form = NewArtist {
             name: name,
@@ -114,6 +115,8 @@ impl Artist {
             copy: 0,
             position: position,
             can_see_el: "a".to_string(),
+            listen: 0,
+            lists: 0,
         };
         let new_artist = diesel::insert_into(schema::artists::table)
             .values(&new_form)
@@ -122,7 +125,7 @@ impl Artist {
         return new_artist;
     }
     pub fn edit_artist(&self, name: String, description:Option<String>,
-        image:Option<String>, position:i16) -> &Artist {
+        image:String, position:i16) -> &Artist {
         let _connection = establish_connection();
         let new_form = NewArtist {
             name: name,
@@ -134,6 +137,8 @@ impl Artist {
             copy: self.copy,
             position: position,
             can_see_el: self.can_see_el.clone(),
+            listen: self.listen,
+            lists: self.lists,
         };
         diesel::update(self)
             .set(new_form)
@@ -146,115 +151,20 @@ impl Artist {
 #[derive(Deserialize, Insertable, AsChangeset)]
 #[table_name="artists"]
 pub struct NewArtist {
-    pub name:         String,
-    pub description:  Option<String>,
-    pub image:        Option<String>,
-    pub created:      chrono::NaiveDateTime,
-    pub count:        i32,
-    pub repost:       i32,
-    pub copy:         i32,
-    pub position:     i16,
-    pub can_see_el:   String,
-}
-
-/////// MusicAlbum //////
-#[derive(Debug, Queryable, Serialize, Identifiable, Associations)]
-#[belongs_to(Artist)]
-#[belongs_to(User)]
-pub struct MusicAlbum {
-    pub id:          i32,
     pub name:        String,
-    pub artist_id:   Option<i32>,
-    pub user_id:     i32,
     pub description: Option<String>,
-    pub image:       Option<String>,
+    pub image:       String,
     pub created:     chrono::NaiveDateTime,
-
     pub count:       i32,
     pub repost:      i32,
     pub copy:        i32,
     pub position:    i16,
-
     pub can_see_el:  String,
-    pub create_el:   String,
-    pub copy_el:     String,
+    pub listen:      i32,
+    pub lists:       i32,
 }
 
-impl MusicAlbum {
-    pub fn create_album(name: String, artist_id:Option<i32>,
-        user_id: i32, description:Option<String>,
-        image:Option<String>, position:i16) -> MusicAlbum {
-        let _connection = establish_connection();
-        let new_form = NewMusicAlbum {
-            name: name,
-            artist_id: artist_id,
-            user_id: user_id,
-            description: description,
-            image: image,
-            created: chrono::Local::now().naive_utc(),
-            count: 0,
-            repost: 0,
-            copy: 0,
-            position: position,
-            can_see_el: "a".to_string(),
-            create_el: "a".to_string(),
-            copy_el: "a".to_string(),
-        };
-        let new_album = diesel::insert_into(schema::music_albums::table)
-            .values(&new_form)
-            .get_result::<MusicAlbum>(&_connection)
-            .expect("Error.");
-        return new_album;
-    }
-
-    pub fn edit_album(&self, name: String, artist_id: Option<i32>,
-        description:Option<String>, image:Option<String>, position: i16) -> &MusicAlbum {
-        let _connection = establish_connection();
-        let new_form = EditMusicAlbum {
-            name:        name,
-            artist_id:   artist_id,
-            description: description,
-            image:       image,
-            position:    position,
-        };
-        diesel::update(self)
-            .set(new_form)
-            .get_result::<MusicAlbum>(&_connection)
-            .expect("Error.");
-        return self;
-    }
-}
-
-#[derive(Deserialize, Insertable)]
-#[table_name="music_albums"]
-pub struct NewMusicAlbum {
-    pub name:        String,
-    pub artist_id:   Option<i32>,
-    pub user_id:     i32,
-    pub description: Option<String>,
-    pub image:       Option<String>,
-    pub created:     chrono::NaiveDateTime,
-
-    pub count:       i32,
-    pub repost:      i32,
-    pub copy:        i32,
-    pub position:    i16,
-
-    pub can_see_el:  String,
-    pub create_el:   String,
-    pub copy_el:     String,
-}
-
-#[derive(Queryable, Serialize, Deserialize, AsChangeset, Debug)]
-#[table_name="music_albums"]
-pub struct EditMusicAlbum {
-    pub name:        String,
-    pub artist_id:   Option<i32>,
-    pub description: Option<String>,
-    pub image:       Option<String>,
-    pub position:    i16,
-}
-/////// MusicAlbum //////
+/////// MusicList //////
 
 ////////// Тип списка
     // 1 основной список
@@ -288,6 +198,7 @@ pub struct MusicList {
     pub id:           i32,
     pub name:         String,
     pub community_id: Option<i32>,
+    pub artist_id:    Option<i32>,
     pub user_id:      i32,
     pub types:        i16,
     pub description:  Option<String>,
@@ -298,6 +209,7 @@ pub struct MusicList {
     pub repost:       i32,
     pub copy:         i32,
     pub position:     i16,
+    pub listen:       i32,
 
     pub can_see_el:   String,
     pub create_el:    String,
@@ -308,6 +220,7 @@ pub struct MusicList {
 pub struct NewMusicList {
     pub name:         String,
     pub community_id: Option<i32>,
+    pub artist_id:    Option<i32>,
     pub user_id:      i32,
     pub types:        i16,
     pub description:  Option<String>,
@@ -318,6 +231,7 @@ pub struct NewMusicList {
     pub repost:       i32,
     pub copy:         i32,
     pub position:     i16,
+    pub listen:       i32,
 
     pub can_see_el:   String,
     pub create_el:    String,
@@ -458,6 +372,14 @@ impl MusicList {
 
     pub fn get_description(&self) -> String {
         return "<a data-musiclist='".to_string() + &self.get_str_id() + &"' class='ajax'>".to_string() + &self.name + &"</a>".to_string();
+    }
+    pub fn get_descriptions(&self) -> String {
+        if self.description.is_some() {
+            return self.description.as_deref().unwrap().to_string();
+        }
+        else {
+            "Без описания".to_string();
+        }
     }
     pub fn is_user_list(&self, user: User) -> bool {
         return self.user_id == user.id;
@@ -800,7 +722,7 @@ impl MusicList {
         return self.copy_el == "a";
     }
     pub fn create_list(creator: User, name: String, description: Option<String>, image: Option<String>,
-        community_id: Option<i32>, can_see_el: String, create_el: String, copy_el: String,
+        community_id: Option<i32>, artist_id: Option<i32>, can_see_el: String, create_el: String, copy_el: String,
         can_see_el_users: Option<Vec<i32>>, create_el_users: Option<Vec<i32>>,
         copy_el_users: Option<Vec<i32>>) -> MusicList {
 
@@ -820,6 +742,7 @@ impl MusicList {
         let new_list_form = NewMusicList {
             name: _name,
             community_id: community_id,
+            artist_id: artist_id,
             user_id: creator.id,
             types: 2,
             description: description,
@@ -829,6 +752,7 @@ impl MusicList {
             repost: 0,
             copy: 0,
             position: 0,
+            listen: 0,
             can_see_el: can_see_el.clone(),
             create_el: create_el.clone(),
             copy_el: copy_el.clone(),
@@ -1236,6 +1160,19 @@ impl MusicList {
         return true;
     }
 
+    pub fn get_artist(&self) -> Artist {
+        use crate::schema::artists::dsl::artists;
+
+        let _connection = establish_connection();
+        return artists
+            .filter(schema::artists::id.eq(self.artist_id))
+            .load::<Artist>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+    }
+
     pub fn copy_item(pk: i32, user_or_communities: Vec<String>) -> bool {
         use crate::schema::music_lists::dsl::music_lists;
         use crate::schema::users::dsl::users;
@@ -1604,6 +1541,7 @@ impl MusicList {
             repost: 0,
             copy: 0,
             position: (self.count).try_into().unwrap(),
+            listen: 0,
           };
           let new_music = diesel::insert_into(schema::musics::table)
               .values(&new_music_form)
@@ -1621,6 +1559,29 @@ impl MusicList {
             let creator = get_user(user_id);
             creator.plus_tracks(1);
             return new_music;
+        }
+    }
+    pub fn get_image(&self) -> String {
+        if self.image.is_some() {
+            return self.image.as_deref().unwrap().to_string();
+        }
+        else if self.community_id.is_some() {
+            let community = self.get_community();
+            if community.b_avatar.is_some() {
+                return community.b_avatar.as_deref().unwrap().to_string();
+            }
+            else {
+                return "/static/images/news_small3.jpg".to_string();
+            }
+        }
+        else {
+            let creator = self.get_creator();
+            if creator.b_avatar.is_some() {
+                return creator.b_avatar.as_deref().unwrap().to_string();
+            }
+            else {
+                return "/static/images/news_small3.jpg".to_string();
+            }
         }
     }
 }
@@ -1643,49 +1604,50 @@ impl MusicList {
 #[belongs_to(User)]
 #[belongs_to(MusicList)]
 pub struct Music {
-    pub id:              i32,
-    pub title:           String,
-    pub community_id:    Option<i32>,
-    pub user_id:      i32,
-    pub music_list_id:         i32,
-    pub genre_id:        Option<i32>,
-    pub album_id:        Option<i32>,
-    pub types:           String,
-    pub file:            String,
-    pub image:           Option<String>,
-    pub created:         chrono::NaiveDateTime,
+    pub id:            i32,
+    pub title:         String,
+    pub community_id:  Option<i32>,
+    pub artist_id:     Option<i32>,
+    pub user_id:       i32,
+    pub music_list_id: i32,
+    pub genre_id:      Option<i32>,
+    pub types:         String,
+    pub file:          String,
+    pub image:         Option<String>,
+    pub created:       chrono::NaiveDateTime,
 
-    pub view:            i32,
-    pub repost:          i32,
-    pub copy:            i32,
-    pub position:        i16,
+    pub view:          i32,
+    pub repost:        i32,
+    pub copy:          i32,
+    pub position:      i16,
+    pub listen:        i32,
 }
 #[derive(Deserialize, Insertable)]
 #[table_name="musics"]
 pub struct NewMusic {
-    pub title:           String,
-    pub community_id:    Option<i32>,
-    pub user_id:        i32,
-    pub music_list_id:  i32,
-    pub genre_id:       Option<i32>,
-    pub album_id:       Option<i32>,
-    pub types:          String,
-    pub file:           String,
-    pub image:          Option<String>,
-    pub created:        chrono::NaiveDateTime,
+    pub title:         String,
+    pub community_id:  Option<i32>,
+    pub artist_id:     Option<i32>,
+    pub user_id:       i32,
+    pub music_list_id: i32,
+    pub genre_id:      Option<i32>,
+    pub types:         String,
+    pub file:          String,
+    pub image:         Option<String>,
+    pub created:       chrono::NaiveDateTime,
 
-    pub view:            i32,
-    pub repost:          i32,
-    pub copy:            i32,
-    pub position:        i16,
+    pub view:          i32,
+    pub repost:        i32,
+    pub copy:          i32,
+    pub position:      i16,
+    pub listen:        i32,
 }
 #[derive(Queryable, Serialize, Deserialize, AsChangeset, Debug)]
 #[table_name="musics"]
 pub struct EditMusic {
-    pub title:           String,
-    pub genre_id:       Option<i32>,
-    pub album_id:       Option<i32>,
-    pub image:          Option<String>,
+    pub title:    String,
+    pub genre_id: Option<i32>,
+    pub image:    Option<String>,
 }
 #[derive(Queryable, Serialize, Deserialize, AsChangeset, Debug)]
 #[table_name="musics"]
@@ -1927,6 +1889,18 @@ impl Music {
             .filter(schema::music_lists::id.eq(self.music_list_id))
             .filter(schema::music_lists::types.lt(10))
             .load::<MusicList>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+    }
+    pub fn get_artist(&self) -> Artist {
+        use crate::schema::artists::dsl::artists;
+
+        let _connection = establish_connection();
+        return artists
+            .filter(schema::artists::id.eq(self.artist_id))
+            .load::<Artist>(&_connection)
             .expect("E")
             .into_iter()
             .nth(0)

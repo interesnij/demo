@@ -7,8 +7,9 @@
       </figure>
         <div class="media-body" style="line-height: 0.4;">
             <h6 class="music_list_item pointer mb-1" style="width: 84%;overflow: hidden;"><a><%= object.title %></a></h6>
-            <% if object.album_id.is_some() { %>
-              <%- object.album_id.unwrap() %>
+            <% if object.artist_id.is_some() { %>
+              <% let artist = object.get_artist(); %>
+              <a class="small ajax" href="/music/artists/<%= artist.id %>"/> <%= artist.name %></a>
             <% } else { %>
               <% if object.community_id.is_some() { %>
                 <% let _community = object.get_community(); %>

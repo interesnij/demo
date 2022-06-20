@@ -1482,21 +1482,23 @@ impl Community {
         }
         else {
             use crate::models::NewMusicList;
-            let new_list = NewMusicList{
-                    name:          "Основной список".to_string(),
-                    community_id:   Some(self.id),
-                    user_id:        self.user_id,
-                    types:          1,
-                    description:     None,
-                    image:           None,
-                    created:         chrono::Local::now().naive_utc(),
-                    count:           0,
-                    repost:          0,
-                    copy:            0,
-                    position:        0,
-                    can_see_el:      "a".to_string(),
-                    create_el:       "g".to_string(),
-                    copy_el:         "g".to_string(),
+            let new_list = NewMusicList {
+                    name:         "Основной список".to_string(),
+                    community_id: Some(self.id),
+                    artist_id:    None,
+                    user_id:      self.user_id,
+                    types:        1,
+                    description:  None,
+                    image:        None,
+                    created:      chrono::Local::now().naive_utc(),
+                    count:        0,
+                    repost:       0,
+                    copy:         0,
+                    position:     0,
+                    listen:       0,
+                    can_see_el:   "a".to_string(),
+                    create_el:    "g".to_string(),
+                    copy_el:      "g".to_string(),
                 };
             let _musics_list = diesel::insert_into(schema::music_lists::table)
                 .values(&new_list)
@@ -1504,10 +1506,10 @@ impl Community {
                 .expect("Error saving music_list.");
 
             let _new_musics_list_position = NewCommunityMusicListPosition {
-                community_id:  self.id,
-                list_id:  _musics_list.id,
-                position: 1,
-                types:    "a".to_string(),
+                community_id: self.id,
+                list_id:      _musics_list.id,
+                position:     1,
+                types:        "a".to_string(),
             };
             let _musics_list_position = diesel::insert_into(schema::community_music_list_positions::table)
                 .values(&_new_musics_list_position)

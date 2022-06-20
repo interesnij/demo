@@ -52,6 +52,7 @@ CREATE TABLE user_profiles (
     about          VARCHAR(500),
     survey         INT NOT NULL,
     playlist       INT NOT NULL, --id сохраненного плейлиста.
+    saved_playlist VARCHAR(100), --id сохраненный плейлист.
 
     CONSTRAINT fk_user_profile
         FOREIGN KEY(user_id)

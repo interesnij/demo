@@ -330,6 +330,7 @@ pub fn get_music_list(pk: i32) -> MusicList {
         .nth(0)
         .unwrap();
 }
+
 pub fn get_music(pk: i32) -> Music {
     use crate::schema::musics::dsl::musics;
     let _connection = establish_connection();
@@ -797,7 +798,7 @@ pub fn custom_link_check(value: &str) -> (i8, String) {
         "doc", "docs", "doc_lists", "docs_list",
         "friends", "friend", "follows", "follow", "followings",
         "good", "goods", "goods_list", "good_comments", "good_comment",
-        "music", "track", "playlist", "playlists", "music_list", "music_lists", "music_album", "music_albums", "genre",
+        "music", "track", "playlist", "playlists", "music_list", "music_lists", "genres", "genre",
         "notify", "notification", "notifications_list", "notifications",
         "manager", "managers", "managers_list", "penalties_list", "penaltie_list", "penalties", "penaltie", "claims", "claims_list", "claim",
         "photo", "photos", "photo_list", "photo_comments", "photo_comment",
@@ -1029,7 +1030,7 @@ pub fn get_formatted_text(text: &str) -> String {
                 let mut p_2: String;
                 if &word.chars().nth(0).unwrap() == &'h' {
                     p_2 = word.to_string();
-                } 
+                }
                 else {
                     p_2 = "//".to_owned() + &word;
                 }

@@ -31,6 +31,7 @@ use crate::models::{
     Video,
     Message,
     Reaction,
+    Music,
 };
 use actix_web::web::Json;
 
@@ -2158,6 +2159,28 @@ impl Post {
             return "<a href='".to_owned() + &creator.link.to_string() + &"' target='_blank'>" + &creator.get_full_name() + &"</a>" + &": запись"
         }
     }
+
+    pub fn get_playlist_image(&self) -> String {
+        if self.community_id.is_some() {
+            let community = self.get_community();
+            if community.b_avatar.is_some() {
+                return community.b_avatar.as_deref().unwrap().to_string();
+            }
+            else {
+                return "/static/images/news_small3.jpg".to_string();
+            }
+        }
+        else {
+            let creator = self.get_creator();
+            if creator.b_avatar.is_some() {
+                return creator.b_avatar.as_deref().unwrap().to_string();
+            }
+            else {
+                return "/static/images/news_small3.jpg".to_string();
+            }
+        }
+    }
+
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
         if self.community_id.is_some() {
             let community = self.get_community();
@@ -2547,6 +2570,28 @@ impl Post {
             return ", из них в сообщениях - ".to_string() + &count.to_string();
         }
     }
+
+    pub fn get_attach_tracks(&self) -> Vec<Music> {
+        use crate::schema::musics::dsl::musics;
+
+        let _connection = establish_connection();
+        let attach = self.attach.as_ref().unwrap().to_string();
+        let v: Vec<&str> = attach.split(",").collect();
+        let mut stack = Vec::new();
+        for item in v.iter() {
+            let pk: i32 = item[3..].parse().unwrap();
+            let code = &item[..3];
+            if code == "mus".to_string() {
+                stack.push(pk);
+            }
+        }
+
+        return musics
+            .filter(schema::musics::id.eq_any(stack))
+            .load::<Music>(&_connection)
+            .expect("E");
+    }
+
     pub fn get_attach_photos(&self) -> Vec<Photo> {
         use crate::schema::photos::dsl::photos;
 
@@ -3086,6 +3131,27 @@ impl PostComment {
         }
     }
 
+    pub fn get_attach_tracks(&self) -> Vec<Music> {
+        use crate::schema::musics::dsl::musics;
+
+        let _connection = establish_connection();
+        let attach = self.attach.as_ref().unwrap().to_string();
+        let v: Vec<&str> = attach.split(",").collect();
+        let mut stack = Vec::new();
+        for item in v.iter() {
+            let pk: i32 = item[3..].parse().unwrap();
+            let code = &item[..3];
+            if code == "mus".to_string() {
+                stack.push(pk);
+            }
+        }
+
+        return musics
+            .filter(schema::musics::id.eq_any(stack))
+            .load::<Music>(&_connection)
+            .expect("E");
+    }
+
     pub fn get_attach_photos(&self) -> Vec<Photo> {
         use crate::schema::photos::dsl::photos;
 
@@ -3125,6 +3191,28 @@ impl PostComment {
             .filter(schema::videos::id.eq_any(stack))
             .load::<Video>(&_connection)
             .expect("E");
+    }
+
+    pub fn get_playlist_image(&self) -> String {
+        let item = self.get_item();
+        if item.community_id.is_some() {
+            let community = item.get_community();
+            if community.b_avatar.is_some() {
+                return community.b_avatar.as_deref().unwrap().to_string();
+            }
+            else {
+                return "/static/images/news_small3.jpg".to_string();
+            }
+        }
+        else {
+            let creator = item.get_creator();
+            if creator.b_avatar.is_some() {
+                return creator.b_avatar.as_deref().unwrap().to_string();
+            }
+            else {
+                return "/static/images/news_small3.jpg".to_string();
+            }
+        }
     }
 
     pub fn get_replies(&self) -> Vec<PostComment> {
