@@ -133,10 +133,10 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
         let _types = types.into_inner();
         _request_user.save_playlist(&_types);
 
-        let tracks: Vec<Music>;
-        let name: String;
-        let image: String;
-        let description: String;
+        let mut tracks: Vec<Music> = Vec::new();
+        let mut name = "".to_string();
+        let mut image = "".to_string();
+        let mut description = "".to_string();
 
         if _types == "".to_string() {
             let playlist = _request_user.get_music_list();
