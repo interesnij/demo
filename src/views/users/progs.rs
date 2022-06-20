@@ -126,7 +126,6 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
     };
 
     if is_signed_in(&session) {
-        use crate::utils::get_music_list;
         use crate::models::Music;
 
         let _request_user = get_request_user_data(&session);
@@ -202,13 +201,6 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
                 use crate::utils::get_post_comment;
                 let comment = get_post_comment(pk);
 
-                let creator = comment.get_commenter();
-                if creator.b_avatar.is_some() {
-                    image = creator.b_avatar.as_deref().unwrap().to_string();
-                }
-                else {
-                    image = "/static/images/news_small3.jpg".to_string();
-                }
                 let creator = comment.get_creator();
                 if creator.b_avatar.is_some() {
                     image = creator.b_avatar.as_deref().unwrap().to_string();

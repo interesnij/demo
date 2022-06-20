@@ -2266,15 +2266,8 @@ impl User {
             }
             else if code == "cpo".to_string() {
                 use crate::utils::get_post_comment;
-                let comment = get_post_comment(pk);
 
-                let creator = comment.get_commenter();
-                if creator.b_avatar.is_some() {
-                    image = creator.b_avatar.as_deref().unwrap().to_string();
-                }
-                else {
-                    image = "/static/images/news_small3.jpg".to_string();
-                }
+                let comment = get_post_comment(pk);
                 let creator = comment.get_creator();
                 if creator.b_avatar.is_some() {
                     image = creator.b_avatar.as_deref().unwrap().to_string();
