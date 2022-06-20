@@ -1056,7 +1056,7 @@ pub async fn edit_music_album(session: Session, mut payload: Multipart, album_id
             album.edit_list (
                 form.name,
                 form.description,
-                form.image.unwrap(),
+                form.image, 
                 "a".to_string(),
                 "o".to_string(),
                 "a".to_string(),

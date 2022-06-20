@@ -65,6 +65,7 @@ pub async fn add_user_list(session: Session, mut payload: Multipart) -> web::Jso
             form.description,
             form.image,
             None,
+            None,
             form.can_see_el,
             form.create_el,
             form.copy_el,
@@ -150,6 +151,7 @@ pub async fn add_community_list(session: Session, mut payload: Multipart, _id: w
                 form.description,
                 form.image,
                 Some(*_id),
+                None,
                 form.can_see_el,
                 form.create_el,
                 form.copy_el,
@@ -441,7 +443,6 @@ pub async fn edit_track(session: Session, mut payload: Multipart, _id: web::Path
             let mut form: EditMusic = EditMusic {
                 title: "".to_string(),
                 genre_id: None,
-                album_id: None,
                 image: None,
             };
 

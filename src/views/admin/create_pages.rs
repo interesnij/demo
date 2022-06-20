@@ -1091,7 +1091,7 @@ pub async fn create_music_album_page(session: Session) -> actix_web::Result<Http
                 .expect("E.");
 
             let all_albums = music_lists
-                .filter(schema::music_lists::artist_id.is_not_none())
+                .filter(schema::music_lists::artist_id.is_not_null())
                 .load::<MusicList>(&_connection)
                 .expect("E.");
 
@@ -1140,7 +1140,7 @@ pub async fn edit_music_album_page(session: Session, cat_id: web::Path<i32>) -> 
                 .expect("E.");
 
             let all_albums = music_lists
-                .filter(schema::music_lists::artist_id.is_not_none())
+                .filter(schema::music_lists::artist_id.is_not_null())
                 .load::<MusicList>(&_connection)
                 .expect("E.");
 

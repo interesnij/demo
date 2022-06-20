@@ -22,7 +22,7 @@ use crate::models::{
     //Photo,
     //Video,
     Reaction,
-
+    Music,
 };
 use actix_web::web::Json;
 
