@@ -452,8 +452,8 @@ function show_active_track(block, pk, id) {
   }
   try {
     for (i=0; i < items.length; i++) {
-      if (items[i].querySelector(".track_title").innerHTML == title) {
-        items[i].classList.add("play_track", "gradient-border");
+      if (items[i].getAttribute("playlist-pk") == pk) {
+        items[id].classList.add("play_track", "gradient-border");
       }
     }
   } catch { null };
