@@ -2,7 +2,7 @@
 			playlist_list,
 			playlist_name,
 			playlist_image,
-			playlist_description, 
+			playlist_description,
 			playlist_type
 	) = request_user.get_saved_playlist();
 %>
@@ -27,7 +27,7 @@
         <% } %>
 			   data-add="track_copy"
 			   data-track-id="<%= track.id %>">
-        <p style="font-weight:bold"><%= track.title %></p>
+        <p><a style="font-weight:bold; color:#FF0000;"><%= track.title %></a></p>
       </li>
     <% } %>
 	<% } else { %>

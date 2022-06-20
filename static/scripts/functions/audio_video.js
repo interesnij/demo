@@ -461,7 +461,7 @@ function show_active_track(block, pk, id) {
 
 function show_play_items(block) {
   counter = music_player.getTrackId();
-  title = music_player.getTrackTitle();
+  title = music_player.getTrackTitle().replace(/<\/?[^>]+(>|$)/g, "");
   if (title != undefined) {
     document.title = "¶ " + title;
     if(document.querySelector(".user_status")) {
