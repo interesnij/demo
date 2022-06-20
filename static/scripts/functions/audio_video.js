@@ -556,7 +556,10 @@ on('#ajax', 'click', '.music_list_item', function() {
   } else {
       music_player.loadPlaylist(0);
       if (FWDMSP.LOAD_PLAYLIST_COMPLETE) {
-        setTimeout(function() {music_player.playSpecificTrack("list_" + list_pk, counter)}, 50);
+        setTimeout(function() {
+          music_player.playSpecificTrack("list_" + list_pk, counter);
+          show_play_items(document.body.querySelector("#ajax"));
+        }, 50);
       }
   }
 });
