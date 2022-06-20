@@ -550,12 +550,11 @@ on('#ajax', 'click', '.music_list_item', function() {
   counter = music_player.getTrackId();
   parents = track.parentElement;
   list_pk = track.getAttribute('playlist-pk');
-  list_items = parents.querySelectorAll("li");
 
   saved_playlist = document.body.querySelector("#saved_playlist");
   current_type = "lis" + list_pk;
   if (saved_playlist.getAttribute("data-type") != current_type) {
-      save_playlist(list_pk, '/users/progs/save_playlist/' + current_type + "/", counter);
+      save_playlist('/users/progs/save_playlist/' + current_type + "/", counter);
       saved_playlist.setAttribute("data-type", current_type);
       show_play_items(document.body.querySelector("#ajax"));
   } else {
@@ -568,19 +567,7 @@ on('#ajax', 'click', '.music_list_item', function() {
   }
 });
 
-function add_html_tracks_in_player (html) {
-  span = document.createElement("div");
-  span.innerHTML = html;
-  tracks = span.querySelectorAll(".li");
-  for (i=0; i < tracks.length; i++) {
-    _source = tracks[i].getAttribute("data-file");
-    _title = tracks[i].querySelector(".new_title").innerHTML;
-    _thumbPath = "/static/images/news_small3.jpg";
-    music_player.addTrack(_source, title, _thumbPath, null, true, false, null)
-  }
-};
-
-function save_playlist(list_id, post_link, counter) {
+function save_playlist(post_link, counter) {
   var playlist_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   playlist_link.open( 'POST', post_link, true );
   playlist_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -600,11 +587,22 @@ function save_playlist(list_id, post_link, counter) {
                 //time = msToTime(_duration);
         music_player.addTrack(_source, title, _thumbPath, null, true, false, null) // 4 позиция - время (time)
       }
-
       music_player.loadPlaylist(0);
       if (FWDMSP.LOAD_PLAYLIST_COMPLETE){
-        setTimeout(function() {music_player.playSpecificTrack(list_id, counter)}, 50);
+        setTimeout(function() {music_player.playSpecificTrack(0, counter)}, 50);
       }
   }};
   playlist_link.send( null );
+};
+
+function add_html_tracks_in_player (html) {
+  span = document.createElement("div");
+  span.innerHTML = html;
+  tracks = span.querySelectorAll(".li");
+  for (i=0; i < tracks.length; i++) {
+    _source = tracks[i].getAttribute("data-file");
+    _title = tracks[i].querySelector(".new_title").innerHTML;
+    _thumbPath = "/static/images/news_small3.jpg";
+    music_player.addTrack(_source, title, _thumbPath, null, true, false, null)
+  }
 };
