@@ -554,8 +554,8 @@ on('#ajax', 'click', '.music_list_item', function() {
   }
 
   saved_playlist = document.body.querySelector("#saved_playlist");
-  if (saved_playlist.getAttribute("data-pk") != list_pk) {
-      save_playlist(list_pk, '/users/progs/save_playlist/' + list_pk + "/", counter);
+  if (saved_playlist.getAttribute("data-type") != ("lis" + list_pk) {
+      save_playlist(list_pk, '/users/progs/save_playlist/lis' + list_pk + "/", counter);
       saved_playlist.setAttribute("data-pk", list_pk);
   } else {
       music_player.loadPlaylist(0);
@@ -572,7 +572,7 @@ function add_html_tracks_in_player (tracks) {
     _thumbPath="/static/images/news_small3.jpg";
     music_player.addTrack(_source, title, _thumbPath, null, true, false, null)
   }
-}
+};
 
 function save_playlist(list_id, post_link, counter) {
   var playlist_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
