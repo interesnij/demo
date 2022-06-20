@@ -1830,10 +1830,7 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 								}
 							},
 							this.buy_2 = function() {
-								if (self.isAPIReady_bl) {
-									var track_id = self.data.playlist_ar[self.id].buy;
-									return track_id;
-								}
+									return self.data.playlist_ar[self.id].buy;
 							},
 							this.playFirstTrack = function() {
 								self.playSpecificTrack(self.catId, 0)
