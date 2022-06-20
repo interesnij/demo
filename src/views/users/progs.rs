@@ -127,7 +127,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
         use crate::utils::get_music_list;
 
         let _request_user = get_request_user_data(&session);
-        let _types = types.into_inner()
+        let _types = types.into_inner();
         _list.save_playlist(&_request_user, &_types);
 
         let name: String;
