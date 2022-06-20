@@ -2190,7 +2190,7 @@ impl User {
         // mes<id> - сообщение
         // cpo<id> - коммент записи (и т.д)
         let types = self.get_profile().saved_playlist;
-        let tracks: Vec<Music>; 
+        let tracks: Vec<Music>;
         let name: String;
         let image: String;
         let description: String;
@@ -2238,7 +2238,7 @@ impl User {
                     }
                 }
                 tracks = post.get_attach_tracks();
-                description = "Аудиозаписи поста";
+                description = "Аудиозаписи поста".to_string();
             }
             else if code == "mes".to_string() {
                 use crate::utils::get_message;
@@ -2252,7 +2252,7 @@ impl User {
                     image = "/static/images/news_small3.jpg".to_string();
                 }
                 tracks = message.get_attach_tracks();
-                description = "Аудиозаписи сообщения";
+                description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
             }
             else if code == "cpo".to_string() {
@@ -2274,7 +2274,7 @@ impl User {
                     image = "/static/images/news_small3.jpg".to_string();
                 }
                 tracks = comment.get_attach_tracks();
-                description = "Аудиозаписи сообщения";
+                description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
             }
             else if code == "cgo".to_string() {
@@ -2289,7 +2289,7 @@ impl User {
                     image = "/static/images/news_small3.jpg".to_string();
                 }
                 tracks = comment.get_attach_tracks();
-                description = "Аудиозаписи сообщения";
+                description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
             }
             else if code == "cph".to_string() {
@@ -2304,9 +2304,9 @@ impl User {
                     image = "/static/images/news_small3.jpg".to_string();
                 }
                 tracks = comment.get_attach_tracks();
-                description = "Аудиозаписи сообщения";
+                description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
-            }
+            } 
             else if code == "cvi".to_string() {
                 use crate::utils::get_video_comment;
                 let comment = get_video_comment(pk);
@@ -2319,7 +2319,7 @@ impl User {
                     image = "/static/images/news_small3.jpg".to_string();
                 }
                 tracks = comment.get_attach_tracks();
-                description = "Аудиозаписи сообщения";
+                description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
             }
         }

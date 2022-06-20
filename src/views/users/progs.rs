@@ -115,7 +115,7 @@ pub struct PlaylistData {
     pub image:       String,
     pub description: String,
 }
-pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::Json<TracksData> {
+pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::Json<PlaylistData> {
     let mut data: PlaylistData = PlaylistData {
         tracks:      Vec::new(),
         name:        "".to_string,
@@ -130,6 +130,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
         let _types = types.into_inner();
         _list.save_playlist(&_request_user, &_types);
 
+        let tracks: Vec<Music>;
         let name: String;
         let image: String;
         let description: String;
@@ -177,7 +178,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
                     }
                 }
                 tracks = post.get_attach_tracks();
-                description = "Аудиозаписи поста";
+                description = "Аудиозаписи поста".to_string();
             }
             else if code == "mes".to_string() {
                 use crate::utils::get_message;
@@ -191,7 +192,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
                     image = "/static/images/news_small3.jpg".to_string();
                 }
                 tracks = message.get_attach_tracks();
-                description = "Аудиозаписи сообщения";
+                description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
             }
             else if code == "cpo".to_string() {
@@ -213,7 +214,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
                     image = "/static/images/news_small3.jpg".to_string();
                 }
                 tracks = comment.get_attach_tracks();
-                description = "Аудиозаписи сообщения";
+                description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
             }
             else if code == "cgo".to_string() {
@@ -228,7 +229,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
                     image = "/static/images/news_small3.jpg".to_string();
                 }
                 tracks = comment.get_attach_tracks();
-                description = "Аудиозаписи сообщения";
+                description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
             }
             else if code == "cph".to_string() {
@@ -243,7 +244,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
                     image = "/static/images/news_small3.jpg".to_string();
                 }
                 tracks = comment.get_attach_tracks();
-                description = "Аудиозаписи сообщения";
+                description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
             }
             else if code == "cvi".to_string() {
@@ -258,7 +259,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
                     image = "/static/images/news_small3.jpg".to_string();
                 }
                 tracks = comment.get_attach_tracks();
-                description = "Аудиозаписи сообщения";
+                description = "Аудиозаписи сообщения".to_string();
                 name = creator.get_full_name();
             }
         }
