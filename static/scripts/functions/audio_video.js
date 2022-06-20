@@ -538,19 +538,13 @@ on('#ajax', 'click', '.music_list_item', function() {
 
   counter = 0;
   parents = track.parentElement;
-  if (parents.getAttribute('playlist-pk')) {
-    list_pk = parents.getAttribute('playlist-pk');
-    list_items = parents.querySelectorAll(".list-group-item");
-    pk = track.getAttribute("data-pk");
-    for (i=0; i < list_items.length; i++) {
-      if (list_items[i].getAttribute("data-pk") == pk) {
-        counter = i;
-      }
+  list_pk = track.getAttribute('playlist-pk');
+  list_items = parents.querySelectorAll(".list-group-item");
+  pk = track.getAttribute("data-pk");
+  for (i=0; i < list_items.length; i++) {
+    if (list_items[i].getAttribute("data-pk") == pk) {
+      counter = i;
     }
-  }
-  else if (parents.getAttribute('playlist-pk')){
-    list_pk = parents.getAttribute('playlist-pk');
-    counter = parents.getAttribute('data-counter')
   }
 
   saved_playlist = document.body.querySelector("#saved_playlist");
