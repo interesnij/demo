@@ -440,7 +440,7 @@ function show_active_track(block, list_pk, track_pk) {
   for (i=0; i < playlists.length; i++) {
     if (playlists[i].getAttribute("data-pk") == list_pk) {
       if (playlists[i].classList.contains("is_paginate")) {
-        console.log("Обнаружен проигрываемый список плейлиста!")ж
+        console.log("Обнаружен проигрываемый список плейлиста!");
       }
       else {
         playlists[i].classList.add("play_list", "gradient-border");
@@ -450,7 +450,7 @@ function show_active_track(block, list_pk, track_pk) {
 
   try {
     for (i=0; i < items.length; i++) {
-      if (items[i].getAttribute("playlist-pk") == pk) {
+      if (items[i].getAttribute("track-pk") == track_pk) {
         items[id].classList.add("play_track", "gradient-border");
       }
     }
