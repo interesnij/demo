@@ -81,11 +81,12 @@ on('#ajax', 'change', '.create_video_hide_file', function() {
 });
 
 on('body', 'change', '.case_all_input', function() {
-  _this = this, case_video = false, id_video_upload_start = false, is_video_edit_window_loaded = true;
+  _this = this, case_audio = false, case_video = false, id_video_upload_start = false, is_video_edit_window_loaded = true;
   if (this.classList.contains("add_photos_in_list")) {
     url = "/photos/add_photos_in_list/"
   } else if (this.classList.contains("add_tracks_in_list")) {
-    url = "/music/add_tracks_in_list/"
+    url = "/music/add_tracks_in_list/";
+    case_audio = true;
   } else if (this.classList.contains("add_docs_in_list")) {
     url = "/docs/add_docs_in_list/"
   } else if (this.classList.contains("add_video_in_list")) {
@@ -119,7 +120,10 @@ on('body', 'change', '.case_all_input', function() {
         response.innerHTML = link_.responseText;
         lenta = form.parentElement.parentElement.parentElement.querySelector(".is_paginate");
         lenta.insertAdjacentHTML('afterBegin', response.innerHTML);
-        lenta.querySelector(".items_empty") ? document.body.querySelector(".items_empty").style.display = "none" : null
+        lenta.querySelector(".items_empty") ? document.body.querySelector(".items_empty").style.display = "none" : null;
+        if (case_audio) {
+          add_html_tracks_in_player (response.innerHTML);
+        }
       }
   }};
   link_.upload.onprogress = function(event) {

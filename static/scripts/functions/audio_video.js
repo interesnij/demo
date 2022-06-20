@@ -565,6 +565,15 @@ on('#ajax', 'click', '.music_list_item', function() {
   }
 });
 
+function add_html_tracks_in_player (tracks) {
+  for (i=0; i < tracks.length; i++) {
+    _source=tracks[i].getAttribute("data-file");
+    _title=tracks[i].querySelector(".new_title").innerHTML;
+    _thumbPath="/static/images/news_small3.jpg";
+    music_player.addTrack(_source, title, _thumbPath, null, true, false, null)
+  }
+}
+
 function save_playlist(list_id, post_link, counter) {
   var playlist_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   playlist_link.open( 'POST', post_link, true );
