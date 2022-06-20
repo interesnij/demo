@@ -458,8 +458,11 @@ function show_active_track(block, list_pk, track_pk) {
 }
 
 function show_play_items(block) {
+  playlist = document.body.querySelector("#saved_playlist");
   counter = music_player.getTrackId();
   title = music_player.getTrackTitle();
+  track_id = playlist.getAttribute("data-ids")[counter];
+
   if (title != undefined) {
     title_replace = title.replace(/<\/?[^>]+(>|$)/g, "");
     document.title = "¶ " + title_replace;
@@ -471,27 +474,27 @@ function show_play_items(block) {
     return;
   }
 
-  type = document.body.querySelector("#saved_playlist").getAttribute("data-type");
+  type = playlist.getAttribute("data-type");
   pk = type.slice(3);
 
   // у пользователя выбран плейлист.
   if (type.indexOf('lis') !== -1) {
     if (block.querySelector('[playlist-pk=' + '"' + pk + '"' + ']')) {
       list_id = pk;
-      show_active_track(block, list_id, counter);
     }
   }
   // выбран плейлист записи
   else if (type.indexOf('pos') !== -1) {
     posts = block.querySelectorAll('.post');
     for (i=0; i < posts.length; i++) {
-      if (posts[i].getAttribute("data-pk") == pk) {
+      if (posts[i].getAttribute("track-pk") == track_id) {
         attach_block = posts[i].querySelector('.attach_container');
         list_id = attach_block.querySelector('[playlist-pk=' + '"' + pk + '"' + ']').getAttribute("playlist-pk");
-        show_active_track(block, list_id, counter);
       }
     }
   }
+  // отражаем проигрываемый трек и плейлист
+  show_active_track(block, list_id, track_id);
 }
 
 function get_music_player_support(block) {
