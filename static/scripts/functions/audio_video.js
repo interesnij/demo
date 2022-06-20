@@ -461,6 +461,8 @@ function show_play_items(block) {
   playlist = document.body.querySelector("#saved_playlist");
   counter = music_player.getTrackId();
   title = music_player.getTrackTitle();
+  console.log("counter" + counter);
+  console.log("ids" + playlist.getAttribute("data-ids"));
   track_id = playlist.getAttribute("data-ids")[counter];
   console.log("play track" + track_id);
 
