@@ -129,7 +129,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
         use crate::models::Music;
 
         let _request_user = get_request_user_data(&session);
-        let _types = types.into_inner();
+        let mut _types = types.into_inner();
         _request_user.save_playlist(&_types);
 
         let mut tracks: Vec<Music> = Vec::new();
@@ -143,6 +143,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
             image = playlist.get_image();
             description = playlist.get_descriptions();
             name = playlist.name;
+            _types = "lis".to_string() + &playlist.id.to_string();
         }
         else {
             let pk: i32 = _types[3..].parse().unwrap();

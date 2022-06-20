@@ -2198,7 +2198,8 @@ impl User {
         // pos<id> - запись
         // mes<id> - сообщение
         // cpo<id> - коммент записи (и т.д)
-        let types = self.get_profile().saved_playlist;
+        let mut types = self.get_profile().saved_playlist;
+
         let mut tracks: Vec<Music> = Vec::new();
         let mut name = "".to_string();
         let mut image = "".to_string();
@@ -2210,6 +2211,7 @@ impl User {
             image = playlist.get_image();
             description = playlist.get_descriptions();
             name = playlist.name;
+            types = "lis".to_string() + &playlist.id.to_string();
         }
         else {
             let pk: i32 = types[3..].parse().unwrap();

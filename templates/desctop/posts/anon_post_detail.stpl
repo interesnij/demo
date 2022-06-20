@@ -1,6 +1,6 @@
 <% let reactions_list = list.get_reactions_list(); %>
 
-<div class="card mb-3 pag" data-type="user_post" data-pk="<%= object.id %>">
+<div class="card mb-3 post pag" data-type="user_post" data-pk="<%= object.id %>">
   <% include!("anon_card_header.stpl"); %>
 
   <% if object.content.is_some() { %>
