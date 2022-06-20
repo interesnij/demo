@@ -39,9 +39,9 @@
 <span class="load_block">
 <% if object_list.len() > 0 { %>
 
-<div class="is_block_paginate">
+<ul class="is_block_paginate">
 <% for object in object_list.iter() { %>
-<div class="border-top music_item track" playlist-pk="<%= object.music_list_id %>">
+<li class="border-top music_item track" playlist-pk="<%= object.music_list_id %>">
   <div style="display:flex" music-pk="<%= object.id %>" music-counter="">
       <figure>
         <a class="pointer music_list_item">
@@ -61,7 +61,7 @@
          <path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/>
        </svg>
   </span>
-</div>
+</li>
 <% } %>
   <% if next_page_number > 0 { %>
   <div class="load centered m-1 next_page_list" data-link="/users/load/music/?page=<%= next_page_number %>">
@@ -69,7 +69,7 @@
   </div>
   <% } %>
 
-</div>
+</ul>
 <% } else { %>
 <div class="card mb-3 centered">
   <h5 style="text-align: center;margin: 20px;"> Плейлист пустой.</h5>

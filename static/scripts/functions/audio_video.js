@@ -539,7 +539,7 @@ on('#ajax', 'click', '.music_list_item', function() {
   counter = 0;
   parents = track.parentElement;
   list_pk = track.getAttribute('playlist-pk');
-  list_items = parents.querySelectorAll(".list-group-item");
+  list_items = parents.querySelectorAll("li");
   pk = track.getAttribute("data-pk");
   for (i=0; i < list_items.length; i++) {
     if (list_items[i].getAttribute("data-pk") == pk) {
