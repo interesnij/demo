@@ -3,7 +3,9 @@
   height: 35px;
   width: 100%;
 }
-
+.track {
+  position: relative;
+}
 .gradient-border {
   --border-width: 1px;
   position: relative;
@@ -843,7 +845,7 @@ nav {
 
 .music_load_several {
   right: 10px !important;
-  top: 16px !important;
+  top: 8px !important;
 }
 .friends_chat_load_several {
   top: 8px !important;
