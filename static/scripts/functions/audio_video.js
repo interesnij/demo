@@ -555,7 +555,7 @@ on('#ajax', 'click', '.music_list_item', function() {
 
   saved_playlist = document.body.querySelector("#saved_playlist");
   current_type = "lis" + list_pk;
-  if (saved_playlist.getAttribute("data-type") != current_type {
+  if (saved_playlist.getAttribute("data-type") != current_type) {
       save_playlist(list_pk, '/users/progs/save_playlist/' + current_type + "/", counter);
       saved_playlist.setAttribute("data-pk", list_pk);
   } else {
