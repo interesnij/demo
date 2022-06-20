@@ -689,17 +689,19 @@ pub async fn music_load(session: Session, req: HttpRequest) -> actix_web::Result
             #[derive(TemplateOnce)]
             #[template(path = "desctop/users/load/music.stpl")]
             struct Template {
-                request_user:                User,
-                object_list:                 Vec<Music>,
-                next_page_number:            i32,
-                //count:                       i32,
+                request_user:     User,
+                object_list:      Vec<Music>,
+                next_page_number: i32,
+                //count:            i32,
+                list:             MusicList,
             }
 
             let body = Template {
-                request_user:                _request_user,
-                object_list:                 object_list,
-                next_page_number:            next_page_number,
-                //count:                       count,
+                request_user:     _request_user,
+                object_list:      object_list,
+                next_page_number: next_page_number,
+                //count:            count,
+                list:             list,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -709,17 +711,19 @@ pub async fn music_load(session: Session, req: HttpRequest) -> actix_web::Result
             #[derive(TemplateOnce)]
             #[template(path = "mobile/users/load/music.stpl")]
             struct Template {
-                request_user:                User,
-                object_list:                 Vec<Music>,
-                next_page_number:            i32,
-                //count:                       i32,
+                request_user:     User,
+                object_list:      Vec<Music>,
+                next_page_number: i32,
+                //count:            i32,
+                list:             MusicList,
             }
 
             let body = Template {
-                request_user:                _request_user,
-                object_list:                 object_list,
-                next_page_number:            next_page_number,
-                //count:                       count,
+                request_user:     _request_user,
+                object_list:      object_list,
+                next_page_number: next_page_number,
+                //count:            count,
+                list:             list,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
