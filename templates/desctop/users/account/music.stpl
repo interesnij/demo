@@ -1,5 +1,5 @@
 <% if user.is_have_music() { %>
-<div class="mb-3">
+<ul class="mb-3">
     <div class="p-1">
       <a href="/id<%= user.id %>/music/" class="ajax">
         <div class="media current_color">
@@ -12,7 +12,7 @@
     </div>
 
     <% for object in user.get_6_tracks().iter() { %>
-    <div class="border-top music_item track" data-pk="<%= object.id %>"  playlist-pk="<%= object.music_list_id %>" style="padding: 2px;">
+    <li class="border-top music_item track" data-pk="<%= object.id %>"  playlist-pk="<%= object.music_list_id %>" style="padding: 2px;">
       <div class="media current_color">
         <figure>
           <a class="pointer music_list_item">
@@ -35,8 +35,8 @@
           <% } %>
           </div>
         </div>
-    </div>
+    </li>
     <% } %>
-</div>
+</ul>
 
 <% } %>

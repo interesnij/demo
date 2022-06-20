@@ -1,6 +1,6 @@
 <% if user.is_have_friends() { %>
-<ul class="card mb-3">
-    <li class="p-1">
+<div class="card mb-3">
+    <div class="p-1">
       <a href="/friends/<%= user.id %>/" class="ajax">
         <div class="media">
             <div class="media-body">
@@ -9,10 +9,10 @@
           <%= user.count_friends() %>
         </div>
       </a>
-    </li>
+    </div>
 
     <% for user in user.get_6_friends().iter() { %>
-    <li class="card border-top">
+    <div class="card border-top">
         <div class="p-1">
             <div class="media">
               <a href="<%= user.link %>" class="ajax">
@@ -32,8 +32,8 @@
               </div>
             </div>
         </div>
-    </li>
+    </div>
     <% } %>
-</ul>
+</div>
 
 <% } %>
