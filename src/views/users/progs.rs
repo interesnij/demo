@@ -141,9 +141,9 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
         if _types == "".to_string() {
             let playlist = _request_user.get_music_list();
             tracks = playlist.get_paginate_items(30,0);
-            name = playlist.name;
             image = playlist.get_image();
             description = playlist.get_descriptions();
+            name = playlist.name;
         }
         else {
             let pk: i32 = _types[3..].parse().unwrap();
@@ -153,9 +153,9 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
                 use crate::utils::get_music_list;
                 let playlist = get_music_list(pk);
                 tracks = playlist.get_paginate_items(30,0);
-                name = playlist.name;
                 image = playlist.get_image();
                 description = playlist.get_descriptions();
+                name = playlist.name;
             }
             else if code == "pos".to_string() {
                 use crate::utils::get_post;
