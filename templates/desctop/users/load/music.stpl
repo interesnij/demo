@@ -1,5 +1,5 @@
 
-<div class="card mb-4" data-title="Мои аудиозаписи">
+<div class="mb-4" data-title="Мои аудиозаписи">
   <div class="card-body">
     <div class="media mt-3" style="padding-left: 7px;">
         <h5 class="mt-1" style="flex: 1;">Плейлисты</h5>
@@ -41,8 +41,8 @@
 
 <ul class="is_block_paginate is_paginate" playlist-pk="<%= list.id %>">
 <% for object in object_list.iter() { %>
-<li class="border-top music_item track" data-pk="<%= object.id %>" playlist-pk="<%= object.music_list_id %>">
-  <div style="display:flex" music-pk="<%= object.id %>">
+<li class="border mb-1 music_item track" data-pk="<%= object.id %>" playlist-pk="<%= object.music_list_id %>" style="padding:2px">
+  <div class="current_color" style="display:flex" music-pk="<%= object.id %>">
       <figure>
         <a class="pointer music_list_item">
           <%- object.get_image() %>
