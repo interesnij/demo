@@ -1,4 +1,4 @@
-<span class="load_block">
+<span class="load_attach_block">
 <span data-title="Мои опросы - <%= list.name %>">
 <% if object_list.len() > 0 { %>
 

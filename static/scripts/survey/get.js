@@ -1,6 +1,6 @@
 
 on('#ajax', 'click', '.load_attach_survey_list', function() {
-  profile_list_block_attach(this, "/survey_list_load/", "load_attach_survey_list");
+  profile_list_block_attach(this, "/surveylist/", "load_attach_survey_list");
 });
 
 on('#ajax', 'click', '.load_survey_list', function() {

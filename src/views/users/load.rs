@@ -21,22 +21,22 @@ use crate::models::User;
 
 pub fn load_urls(config: &mut web::ServiceConfig) {
     config.route("/users/load/photos/", web::get().to(photos_load));
-    config.route("/users/load/photos_list/{list_id}/", web::get().to(photos_list_load));
+    config.route("/users/load/photoslist/{list_id}/", web::get().to(photos_list_load));
 
     config.route("/users/load/video/", web::get().to(video_load));
     config.route("/users/load/video_list/{list_id}/", web::get().to(video_list_load));
 
     config.route("/users/load/docs/", web::get().to(docs_load));
-    config.route("/users/load/docs_list/{list_id}/", web::get().to(docs_list_load));
+    config.route("/users/load/docslist/{list_id}/", web::get().to(docs_list_load));
 
     config.route("/users/load/surveys/", web::get().to(surveys_load));
-    config.route("/users/load/surveys_list/{list_id}/", web::get().to(surveys_list_load));
+    config.route("/users/load/surveyslist/{list_id}/", web::get().to(surveys_list_load));
 
     config.route("/users/load/music/", web::get().to(music_load));
     config.route("/users/load/playlist/{list_id}/", web::get().to(music_list_load));
 
     config.route("/users/load/goods/", web::get().to(goods_load));
-    config.route("/users/load/goods_list/{list_id}/", web::get().to(goods_list_load));
+    config.route("/users/load/goodslist/{list_id}/", web::get().to(goods_list_load));
 
     config.route("/users/load/lists_for_copy/", web::get().to(lists_for_copy_load));
     config.route("/users/load/communities_lists_for_copy/", web::get().to(communities_lists_for_copy_load));
