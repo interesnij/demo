@@ -467,7 +467,7 @@ function music_onPlay() {
 };
 
 function music_update_time(items, id) {
-  try {
+  //try {
     current = toSeconds(music_player.getCurrentTime())
     duration = toSeconds(music_player.getDuration())
     procent = current / duration * 100;
@@ -476,7 +476,7 @@ function music_update_time(items, id) {
         items[i].querySelector(".progress2").style.width = procent;
       }
     }
-  } catch { null };
+  //} catch { null };
 }
 
 ///////////////////////////
