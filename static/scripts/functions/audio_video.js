@@ -621,8 +621,8 @@ on('#ajax', 'click', '.music_list_post', function() {
   track_id = track.getAttribute("track-pk");
   post_id = track.parentElement.parentElement.getAttribute('data-pk');
 
-  tracks = track.parentElement.querySelectorAll(".track").reverse();
-  for (i=0; i < tracks.length; i++) {
+  tracks = track.parentElement.querySelectorAll(".track");
+  for (i=tracks.length; i > 0; i--) {
     if (tracks[i].getAttribute("track-pk") == track_id) {
       counter = i;
     }
