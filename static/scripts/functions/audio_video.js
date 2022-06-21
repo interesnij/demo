@@ -522,7 +522,7 @@ function remove_play_items(block) {
   // ---- //
 };
 
-function show_play_items(block, track_id) {
+function show_play_items(block, track_id, list_id) {
   if (track_id == 0) {
     return;
   }
@@ -538,11 +538,10 @@ function show_play_items(block, track_id) {
   }
   // выбран плейлист записи
   else if (type.indexOf('pos') !== -1) {
-    posts = block.querySelectorAll('.post');
+    posts_tracks = block.querySelectorAll('.music_list_post');
     for (i=0; i < posts.length; i++) {
-      if (posts[i].getAttribute("track-pk") == track_id) {
-        attach_block = posts[i].querySelector('.attach_container');
-        list_id = attach_block.querySelector('[playlist-pk=' + '"' + pk + '"' + ']').getAttribute("playlist-pk");
+      if (posts_tracks[i].classList.contains("music_title") && posts_tracks[i].getAttribute("track-pk") == track_id) {
+        list_id = posts_tracks[i].parentElement.parentElement.parentElement.getAttribute('playlist-pk=');
         break;
       }
     }
