@@ -449,9 +449,6 @@ left:0;
 position:absolute;
 top:0;
 }
-.current_color {
-  z-index: 1;
-}
 .progress2:before {
 bottom:0;
 left:0;
@@ -984,6 +981,7 @@ width: 100%;
   width: 94%;
   overflow: hidden;
   padding-top: 5px;
+  z-index: 1;
 }
 .music_list_post a,
 .music_list_comment a {
