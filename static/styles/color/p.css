@@ -1,3 +1,35 @@
+/* black */
+
+.minimalWhiteCategoriesType {
+  color: rgba(255, 255, 255, 0.5);
+}
+.minimalWhiteCategoriesTypeIn {
+	color: rgba(255, 255, 255, 0.5);
+}
+.minimalWhiteCategoriesDescription {
+  color: rgba(255, 255, 255, 0.7);
+}
+.boldWhite {
+  color: rgba(255, 255, 255, 0.7);
+}
+.minimalWhiteCategoriesTitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+.minimalDarkCategoriesDescription {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.minimalDarkCategoriesTypeIn {
+	color: rgba(255, 255, 255, 0.5);
+}
+.minimalDarkCategoriesType {
+  color: rgba(255, 255, 255, 0.5);
+}
+.minimalDarkCategoriesTitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
 ::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.5) !important;
 }
