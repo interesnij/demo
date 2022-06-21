@@ -6,7 +6,8 @@
 .track {
   position: relative;
 }
-.media-body {
+
+.track .media-body, .track figure {
   z-index: 1;
 }
 .gorizontal_scroll {
