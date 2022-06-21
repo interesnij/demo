@@ -145,12 +145,12 @@ on('body', 'change', '.case_all_input', function() {
     };
     count = event.loaded / event.total * 100;
     try {
-      document.body.querySelector("#onload_info").innerHTML = 'Загружено ' + Math.round(count) + '%'
+      _this.parentElement.parentElement.querySelector("#onload_info").innerHTML = 'Загружено ' + Math.round(count) + '%'
     } catch { null }
   };
   link_.upload.onload = function() {
     try {
-      info = document.body.querySelector("#onload_info");
+      info = _this.parentElement.parentElement.querySelector("#onload_info");
       if (case_video) {
         info.innerHTML = "Видео загружено!";
         document.body.querySelector("#edit_video_btn").classList.remove("hidden")
