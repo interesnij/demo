@@ -430,7 +430,7 @@ function music_onReady(){console.log("Аудио плеер готов");}
 function toSeconds(str) {
     var pieces = str.split(":");
     var result = Number(pieces[0]) * 60 + Number(pieces[1]);
-    return(result.toFixed(3));
+    //return(result.toFixed(3));
     return(int(result));
 }
 
