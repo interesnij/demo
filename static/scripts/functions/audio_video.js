@@ -494,6 +494,7 @@ function show_play_items(block, track_id) {
 }
 
 function get_music_player_support(block) {
+  console.log("Time" + music_player.getCurrentTime());
   if (music_player.getCurrentTime() && music_player.getCurrentTime() != "00:00") {
     show_play_items(block, $playlist.getAttribute("data-pk"));
   }
