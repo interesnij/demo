@@ -541,7 +541,7 @@ function show_play_items(block, track_id, list_id) {
     posts_tracks = block.querySelectorAll('.music_list_post');
     for (i=0; i < posts_tracks.length; i++) {
       if (posts_tracks[i].classList.contains("music_title") && posts_tracks[i].parentElement.parentElement.parentElement.getAttribute("track-pk") == track_id) {
-        list_id = posts_tracks[i].parentElement.parentElement.parentElement.getAttribute('playlist-pk=');
+        list_id = posts_tracks[i].parentElement.parentElement.parentElement.getAttribute('playlist-pk');
         break;
       }
     }
