@@ -2582,14 +2582,17 @@ impl Post {
             let pk: i32 = item[3..].parse().unwrap();
             let code = &item[..3];
             if code == "mus".to_string() {
-                stack.push(pk);
+                let track = musics
+                    .filter(schema::musics::id.eq(pk))
+                    .load::<Music>(&_connection)
+                    .expect("E");
+                if track.len() > 0 {
+                    stack.push(track.into_iter().nth(0).unwrap());
+                }
             }
         }
 
-        return musics
-            .filter(schema::musics::id.eq_any(stack))
-            .load::<Music>(&_connection)
-            .expect("E");
+        return stack;
     }
 
     pub fn get_attach_photos(&self) -> Vec<Photo> {
