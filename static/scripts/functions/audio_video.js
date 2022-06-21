@@ -476,6 +476,7 @@ function music_update_time(items, id) {
       return;
     }
     procent = current / duration * 100;
+    console.log(procent);
     for (i=0; i < items.length; i++) {
       if (items[i].getAttribute("track-pk") == id) {
         items[i].querySelector(".progress2").style.width = procent;
