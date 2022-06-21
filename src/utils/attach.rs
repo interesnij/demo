@@ -792,7 +792,7 @@ pub fn add_music(pk: i32, is_staff: bool, user_id: i32, class: String) -> String
     }
 
     return concat_string!(
-        "<div class='music music_item track' data-path='", music.file, "' data-pk='", music.id.to_string(),
+        "<div class='music track' data-path='", music.file, "' track-pk='", music.id.to_string(),
         "' playlist-pk='", music.music_list_id.to_string(),
         "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'
         music-counter=''>", music.get_s_image(),
@@ -850,7 +850,7 @@ pub fn add_anon_music(pk: i32, class: String) -> String {
     let drops = "<span class='dropdown-item copy_link'>Копировать ссылку</span>".to_string();
 
     return concat_string!(
-        "<div class='music music_item track' data-path='", music.file,
+        "<div class='music track' track-pk='", music.id.to_string(), "data-path='", music.file,
         "' playlist-pk='", music.music_list_id.to_string(),
         "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'",
         music.get_s_image(),
