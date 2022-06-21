@@ -13,7 +13,7 @@
 			<p class="minimalWhiteCategoriesType"><span class="boldWhite">Треков: </span><%= playlist_list.len() %></p>
 			<p class="minimalWhiteCategoriesDescription"><%= playlist_description %></p>
 		</li>
-</ul> 
+</ul>
 
 <ul track-id="0" data-type="<%= playlist_type %>" id="saved_playlist" style="display:none;">
 
