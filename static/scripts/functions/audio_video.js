@@ -622,7 +622,7 @@ on('#ajax', 'click', '.music_list_post', function() {
   post_id = track.parentElement.parentElement.getAttribute('data-pk');
 
   tracks = track.parentElement.querySelectorAll(".track");
-  for (i=tracks.length; i > 0; i--) {
+  for (i=tracks.length-1; i >= 0; i--) {
     if (tracks[i].getAttribute("track-pk") == track_id) {
       counter = i;
     }
