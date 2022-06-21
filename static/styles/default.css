@@ -6,7 +6,7 @@
 .track {
   position: relative;
 }
-.current_color {
+.media-body {
   z-index: 1;
 }
 .gorizontal_scroll {
