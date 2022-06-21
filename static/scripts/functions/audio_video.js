@@ -431,6 +431,7 @@ function toSeconds(str) {
     var pieces = str.split(":");
     var result = Number(pieces[0]) * 60 + Number(pieces[1]);
     return(result.toFixed(3));
+    return(int(result));
 }
 
 function music_update_time(id){
@@ -441,7 +442,7 @@ function music_update_time(id){
   //  }
   //}
   //} catch { null };
-  
+
   console.log("getCurrentTime ", toSeconds(music_player.getCurrentTime()));
   console.log("getDuration ", toSeconds(music_player.getDuration()));
 }
