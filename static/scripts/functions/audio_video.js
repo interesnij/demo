@@ -604,6 +604,47 @@ on('#ajax', 'click', '.music_list_item', function() {
   }
 });
 
+on('#ajax', 'click', '.music_list_post', function() {
+  track = this.parentElement.parentElement.parentElement;
+  if (track.querySelector(".progress2").getAttribute("style")) {
+    if (track.classList.contains('pause')) {
+      music_player.play();
+      track.classList.remove('pause');
+      return;
+    }
+    else {
+      music_player.pause();
+      track.classList.add('pause');
+      return;
+    }
+  }
+  counter = 0;
+  track_id = track.getAttribute("track-pk");
+  post_id = track.parentElement.parentElement.getAttribute('data-pk');
+
+  tracks = track.parentElement.querySelectorAll(".track");
+  for (i=0; i < tracks.length; i++) {
+    if (tracks[i].getAttribute("track-pk") == track_id) {
+      counter = i;
+    }
+  };
+
+  current_type = "pos" + post_id;
+  $playlist.setAttribute("track-pk", track_id);
+
+  if ($playlist.getAttribute("data-type") != current_type) {
+      save_playlist('/users/progs/save_playlist/' + current_type + "/", counter);
+      $playlist.setAttribute("data-type", current_type);
+  } else {
+      music_player.loadPlaylist(0);
+      if (FWDMSP.LOAD_PLAYLIST_COMPLETE) {
+        setTimeout(function() {
+          music_player.playSpecificTrack(0, counter);
+        }, 50);
+      }
+  }
+});
+
 function save_playlist(post_link, counter) {
   var playlist_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   playlist_link.open( 'POST', post_link, true );

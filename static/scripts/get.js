@@ -349,31 +349,6 @@ function focus_block(value) {
   sel.addRange(range);
 };
 
-on('#ajax', 'click', '.music_list_post', function() {
-  counter = 0;
-  attach_container = this.parentElement.parentElement.parentElement.parentElement;
-  saved_playlist = document.body.querySelector("#saved_playlist");
-  if (!document.body.classList.contains("item_" + item_pk)){
-    document.querySelector("body").classList = "";
-    document.querySelector("body").classList.add("item_" + item_pk);
-    list = [].slice.call(item.querySelectorAll(".music"), 0).reverse();
-    for(i=0; i<list.length; i++) {
-      _source=list[i].getAttribute("data-path");
-      _title=list[i].querySelector(".music_title").innerHTML;
-      try{_thumbPath= list[i].querySelector("img").getAttribute("data-src")} catch {_thumbPath = "/static/images/no_track_img.jpg"};
-      _duration=list[i].getAttribute("data-duration");
-      time = msToTime(_duration);
-      music_player.addTrack(_source, _title, _thumbPath, time, true, false, null);
-    }
-    music_player.playSpecificTrack("item_" + item_pk, track_id)
-  }else{
-    music_player.loadPlaylist(0);
-    if (FWDMSP.LOAD_PLAYLIST_COMPLETE){
-    setTimeout(function() {music_player.playSpecificTrack("item_" + item_pk, track_id)}, 50);
-  }
-  }
-});
-
 on('#ajax', 'click', '.music_list_comment', function() {
   var track_id = this.parentElement.parentElement.getAttribute('music-counter');
   comment = this.parentElement.parentElement.parentElement.parentElement;
