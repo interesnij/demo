@@ -513,7 +513,12 @@ function music_onPause() {
 
 function music_onPlay() {
   track_id = music_player.buy();
-  $playlist.setAttribute("track-pk", track_id);
+  if (track_id == null) {
+    track_id = $playlist.getAttribute("track-pk");
+  }
+  else {
+    $playlist.setAttribute("track-pk", track_id);
+  }
   remove_play_items(document.body);
   show_play_items(document.body, track_id);
   try { video_player.pause() } catch { null };
