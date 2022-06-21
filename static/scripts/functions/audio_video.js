@@ -475,6 +475,9 @@ function music_update_time(items, id) {
     for (i=0; i < items.length; i++) {
       if (items[i].getAttribute("track-pk") == id) {
         console.log("track exists!");
+        console.log(procent);
+        console.log(items[i].querySelector(".progress2"));
+
         items[i].querySelector(".progress2").style.width = procent;
       }
     }
