@@ -587,10 +587,12 @@ function save_playlist(post_link, counter) {
     if ( playlist_link.readyState == 4 && playlist_link.status == 200 ) {
       data = JSON.parse(playlist_link.responseText);
 
+      category = document.body.querySelector("#saved_audio_category")
+      category.querySelector(".name").innerHTML = data.name;
+      category.querySelector(".minimalWhiteCategoriesDescription").innerHTML = data.description;
+      category.setAttribute("data-thumbnail-path", data.image);
+
       tracks = data.tracks.reverse();
-      console.log(data.name);
-      console.log(data.image);
-      console.log(data.description);
 
       for(i=0; i < tracks.length; i++) {
         title = tracks[i].title;

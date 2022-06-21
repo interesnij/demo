@@ -8,8 +8,8 @@
 %>
 
 <ul id="audio_playlists" style="display:none;">
-		<li data-source="saved_playlist" data-playlist-name="Текущий плейлист" data-thumbnail-path="<%= playlist_image %>">
-			<p class="minimalWhiteCategoriesTitle"><span class="boldWhite">Название: </span><%= playlist_name %></p>
+		<li id="saved_audio_category" data-source="saved_playlist" data-playlist-name="Текущий плейлист" data-thumbnail-path="<%= playlist_image %>">
+			<p class="minimalWhiteCategoriesTitle"><span class="boldWhite">Название: </span><span class="name"><%= playlist_name %></span></p>
 			<p class="minimalWhiteCategoriesType"><span class="boldWhite">Треков: </span><%= playlist_list.len() %></p>
 			<p class="minimalWhiteCategoriesDescription"><%= playlist_description %></p>
 		</li>
