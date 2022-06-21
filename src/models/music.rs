@@ -1550,9 +1550,13 @@ impl MusicList {
             return new_music;
         }
     }
-    pub fn get_image_2(&self) -> String {
+    pub fn get_image(&self) -> String {
         if self.image.is_some() {
             return self.image.as_deref().unwrap().to_string();
+        }
+        else if self.artist_id.is_some() {
+            let artist = self.get_artist();
+            return artist.image.to_string();
         }
         else if self.community_id.is_some() {
             let community = self.get_community();
@@ -1654,6 +1658,33 @@ impl Music {
         }
         else {
             return "<svg fill='currentColor' class='svg_default' width='40' height='40' viewBox='0 0 24 24'><path fill='none' d='M0 0h24v24H0z'></path><path d='M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z'></path></svg>".to_string();
+        }
+    }
+    pub fn get_image_2(&self) -> String {
+        if self.image.is_some() {
+            return self.image.as_deref().unwrap().to_string();
+        }
+        else if self.artist_id.is_some() {
+            let artist = self.get_artist();
+            return artist.image.to_string();
+        }
+        else if self.community_id.is_some() {
+            let community = self.get_community();
+            if community.b_avatar.is_some() {
+                return community.b_avatar.as_deref().unwrap().to_string();
+            }
+            else {
+                return "/static/images/news_small3.jpg".to_string();
+            }
+        }
+        else {
+            let creator = self.get_creator();
+            if creator.b_avatar.is_some() {
+                return creator.b_avatar.as_deref().unwrap().to_string();
+            }
+            else {
+                return "/static/images/news_small3.jpg".to_string();
+            }
         }
     }
     pub fn get_s_image(&self) -> String {
