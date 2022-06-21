@@ -475,6 +475,7 @@ function music_update_time(items, id) {
     console.log(current);
     console.log(duration);
     procent = current / duration * 100;
+    console.log(current / duration * 100);
     for (i=0; i < items.length; i++) {
       if (items[i].getAttribute("track-pk") == id) {
 
