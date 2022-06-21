@@ -747,7 +747,8 @@ pub async fn music_list_load(session: Session, req: HttpRequest, list_id: web::P
         let _request_user_id = &_request_user.id;
 
         let object_list: Vec<Music>;
-        let list = get_music_list(*list_id);
+        let id: i32 = *list_id;
+        let list = get_music_list(id);
         let count = list.count;
         if page > 1 {
             let step = (page - 1) * 20;
