@@ -449,7 +449,9 @@ left:0;
 position:absolute;
 top:0;
 }
-
+.current_color {
+  z-index: 1;
+}
 .progress2:before {
 bottom:0;
 left:0;
