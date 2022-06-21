@@ -558,10 +558,11 @@ on('#ajax', 'click', '.music_list_item', function() {
   list_pk = track.getAttribute('playlist-pk');
 
   current_type = "lis" + list_pk;
+  $playlist.setAttribute("data-type", current_type);
+  $playlist.setAttribute("track-pk", track_id);
+
   if ($playlist.getAttribute("data-type") != current_type) {
       save_playlist('/users/progs/save_playlist/' + current_type + "/", counter);
-      $playlist.setAttribute("data-type", current_type);
-      $playlist.setAttribute("track-pk", track_id);
   } else {
       music_player.loadPlaylist(0);
       if (FWDMSP.LOAD_PLAYLIST_COMPLETE) {
