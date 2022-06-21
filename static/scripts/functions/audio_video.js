@@ -427,9 +427,23 @@ FWDMSPUtils.onReady(function() {
 
 function music_onReady(){console.log("Аудио плеер готов");}
 
-function music_update_time(){
-  console.log("getCurrentTime ", music_player.getCurrentTime());
-  console.log("getDuration ", music_player.getDuration());
+function toSeconds(str) {
+    var pieces = str.split(":");
+    var result = Number(pieces[0]) * 60 + Number(pieces[1]);
+    return(result.toFixed(3));
+}
+
+function music_update_time(id){
+  //try {
+  //for (i=0; i < items.length; i++) {
+  //  if (items[i].getAttribute("track-pk") == id) {
+  //    items[i].classList.add("play_track", "gradient-border");
+  //  }
+  //}
+  //} catch { null };
+  
+  console.log("getCurrentTime ", toSeconds(music_player.getCurrentTime()));
+  console.log("getDuration ", toSeconds(music_player.getDuration()));
 }
 
 function music_onPause() {
@@ -479,13 +493,8 @@ function show_active_track(block, list_pk, track_pk) {
     }
   }
 
-  try {
-    for (i=0; i < items.length; i++) {
-      if (items[i].getAttribute("track-pk") == track_pk) {
-        items[i].classList.add("play_track", "gradient-border");
-      }
-    }
-  } catch { null };
+  music_update_time(track_pk);
+
 };
 
 function remove_play_items(block) {
