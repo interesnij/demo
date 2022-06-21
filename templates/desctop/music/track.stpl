@@ -43,4 +43,5 @@
               </span>
         </div>
     </div>
+    <div class="progress2" style="width:0"></div>
 </li>
