@@ -585,15 +585,21 @@ function save_playlist(post_link, counter) {
 
   playlist_link.onreadystatechange = function () {
     if ( playlist_link.readyState == 4 && playlist_link.status == 200 ) {
-      data = JSON.parse(playlist_link.responseText).tracks.reverse();
-      for(i=0; i < data.length; i++) {
-        title = data[i].title;
+      data = JSON.parse(playlist_link.responseText);
+
+      tracks = data.tracks.reverse();
+      console.log(data.name);
+      console.log(data.image);
+      console.log(data.description);
+
+      for(i=0; i < tracks.length; i++) {
+        title = tracks[i].title;
         if (title.indexOf(".") != -1) {
           title = title.split(".")[0];
         }
-        _source=data[i].url;
+        _source=tracks[i].url;
         _title=title;
-        _thumbPath=data[i].image;
+        _thumbPath=tracks[i].image;
                 //_duration=list[i].getAttribute("data-duration");
                 //time = msToTime(_duration);
         music_player.addTrack(_source, title, _thumbPath, null, true, false, null) // 4 позиция - время (time)
