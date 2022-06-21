@@ -547,7 +547,7 @@ on('#ajax', 'click', '.music_list_item', function() {
   counter = 0;
   tracks = track.parentElement.querySelectorAll(".track");
   for (i=0; i < tracks.length; i++) {
-    if (tracks[i].getAttribute("data-track") == track.getAttribute("data-track")) {
+    if (tracks[i].getAttribute("track-pk") == track.getAttribute("track-pk")) {
       counter = i;
       console.log(counter);
     }
