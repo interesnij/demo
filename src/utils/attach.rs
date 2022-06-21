@@ -792,7 +792,7 @@ pub fn add_music(pk: i32, is_staff: bool, user_id: i32, class: String) -> String
     }
 
     return concat_string!(
-        "<div class='music track' data-path='", music.file, "' track-pk='", music.id.to_string(),
+        "<div class='music track' track-pk='", music.id.to_string(),
         "' playlist-pk='", music.music_list_id.to_string(),
         "' style='flex-basis: auto;width:100%;position: relative;'><div class='media'
         music-counter=''>", music.get_s_image(),
@@ -803,7 +803,7 @@ pub fn add_music(pk: i32, is_staff: bool, user_id: i32, class: String) -> String
         fill='none' /><path d='M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' />
         </svg></a><div class='dropdown-menu dropdown-menu-right' style='top: 25px;' data-type='mus",
         music.id.to_string(), "'>",
-        drops, "</div></span</span></div></div></div>");
+        drops, "</div></span</span></div></div><div class='progress2'></div></div>");
 }
 pub fn add_edited_music(pk: i32, class: String) -> String {
     use crate::schema::musics::dsl::musics;
@@ -861,7 +861,7 @@ pub fn add_anon_music(pk: i32, class: String) -> String {
         fill='none' /><path d='M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' />
         </svg></a><div class='dropdown-menu dropdown-menu-right' style='top: 25px;' data-type='mus",
         music.id.to_string(), "'>",
-        drops, "</div></span</span></div></div></div>");
+        drops, "</div></span</span></div></div><div class='progress2'></div></div>");
 }
 
 pub fn add_anon_doc(pk: i32) -> String {
