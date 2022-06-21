@@ -546,9 +546,10 @@ on('#ajax', 'click', '.music_list_item', function() {
     }
   }
   counter = 0;
+  track_id = track.getAttribute("track-pk");
   tracks = track.parentElement.querySelectorAll(".track");
   for (i=0; i < tracks.length; i++) {
-    if (tracks[i].getAttribute("track-pk") == track.getAttribute("track-pk")) {
+    if (tracks[i].getAttribute("track-pk") == track_id) {
       counter = i;
     }
   };
@@ -559,6 +560,7 @@ on('#ajax', 'click', '.music_list_item', function() {
   if ($playlist.getAttribute("data-type") != current_type) {
       save_playlist('/users/progs/save_playlist/' + current_type + "/", counter);
       $playlist.setAttribute("data-type", current_type);
+      $playlist.setAttribute("track-pk", track_id);
       music_player.playSpecificTrack(0, counter)
       show_play_items(document.body.querySelector("#ajax"), $playlist.getAttribute("track-pk"));
   } else {
