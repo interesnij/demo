@@ -472,7 +472,7 @@ function music_update_time(items, id) {
 
     current = toSeconds(music_player.getCurrentTime());
     duration = toSeconds(music_player.getDuration());
-    if current == 0 {
+    if (current == 0) {
       return;
     }
     procent = current / duration * 100;
