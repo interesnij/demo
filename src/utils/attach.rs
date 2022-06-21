@@ -252,7 +252,7 @@ pub fn add_music_list(pk: i32) -> String {
         "<div playlist-pk='", list.id.to_string(), "' style='flex-basis: 100%;' class='card playlist'><div class='card-body' owner-pk='",
         owner, "' playlist-pk='", list.id.to_string(),
         "' style='padding: 8px;padding-bottom: 0;'><div style='display:flex'>
-        <figure><a class='load_music_list btn_default pointer'><img class="image_fit_120" src='",
+        <figure><a class='load_music_list btn_default pointer'><img class='image_fit_120' src='",
         list.get_image(), "' alt='image' /></a></figure><div class='media-body' style='margin-left: 10px;'>
         <h6 class='my-0 mt-1 load_music_list pointer'>",
         list.name, "</h6><p><a style='vertical-align: baseline;'class='ajax underline' href='",
