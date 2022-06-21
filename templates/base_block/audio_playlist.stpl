@@ -15,7 +15,7 @@
 		</li>
 </ul>
 
-<ul track-id="0" data-type="<%= playlist_type %>" id="saved_playlist" style="display:none;">
+<ul data-type="<%= playlist_type %>" id="saved_playlist" style="display:none;">
 
   <% if playlist_list.len() > 0 { %>
     <% for track in playlist_list.iter() { %>
