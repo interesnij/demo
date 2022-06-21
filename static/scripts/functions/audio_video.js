@@ -512,11 +512,12 @@ function music_onPause() {
 };
 
 function music_onPlay() {
-  var track_id = music_player.buy();
+  track_id = music_player.buy();
+  $playlist.setAttribute("track-pk", track_id);
   remove_play_items(document.body);
   show_play_items(document.body, track_id);
   try { video_player.pause() } catch { null };
-  $playlist.setAttribute("track-pk", track_id);
+  console.log(track_id);
 
   title = music_player.getTrackTitle();
   if (title != undefined) {
