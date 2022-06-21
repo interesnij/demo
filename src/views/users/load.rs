@@ -33,7 +33,7 @@ pub fn load_urls(config: &mut web::ServiceConfig) {
     config.route("/users/load/surveys_list/{list_id}/", web::get().to(surveys_list_load));
 
     config.route("/users/load/music/", web::get().to(music_load));
-    config.route("/users/load/music_list/{list_id}/", web::get().to(music_list_load));
+    config.route("/users/load/playlist/{list_id}/", web::get().to(music_list_load));
 
     config.route("/users/load/goods/", web::get().to(goods_load));
     config.route("/users/load/goods_list/{list_id}/", web::get().to(goods_list_load));
