@@ -975,6 +975,9 @@ width: 100%;
 .faqnav .ajax{
     padding-bottom: 0.2rem;
   }
+.music_list_item {
+  z-index: 1;
+}
 .music_list_post,
 .music_list_comment{
   cursor:pointer;
