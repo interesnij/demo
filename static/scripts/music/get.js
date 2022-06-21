@@ -7,8 +7,8 @@ on('#ajax', 'click', '.track_edit', function() {
   create_fullscreen("/music/edit_track/" + parent.getAttribute("data-pk") +"/", "item_fullscreen");
 });
 
-on('#ajax', 'click', '.load_attach_playlist', function() {
-  profile_list_block_attach(this, ".load_block", "/u_music_list_load/", "load_attach_playlist");
+on('#ajax', 'click', '.load_attach_music_list', function() {
+  profile_list_block_attach(this, ".load_block", "/u_music_list_load/", "load_attach_music_list");
 });
 
 on('#ajax', 'click', '.load_music_list', function() {
