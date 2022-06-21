@@ -466,10 +466,10 @@ function music_onPlay() {
   }
 };
 
-function music_update_time(items, id) {
+function music_update_time(tracks, id) {
   //try {
     console.log("work!");
-    console.log(items);
+    console.log(tracks);
     current = toSeconds(music_player.getCurrentTime());
     duration = toSeconds(music_player.getDuration());
     if (current == 0) {
@@ -477,10 +477,10 @@ function music_update_time(items, id) {
     }
     procent = current / duration * 100;
     console.log(procent + " %");
-    for (i=0; i < items.length; i++) {
-      if (items[i].getAttribute("track-pk") == id) {
-        console.log(items[i].querySelector(".progress2").style.width);
-        items[i].querySelector(".progress2").style.width = procent + " %";
+    for (i=0; i < tracks.length; i++) {
+      if (tracks[i].getAttribute("track-pk") == id) {
+        console.log(tracks[i].querySelector(".progress2").style.width);
+        tracks[i].querySelector(".progress2").style.width = procent + " %";
       }
     }
   //} catch { null };
@@ -501,8 +501,7 @@ function show_active_track(block, list_pk, track_pk) {
       }
     }
   }
-  items = block.querySelectorAll(".track");
-  music_update_time(items, track_pk);
+  music_update_time(block.querySelectorAll(".track"), track_pk);
 
 };
 
