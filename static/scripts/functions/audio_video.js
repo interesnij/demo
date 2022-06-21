@@ -469,14 +469,13 @@ function music_onPlay() {
 function music_update_time(items, id) {
   //try {
     console.log("work!");
-    current = toSeconds(music_player.getCurrentTime())
-    duration = toSeconds(music_player.getDuration())
+    console.log(music_player.getCurrentTime());
+    console.log(music_player.getDuration());
+    current = toSeconds(music_player.getCurrentTime());
+    duration = toSeconds(music_player.getDuration());
     procent = current / duration * 100;
     for (i=0; i < items.length; i++) {
       if (items[i].getAttribute("track-pk") == id) {
-        console.log("track exists!");
-        console.log(procent);
-        console.log(items[i].querySelector(".progress2"));
 
         items[i].querySelector(".progress2").style.width = procent;
       }
