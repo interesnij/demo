@@ -559,6 +559,7 @@ on('#ajax', 'click', '.music_list_item', function() {
   if ($playlist.getAttribute("data-type") != current_type) {
       save_playlist('/users/progs/save_playlist/' + current_type + "/", counter);
       $playlist.setAttribute("data-type", current_type);
+      music_player.playSpecificTrack(0, counter)
       show_play_items(document.body.querySelector("#ajax"), $playlist.getAttribute("track-pk"));
   } else {
       music_player.loadPlaylist(0);
