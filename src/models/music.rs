@@ -261,7 +261,7 @@ impl MusicList {
     }
     pub fn get_first_track_pk(&self) -> i32 {
         if self.get_items().len() > 0 {
-            return self.get_items().first().id;
+            return self.get_items().first().unwrap().id; 
         }
         else {
             return 0;
