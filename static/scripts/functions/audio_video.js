@@ -442,9 +442,11 @@ function music_update_time(id){
   //  }
   //}
   //} catch { null };
-
-  console.log("getCurrentTime ", toSeconds(music_player.getCurrentTime()));
-  console.log("getDuration ", toSeconds(music_player.getDuration()));
+  current = toSeconds(music_player.getCurrentTime())
+  duration = toSeconds(music_player.getDuration())
+  //procent = | (a — b) / [ (a + b) / 2 ] | * 100 %;
+  procent = current / duration * 100;
+  console.log("procent ", procent);
 }
 
 function music_onPause() {
