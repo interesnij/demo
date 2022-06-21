@@ -549,6 +549,7 @@ on('#ajax', 'click', '.music_list_item', function() {
   for (i=0; i < tracks.length; i++) {
     if (tracks[i].getAttribute("data-track") == track.getAttribute("data-track")) {
       counter = i;
+      console.log(counter);
     }
   };
 
