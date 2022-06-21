@@ -516,7 +516,7 @@ function remove_play_items(block) {
   // уберем все подсветки плейлистов и треков
   items = block.querySelectorAll('.track');
   for (i=0; i < items.length; i++) {
-    items[i].classList.removeAttribute("style");
+    items[i].removeAttribute("style");
   }
 
   playlists = block.querySelectorAll('.playlist');
