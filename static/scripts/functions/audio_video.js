@@ -694,4 +694,5 @@ function add_html_tracks_in_player (html) {
     music_player.addTrack(_source, title, _thumbPath, null, true, false, null)
   }
   music_player.update();
+  fullscreen_resize();
 };

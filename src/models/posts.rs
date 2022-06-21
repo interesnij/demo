@@ -2606,14 +2606,17 @@ impl Post {
             let pk: i32 = item[3..].parse().unwrap();
             let code = &item[..3];
             if code == "pho".to_string() {
-                stack.push(pk);
+                let track = photos
+                    .filter(schema::photos::id.eq(pk))
+                    .load::<Photo>(&_connection)
+                    .expect("E");
+                if track.len() > 0 {
+                    stack.push(track.into_iter().nth(0).unwrap());
+                }
             }
         }
 
-        return photos
-            .filter(schema::photos::id.eq_any(stack))
-            .load::<Photo>(&_connection)
-            .expect("E");
+        return stack;
     }
     pub fn get_attach_videos(&self) -> Vec<Video> {
         use crate::schema::videos::dsl::videos;
@@ -2626,14 +2629,17 @@ impl Post {
             let pk: i32 = item[3..].parse().unwrap();
             let code = &item[..3];
             if code == "vid".to_string() {
-                stack.push(pk);
+                let track = videos
+                    .filter(schema::videos::id.eq(pk))
+                    .load::<Video>(&_connection)
+                    .expect("E");
+                if track.len() > 0 {
+                    stack.push(track.into_iter().nth(0).unwrap());
+                }
             }
         }
 
-        return videos
-            .filter(schema::videos::id.eq_any(stack))
-            .load::<Video>(&_connection)
-            .expect("E");
+        return stack;
     }
 
     pub fn reposts_count_ru(&self) -> String {
@@ -3145,14 +3151,17 @@ impl PostComment {
             let pk: i32 = item[3..].parse().unwrap();
             let code = &item[..3];
             if code == "mus".to_string() {
-                stack.push(pk);
+                let track = musics
+                    .filter(schema::musics::id.eq(pk))
+                    .load::<Music>(&_connection)
+                    .expect("E");
+                if track.len() > 0 {
+                    stack.push(track.into_iter().nth(0).unwrap());
+                }
             }
         }
 
-        return musics
-            .filter(schema::musics::id.eq_any(stack))
-            .load::<Music>(&_connection)
-            .expect("E");
+        return stack;
     }
 
     pub fn get_attach_photos(&self) -> Vec<Photo> {
@@ -3166,14 +3175,17 @@ impl PostComment {
             let pk: i32 = item[3..].parse().unwrap();
             let code = &item[..3];
             if code == "pho".to_string() {
-                stack.push(pk);
+                let track = photos
+                    .filter(schema::photos::id.eq(pk))
+                    .load::<Photo>(&_connection)
+                    .expect("E");
+                if track.len() > 0 {
+                    stack.push(track.into_iter().nth(0).unwrap());
+                }
             }
         }
 
-        return photos
-            .filter(schema::photos::id.eq_any(stack))
-            .load::<Photo>(&_connection)
-            .expect("E");
+        return stack;
     }
     pub fn get_attach_videos(&self) -> Vec<Video> {
         use crate::schema::videos::dsl::videos;
@@ -3186,14 +3198,17 @@ impl PostComment {
             let pk: i32 = item[3..].parse().unwrap();
             let code = &item[..3];
             if code == "vid".to_string() {
-                stack.push(pk);
+                let track = videos
+                    .filter(schema::videos::id.eq(pk))
+                    .load::<Video>(&_connection)
+                    .expect("E");
+                if track.len() > 0 {
+                    stack.push(track.into_iter().nth(0).unwrap());
+                }
             }
         }
 
-        return videos
-            .filter(schema::videos::id.eq_any(stack))
-            .load::<Video>(&_connection)
-            .expect("E");
+        return stack;
     }
 
     pub fn get_replies(&self) -> Vec<PostComment> {

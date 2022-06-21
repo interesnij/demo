@@ -2176,14 +2176,64 @@ impl Message {
             let pk: i32 = item[3..].parse().unwrap();
             let code = &item[..3];
             if code == "mus".to_string() {
-                stack.push(pk);
+                let track = musics
+                    .filter(schema::musics::id.eq(pk))
+                    .load::<Music>(&_connection)
+                    .expect("E");
+                if track.len() > 0 {
+                    stack.push(track.into_iter().nth(0).unwrap());
+                }
             }
         }
 
-        return musics
-            .filter(schema::musics::id.eq_any(stack))
-            .load::<Music>(&_connection)
-            .expect("E");
+        return stack;
+    }
+
+    pub fn get_attach_photos(&self) -> Vec<Photo> {
+        use crate::schema::photos::dsl::photos;
+
+        let _connection = establish_connection();
+        let attach = self.attach.as_ref().unwrap().to_string();
+        let v: Vec<&str> = attach.split(",").collect();
+        let mut stack = Vec::new();
+        for item in v.iter() {
+            let pk: i32 = item[3..].parse().unwrap();
+            let code = &item[..3];
+            if code == "pho".to_string() {
+                let track = photos
+                    .filter(schema::photos::id.eq(pk))
+                    .load::<Photo>(&_connection)
+                    .expect("E");
+                if track.len() > 0 {
+                    stack.push(track.into_iter().nth(0).unwrap());
+                }
+            }
+        }
+
+        return stack;
+    }
+    pub fn get_attach_videos(&self) -> Vec<Video> {
+        use crate::schema::videos::dsl::videos;
+
+        let _connection = establish_connection();
+        let attach = self.attach.as_ref().unwrap().to_string();
+        let v: Vec<&str> = attach.split(",").collect();
+        let mut stack = Vec::new();
+        for item in v.iter() {
+            let pk: i32 = item[3..].parse().unwrap();
+            let code = &item[..3];
+            if code == "vid".to_string() {
+                let track = videos
+                    .filter(schema::videos::id.eq(pk))
+                    .load::<Video>(&_connection)
+                    .expect("E");
+                if track.len() > 0 {
+                    stack.push(track.into_iter().nth(0).unwrap());
+                }
+            }
+        }
+
+        return stack;
     }
     pub fn get_or_create_chat_and_send_message(&self, creator: User,
         user: &User, repost_id: Option<i32>, content: Option<String>,
