@@ -487,7 +487,7 @@ function music_update_time() {
       if (blocks[i].getAttribute("track-pk") == track_id) {
         progress = blocks[i].querySelector(".progress2");
         console.log(progress);
-        progress.style.width = procent + " %";
+        progress.style.width = procent + "%";
         progress.innerHTML = procent;
       }
     }
