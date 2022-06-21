@@ -622,8 +622,10 @@ on('#ajax', 'click', '.music_list_post', function() {
   post_id = track.parentElement.parentElement.getAttribute('data-pk');
 
   tracks = track.parentElement.querySelectorAll(".track");
-  for (i=tracks.length-1; i >= 0; i--) {
+  for (i=0; i < tracks.length; i++) {
+    console.log(i);
     if (tracks[i].getAttribute("track-pk") == track_id) {
+      console.log("ok " + i);
       counter = i;
     }
   };
