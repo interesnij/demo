@@ -524,7 +524,10 @@ function music_onPause() {
 };
 
 function music_onPlay() {
-    console.log("id" + music_player.buy());
+
+    console.log("buy()" + music_player.buy());
+    console.log("buy(counter)" + music_player.buy(music_player.getTrackTitle()));
+    console.log("getTrackPk" + music_player.getTrackPk());
     remove_play_items(document.body);
     show_play_items(document.body);
     try { video_player.pause() } catch { null }
