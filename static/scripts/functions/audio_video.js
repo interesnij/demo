@@ -469,7 +469,7 @@ function music_onPlay() {
 function music_update_time(items, id) {
   //try {
     console.log("work!");
-
+    console.log(items);
     current = toSeconds(music_player.getCurrentTime());
     duration = toSeconds(music_player.getDuration());
     if (current == 0) {
