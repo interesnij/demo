@@ -538,14 +538,20 @@ on('#ajax', 'click', '.music_list_item', function() {
       track.classList.remove('pause');
       return;
     }
-    //else {
-    //  music_player.pause();
-    //  track.classList.add('pause');
-    //  return;
-    //}
+    else {
+      music_player.pause();
+      track.classList.add('pause');
+      return;
+    }
   }
+  counter = 0;
+  tracks = track.parentElement.querySelectorAll(".track");
+  for (i=0; i < tracks.length; i++) {
+    if (tracks[i].getAttribute("data-track") == track.getAttribute("data-track")) {
+      counter = i;
+    }
+  };
 
-  counter = music_player.getTrackId();
   list_pk = track.getAttribute('playlist-pk');
 
   current_type = "lis" + list_pk;
