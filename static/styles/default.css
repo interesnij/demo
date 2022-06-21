@@ -6,6 +6,9 @@
 .track {
   position: relative;
 }
+.current_color {
+  z-index: 1;
+}
 .gorizontal_scroll {
   overflow-y: hidden;
   overflow-x: scroll;
@@ -979,7 +982,7 @@ width: 100%;
   z-index: 1;
 }
 .music_list_post,
-.music_list_comment{
+.music_list_comment {
   cursor:pointer;
   width: 94%;
   overflow: hidden;
