@@ -488,7 +488,6 @@ function music_update_time() {
         progress = blocks[i].querySelector(".progress2");
         console.log(progress);
         progress.style.width = procent + "%";
-        progress.innerHTML = procent;
       }
     }
   //} catch { null };
