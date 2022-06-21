@@ -431,7 +431,7 @@ function toSeconds(str) {
     var pieces = str.split(":");
     var result = Number(pieces[0]) * 60 + Number(pieces[1]);
     //return(result.toFixed(3));
-    return(int(result));
+    return(result*1);
 }
 
 function music_update_time(id){
