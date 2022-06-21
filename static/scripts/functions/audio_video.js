@@ -472,13 +472,12 @@ function music_update_time(items, id) {
 
     current = toSeconds(music_player.getCurrentTime());
     duration = toSeconds(music_player.getDuration());
-    console.log(current);
-    console.log(duration);
+    if current == 0 {
+      return;
+    }
     procent = current / duration * 100;
-    console.log(current / duration * 100);
     for (i=0; i < items.length; i++) {
       if (items[i].getAttribute("track-pk") == id) {
-
         items[i].querySelector(".progress2").style.width = procent;
       }
     }
