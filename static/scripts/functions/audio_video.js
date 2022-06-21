@@ -463,7 +463,7 @@ function remove_play_items(block) {
 };
 
 function show_play_items(block, track_id) {
-  if (counter == undefined) {
+  if (track_id == 0) {
     return;
   }
 
