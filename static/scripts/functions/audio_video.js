@@ -538,11 +538,11 @@ on('#ajax', 'click', '.music_list_item', function() {
       track.classList.remove('pause');
       return;
     }
-    else {
-      music_player.pause();
-      track.classList.add('pause');
-      return;
-    }
+    //else {
+    //  music_player.pause();
+    //  track.classList.add('pause');
+    //  return;
+    //}
   }
 
   counter = music_player.getTrackId();
