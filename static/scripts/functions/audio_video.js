@@ -485,8 +485,10 @@ function music_update_time() {
     console.log(procent + " %");
     for (i=0; i < blocks.length; i++) {
       if (blocks[i].getAttribute("track-pk") == track_id) {
-        console.log(blocks[i].querySelector(".progress2"));
-        blocks[i].querySelector(".progress2").style.width = procent + " %";
+        progress = blocks[i].querySelector(".progress2");
+        console.log(progress);
+        progress.style.width = procent + " %";
+        progress.innerHTML = procent;
       }
     }
   //} catch { null };
