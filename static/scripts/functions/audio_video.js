@@ -565,7 +565,7 @@ function dragElement(elmnt){var pos1=0,pos2=0,pos3=0,pos4=0;document.querySelect
 
 on('#ajax', 'click', '.music_list_item', function() {
   track = this.parentElement.parentElement.parentElement;
-  if (track.classList.contains('gradient-border')) {
+  if (track.querySelector(".progress2").getAttribute("style")) {
     if (track.classList.contains('pause')) {
       music_player.play();
       track.classList.remove('pause');
