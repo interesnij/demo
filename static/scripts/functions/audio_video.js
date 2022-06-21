@@ -422,7 +422,7 @@ FWDMSPUtils.onReady(function() {
   music_player.addListener(FWDMSP.READY, music_onReady);
   music_player.addListener(FWDMSP.PLAY, music_onPlay);
   music_player.addListener(FWDMSP.PAUSE, music_onPause);
-  music_player.addListener(FWDMSP.UPDATE_TIME, music_update_time(blocks, id));
+  music_player.addListener(FWDMSP.UPDATE_TIME, music_update_time);
 });
 
 function music_onReady(){console.log("Аудио плеер готов");}
@@ -466,9 +466,15 @@ function music_onPlay() {
   }
 };
 
-function music_update_time(blocks, id) {
+$playlist = document.body.querySelector("#saved_playlist");
+function music_update_time() {
   //try {
     console.log("work!");
+    blocks = document.body.querySelectorAll(".track");
+    track_id = music_player.buy();
+    if (track_id == null) {
+      track_id = $playlist.getAttribute("track-pk");
+    }
     console.log(blocks);
     current = toSeconds(music_player.getCurrentTime());
     duration = toSeconds(music_player.getDuration());
@@ -478,7 +484,7 @@ function music_update_time(blocks, id) {
     procent = current / duration * 100;
     console.log(procent + " %");
     for (i=0; i < blocks.length; i++) {
-      if (blocks[i].getAttribute("track-pk") == id) {
+      if (blocks[i].getAttribute("track-pk") == track_id) {
         console.log(blocks[i].querySelector(".progress2"));
         blocks[i].querySelector(".progress2").style.width = procent + " %";
       }
@@ -487,7 +493,6 @@ function music_update_time(blocks, id) {
 }
 
 ///////////////////////////
-$playlist = document.body.querySelector("#saved_playlist");
 
 function show_active_track(block, list_pk, track_pk) {
   playlists = block.querySelectorAll(".playlist");
@@ -502,7 +507,7 @@ function show_active_track(block, list_pk, track_pk) {
     }
   }
 
-  music_update_time(block.querySelectorAll(".track"), track_pk);
+  music_update_time();
 
 };
 
