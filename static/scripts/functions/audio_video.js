@@ -651,4 +651,5 @@ function add_html_tracks_in_player (html) {
     _thumbPath = "/static/images/news_small3.jpg";
     music_player.addTrack(_source, title, _thumbPath, null, true, false, null)
   }
+  music_player.update();
 };
