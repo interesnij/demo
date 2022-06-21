@@ -469,10 +469,11 @@ function music_onPlay() {
 function music_update_time(items, id) {
   //try {
     console.log("work!");
-    console.log(music_player.getCurrentTime());
-    console.log(music_player.getDuration());
+
     current = toSeconds(music_player.getCurrentTime());
     duration = toSeconds(music_player.getDuration());
+    console.log(current);
+    console.log(duration);
     procent = current / duration * 100;
     for (i=0; i < items.length; i++) {
       if (items[i].getAttribute("track-pk") == id) {
