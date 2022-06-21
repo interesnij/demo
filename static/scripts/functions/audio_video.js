@@ -462,7 +462,7 @@ function remove_play_items(block) {
   // ---- //
 };
 
-function show_play_items(block, track_id, counter) {
+function show_play_items(block, track_id) {
   if (counter == undefined) {
     return;
   }
@@ -495,7 +495,7 @@ function show_play_items(block, track_id, counter) {
 
 function get_music_player_support(block) {
   if (music_player.getCurrentTime() && music_player.getCurrentTime() != "00:00") {
-    show_play_items(block, $playlist.getAttribute("data-pk"), music_player.getTrackId());
+    show_play_items(block, $playlist.getAttribute("data-pk"));
   }
 }
 
@@ -513,7 +513,7 @@ function music_onPause() {
 function music_onPlay() {
   var track_id = music_player.buy();
   remove_play_items(document.body);
-  show_play_items(document.body, track_id, music_player.getTrackId());
+  show_play_items(document.body, track_id);
   try { video_player.pause() } catch { null };
   $playlist.setAttribute("track-pk", track_id);
 
@@ -549,7 +549,6 @@ on('#ajax', 'click', '.music_list_item', function() {
   for (i=0; i < tracks.length; i++) {
     if (tracks[i].getAttribute("track-pk") == track.getAttribute("track-pk")) {
       counter = i;
-      console.log(counter);
     }
   };
 
@@ -559,7 +558,7 @@ on('#ajax', 'click', '.music_list_item', function() {
   if ($playlist.getAttribute("data-type") != current_type) {
       save_playlist('/users/progs/save_playlist/' + current_type + "/", counter);
       $playlist.setAttribute("data-type", current_type);
-      show_play_items(document.body.querySelector("#ajax"), $playlist.getAttribute("data-pk"), counter);
+      show_play_items(document.body.querySelector("#ajax"), $playlist.getAttribute("data-pk"));
   } else {
       music_player.loadPlaylist(0);
       if (FWDMSP.LOAD_PLAYLIST_COMPLETE) {
