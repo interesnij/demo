@@ -1550,7 +1550,7 @@ impl MusicList {
             return new_music;
         }
     }
-    pub fn get_image(&self) -> String {
+    pub fn get_image_2(&self) -> String {
         if self.image.is_some() {
             return self.image.as_deref().unwrap().to_string();
         }

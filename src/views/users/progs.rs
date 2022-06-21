@@ -266,7 +266,7 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
                 TrackData {
                     url:   track.file.clone(),
                     title: track.title.clone(),
-                    image: track.get_image(),
+                    image: track.get_image_2(), 
                 });
         }
         data = PlaylistData {

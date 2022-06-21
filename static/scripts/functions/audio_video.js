@@ -561,8 +561,6 @@ on('#ajax', 'click', '.music_list_item', function() {
       save_playlist('/users/progs/save_playlist/' + current_type + "/", counter);
       $playlist.setAttribute("data-type", current_type);
       $playlist.setAttribute("track-pk", track_id);
-      music_player.playSpecificTrack(0, counter)
-      show_play_items(document.body.querySelector("#ajax"), $playlist.getAttribute("track-pk"));
   } else {
       music_player.loadPlaylist(0);
       if (FWDMSP.LOAD_PLAYLIST_COMPLETE) {
@@ -597,6 +595,7 @@ function save_playlist(post_link, counter) {
       if (FWDMSP.LOAD_PLAYLIST_COMPLETE){
         setTimeout(function() {music_player.playSpecificTrack(0, counter)}, 50);
       }
+      show_play_items(document.body.querySelector("#ajax"), $playlist.getAttribute("track-pk"));
   }};
   playlist_link.send( null );
 };
