@@ -524,6 +524,7 @@ function music_onPause() {
 };
 
 function music_onPlay() {
+    console.log("id" + music_player.buy());
     remove_play_items(document.body);
     show_play_items(document.body);
     try { video_player.pause() } catch { null }
