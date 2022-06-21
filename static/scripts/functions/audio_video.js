@@ -469,24 +469,20 @@ function music_onPlay() {
 $playlist = document.body.querySelector("#saved_playlist");
 function music_update_time() {
   //try {
-    console.log("work!");
     blocks = document.body.querySelectorAll(".track");
     track_id = music_player.buy();
     if (track_id == null) {
       track_id = $playlist.getAttribute("track-pk");
     }
-    console.log(blocks);
     current = toSeconds(music_player.getCurrentTime());
     duration = toSeconds(music_player.getDuration());
     if (current == 0) {
       return;
     }
     procent = current / duration * 100;
-    console.log(procent + " %");
     for (i=0; i < blocks.length; i++) {
       if (blocks[i].getAttribute("track-pk") == track_id) {
         progress = blocks[i].querySelector(".progress2");
-        console.log(progress);
         progress.style.width = procent + "%";
       }
     }
