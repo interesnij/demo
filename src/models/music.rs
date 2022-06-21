@@ -259,6 +259,14 @@ impl MusicList {
     pub fn get_code(&self) -> String {
         return "lmu".to_string() + &self.get_str_id();
     }
+    pub fn get_first_track_pk(&self) -> i32 {
+        if self.get_items().len() > 0 {
+            return self.get_items().first().id;
+        }
+        else {
+            return 0;
+        }
+    }
     pub fn get_longest_penalties(&self) -> String {
         use crate::schema::moderated_penalties::dsl::moderated_penalties;
         use crate::models::ModeratedPenaltie;

@@ -393,14 +393,7 @@ impl VideoList {
             .load::<Video>(&_connection)
             .expect("E.");
     }
-    pub fn get_first_track_pk(&self) -> i32 {
-        if self.get_items.len() > 0 {
-            return self.get_items.first().id;
-        }
-        else {
-            return 0;
-        }
-    }
+    
     pub fn get_paginate_items(&self, limit: i64, offset: i64) -> Vec<Video> {
         use crate::schema::videos::dsl::videos;
 
