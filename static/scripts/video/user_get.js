@@ -8,7 +8,7 @@ on('#ajax', 'click', '.uri_click', function() {
 });
 
 on('#ajax', 'click', '.load_attach_video_list', function() {
-  profile_list_block_attach(this, ".load_block", "/video_list_load/", "load_attach_video_list");
+  profile_list_block_attach(this, "/video_list_load/", "load_attach_video_list");
 });
 
 on('#ajax', 'click', '.load_video_list', function() {

@@ -183,7 +183,7 @@ function send_change_items(array, link) {
   xmlhttp.send(JSON.stringify(post_array));
 };
 
-function profile_list_block_attach(_this, block, url, actions_class) {
+function profile_list_block_attach(_this, url, actions_class) {
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   request.open( 'GET', "/users/load" + url + _this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", true );
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -191,7 +191,7 @@ function profile_list_block_attach(_this, block, url, actions_class) {
     if ( request.readyState == 4 && request.status == 200 ){
         elem_ = document.createElement('span');
         elem_.innerHTML = request.responseText;
-       document.body.querySelector(block).innerHTML = elem_.querySelector(block).innerHTML;
+       _this.parentElement.parentElement.parentElement.parentElement_this.parentElement.parentElement.parentElement.parentElement.innerHTML = elem_.querySelector(block).innerHTML;
        class_to_add = _this.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")
        for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add(actions_class, "pointer");

@@ -8,7 +8,7 @@ on('#ajax', 'click', '.track_edit', function() {
 });
 
 on('#ajax', 'click', '.load_attach_music_list', function() {
-  profile_list_block_attach(this, ".load_block", "/playlist/", "load_attach_music_list");
+  profile_list_block_attach(this, "/playlist/", "load_attach_music_list");
 });
 
 on('#ajax', 'click', '.load_music_list', function() {

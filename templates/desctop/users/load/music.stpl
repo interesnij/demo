@@ -36,7 +36,7 @@
     </div>
 
 
-<span class="load_block">
+<span class="load_attach_block">
 <% if object_list.len() > 0 { %>
 
 <ul class="is_block_paginate is_paginate" playlist-pk="<%= list.id %>">

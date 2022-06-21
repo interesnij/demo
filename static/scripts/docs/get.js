@@ -1,6 +1,6 @@
 
 on('#ajax', 'click', '.load_attach_doc_list', function() {
-  profile_list_block_attach(this, ".load_block", "/doc_list_load/", "load_attach_doc_list");
+  profile_list_block_attach(this, "/doc_list_load/", "load_attach_doc_list");
 });
 
 on('body', 'click', '.doc_edit', function() {

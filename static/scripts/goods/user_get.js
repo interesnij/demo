@@ -1,6 +1,6 @@
 
 on('#ajax', 'click', '.load_attach_good_list', function() {
-  profile_list_block_attach(this, ".load_block", "/good_list_load/", "load_attach_good_list");
+  profile_list_block_attach(this, "/good_list_load/", "load_attach_good_list");
 });
 
 on('#ajax', 'click', '.good_detail', function() {
