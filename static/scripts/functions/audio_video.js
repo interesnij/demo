@@ -434,19 +434,6 @@ function toSeconds(str) {
     return(result*1);
 }
 
-function music_update_time(id){
-  try {
-    current = toSeconds(music_player.getCurrentTime())
-    duration = toSeconds(music_player.getDuration())
-    procent = current / duration * 100;
-    for (i=0; i < items.length; i++) {
-      if (items[i].getAttribute("track-pk") == id) {
-        items[i].querySelector(".progress2").style.width = procent;
-      }
-    }
-  } catch { null };
-}
-
 function music_onPause() {
   try {
     document.title = "Музыка приостановлена";
@@ -479,10 +466,24 @@ function music_onPlay() {
   }
 };
 
+function music_update_time(items, id) {
+  try {
+    current = toSeconds(music_player.getCurrentTime())
+    duration = toSeconds(music_player.getDuration())
+    procent = current / duration * 100;
+    for (i=0; i < items.length; i++) {
+      if (items[i].getAttribute("track-pk") == id) {
+        items[i].querySelector(".progress2").style.width = procent;
+      }
+    }
+  } catch { null };
+}
+
 ///////////////////////////
 $playlist = document.body.querySelector("#saved_playlist");
 
 function show_active_track(block, list_pk, track_pk) {
+  playlists = block.querySelectorAll(".playlist");
   for (i=0; i < playlists.length; i++) {
     if (playlists[i].getAttribute("data-pk") == list_pk) {
       if (playlists[i].classList.contains("is_paginate")) {
@@ -493,8 +494,8 @@ function show_active_track(block, list_pk, track_pk) {
       }
     }
   }
-
-  music_update_time(track_pk);
+  items = block.querySelectorAll(".track");
+  music_update_time(items, track_pk);
 
 };
 
