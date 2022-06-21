@@ -422,7 +422,7 @@ FWDMSPUtils.onReady(function() {
   music_player.addListener(FWDMSP.READY, music_onReady);
   music_player.addListener(FWDMSP.PLAY, music_onPlay);
   music_player.addListener(FWDMSP.PAUSE, music_onPause);
-  music_player.addListener(FWDMSP.UPDATE_TIME, music_update_time);
+  music_player.addListener(FWDMSP.UPDATE_TIME, music_update_time(blocks, id));
 });
 
 function music_onReady(){console.log("Аудио плеер готов");}
