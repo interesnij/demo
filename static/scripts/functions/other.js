@@ -191,7 +191,7 @@ function profile_list_block_attach(_this, url, actions_class) {
     if ( request.readyState == 4 && request.status == 200 ){
         elem_ = document.createElement('span');
         elem_.innerHTML = request.responseText;
-       _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.innerHTML = elem_.querySelector(".load_attach_block").innerHTML;
+       _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling.innerHTML = elem_.querySelector(".load_attach_block").innerHTML;
        class_to_add = _this.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")
        for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add(actions_class, "pointer");
