@@ -32,7 +32,7 @@
     <span class="pointer badge badge-light-primary copy_link">Копировать ссылку</span>
   </h5>
 </div>
-<div class="mb-2">
+<div class="card mb-2">
   <div class="card-body">
   <ul class="is_paginate playlist is_stat_list" playlist-pk="<%= list.id %>" data-pk="<%= list.id %>" data-type="mus">
 

@@ -1,5 +1,5 @@
-<li track-pk="<%= object.id %>" playlist-pk="<%= object.music_list_id %>" class="track" style="padding:2px">
-    <div class="media current_color" style="align-items: unset;position: relative;">
+<li track-pk="<%= object.id %>" playlist-pk="<%= object.music_list_id %>" class="track">
+    <div class="media" style="align-items: unset;position: relative;">
       <figure>
         <a class="pointer music_list_item">
           <%- object.get_image() %>

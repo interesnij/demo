@@ -1,7 +1,7 @@
 <% for object in object_list.iter() { %>
 
-<li data-file="<%= object.file %>" class="drag_item list-group-item" style="padding:5px">
-    <div class="media" music-counter="" style="align-items: unset;position: relative;">
+<li data-file="<%= object.file %>" class="drag_item list-group-item">
+    <div class="media" style="align-items: unset;position: relative;">
       <figure>
         <a class="pointer music_list_item">
           <%- object.get_image() %>

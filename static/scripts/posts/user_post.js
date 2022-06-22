@@ -122,7 +122,11 @@ on('body', 'change', '.case_all_input', function() {
         lenta.insertAdjacentHTML('afterBegin', response.innerHTML);
         lenta.querySelector(".items_empty") ? document.body.querySelector(".items_empty").style.display = "none" : null;
         if (case_audio) {
-          add_html_tracks_in_player (response);
+          type = "lis" + form.getAttribute("data-pk");
+          playlist_type = document.body.querySelector("#saved_playlist").getAttribute("data-type");
+          if (type == playlist_type) {
+            add_html_tracks_in_player (response);
+          }
         }
       }
   }};
