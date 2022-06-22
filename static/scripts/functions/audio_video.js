@@ -570,7 +570,7 @@ on('#ajax', 'click', '.music_list_item', function(e) {
   // работа с плейлистом
   if (target_list.contains("play_list_mode")) {
     console.log("play_list_mode!!");
-    playlist = this.parentElement.parentElement.parentElement;
+    playlist = this.parentElement.parentElement.parentElement.parentElement;
     if (playlist.classList.contains("play")) {
       if (target_list.contains("music_list_pause")) {
         music_player.play();
