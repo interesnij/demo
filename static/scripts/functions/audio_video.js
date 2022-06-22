@@ -518,8 +518,13 @@ function remove_play_items(block) {
 
   playlists = block.querySelectorAll('.playlist');
   for (i=0; i < playlists.length; i++) {
-    playlists[i].classList.remove("play");
-    playlists[i].querySelector(".play_list_mode").classList.remove("music_list_pause");
+    if (playlists[i].classList.contains("is_paginate")) {
+      console.log("Обнаружен проигрываемый список плейлиста!");
+    }
+    else {
+      playlists[i].classList.remove("play");
+      playlists[i].querySelector(".play_list_mode").classList.remove("music_list_pause");
+    }
   }
   // ---- //
 };
