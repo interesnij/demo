@@ -22,6 +22,30 @@
     <% } %>
   </div>
 </div>
+<div data-pk="<%= list.id %>" playlist-pk="<%= list.id %>" style="flex-basis: 100%;" class="card playlist">
+  <div class="card-body" playlist-pk="<%= list.id %>" style="padding: 4px;padding-bottom: 0;">
+    <div style="display:flex">
+      <figure class="position-relative">
+        <a class="load_music_list btn_default pointer">
+          <img class="image_fit_120" src="<%= list.get_image() %>" alt="image">
+        </a>
+        <% if list.count > 0 { %>
+          <div class="play_list_mode music_list_item" track-pk="<%= list.get_first_track_pk() %>"></div>
+        <% } %>
+      </figure>
+      <div class="media-body" style="margin-left: 10px;">
+        <h6 class="my-0 mt-1 load_music_list pointer"><%= list.name %></h6>
+        <p>
+          <% if list.description.is_some() { %>
+            <%= list.description.unwrap() %>
+          <% } else { %>
+            Без описания
+          <% } %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <span class="load_block">
 <span data-title="<%= list.name %> - плейлист">

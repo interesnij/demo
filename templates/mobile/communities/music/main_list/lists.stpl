@@ -12,57 +12,36 @@
 <div class="row no-gutters gorizontal_scroll">
    <div class="col-12">
    <ul class="drag_list" data-type="lmu" style="width:max-content;list-style: none;">
-       <% for object in lists.iter() { %>
-       <% if object.community_id.is_some() { %>
-         <% let community = object.get_community(); %>
-       <li class="list_item drag_item playlist" playlist-pk="<%= object.id %>" data-pk="<%= object.id %>">
-           <div class="card file-manager-item folder border community" playlist-pk="<%= object.id %>" data-pk="<%= object.community_id.unwrap() %>">
-               <div class="card-img-top file-logo-wrapper">
-                 <div class="d-flex align-items-center justify-content-center w-100">
-                   <svg class="pointer load_music_list svg_default" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle>
-                   </svg>
-                 </div>
-               </div>
-               <div class="card-body pt-0">
-                   <div class="content-wrapper">
-                       <p class="card-text file-name mb-0 list_name load_music_list" style="text-align: left;" data-name="<%= object.name %>"><%= object.name %></p>
-                       <p class="handle card-text file-size mb-0"><%= object.count_items() %></p>
-                   </div>
-                   <small class="file-accessed">
-                     <a class="ajax underline" href="<%= community.link %>">
-                       <%= community.name %>
-                     </a>
-                   </small>
-               </div>
+   <% for object in lists.iter() { %>
+    <li class="list_item drag_item">
+      <div data-pk="<%= object.id %>" playlist-pk="<%= object.id %>" style="flex-basis: 100%;" class="card playlist">
+        <div class="card-body" playlist-pk="<%= object.id %>" style="padding: 4px;padding-bottom: 0;">
+           <div>
+            <figure class="position-relative">
+              <a class="load_music_list btn_default pointer">
+                <img class="image_fit_120" src="<%= object.get_image() %>" alt="image">
+              </a>
+              <% if object.count > 0 { %>
+               <div class="play_list_mode music_list_item" track-pk="<%= object.get_first_track_pk() %>"></div>
+              <% } %>
+            </figure>
+             <p class="my-0 mt-1 load_music_list pointer"><%= object.name %> (<%= object.count %>)</p>
            </div>
-       </li>
-       <% } else { %>
-         <% let creator = object.get_creator(); %>
-       <li class="list_item drag_item playlist" playlist-pk="<%= object.id %>" data-pk="<%= object.id %>">
-           <div class="card file-manager-item folder border" playlist-pk="<%= object.id %>" data-pk="<%= object.user_id %>">
-               <div class="card-img-top file-logo-wrapper">
-                 <div class="d-flex align-items-center justify-content-center w-100">
-                   <svg class="pointer load_music_list svg_default" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle>
-                   </svg>
-                 </div>
-               </div>
-               <div class="card-body pt-0">
-                   <div class="content-wrapper">
-                       <p class="card-text file-name mb-0 list_name load_music_list" style="text-align: left;" data-name="<%= object.name %>"><%= object.name %></p>
-                       <p class="handle card-text file-size mb-0"><%= object.count_items() %></p>
-                   </div>
-                   <small class="file-accessed">
-                     <a class="ajax underline" href="<%= creator.link %>">
-                       <%= creator.get_full_name() %>
-                     </a>
-                   </small>
-               </div>
-           </div>
-       </li>
-       <% } %>
-       <% } %>
+             <% if object.community_id.is_some() { %>
+               <% let community = object.get_community(); %>
+               <a class="ajax small i_link" href="<%= community.link %>">
+                  <%= community.name %>
+               </a>
+               <% } else { %>
+                 <% let creator = object.get_creator(); %>
+                 <a class="ajax small i_link" href="<%= creator.link %>">
+                    <%= creator.get_full_name() %>
+                 </a>
+               <% } %>
+        </div>
+      </div>
+    </li>
+   <% } %>
    </ul>
    </div>
 </div>
