@@ -4,9 +4,9 @@
   </figure>
   <div class="container">
     <br>
-    <h4 class="load_photo_list pointer">
+    <h6 class="load_photo_list media-body pointer">
       <a><%= object.name %></a>
-    </h4>
+    </h6>
     <p class="">
       <% if object.community_id.is_some() { %>
         <% let community = object.get_community(); %>
