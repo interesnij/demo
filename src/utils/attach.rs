@@ -249,7 +249,7 @@ pub fn add_music_list(pk: i32) -> String {
     }
 
     return concat_string!(
-        "<div playlist-pk='", list.id.to_string(), "' style='flex-basis: 100%;' class='card playlist'><div class='card-body' owner-pk='",
+        "<div data-pk='", list.id.to_string(), "' playlist-pk='", list.id.to_string(), "' style='flex-basis: 100%;' class='card playlist'><div class='card-body' owner-pk='",
         owner, "' playlist-pk='", list.id.to_string(),
         "' style='padding: 4px;padding-bottom: 0;'><div style='display:flex'>
         <figure class='position-relative'><a class='load_music_list btn_default pointer'><img class='image_fit_120' src='",
