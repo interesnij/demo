@@ -524,7 +524,7 @@ function remove_play_items(block) {
   // ---- //
 };
 
-function show_play_items(block, track_id, list_id) {
+function show_play_items(block, track_id) {
   if (track_id == 0) {
     return;
   }
