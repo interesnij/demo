@@ -504,7 +504,9 @@ function show_active_track(block, list_pk, track_pk) {
       }
       else {
         playlists[i].classList.add("play");
-        playlists[i].querySelector(".play_list_mode").classList.add("music_list_pause");
+        try {
+          playlists[i].querySelector(".play_list_mode").classList.add("music_list_pause");
+        } catch { null };
       }
     }
   }
@@ -527,7 +529,9 @@ function remove_play_items(block) {
     }
     else {
       playlists[i].classList.remove("play");
-      playlists[i].querySelector(".play_list_mode").classList.remove("music_list_pause");
+      try {
+        playlists[i].querySelector(".play_list_mode").classList.remove("music_list_pause");
+      } catch { null };
     }
   }
   // ---- //
