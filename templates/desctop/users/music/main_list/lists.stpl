@@ -20,9 +20,11 @@
                  <a class="load_music_list btn_default pointer">
                    <img class="image_fit_120" src="<%= object.get_image() %>" alt="image">
                  </a>
-                 <div class="play_list_mode music_list_item" track-pk="<%= object.get_first_track_pk() %>"></div>
+                 <span>
+                  <div class="play_list_mode music_list_item" track-pk="<%= object.get_first_track_pk() %>"></div>
+                 </span>
                </figure>
-                <h6 class="my-0 mt-1 load_music_list pointer"><%= object.name %></h6>
+                <h6 class="my-0 mt-1 load_music_list pointer"><%= object.name %> (<%= object.count %>)</h6>
                 <% if object.community_id.is_some() { %>
                   <% let community = object.get_community(); %>
                   <a style="vertical-align: baseline;" class="ajax underline" href="<%= community.link %>">
@@ -34,8 +36,6 @@
                        <%= creator.get_full_name() %>
                     </a>
                   <% } %>
-                   <br>
-                   <%= object.count_items_ru() %>
            </div>
          </div>
        </li>
