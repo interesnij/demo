@@ -504,7 +504,7 @@ pub fn add_photo_list(pk: i32) -> String {
         "' photolist-pk='", list.id.to_string(),
         "' style='width: 100%;flex-basis: 100%;'>
         <figure class='background-img'><img src='",
-        list.get_cover_photo(), "' </figure><div class='container'><br>
+        list.get_cover_photo(), "' /></figure><div class='container'><br>
         <h4 class='load_photo_list pointer'><a>", list.name,
         "</a></h4><p class='lead'><a class='ajax underline' href='",
         link, "'>", name, "</a></p>
