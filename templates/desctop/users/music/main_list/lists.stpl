@@ -35,7 +35,7 @@
                     </a>
                   <% } %>
                    <br>
-                   <%= object.get_items_ru() %>
+                   <%= object.count_items_ru() %>
            </div>
          </div>
        </li>
