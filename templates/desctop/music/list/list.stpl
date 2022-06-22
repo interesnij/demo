@@ -22,6 +22,8 @@
     <% } %>
   </div>
 </div>
+
+
 <div data-pk="<%= list.id %>" playlist-pk="<%= list.id %>" style="flex-basis: 100%;" class="card playlist">
   <div class="card-body" playlist-pk="<%= list.id %>" style="padding: 4px;padding-bottom: 0;">
     <div style="display:flex">
