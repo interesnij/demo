@@ -21,10 +21,12 @@
                  <a class="load_music_list btn_default pointer">
                    <img class="image_fit_120" src="<%= object.get_image() %>" alt="image">
                  </a>
-                 <div class="play_list_mode music_list_item" track-pk="<%= object.get_first_track_pk() %>"></div>
+                 <% if object.count > 0 { %>
+                  <div class="play_list_mode music_list_item" track-pk="<%= object.get_first_track_pk() %>"></div>
+                 <% } %>
                </figure>
                 <p class="my-0 mt-1 load_music_list pointer"><%= object.name %> (<%= object.count %>)</p>
-              </div> 
+              </div>
                 <% if object.community_id.is_some() { %>
                   <% let community = object.get_community(); %>
                   <a class="ajax small i_link" href="<%= community.link %>">

@@ -225,6 +225,7 @@ pub fn add_music_list(pk: i32) -> String {
     let name : String;
     let link : String;
     let owner : String;
+    let play_btn : String;
 
     let list = music_lists
         .filter(schema::music_lists::id.eq(pk))
@@ -234,6 +235,13 @@ pub fn add_music_list(pk: i32) -> String {
         .into_iter()
         .nth(0)
         .unwrap();
+
+    if list.count > 0 {
+        play_btn = "<div class='play_list_mode music_list_item' track-pk='".to_string() + &list.get_first_track_pk().to_string() + &"></div>".to_string();
+    }
+    else {
+        play_btn = "".to_string();
+    }
 
     if list.community_id.is_some() {
         let community = list.get_community();
@@ -253,9 +261,8 @@ pub fn add_music_list(pk: i32) -> String {
         owner, "' playlist-pk='", list.id.to_string(),
         "' style='padding: 4px;padding-bottom: 0;'><div style='display:flex'>
         <figure class='position-relative'><a class='load_music_list btn_default pointer'><img class='image_fit_120' src='",
-        list.get_image(), "' alt='image' /></a>
-        <div class='play_list_mode music_list_item' track-pk='",
-        list.get_first_track_pk().to_string(), "'></div></figure><div class='media-body' style='margin-left: 10px;'>
+        list.get_image(), "' alt='image' /></a>", play_btn,
+        "</figure><div class='media-body' style='margin-left: 10px;'>
         <h6 class='my-0 mt-1 load_music_list pointer'>",
         list.name, "</h6><p><a style='vertical-align: baseline;'class='ajax underline' href='",
         link, "'>", name, "</a> - плейлист<br>",
