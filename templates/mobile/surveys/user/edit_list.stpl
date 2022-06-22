@@ -10,11 +10,11 @@
               </div>
               <div class="form-group">
                   <label>Описание</label>
-                  <input value="
                   <% if list.description.is_some() { %>
-                    <%= list.description.as_ref().unwrap() %>
+                    <input value="<%= list.description.as_ref().unwrap() %>" name="description" class="form-control">
+                  <% } else { %>
+                    <input value="" name="description" class="form-control">
                   <% } %>
-                  " name="description" class="form-control">
               </div>
               <% include!("../../../base_block/perm/edit_user_list_perm.stpl"); %>
 

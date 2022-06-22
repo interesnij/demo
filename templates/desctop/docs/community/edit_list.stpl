@@ -10,12 +10,12 @@
                 <input value="<%= list.name %>" type="text" name="name" id="id_name" class="form-control">
               </div>
               <div class="form-group">
-                  <label>Описание</label>
-                  <input value="
-                  <% if list.description.is_some() { %>
-                    <%= list.description.as_ref().unwrap() %>
-                  <% } %>
-                  " name="description" class="form-control">
+                <label>Описание</label>
+                <% if list.description.is_some() { %>
+                  <input value="<%= list.description.as_ref().unwrap() %>" name="description" class="form-control">
+                <% } else { %>
+                  <input value="" name="description" class="form-control">
+                <% } %>
               </div>
               <% include!("../../../base_block/perm/edit_community_list_perm.stpl"); %>
 

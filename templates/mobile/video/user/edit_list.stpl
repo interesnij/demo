@@ -12,13 +12,11 @@
           </div>
           <div class="form-group">
               <label>Описание</label>
-              <input
               <% if list.description.is_some() { %>
-                value="<%= list.description.as_ref().unwrap() %>"
+                <input value="<%= list.description.as_ref().unwrap() %>" name="description" class="form-control">
               <% } else { %>
-                value=""
+                <input value="" name="description" class="form-control">
               <% } %>
-              " name="description" class="form-control">
           </div>
           <% include!("../../../base_block/perm/edit_reactions.stpl"); %>
           <% include!("../../../base_block/perm/edit_user_list_comment_perm.stpl"); %>
