@@ -1214,8 +1214,7 @@ transform: translateX(-50%) translateY(-50%) scale(1.2);
     transition: background-color 100ms linear;
     cursor: pointer;
 }
-/*.playlist :hover .play_list_mode.music_list_item {*/
-.play_list_mode.music_list_item {
+.playlist :hover .play_list_mode.music_list_item {
   position: absolute;
     top: 0;
     bottom: 0;
@@ -1230,14 +1229,13 @@ transform: translateX(-50%) translateY(-50%) scale(1.2);
     transition: background-color 100ms linear;
     cursor: pointer;
 }
-/*.playlist :hover .play_list_mode.music_list_pause { */
-  .play_list_mode.music_list_pause {
+.playlist :hover .play_list_mode.music_list_pause { 
   position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0,0,0,0.5) url('/static/images/pause_small.png') 19px 13px no-repeat;
+    background: rgba(0,0,0,0.5) url('/static/images/pause_small.png') 12px 13px no-repeat;
     margin: auto;
     width: 50px;
     height: 50px;
