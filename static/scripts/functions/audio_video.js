@@ -570,7 +570,7 @@ on('#ajax', 'click', '.music_list_item', function(e) {
     console.log("play_list_mode!!");
     if (target_list.contains("music_list_pause")) {
       music_player.play();
-      target_list.classList.remove('music_list_pause');
+      target_list.remove('music_list_pause');
       return;
     }
     else {
