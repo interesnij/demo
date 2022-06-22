@@ -573,13 +573,13 @@ on('#ajax', 'click', '.music_list_item', function(e) {
       target_list.remove('music_list_pause');
       return;
     }
-    else {
-      music_player.pause();
-      target_list.add('music_list_pause');
-      return;
-    }
+    //else {
+    //  music_player.pause();
+    //  target_list.add('music_list_pause');
+    //  return;
+    //}
     track_id = this.getAttribute("track-pk");
-    list_id = this.getAttribute('playlist-pk');
+    list_id = this.parentElement.parentElement.parentElement.getAttribute('playlist-pk');
     tracks = document.body.querySelectorAll(".track");
   }
 
