@@ -23,7 +23,7 @@ on('body', 'click', '.load_comments_list', function() {
   } else {
     block_comments.firstChild
         ? null
-        : list_load(block_comments, url);
+        : (list_load(block_comments, url), get_music_player_support(block_comments));
     block_comments.classList.add("show")
   }
 });
