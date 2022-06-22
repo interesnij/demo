@@ -298,9 +298,9 @@ function get_audio_dop() {
   style = styles[styles.length- 1];
   settings = [];
   if (style.href.indexOf("a.css") != -1){
-    settings += ["images/audio_white",'#eeeeee','#FFFFFF']
+    settings += ["images/audio_white",'#000000','#000000']
   } else {
-    settings += ["images/audio_dark",'#000000','#000000']
+    settings += ["images/audio_dark",'#eeeeee','#FFFFFF']
   }
   return settings.split(',')
 };
