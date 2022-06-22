@@ -38,7 +38,7 @@ on('body', 'click', '.chat_photo', function() {
 });
 
 on('#ajax', 'click', '.load_photo_list', function() {
-  parent = this.parentElement.parentElement.parentElement;
+  parent = this.parentElement.parentElement;
   if (parent.getAttribute("owner-pk")) {
     photolist_pk = parent.getAttribute("photolist-pk");
     owner_pk = parent.getAttribute("owner-pk");
