@@ -372,11 +372,11 @@ music_player = new FWDMSP ({
     thumbnailMaxHeight:330,              // макс. высота миниатюр
     horizontalSpaceBetweenThumbnails:40, // пространство между миниатюрами по горизонтали
     verticalSpaceBetweenThumbnails:40,   // пространство между миниатюрами по вертикали
-    mainSelectorBackgroundSelectedColor:get_audio_dop()[3], // цвет фона выбранного
+    mainSelectorBackgroundSelectedColor:get_audio_dop()[2], // цвет фона выбранного
     mainSelectorTextNormalColor:"#737373",  // цвет текста селектора
-    mainSelectorTextSelectedColor:get_audio_dop()[3], // цвет текста селектора выбранного
+    mainSelectorTextSelectedColor:get_audio_dop()[2], // цвет текста селектора выбранного
     mainButtonTextNormalColor:"#7C7C7C", // цвет текста кнопок
-    mainButtonTextSelectedColor:get_audio_dop()[3], // цвет текста кнопок выбранных
+    mainButtonTextSelectedColor:get_audio_dop()[2], // цвет текста кнопок выбранных
 
     //playlist settings
     playTrackAfterPlaylistLoad:"no",     // воспроизведение трека после загрузки плейлиста
@@ -386,9 +386,9 @@ music_player = new FWDMSP ({
     showPlaylistItemPlayButton:"yes",    // показать кнопку воспроизведения элемента плейлиста
     addScrollBarMouseWheelSupport:"yes",  // прокручивать колесиком мыши
     showTracksNumbers:"no",							// показывать номер трека
-    playlistBackgroundColor:get_audio_dop()[3],    // цвет фона плейлиста
+    playlistBackgroundColor:get_audio_dop()[2],    // цвет фона плейлиста
     trackTitleNormalColor:"#737373",      // цвет заголовка трека
-    trackTitleSelectedColor:get_audio_dop()[3],    // цвет заголовка выбранного трека
+    trackTitleSelectedColor:get_audio_dop()[2],    // цвет заголовка выбранного трека
     trackDurationColor:"#7C7C7C",         // цвет времени трека
     maxPlaylistItems:1000,                  // Макс. количество плейлистов
     nrOfVisiblePlaylistItems:12,          // число видимых элементов списка воспроизведения
@@ -417,11 +417,11 @@ music_player = new FWDMSP ({
 
     atbTimeBackgroundColor:"transparent", // цвет фона "от / до"
     atbTimeTextColorNormal:"#888888",     // цвет текста "от / до"
-    atbTimeTextColorSelected:get_audio_dop()[3],   // цвет выбранного текста "от / до"
+    atbTimeTextColorSelected:get_audio_dop()[2],   // цвет выбранного текста "от / до"
     atbButtonTextNormalColor:"#888888",   // цвет кнопки "от / до"
-    atbButtonTextSelectedColor:get_audio_dop()[3], // цвет выбранной кнопки "от / до"
-    atbButtonBackgroundNormalColor:get_audio_dop()[3], // цвет фона кнопки "от / до"
-    atbButtonBackgroundSelectedColor:get_audio_dop()[3], // цвет фона выбранной кнопки "от / до"
+    atbButtonTextSelectedColor:get_audio_dop()[2], // цвет выбранной кнопки "от / до"
+    atbButtonBackgroundNormalColor:get_audio_dop()[2], // цвет фона кнопки "от / до"
+    atbButtonBackgroundSelectedColor:get_audio_dop()[2], // цвет фона выбранной кнопки "от / до"
   });
 
 FWDMSPUtils.onReady(function() {
