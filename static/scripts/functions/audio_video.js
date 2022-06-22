@@ -499,7 +499,8 @@ function show_active_track(block, list_pk, track_pk) {
         console.log("Обнаружен проигрываемый список плейлиста!");
       }
       else {
-        playlists[i].classList.add("play_list", "gradient-border");
+        playlists[i].classList.remove("play");
+        playlists.querySelector(".play_list_mode").classList.remove("music_list_pause");
       }
     }
   }
@@ -517,7 +518,8 @@ function remove_play_items(block) {
 
   playlists = block.querySelectorAll('.playlist');
   for (i=0; i < playlists.length; i++) {
-    playlists[i].classList.remove("play_list", "gradient-border", "pause");
+    playlists[i].classList.remove("play");
+    playlists.querySelector(".play_list_mode").classList.remove("music_list_pause");
   }
   // ---- //
 };
@@ -568,15 +570,18 @@ on('#ajax', 'click', '.music_list_item', function(e) {
   // работа с плейлистом
   if (target_list.contains("play_list_mode")) {
     console.log("play_list_mode!!");
-    if (target_list.contains("music_list_pause")) {
-      music_player.play();
-      target_list.remove('music_list_pause');
-      return;
-    }
-    else {
-      //music_player.pause();
-      target_list.add('music_list_pause');
-      return;
+    playlist = this.parentElement.parentElement.parentElement;
+    if (playlist.contains("play")) {
+      if (target_list.contains("music_list_pause")) {
+        music_player.play();
+        target_list.remove('music_list_pause');
+        return;
+      }
+      else {
+        music_player.pause();
+        target_list.add('music_list_pause');
+        return;
+      }
     }
     track_id = this.getAttribute("track-pk");
     list_id = this.parentElement.parentElement.parentElement.getAttribute('playlist-pk');
