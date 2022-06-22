@@ -573,12 +573,13 @@ on('#ajax', 'click', '.music_list_item', function(e) {
     playlist = this.parentElement.parentElement.parentElement.parentElement;
     if (playlist.classList.contains("play")) {
       if (target_list.contains("music_list_pause")) {
-        music_player.play();
+        music_player.pause();
         target_list.remove('music_list_pause');
         return;
       }
       else {
         music_player.pause();
+        music_player.play();
         target_list.add('music_list_pause');
         return;
       }
