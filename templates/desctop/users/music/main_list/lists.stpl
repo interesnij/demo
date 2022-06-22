@@ -24,15 +24,15 @@
                   <div class="play_list_mode music_list_item" track-pk="<%= object.get_first_track_pk() %>"></div>
                  </span>
                </figure>
-                <h6 class="my-0 mt-1 load_music_list pointer"><%= object.name %> (<%= object.count %>)</h6>
+                <p class="my-0 mt-1 load_music_list pointer"><%= object.name %> (<%= object.count %>)</p>
                 <% if object.community_id.is_some() { %>
                   <% let community = object.get_community(); %>
-                  <a style="vertical-align: baseline;" class="ajax underline" href="<%= community.link %>">
+                  <a class="ajax small i_link" href="<%= community.link %>">
                      <%= community.name %>
                   </a>
                   <% } else { %>
                     <% let creator = object.get_creator(); %>
-                    <a style="vertical-align: baseline;" class="ajax underline" href="<%= creator.link %>">
+                    <a class="ajax small i_link" href="<%= creator.link %>">
                        <%= creator.get_full_name() %>
                     </a>
                   <% } %>
