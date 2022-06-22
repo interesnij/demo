@@ -575,11 +575,11 @@ on('#ajax', 'click', '.music_list_item', function(e) {
     }
     else {
       music_player.pause();
-      target_list.classList.add('music_list_pause');
+      target_list.add('music_list_pause');
       return;
     }
     track_id = this.getAttribute("track-pk");
-    list_id = track.getAttribute('playlist-pk');
+    list_id = this.getAttribute('playlist-pk');
     tracks = document.body.querySelectorAll(".track");
   }
 
