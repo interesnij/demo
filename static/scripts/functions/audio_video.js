@@ -500,7 +500,7 @@ function show_active_track(block, list_pk, track_pk) {
       }
       else {
         playlists[i].classList.remove("play");
-        playlists.querySelector(".play_list_mode").classList.remove("music_list_pause");
+        playlists[i].querySelector(".play_list_mode").classList.remove("music_list_pause");
       }
     }
   }
@@ -519,7 +519,7 @@ function remove_play_items(block) {
   playlists = block.querySelectorAll('.playlist');
   for (i=0; i < playlists.length; i++) {
     playlists[i].classList.remove("play");
-    playlists.querySelector(".play_list_mode").classList.remove("music_list_pause");
+    playlists[i].querySelector(".play_list_mode").classList.remove("music_list_pause");
   }
   // ---- //
 };
