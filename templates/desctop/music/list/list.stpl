@@ -27,7 +27,7 @@
   <div class="card-body" playlist-pk="<%= list.id %>" style="padding: 4px;padding-bottom: 0;">
     <div style="display:flex">
       <figure class="position-relative">
-        <a class="load_music_list btn_default pointer">
+        <a>
           <img class="image_fit_120" src="<%= list.get_image() %>" alt="image">
         </a>
         <% if list.count > 0 { %>
@@ -35,7 +35,7 @@
         <% } %>
       </figure>
       <div class="media-body" style="margin-left: 10px;">
-        <h6 class="my-0 mt-1 load_music_list pointer"><%= list.name %></h6>
+        <h6 class="my-0 mt-1"><%= list.name %></h6>
         <p>
           <% if list.description.is_some() { %>
             <%= list.description.as_deref().unwrap() %>
