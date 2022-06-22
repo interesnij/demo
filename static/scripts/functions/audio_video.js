@@ -8,7 +8,7 @@ function msToTime(duration) {
   return minutes + ":" + seconds;
 };
 
-function get_video_dop(){
+function get_video_dop() {
   styles = document.querySelectorAll(".my_color_settings");
   style = styles[styles.length- 1];
   settings = [];
@@ -19,7 +19,8 @@ function get_video_dop(){
   }
   return settings.split(',')
 };
-function get_audio_dop(){
+
+function get_audio_dop() {
   styles = document.querySelectorAll(".my_color_settings");
   style = styles[styles.length- 1];
   settings = [];
@@ -287,18 +288,24 @@ video_player = new FWDUVPlayer({
 });
 };
 
-function get_resize_screen(){
+function get_resize_screen() {
   video_player.maxWidth = 360;
   video_player.maxHeight = 270;
   video_player.showPlaylist();
 };
-function get_normal_screen(){
+function get_normal_screen() {
   video_player.maxWidth = 1170;
   video_player.maxHeight = 659;
   video_player.hidePlaylist();
 };
 
-music_player = new FWDMSP({
+if (document.body.querySelector(".desctop_nav")) {
+  pos = "bottom"
+}
+else {
+  pos = "top";
+}
+music_player = new FWDMSP ({
     //main settings
     instanceName:"player1",
     playlistsId:"audio_playlists",
@@ -306,11 +313,11 @@ music_player = new FWDMSP({
     skinPath:get_audio_dop()[0],
     showSoundCloudUserNameInTitle:"no",   // показывать имя пользователя soundcloud
     showMainBackground:"no",  						// показать общий фон
-    verticalPosition:"bottom",            // расположение плеера
+    verticalPosition: pos,                // расположение плеера
     rightClickContextMenu:"developer",
     useDeepLinking:"no",									// использовать глубокие ссылки - защита от перехвата. Не будет работать с souncloud
     rightClickContextMenu:"no",           // показ контекстног меню по щелчку правой кнопкой мыши
-    addKeyboardSupport:"yes",             // добавить поддержку клавиатуры
+    addKeyboardSupport:"no",             // добавить поддержку клавиатуры
     animate:"yes",												// фнимация
     autoPlay:"no",												// автостарт плеера
     loop:"no",														// повтор песни

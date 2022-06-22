@@ -62,7 +62,7 @@
 <script defer src="/static/scripts/lib/plugin_for_player_1.js" type="text/javascript"></script>
 <script defer src="/static/scripts/lib/music_player.js" type="text/javascript"></script>
 <script defer src="/static/scripts/lib/dragula.min.js" type="text/javascript"></script>
-<script defer src="/static/scripts/functions/mov_av.js" type="text/javascript"></script>
+<script defer src="/static/scripts/functions/audio_video.js" type="text/javascript"></script>
 <script defer src="/static/scripts/functions/socket.js" type="text/javascript"></script>
 
 <script defer src="/static/scripts/chart_v1.js" type="text/javascript"></script>
