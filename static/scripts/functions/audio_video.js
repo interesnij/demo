@@ -20,18 +20,6 @@ function get_video_dop() {
   return settings.split(',')
 };
 
-function get_audio_dop() {
-  styles = document.querySelectorAll(".my_color_settings");
-  style = styles[styles.length- 1];
-  settings = [];
-  if (style.href.indexOf("a.css") != -1){
-    settings += ["images/audio_white",'#eeeeee','#FFFFFF']
-  } else {
-    settings += ["images/audio_dark",'#000000','#000000']
-  }
-  return settings.split(',')
-};
-
 function play_video_list(url, counter, video_pk){
   loader = document.getElementById("video_loader");
   open_video_fullscreen(url);
@@ -305,6 +293,17 @@ if (document.body.querySelector(".desctop_nav")) {
 else {
   pos = "top";
 }
+function get_audio_dop() {
+  styles = document.querySelectorAll(".my_color_settings");
+  style = styles[styles.length- 1];
+  settings = [];
+  if (style.href.indexOf("a.css") != -1){
+    settings += ["images/audio_white",'#eeeeee','#FFFFFF']
+  } else {
+    settings += ["images/audio_dark",'#000000','#000000']
+  }
+  return settings.split(',')
+};
 music_player = new FWDMSP ({
     //main settings
     instanceName:"player1",
@@ -335,7 +334,7 @@ music_player = new FWDMSP ({
     expandBackground:"no",
     showBuyButton:"yes",
     showPlaylistItemBuyButton:"no",
-    titleColor:get_audio_dop()[3],        // цвет названия
+    titleColor:get_audio_dop()[2],        // цвет названия
     timeColor:"#919191",                  // цвет времени
 
     // настройки выравнивания и размера контроллера (подробно описаны в документации!)
