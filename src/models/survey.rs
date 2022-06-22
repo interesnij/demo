@@ -317,9 +317,9 @@ impl SurveyList {
 
         return get_count_for_ru (
             self.count,
-            " запись".to_string(),
-            " записи".to_string(),
-            " записей".to_string(),
+            " опрос".to_string(),
+            " опроса".to_string(),
+            " опросов".to_string(),
         );
     }
 

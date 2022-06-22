@@ -438,9 +438,9 @@ impl PhotoList {
 
         return get_count_for_ru (
             self.count,
-            " запись".to_string(),
-            " записи".to_string(),
-            " записей".to_string(),
+            " фотография".to_string(),
+            " фотографии".to_string(),
+            " фотографий".to_string(),
         );
     }
 

@@ -480,9 +480,9 @@ impl GoodList {
 
         return get_count_for_ru (
             self.count,
-            " запись".to_string(),
-            " записи".to_string(),
-            " записей".to_string(),
+            " товар".to_string(),
+            " товара".to_string(),
+            " товаров".to_string(),
         );
     }
 

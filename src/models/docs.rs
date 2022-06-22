@@ -331,9 +331,9 @@ impl DocList {
 
         return get_count_for_ru (
             self.count,
-            " запись".to_string(),
-            " записи".to_string(),
-            " записей".to_string(),
+            " документ".to_string(),
+            " документа".to_string(),
+            " документов".to_string(),
         );
     }
 

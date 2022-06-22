@@ -393,7 +393,7 @@ impl VideoList {
             .load::<Video>(&_connection)
             .expect("E.");
     }
-    
+
     pub fn get_paginate_items(&self, limit: i64, offset: i64) -> Vec<Video> {
         use crate::schema::videos::dsl::videos;
 
@@ -420,9 +420,9 @@ impl VideoList {
 
         return get_count_for_ru (
             self.count,
-            " запись".to_string(),
-            " записи".to_string(),
-            " записей".to_string(),
+            " видеозапись".to_string(),
+            " видеозаписи".to_string(),
+            " видеозаписей".to_string(),
         );
     }
 

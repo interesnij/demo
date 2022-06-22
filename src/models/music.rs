@@ -261,7 +261,7 @@ impl MusicList {
     }
     pub fn get_first_track_pk(&self) -> i32 {
         if self.get_items().len() > 0 {
-            return self.get_items().first().unwrap().id; 
+            return self.get_items().first().unwrap().id;
         }
         else {
             return 0;
@@ -476,9 +476,9 @@ impl MusicList {
 
         return get_count_for_ru (
             self.count,
-            " запись".to_string(),
-            " записи".to_string(),
-            " записей".to_string(),
+            " аудиозапись".to_string(),
+            " аудиозаписи".to_string(),
+            " аудиозаписей".to_string(),
         );
     }
 
