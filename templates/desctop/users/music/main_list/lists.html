@@ -1,0 +1,55 @@
+<% let lists = user.get_music_lists(); %>
+
+<% if lists.len() > 1 { %>
+<div class="media mt-3" style="padding-left: 7px;">
+  <h5 class="mt-1" style="flex: 1;">
+    <a class="underline ajax" href="<%= user.link %>">
+      <%= user.get_full_name() %>
+    </a> - плейлисты
+    (<%= lists.len() %>)
+  </h5>
+</div>
+<div class="row no-gutters gorizontal_scroll">
+   <div class="col-12">
+   <ul class="drag_list" data-type="lmu" style="width:max-content;list-style: none;">
+      <% for object in lists.iter() { %>
+       <li class="list_item drag_item playlist" playlist-pk="<%= object.id %>" data-pk="<%= object.id %>">
+         <div data-pk="<%= object.id %>" playlist-pk="<%= object.id %>" style="flex-basis: 100%;" class="card playlist">
+           <div class="card-body" playlist-pk="<%= object.id %>" style="padding: 4px;padding-bottom: 0;">
+               <figure class="position-relative">
+                 <a class="load_music_list btn_default pointer">
+                   <img class="image_fit_120" src="<%= object.get_image() %>" alt="image">
+                 </a>
+                 <div class="play_list_mode music_list_item" track-pk="<%= object.get_first_track_pk() %>"></div>
+               </figure>
+                <h6 class="my-0 mt-1 load_music_list pointer"><%= object.name %></h6>
+                <% if object.community_id.is_some() { %>
+                  <% let community = object.get_community(); %>
+                  <a style="vertical-align: baseline;" class="ajax underline" href="<%= community.link %>">
+                     <%= community.name %>
+                  </a>
+                  <% } else { %>
+                    <% let creator = object.get_creator(); %>
+                    <a style="vertical-align: baseline;" class="ajax underline" href="<%= creator.link %>">
+                       <%= creator.get_full_name() %>
+                    </a>
+                  <% } %>
+                   <br>
+                   <%= object.get_items_ru() %>
+           </div>
+         </div>
+       </li>
+      <% } %>
+   </ul>
+   </div>
+</div>
+<% } else { %>
+<div class="empty_list_block media mt-3" style="padding-left: 7px;">
+  <h5 class="mt-1" style="flex: 1;">
+    <a class="underline ajax" href="<%= user.link %>">
+      <%= user.get_full_name() %>
+    </a> - аудиозаписи
+  </h5>
+</div>
+<div class="mt-1 new_ul_container"></div>
+<% } %>

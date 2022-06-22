@@ -258,8 +258,8 @@ pub fn add_music_list(pk: i32) -> String {
         list.get_first_track_pk().to_string(), "'></div></figure><div class='media-body' style='margin-left: 10px;'>
         <h6 class='my-0 mt-1 load_music_list pointer'>",
         list.name, "</h6><p><a style='vertical-align: baseline;'class='ajax underline' href='",
-        link, "'>", name, "</a> - плейлист<br>Треков: ",
-        list.count.to_string(), "</p></div><span class='playlist_share'></span></div></div></div>");
+        link, "'>", name, "</a> - плейлист<br>",
+        list.count_items_ru(), "</p></div><span class='playlist_share'></span></div></div></div>");
 }
 pub fn add_edited_music_list(pk: i32) -> String {
     use crate::schema::music_lists::dsl::music_lists;
@@ -342,8 +342,8 @@ pub fn add_doc_list(pk: i32) -> String {
         <h6 class='my-0 mt-1 load_doc_list pointer'>",
         list.name, "</h6><p><a style='vertical-align: baseline;'
         class='ajax underline' href='",
-        link, "'>", name, "</a> список документов<br>Документов: ",
-        list.count.to_string(), "</p></div></div></div></div>");
+        link, "'>", name, "</a> список документов<br>",
+        list.count_items_ru(), "</p></div></div></div></div>");
 }
 pub fn add_edited_doc_list(pk: i32) -> String {
     use crate::schema::doc_lists::dsl::doc_lists;
@@ -424,8 +424,8 @@ pub fn add_video_list(pk: i32) -> String {
         <h6 class='my-0 mt-1 load_video_list pointer'>",
         list.name, "</h6><p>Список видеозаписей: <a style='vertical-align: baseline;'
         class='ajax underline' href='", link,
-        "'>", name, "</a><br>Видеозаписей: ",
-        list.count.to_string(), "</p></div></div></div></div>");
+        "'>", name, "</a><br>",
+        list.count_items_ru(), "</p></div></div></div></div>");
 }
 pub fn add_edited_video_list(pk: i32) -> String {
     use crate::schema::video_lists::dsl::video_lists;
