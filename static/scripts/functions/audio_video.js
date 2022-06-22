@@ -571,7 +571,7 @@ on('#ajax', 'click', '.music_list_item', function(e) {
   if (target_list.contains("play_list_mode")) {
     console.log("play_list_mode!!");
     playlist = this.parentElement.parentElement.parentElement;
-    if (playlist.contains("play")) {
+    if (playlist.classList.contains("play")) {
       if (target_list.contains("music_list_pause")) {
         music_player.play();
         target_list.remove('music_list_pause');
