@@ -1,32 +1,32 @@
 /* white */
 
 .minimalWhiteCategoriesType {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.7);
 }
 .minimalWhiteCategoriesTypeIn {
-	color: rgba(255, 255, 255, 0.5);
+	color: rgba(0, 0, 0, 0.7);
 }
 .minimalWhiteCategoriesDescription {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
 }
 .boldWhite {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
 }
 .minimalWhiteCategoriesTitle {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.9);
 }
 .minimalDarkCategoriesDescription {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(rgba(0, 0, 0, 0.7));
 }
 
 .minimalDarkCategoriesTypeIn {
-	color: rgba(255, 255, 255, 0.5);
+	color: rgba(rgba(0, 0, 0, 0.7));
 }
 .minimalDarkCategoriesType {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(rgba(0, 0, 0, 0.7));
 }
 .minimalDarkCategoriesTitle {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(rgba(0, 0, 0, 0.9));
 }
 
 ::-webkit-scrollbar-thumb {

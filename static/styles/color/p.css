@@ -1,22 +1,22 @@
 /* black */
 
 .minimalWhiteCategoriesType {
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 0.5);
 }
 .minimalWhiteCategoriesTypeIn {
-	color: rgba(0, 0, 0, 0.7);
+	color: rgba(255, 255, 255, 0.5);
 }
 .minimalWhiteCategoriesDescription {
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 0.5);
 }
 .boldWhite {
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 0.5);
 }
 .minimalWhiteCategoriesTitle {
-  color: rgba(0, 0, 0, 0.9);
+  color: rgba(0, 0, 0, 0.7);
 }
 .minimalDarkCategoriesDescription {
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .minimalDarkCategoriesTypeIn {
