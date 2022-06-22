@@ -13,7 +13,7 @@
    <div class="col-12">
    <ul class="drag_list" data-type="lmu" style="width:max-content;list-style: none;">
       <% for object in lists.iter() { %>
-       <li class="list_item drag_item playlist" playlist-pk="<%= object.id %>" data-pk="<%= object.id %>">
+       <li class="list_item drag_item">
          <div data-pk="<%= object.id %>" playlist-pk="<%= object.id %>" style="flex-basis: 100%;" class="card playlist">
            <div class="card-body" playlist-pk="<%= object.id %>" style="padding: 4px;padding-bottom: 0;">
                <figure class="position-relative">
