@@ -489,6 +489,9 @@ function music_update_time() {
   //} catch { null };
 }
 
+function update_player() {
+  music_player.update();
+}
 ///////////////////////////
 
 function show_active_track(block, list_pk, track_pk) {

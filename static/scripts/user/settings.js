@@ -14,6 +14,7 @@ on('#ajax', 'click', '.color_change', function() {
     {uncheck[i].checked=false;}
     input.checked = true;
     addStyleSheets("/static/styles/color/" + color + ".css");
+    update_player();
   }
 };
 });
