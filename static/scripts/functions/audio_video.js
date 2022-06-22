@@ -563,33 +563,52 @@ function dragElement(elmnt){var pos1=0,pos2=0,pos3=0,pos4=0;document.querySelect
 
 
 on('#ajax', 'click', '.music_list_item', function(e) {
-  if (e.target.classList.contains("play_list_mode")) {
+  target_list = e.target.classList;
+  counter = 0;
+  // работа с плейлистом
+  if (target_list.contains("play_list_mode")) {
     console.log("play_list_mode!!");
-    return;
-  }
-  track = this.parentElement.parentElement.parentElement;
-  if (track.querySelector(".progress2").getAttribute("style")) {
-    if (track.classList.contains('pause')) {
+    if (target_list.contains("music_list_pause")) {
       music_player.play();
-      track.classList.remove('pause');
+      target_list.classList.remove('music_list_pause');
       return;
     }
     else {
       music_player.pause();
-      track.classList.add('pause');
+      target_list.classList.add('music_list_pause');
       return;
     }
+    track_id = this.getAttribute("track-pk");
+    list_id = track.getAttribute('playlist-pk');
+    tracks = document.body.querySelectorAll(".track");
   }
-  counter = 0;
-  track_id = track.getAttribute("track-pk");
-  list_id = track.getAttribute('playlist-pk');
 
-  tracks = track.parentElement.querySelectorAll(".track");
-  for (i=0; i < tracks.length; i++) {
-    if (tracks[i].getAttribute("track-pk") == track_id) {
-      counter = i;
+  // работа с треком
+  else {
+    track = this.parentElement.parentElement.parentElement;
+    if (track.querySelector(".progress2").getAttribute("style")) {
+      if (track.classList.contains('pause')) {
+        music_player.play();
+        track.classList.remove('pause');
+        return;
+      }
+      else {
+        music_player.pause();
+        track.classList.add('pause');
+        return;
+      }
     }
-  };
+
+    track_id = track.getAttribute("track-pk");
+    list_id = track.getAttribute('playlist-pk');
+    tracks = track.parentElement.querySelectorAll(".track");
+    for (i=0; i < tracks.length; i++) {
+      if (tracks[i].getAttribute("track-pk") == track_id) {
+        counter = i;
+      }
+    };
+  }
+
 
   current_type = "lis" + list_id;
   $playlist.setAttribute("track-pk", track_id);
