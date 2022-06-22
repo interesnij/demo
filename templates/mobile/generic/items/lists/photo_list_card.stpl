@@ -1,6 +1,6 @@
 <div class="custom_color text-center has-background-img position-relative box-shadow" photolist-pk="<%= object.id %>">
   <figure class="background-img">
-    <img src="<%= object.get_image() %>" class="image_fit_200">
+    <img src="<%= object.get_cover_photo() %>" class="image_fit_200">
   </figure>
   <div class="container">
     <br>
