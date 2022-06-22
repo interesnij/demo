@@ -499,8 +499,8 @@ function show_active_track(block, list_pk, track_pk) {
         console.log("Обнаружен проигрываемый список плейлиста!");
       }
       else {
-        playlists[i].classList.remove("play");
-        playlists[i].querySelector(".play_list_mode").classList.remove("music_list_pause");
+        playlists[i].classList.add("play");
+        playlists[i].querySelector(".play_list_mode").classList.add("music_list_pause");
       }
     }
   }
