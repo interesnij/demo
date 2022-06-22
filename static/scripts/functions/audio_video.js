@@ -700,7 +700,7 @@ on('#ajax', 'click', '.music_list_comment', function() {
   }
   counter = 0;
   track_id = track.getAttribute("track-pk");
-  post_id = track.parentElement.parentElement.getAttribute('data-pk');
+  list_id = track.getAttribute('playlist-pk');
 
   tracks = track.parentElement.querySelectorAll(".track");
   for (i=0; i < tracks.length; i++) {
@@ -711,7 +711,7 @@ on('#ajax', 'click', '.music_list_comment', function() {
     }
   };
 
-  current_type = track.parentElement.nextElementSibling.querySelector(".react_style").getAttribute("data-type"); 
+  current_type = track.parentElement.nextElementSibling.querySelector(".react_style").getAttribute("data-type");
   $playlist.setAttribute("track-pk", track_id);
 
   if ($playlist.getAttribute("data-type") != current_type) {
