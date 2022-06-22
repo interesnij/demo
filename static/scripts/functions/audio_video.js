@@ -587,7 +587,7 @@ on('#ajax', 'click', '.music_list_item', function(e) {
         return;
       }
       else {
-        music_player.pause();
+        //music_player.pause();
         music_player.play();
         target_list.add('music_list_pause');
         return;
