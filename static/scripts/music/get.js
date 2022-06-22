@@ -22,7 +22,7 @@ on('#ajax', 'click', '.load_music_list', function() {
     owner_pk = null;
   };
 
-  create_fullscreen("/music/load_list/" + playlist_pk + "/", "item_fullscreen");
+  create_fullscreen("/music/load_list/" + playlist_pk + "/", "work_fullscreen");
   if (owner_pk) {
     window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=" + owner_pk + "&playlist=" + playlist_pk);
   }
