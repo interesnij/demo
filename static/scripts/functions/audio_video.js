@@ -491,7 +491,7 @@ function music_update_time() {
 
 function update_player() {
   //music_player.update();
-  music_player.loadPlaylist(0)
+  music_player.loadPlaylist(0);
 }
 ///////////////////////////
 
