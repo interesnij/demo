@@ -237,7 +237,7 @@ pub fn add_music_list(pk: i32) -> String {
         .unwrap();
 
     if list.count > 0 {
-        play_btn = "<div class='play_list_mode music_list_item' track-pk='".to_string() + &list.get_first_track_pk().to_string() + &"></div>".to_string();
+        play_btn = "<div class='play_list_mode music_list_item' track-pk='".to_string() + &list.get_first_track_pk().to_string() + &"'></div>".to_string();
     }
     else {
         play_btn = "".to_string();
