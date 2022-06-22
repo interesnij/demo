@@ -4,7 +4,7 @@
        <div>
         <figure class="position-relative">
           <a class="load_music_list btn_default pointer">
-            <img class="image_fit_120" src="<%= object.get_image() %>" alt="image">
+            <img class="image_fit_160" src="<%= object.get_image() %>" alt="image">
           </a>
           <% if object.count > 0 { %>
            <div class="play_list_mode music_list_item" track-pk="<%= object.get_first_track_pk() %>"></div>
