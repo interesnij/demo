@@ -1,5 +1,5 @@
 
-    <form id="post_list_form" data-title="Изменение плейлиста" data-list="<%= list.get_code() %>" data-folder="/music" class="case_create" data-type="none">
+    <form id="post_list_form" data-title="Изменение плейлиста" data-pk="<%= list.id %>" data-list="<%= list.get_code() %>" data-folder="/music" class="case_create">
         <div class="card mb-3">
             <div class="card-header border-bottom">
                 <h5 class="content-color-primary mb-0">Изменение плейлиста</h5>
@@ -14,7 +14,7 @@
                   <input type="file" name="image" accept="image/*" id="id_image">
                 </div>
                 <div id="video_holder" class="border pointer">
-                  <img class="img-fluid rounded" src="/static/images/news_small3.jpg" alt="img" style="height: 100%;">
+                  <img class="img-fluid rounded" src="<%= list.get_image() %>" alt="img" style="height: 100%;">
                 </div>
               </div>
               <div class="form-group">
