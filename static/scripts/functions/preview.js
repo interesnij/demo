@@ -384,6 +384,8 @@ function create_preview_music(title, img_src, track_pk, list_pk){
   $h6.innerHTML = title;
   $media.append($h6);
 
+  $progress2.classList.add("progress2");
+
   $div.append(music_preview_delete());
   $div.append($input);
   $div.append($figure);
