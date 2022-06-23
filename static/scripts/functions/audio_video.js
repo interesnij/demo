@@ -451,6 +451,7 @@ function music_onPause() {
 
 function music_onPlay() {
   track_id = music_player.buy();
+  console.log("buy ", track_id);
   if (track_id == null) {
     track_id = $playlist.getAttribute("track-pk");
   }
