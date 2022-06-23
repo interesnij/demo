@@ -11,18 +11,11 @@
                 <li class="list_item">
                     <div class="text-center bg-dark position-relative border" data-uuid="<%= object.id %>">
                         <figure class="background-img">
-                            <img class="image_fit_200"
-                            src="
-                            <% if object.cover_photo.is_some() { %>
-                              <%= object.cover_photo.as_deref().unwrap() %>
-                            <% } else { %>
-                              /static/images/no_img/list.jpg
-                            <% } %>
-                            ">
+                            <img class="image_fit_200" src="<%= object.get_cover_photo() %>">
                         </figure>
-                        <div class="container p-3">
+                        <div class="media-body container p-3">
                             <h6 class="text-white pointer">
-                                <span class="pointer nowrap list_toggle load_attach_photo_list"><%= object.name %></span>
+                                <a class="pointer nowrap list_toggle load_attach_photo_list"><%= object.name %></a>
                             </h6>
                             <span class="text-white count"><%= object.count_items_ru() %></span>
 
