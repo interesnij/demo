@@ -26,18 +26,28 @@ function play_video_list(url, counter, video_pk){
 
   video_player_id = document.body.getAttribute('data-video');
   document.body.setAttribute('data-video', document.body.getAttribute('data-video') + "a");
+
   setTimeout(function() {
     load_video_playlist(video_player_id + "a");
-    video_player.addListener(FWDUVPlayer.READY, onReady);
-    function onReady(){
-    console.log("video player ready");
-    setTimeout(function() {video_player.playVideo(counter)}, 1000);
+    video_player.addListener(FWDUVPlayer.READY, videoReady);
+    video_player.addListener(FWDUVPlayer.START, videoStart);
+    video_player.addListener(FWDUVPlayer.PAUSE, videoPause);
 
-    info_video = document.body.querySelector("#info_video");
-    if (info_video.innerHTML == "" || info_video.getAttribute("data-pk") != video_pk){
-      info_video.setAttribute("data-pk", video_pk);
-      console.log("Воспроизводится ролик № : " + video_pk)
-    }
+    function videoReady() {
+      console.log("video player ready");
+      setTimeout(function() {video_player.playVideo(counter)}, 1000);
+
+      info_video = document.body.querySelector("#info_video");
+      if (info_video.innerHTML == "" || info_video.getAttribute("data-pk") != video_pk){
+        info_video.setAttribute("data-pk", video_pk);
+        console.log("Воспроизводится ролик № : " + video_pk)
+      }
+    };
+    function videoReady() {
+      console.log("video player start!");
+    };
+    function videoPause() {
+      console.log("video player pause!");
     }
   }, 500);
   video = document.createElement("div");

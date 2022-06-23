@@ -3200,9 +3200,7 @@ opacity:0;
   width:50px;
   height:100%;
 }
-.this_fullscreen_hide svg {
-  color: rgba(255, 255, 255, 0.8) !important;
-}
+
 .desctop_version .prev_item svg :hover,
 .desctop_version .next_item svg :hover{
   color: rgba(255, 255, 255, 1) !important;
