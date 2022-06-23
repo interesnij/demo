@@ -14,7 +14,7 @@
               </figure>
               <div class="container p-3">
                 <h6 class="media-body text-white pointer">
-                  <span class="pointer nowrap list_toggle load_attach_music_list"><%= object.name %></span>
+                  <a class="pointer nowrap list_toggle load_attach_music_list"><%= object.name %></a>
                 </h6>
                 <span class="text-white count"><%= object.count_items_ru() %></span>
 
