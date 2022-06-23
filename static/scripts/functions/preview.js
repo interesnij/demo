@@ -389,17 +389,58 @@ function create_preview_music(img_src, pk, counter){
   $div.append($media);
   return $div
 };
-function create_preview_playlist(name, pk, count){
+function create_preview_playlist(name, img_src, pk, track_pk, count){
+
+  // первый блок
   $div = document.createElement("div");
-  $div.classList.add("handle", "playlist");
+  $div.classList.add("handle", "playlist", "card");
   $div.style.flexBasis = "100%";
   $div.style.position = "relative";
   $div.setAttribute("playlist-pk", pk);
-  $div.innerHTML = '<div style="display:flex;"><figure><a class="load_playlist pointer"><svg fill="currentColor" class="svg_default" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></svg></a></figure><div class="media-body" style="margin-left: 10px;margin-top: 15px;"><h6 class="my-0 mt-1 load_playlist pointer">' + name + '</h6><p>Треков: ' + count + '</p></div></div>'
+  $div.setAttribute("data-pk", pk);
+
+  // прокладка - сначала в него, потом его в главный блок
+  $wrapper_div = document.createElement("div");
+  $wrapper_div.style.display = "flex";
+
+  // элементы в figure
+  $figure = document.createElement("figure");
+  $figure.classList.add("position-relative");
+  $figure_a = document.createElement("a");
+  $figure_a.classList.add("load_music_list", "pointer");
+  $img = document.createElement("img");
+  $img.src = img_src;
+  $img.classList.add("image_fit_120");
+  $figure_a.append($img);
+  $play_div = document.createElement("div");
+  $play_div.classList.add("play_list_mode", "music_list_item");
+  $play_div.setAttribute("track-pk", track_pk);
+  $figure.append($figure_a);
+  $figure.append($play_div);
+
+  // $media_body
+  $media_body = document.createElement("div");
+  $media_body.style.marginLeft = "10px";
+  $h6 = document.createElement("h6");
+  $h6.classList.add("my-0", "mt-1", "load_music_list", "pointer");
+  $h6.innerHTML = name;
+  $span = document.createElement("p");
+  $count_p = document.createElement("p");
+  $count_p.classList.add("mt-2");
+  $count_p.innerHTML = count;
+  $span.append($count_p);
+
+  $media_body.append($h6);
+  $media_body.append($span);
 
   $input = document.createElement("span");
   $input.innerHTML = '<input class="attach" type="hidden" name="attach_items" value="lmu' + pk + '">';
+
+  $wrapper_div.append($figure);
+  $wrapper_div.append($media_body);
+
   $div.append($input);
+  $div.append($wrapper_div);
   $div.append(list_preview_delete());
   return $div
 };
