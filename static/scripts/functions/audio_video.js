@@ -57,7 +57,7 @@ function play_video_list(url, counter, video_pk){
     function videoStart() {
       new_counter = video_player.getVideoId();
       console.log("current id ", ids[new_counter]);
-      list_block_load("#info_video", "#info_video", "/video/load_video/" + ids[new_counter] + "/");
+      list_block_load(info_video, "#info_video", "/video/load_video/" + ids[new_counter] + "/");
     };
     function videoPause() {
       console.log("video player pause!");
