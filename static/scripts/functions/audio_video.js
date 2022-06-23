@@ -454,9 +454,9 @@ function music_onPlay() {
   if (track_id == null) {
     track_id = $playlist.getAttribute("track-pk");
   }
-  else {
+  //else {
     $playlist.setAttribute("track-pk", track_id);
-  }
+  //}
   remove_play_items(document.body);
   show_play_items(document.body, track_id);
   try { video_player.pause() } catch { null };
