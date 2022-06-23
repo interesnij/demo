@@ -36,7 +36,7 @@ function check_music_in_block(block, _this, pk) {
     if (block.querySelector('[track-pk=' + '"' + pk + '"' + ']')) {
         _this.parentElement.setAttribute("tooltip", "Аудиозапись уже выбрана");
         _this.parentElement.setAttribute("flow", "up");
-        return true
+        return true 
     } else {
         return false
     }

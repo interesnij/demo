@@ -1054,31 +1054,17 @@ on('body', 'click', '.video_attach_list', function() {
   }
 });
 
-on('#ajax', 'click', '.music_load_one', function() {
-  _this = this;
-  pk = _this.getAttribute('music-pk');
-  counter = _this.getAttribute('music-counter');
-  _this.querySelector("img") ? src = _this.querySelector("img").getAttribute('src') : src = '/static/images/no_track_img.jpg'
-  if (document.body.querySelector(".current_file_dropdown")){
-    check_music_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.parentElement.previousElementSibling, _this, counter) ? null : (music_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, counter, src), close_work_fullscreen())
-  } else if (document.body.querySelector(".attach_block")){
-    check_music_in_block(document.body.querySelector(".attach_block"), _this, counter) ? null : (music_post_attach(document.body.querySelector(".attach_block"), pk, counter, src), close_work_fullscreen())
-  } else if (document.body.querySelector(".message_attach_block")){
-    check_music_in_block(document.body.querySelector(".message_attach_block"), _this, counter) ? null : (music_message_attach(document.body.querySelector(".message_attach_block"), pk, counter, src), close_work_fullscreen(), show_message_form_send_btn())
-  }
-  close_work_fullscreen();
-});
 on('#ajax', 'click', '.music_load_several', function() {
   _this = this.previousElementSibling
   pk = _this.getAttribute('music-pk');
   counter = _this.getAttribute('music-counter');
   _this.querySelector("img") ? src = _this.querySelector("img").getAttribute('src') : src = '/static/images/no_track_img.jpg'
   if (document.body.querySelector(".current_file_dropdown")){
-    check_music_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.parentElement.previousElementSibling, _this, counter) ? null : (music_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, counter, src), this.classList.add("active_svg"))
+    check_music_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (music_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, counter, src), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".attach_block")){
-    check_music_in_block(document.body.querySelector(".attach_block"), _this, counter) ? null : (music_post_attach(document.body.querySelector(".attach_block"), pk, counter, src), this.classList.add("active_svg"))
+    check_music_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (music_post_attach(document.body.querySelector(".attach_block"), pk, counter, src), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".message_attach_block")){
-    check_music_in_block(document.body.querySelector(".message_attach_block"), _this, counter) ? null : (music_message_attach(document.body.querySelector(".message_attach_block"), pk, counter, src), this.classList.add("active_svg"), show_message_form_send_btn())
+    check_music_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (music_message_attach(document.body.querySelector(".message_attach_block"), pk, counter, src), this.classList.add("active_svg"), show_message_form_send_btn())
   }
 });
 on('body', 'click', '.music_attach_list', function() {
