@@ -477,10 +477,10 @@ $playlist = document.body.querySelector("#saved_playlist");
 function music_update_time() {
   //try {
     blocks = document.body.querySelectorAll(".track");
-    track_id = music_player.buy();
-    if (track_id == null) {
-      track_id = $playlist.getAttribute("track-pk");
-    }
+    //track_id = music_player.buy();
+    //if (track_id == null) {
+    //  track_id = $playlist.getAttribute("track-pk");
+    //}
     current = toSeconds(music_player.getCurrentTime());
     duration = toSeconds(music_player.getDuration());
     if (current == 0) {
