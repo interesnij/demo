@@ -765,9 +765,10 @@ function save_playlist(post_link, counter, track_id) {
         _source=tracks[i].url;
         _title=title;
         _thumbPath=tracks[i].image;
+        _id=tracks[i].id;
                 //_duration=list[i].getAttribute("data-duration");
                 //time = msToTime(_duration);
-        music_player.addTrack(_source, title, _thumbPath, "0:00", true, false, null, get_iddd()) // 4 позиция - время (time)
+        music_player.addTrack(_source, title, _thumbPath, null, true, false, null, _id) // 4 позиция - время (time)
       }
       music_player.loadPlaylist(0);
       $playlist.setAttribute("track-pk", track_id);
@@ -787,7 +788,8 @@ function add_html_tracks_in_player (html) {
     _source = tracks[i].getAttribute("data-file");
     _title = tracks[i].querySelector(".new_title").innerHTML;
     _thumbPath = "/static/images/news_small3.jpg";
-    music_player.addTrack(_source, title, _thumbPath, null, true, false, null)
+    _id=tracks[i].id;
+    music_player.addTrack(_source, title, _thumbPath, null, true, false, _id)
   }
   music_player.update();
   fullscreen_resize();

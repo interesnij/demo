@@ -104,9 +104,10 @@ pub async fn user_unblock(session: Session, user_id: web::Path<i32>) -> actix_we
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct TrackData {
-    pub url:    String,
-    pub title:  String,
-    pub image:  String,
+    pub url:   String,
+    pub title: String,
+    pub image: String,
+    pub id:    i32,
 }
 #[derive(Deserialize, Serialize, Debug)]
 pub struct PlaylistData {
@@ -266,7 +267,8 @@ pub async fn save_playlist(session: Session, types: web::Path<String>) -> web::J
                 TrackData {
                     url:   track.file.clone(),
                     title: track.title.clone(),
-                    image: track.get_image_2(), 
+                    image: track.get_image_2(),
+                    id: track.id,
                 });
         }
         data = PlaylistData {
