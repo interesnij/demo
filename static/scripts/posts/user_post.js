@@ -1082,7 +1082,7 @@ on('#ajax', 'click', '.music_load_several', function() {
 });
 on('body', 'click', '.music_attach_list', function() {
   _this = this;
-  name = _this.parentElement.querySelector(".list_name").innerHTML;
+  name = _this.parentElement.querySelector(".load_attach_music_list").innerHTML;
   pk = _this.getAttribute('data-pk');
   count = _this.parentElement.querySelector(".count").innerHTML;
   if (document.body.querySelector(".current_file_dropdown")){
