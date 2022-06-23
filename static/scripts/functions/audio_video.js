@@ -44,7 +44,6 @@ function play_video_list(url, counter, video_pk){
       console.log("video player ready");
       setTimeout(function() {
         video_player.playVideo(counter);
-        console.log(ids[counter]);
       }, 1000);
 
       info_video = document.body.querySelector("#info_video");
@@ -54,7 +53,7 @@ function play_video_list(url, counter, video_pk){
       }
     };
     function videoStart() {
-      console.log("video player start!");
+      console.log(ids[counter]);
     };
     function videoPause() {
       console.log("video player pause!");
