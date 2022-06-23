@@ -35,8 +35,6 @@ function play_video_list(url, counter, video_pk){
     for (var i = 0; i < items.length; i++) {
       id = items[i].getAttribute("data-video-uuid");
       ids.push(id);
-      console.log("new ids ", ids);
-      console.log("new id ", id);
     };
 
     video_player.addListener(FWDUVPlayer.READY, videoReady);
@@ -56,7 +54,7 @@ function play_video_list(url, counter, video_pk){
       }
     };
     function videoStart() {
-      console.log("ids ", ids);
+      new_counter = video_player.getVideoId();
       console.log("current id ", ids[counter]);
     };
     function videoPause() {
