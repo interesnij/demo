@@ -1,5 +1,5 @@
-<ul id="my_video_playlist" style="display:none;">
-   <li data-source="my_playlist" data-playlist-name="Основной плейлист" data-thumbnail-path="/static/images/demo_video/p-html.jpg">
+<ul id="video_playlists" style="display:none;">
+   <li data-source="my_video_playlist" data-playlist-name="Основной плейлист" data-thumbnail-path="/static/images/demo_video/p-html.jpg">
      <p class="fwduvp-categories-title"><span class="fwduvp-header">Название: </span><span class="fwduvp-title">Основной плейлист</span></p>
      <p class="fwduvp-categories-type"><span class="fwduvp-header">Тип: </span>Видеокаталог</p>
      <p class="fwduvp-categories-description"><span class="fwduvp-header">Описание: </span>Это Ваш основной плейлист, куда попадают выбранные и закачанные видеороликипо умолчанию</p>
