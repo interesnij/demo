@@ -361,6 +361,7 @@ function create_preview_music(title, img_src, track_pk, list_pk){
   $figure = document.createElement("figure");
   $media = document.createElement("span");
   $progress2 = document.createElement("div");
+  $h6 = document.createElement("h6");
 
   $div.classList.add("music", "handle", "track");
   $div.setAttribute("track-pk", track_pk);
@@ -376,12 +377,11 @@ function create_preview_music(title, img_src, track_pk, list_pk){
   $img.style.width = "30px";
   $figure.append($img);
 
-  $media.innerHTML = title;
   $media.style.marginLeft = "10px";
   $media.style.marginRight = "40px";
   $media.style.overflow = "hidden";
-  h6 = $media.querySelector("h6");
-  h6.classList.add("music_list_item", "pointer", "music_title");
+  $h6.classList.add("music_list_item", "pointer", "music_title");
+  $h6.innerHTML = title;
 
   $div.append(music_preview_delete());
   $div.append($input);
