@@ -205,6 +205,10 @@ function addStyleSheets (href) {
   $link.href = href;
   $head.appendChild($link);
 };
+
+function get_music_player_support () {
+  return
+}
 function get_video_dop() {
   styles = document.querySelectorAll(".my_color_settings");
   style = styles[styles.length- 1];
