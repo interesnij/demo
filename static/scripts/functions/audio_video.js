@@ -30,7 +30,7 @@ function play_video_list(url, counter, video_pk){
   setTimeout(function() {
     load_video_playlist(video_player_id + "a");
     video_player.addListener(FWDUVPlayer.READY, videoReady);
-    video_player.addListener(FWDUVPlayer.START, videoStart);
+    video_player.addListener(FWDUVPlayer.PLAY, videoStart);
     video_player.addListener(FWDUVPlayer.PAUSE, videoPause);
 
     function videoReady() {
