@@ -29,7 +29,6 @@ function play_video_list(url, counter, video_pk){
 
   setTimeout(function() {
     load_video_playlist(video_player_id + "a");
-    counter = video_player.getVideoId();
     video_fullscreen = document.body.querySelector('#my_video_playlist');
     items = video_fullscreen.querySelectorAll('.video_playlist_li');
     ids = []
