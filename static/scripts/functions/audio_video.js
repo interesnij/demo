@@ -43,7 +43,7 @@ function play_video_list(url, counter, video_pk){
         console.log("Воспроизводится ролик № : " + video_pk)
       }
     };
-    function videoReady() {
+    function videoStart() {
       console.log("video player start!");
     };
     function videoPause() {
