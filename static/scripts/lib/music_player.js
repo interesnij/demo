@@ -7506,7 +7506,7 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 						r = t = p.showTracksNumbers_bl ? (a < 9 && (d = "0" + (a + 1)), d + ". " + t) : t, FWDMSPPlaylistItem.setPrototype();
 					var c = new FWDMSPPlaylistItem(t, r, b.playlistDownloadButtonN_img, p.playlistDownloadButtonS_str, b.playlistBuyButtonN_img, p.playlistBuyButtonS_str, p.playlistItemGrad1_img, p.playlistItemGrad2_img, p.playlistItemProgress1_img, p.playlistItemProgress2_img, p.playlistPlayButtonN_img, p.playlistItemBk1_img.src, p.playlistItemBk2_img.src, b.playlistPlayButtonN_str, b.playlistPlayButtonS_str, b.playlistPauseButtonN_str, b.playlistPauseButtonS_str, p.trackTitleNormalColor_str, p.trackTitleSelected_str, p.trackDurationColor_str, a, p.playPauseButtonOffsetLeftAndRight, b.trackTitleOffsetLeft, b.durationOffsetRight, b.downloadButtonOffsetRight, b.showPlaylistItemPlayButton_bl, n, u, s, b.useHEXColorsForSkin_bl, b.normalButtonsColor_str, b.selectedButtonsColor_str, b),
 						h = {};
-					h.title = t, h.titleText = t, h.source = e, h.duration = s, h.thumbPath = o, h.downloadable = n, h.buy = l, u && (h.buy = l), b.playlist_ar.splice(a, 0, h), b.items_ar.splice(a, 0, c), b.itemsHolder_do.addChild(c), b.totalPlayListItems = b.playlist_ar.length,
+					h.title = t, h.titleText = t, h.source = e, h.duration = s, h.thumbPath = o, h.downloadable = n, h.buy = 100, u && (h.buy = 100), b.playlist_ar.splice(a, 0, h), b.items_ar.splice(a, 0, c), b.itemsHolder_do.addChild(c), b.totalPlayListItems = b.playlist_ar.length,
 						m.totalAudio = b.totalPlayListItems;
 					for (var _ = 0; _ < b.totalPlayListItems; _++) {
 						var f = b.items_ar[_];
