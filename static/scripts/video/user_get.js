@@ -30,14 +30,12 @@ on('#ajax', 'click', '.load_video_list', function() {
 
 on('#ajax', 'click', '.video_list_detail', function() {
   videos = this.parentElement.querySelectorAll(".video_list_detail");
-  counter = 0;
   video_pk = this.getAttribute("video-pk");
   for (var i = 0; i < videos.length; i++) {
     if (video_pk == videos[i].getAttribute("video-pk")) {
-      counter = count;
+      counter = i;
       break
     }
-    count += 1;
   }
 
   play_video_list("/video/load_video/" + video_pk + "/", counter, video_pk)
