@@ -416,9 +416,9 @@ function create_preview_playlist(name, img_src, pk, track_pk, count){
   $play_div.classList.add("play_list_mode", "music_list_item");
   $play_div.setAttribute("track-pk", track_pk);
   $wrapper_play = document.createElement("span");
-  $wrapper_figure.append($play_div);
+  $wrapper_play.append($play_div);
   $figure.append($figure_a);
-  $figure.append($wrapper_figure);
+  $figure.append($wrapper_play);
 
   // $media_body
   $media_body = document.createElement("div");
