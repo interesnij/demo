@@ -695,29 +695,55 @@ on('body', 'click', '#logg', function() {
   link.send(form_data);
 });
 
-function play_video_list(url, counter, video_pk){
+function play_video_list(url, counter, video_pk) {
   loader = document.getElementById("video_loader");
   open_video_fullscreen(url);
 
   video_player_id = document.body.getAttribute('data-video');
   document.body.setAttribute('data-video', document.body.getAttribute('data-video') + "a");
+
   setTimeout(function() {
     load_video_playlist(video_player_id + "a");
-    video_player.addListener(FWDUVPlayer.READY, onReady);
-    function onReady(){
-    console.log("video player ready");
-    setTimeout(function() {video_player.playVideo(counter)}, 1000);
+    info_video = document.body.querySelector('#info_video');
+    _playlist = info_video.parentElement.querySelector('#my_video_playlist');
+    items = _playlist.querySelectorAll('.video_playlist_li');
+    ids = []
+    for (var i = 0; i < items.length; i++) {
+      id = items[i].getAttribute("data-video-uuid");
+      ids.push(id);
+    };
 
-    info_video = document.body.querySelector("#info_video");
-    if (info_video.innerHTML == "" || info_video.getAttribute("data-pk") != video_pk){
-      info_video.setAttribute("data-pk", video_pk);
-      console.log("Воспроизводится ролик № : " + video_pk)
-    }
+    video_player.addListener(FWDUVPlayer.READY, videoReady);
+    video_player.addListener(FWDUVPlayer.PLAY, videoStart);
+    video_player.addListener(FWDUVPlayer.PAUSE, videoPause);
+
+    function videoReady() {
+      console.log("video player ready");
+      setTimeout(function() {
+        video_player.playVideo(counter);
+      }, 1000);
+
+      info_video = document.body.querySelector("#info_video");
+      if (info_video.innerHTML == "" || info_video.getAttribute("data-pk") != video_pk){
+        info_video.setAttribute("data-pk", video_pk);
+        console.log("Воспроизводится ролик № : " + video_pk)
+      }
+    };
+    function videoStart() {
+      new_counter = video_player.getVideoId();
+      console.log("current id ", ids[new_counter]);
+      if (new_counter != counter) {
+        counter = new_counter;
+        list_block_load(info_video, "#info_video", "/video/load_video/" + ids[new_counter] + "/");
+      }
+    };
+    function videoPause() {
+      console.log("video player pause!");
     }
   }, 500);
   video = document.createElement("div");
   video.classList.add("video_init");
-  document.body.querySelector("#fullscreens_container").append(video)
+  document.body.querySelector("#video_loader").append(video)
 };
 
 function dragElement(elmnt) {
