@@ -765,7 +765,7 @@ function save_playlist(post_link, counter, track_id) {
         _thumbPath=tracks[i].image;
                 //_duration=list[i].getAttribute("data-duration");
                 //time = msToTime(_duration);
-        music_player.addTrack(_source, title, _thumbPath, null, true, false, null) // 4 позиция - время (time)
+        music_player.addTrack(_source, title, _thumbPath, "0:00", true, false, null) // 4 позиция - время (time)
       }
       music_player.loadPlaylist(0);
       $playlist.setAttribute("track-pk", track_id);
