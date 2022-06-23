@@ -20,7 +20,7 @@
 
                 <hr style="margin-bottom: 3rem !important">
                 <% if object.count > 0 { %>
-                <small class="file-accessed pointer underline music_attach_list" track-pk="<%= object.get_first_track_pk() %>" data-pk="<%= object.id %>">Прикрепить список</small>
+                  <a class="file-accessed pointer underline music_attach_list" track-pk="<%= object.get_first_track_pk() %>" data-pk="<%= object.id %>">Прикрепить список</a>
                 <% } else { %>
                 <p style="margin-bottom: 64px;"></p>
                 <% } %>
