@@ -1062,11 +1062,11 @@ on('#ajax', 'click', '.music_load_several', function() {
   list_pk = _this.parentElement.getAttribute('playlist-pk');
   _this.querySelector("img") ? src = _this.querySelector("img").getAttribute('src') : src = '/static/images/no_track_img.jpg'
   if (document.body.querySelector(".current_file_dropdown")){
-    check_music_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (music_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, title, track_pk, list_pk, src), this.classList.add("active_svg"))
+    check_music_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.parentElement.previousElementSibling, _this, track_pk) ? null : (music_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, title, track_pk, list_pk, src), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".attach_block")){
-    check_music_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (music_post_attach(document.body.querySelector(".attach_block"), title, track_pk, list_pk, src), this.classList.add("active_svg"))
+    check_music_in_block(document.body.querySelector(".attach_block"), _this, track_pk) ? null : (music_post_attach(document.body.querySelector(".attach_block"), title, track_pk, list_pk, src), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".message_attach_block")){
-    check_music_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (music_message_attach(document.body.querySelector(".message_attach_block"), title, track_pk, list_pk, src), this.classList.add("active_svg"), show_message_form_send_btn())
+    check_music_in_block(document.body.querySelector(".message_attach_block"), _this, track_pk) ? null : (music_message_attach(document.body.querySelector(".message_attach_block"), title, track_pk, list_pk, src), this.classList.add("active_svg"), show_message_form_send_btn())
   }
 });
 on('body', 'click', '.music_attach_list', function() {
