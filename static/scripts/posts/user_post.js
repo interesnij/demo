@@ -1083,10 +1083,10 @@ on('#ajax', 'click', '.music_load_several', function() {
 on('body', 'click', '.music_attach_list', function() {
   _this = this;
   name = _this.parentElement.querySelector(".load_attach_music_list").innerHTML;
-  img_src = _this.parentElement.parentElement.querySelector(".image_fit_200").getAttribute("img");
+  img_src = _this.parentElement.parentElement.querySelector(".image_fit_200").getAttribute("src");
   pk = _this.getAttribute('data-pk');
   track_pk = _this.getAttribute('track-pk');
-  count = _this.parentElement.querySelector(".count").innerHTML;
+  count = _this.parentElement.parentElement.querySelector(".count").innerHTML;
   if (document.body.querySelector(".current_file_dropdown")){
     check_playlist_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, img_src, pk, track_pk, count), close_work_fullscreen())
   } else if (document.body.querySelector(".attach_block")){
