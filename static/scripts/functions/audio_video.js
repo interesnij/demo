@@ -29,7 +29,8 @@ function play_video_list(url, counter, video_pk){
 
   setTimeout(function() {
     load_video_playlist(video_player_id + "a");
-    video_fullscreen = document.body.querySelector('#my_video_playlist');
+    info_video = document.body.querySelector('#info_video');
+    video_playlist = info_video.querySelector('#my_video_playlist');
     items = video_fullscreen.querySelectorAll('.video_playlist_li');
     ids = []
     for (var i = 0; i < items.length; i++) {
@@ -56,6 +57,7 @@ function play_video_list(url, counter, video_pk){
     function videoStart() {
       new_counter = video_player.getVideoId();
       console.log("current id ", ids[new_counter]);
+      list_block_load("#info_video", "#info_video", "/video/load_video/" + ids[new_counter] + "/"");
     };
     function videoPause() {
       console.log("video player pause!");
