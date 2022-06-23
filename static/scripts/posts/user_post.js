@@ -154,10 +154,11 @@ on('body', 'change', '.case_all_input', function() {
   };
   link_.upload.onload = function() {
     try {
-      info = _this.parentElement.parentElement.querySelector("#onload_info");
+      btn = document.body.querySelector("#edit_video_btn");
+      info = btn.parentElement.parentElement.querySelector("#onload_info");
       if (case_video) {
         info.innerHTML = "Видео загружено!";
-        document.body.querySelector("#edit_video_btn").classList.remove("hidden")
+        btn.classList.remove("hidden")
       } else { info.innerHTML = "" }
     } catch { null }
   };
