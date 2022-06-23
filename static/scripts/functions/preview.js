@@ -36,7 +36,7 @@ function check_music_in_block(block, _this, pk) {
     if (block.querySelector('[track-pk=' + '"' + pk + '"' + ']')) {
         _this.parentElement.setAttribute("tooltip", "Аудиозапись уже выбрана");
         _this.parentElement.setAttribute("flow", "up");
-        return true 
+        return true
     } else {
         return false
     }
@@ -353,30 +353,30 @@ function create_preview_video_list(name, pk, count){
   return $div
 };
 
-function create_preview_music(img_src, pk, counter){
+function create_preview_music(title, img_src, track_pk, list_pk){
   $div = document.createElement("div");
 
   $input = document.createElement("span");
   $img = document.createElement("img");
   $figure = document.createElement("figure");
   $media = document.createElement("span");
-
-  media_body = _this.querySelector(".media-body");
+  $progress2 = document.createElement("div");
 
   $div.classList.add("music", "handle", "track");
-  $div.setAttribute("track-pk", pk);
+  $div.setAttribute("track-pk", track_pk);
+  $div.setAttribute("playlist-pk", list_pk);
   $div.style.display = "flex";
   $div.style.margin = "5px";
   $div.style.position = "relative";
   $div.style.flexBasis = "100%";
 
-  $input.innerHTML = '<input class="attach" type="hidden" name="attach_items" value="mus' + pk + '">';
+  $input.innerHTML = '<input class="attach" type="hidden" name="attach_items" value="mus' + track_pk + '">';
 
   $img.src = img_src;
   $img.style.width = "30px";
   $figure.append($img);
 
-  $media.innerHTML = media_body.innerHTML;
+  $media.innerHTML = title;
   $media.style.marginLeft = "10px";
   $media.style.marginRight = "40px";
   $media.style.overflow = "hidden";
@@ -387,13 +387,13 @@ function create_preview_music(img_src, pk, counter){
   $div.append($input);
   $div.append($figure);
   $div.append($media);
+  $div.append($progress2);
   return $div
 };
 function create_preview_playlist(name, img_src, pk, track_pk, count){
-
   // первый блок
   $div = document.createElement("div");
-  $div.classList.add("handle", "playlist", "card");
+  $div.classList.add("playlist", "card");
   $div.style.flexBasis = "100%";
   $div.style.position = "relative";
   $div.setAttribute("playlist-pk", pk);
@@ -424,6 +424,7 @@ function create_preview_playlist(name, img_src, pk, track_pk, count){
   // $media_body
   $media_body = document.createElement("div");
   $media_body.style.marginLeft = "10px";
+  $media_body.classList.add("handle");
   $h6 = document.createElement("h6");
   $h6.classList.add("my-0", "mt-1", "load_music_list", "pointer");
   $h6.innerHTML = name;

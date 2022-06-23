@@ -115,9 +115,9 @@ function video_post_attach(block, pk, counter, src) {
   is_full_attach();
 };
 
-function music_post_attach(block, pk, counter, src) {
+function music_post_attach(block, title, track_pk, list_pk, src) {
   is_full_attach();
-  div = create_preview_music(src, pk, counter)
+  div = create_preview_music(title, src, track_pk, list_pk)
   block.append(div);
   create_drag_attach_post(block);
   add_file_attach();

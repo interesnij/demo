@@ -120,9 +120,9 @@ function video_list_message_attach(block, title, pk, count) {
   show_message_form_send_btn();
 };
 
-function music_message_attach(block, title, img_src, pk, track_pk, countc) {
+function music_message_attach(block, title, track_pk, list_pk, src) {
   is_full_message_attach();
-  div = create_preview_music(src, pk, counter);
+  div = create_preview_music(title, src, track_pk, list_pk);
   block.append(div);
   create_drag_attach_comment(block);
   add_file_message_attach();

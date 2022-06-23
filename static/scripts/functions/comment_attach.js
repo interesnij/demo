@@ -113,10 +113,10 @@ function video_list_comment_attach(dropdown, title, pk, count) {
   is_full_dropdown();
 };
 
-function music_comment_attach(dropdown, pk, counter, src){
+function music_comment_attach(dropdown, title, track_pk, list_pk, src){
   is_full_dropdown(dropdown);
   img_block = dropdown.parentElement.parentElement.previousElementSibling;
-  div = create_preview_music(src, pk, counter )
+  div = create_preview_music(title, src, track_pk, list_pk)
   add_file_dropdown();
   img_block.append(div);
   create_drag_attach_comment(block);
