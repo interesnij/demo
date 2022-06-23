@@ -30,20 +30,16 @@ on('#ajax', 'click', '.load_video_list', function() {
 
 on('#ajax', 'click', '.video_list_detail', function() {
   videos = this.parentElement.querySelectorAll(".video_list_detail");
-  for (var i = 0; i < videos.length; i++) {
-    videos[i].classList.remove("play")
-  };
-  this.classList.add("play");
   counter = 0;
-  count = 0;
+  video_pk = this.getAttribute("video-pk");
   for (var i = 0; i < videos.length; i++) {
-    if (videos[i].classList.contains("play")) {
+    if (video_pk == videos[i].getAttribute("video-pk")) {
       counter = count;
       break
     }
     count += 1;
   }
-  video_pk = this.getAttribute("video-pk");
+
   play_video_list("/video/load_video/" + video_pk + "/", counter, video_pk)
 });
 
