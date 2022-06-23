@@ -58,7 +58,7 @@ function play_video_list(url, counter, video_pk) {
       new_counter = video_player.getVideoId();
       console.log("current id ", ids[new_counter]);
       if (new_counter != counter) {
-        counter = ids[new_counter];
+        counter = new_counter;
         list_block_load(info_video, "#info_video", "/video/load_video/" + ids[new_counter] + "/");
       }
     };
