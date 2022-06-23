@@ -29,13 +29,23 @@ function play_video_list(url, counter, video_pk){
 
   setTimeout(function() {
     load_video_playlist(video_player_id + "a");
+    video_fullscreen = document.body.querySelector('#my_video_playlist');
+    items = video_fullscreen.querySelectorAll('.video_playlist_li');
+    ids = []
+    for (var i = 0; i < items.length; i++) {
+      ids.push(items[i].getAttribute("data-video-uuid"))
+    };
+
     video_player.addListener(FWDUVPlayer.READY, videoReady);
     video_player.addListener(FWDUVPlayer.PLAY, videoStart);
     video_player.addListener(FWDUVPlayer.PAUSE, videoPause);
 
     function videoReady() {
       console.log("video player ready");
-      setTimeout(function() {video_player.playVideo(counter)}, 1000);
+      setTimeout(function() {
+        video_player.playVideo(counter);
+        console.log(ids[counter]);
+      }, 1000);
 
       info_video = document.body.querySelector("#info_video");
       if (info_video.innerHTML == "" || info_video.getAttribute("data-pk") != video_pk){

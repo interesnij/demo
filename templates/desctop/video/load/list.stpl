@@ -1,4 +1,4 @@
-<ul id="video_playlists" style="display:none;">
+<ul id="my_video_playlist" style="display:none;">
    <li data-source="my_playlist" data-playlist-name="Основной плейлист" data-thumbnail-path="/static/images/demo_video/p-html.jpg">
      <p class="fwduvp-categories-title"><span class="fwduvp-header">Название: </span><span class="fwduvp-title">Основной плейлист</span></p>
      <p class="fwduvp-categories-type"><span class="fwduvp-header">Тип: </span>Видеокаталог</p>
@@ -7,7 +7,7 @@
 </ul>
 
 
-<ul id="my_playlist" style="display:none;" class="">
+<ul id="my_video_playlist" style="display:none;" class="">
 <% for object in videos.iter() { %>
  <li data-thumb-source="<%= object.get_image() %>"
      data-video-source="http://194.58.119.147:9004<%= object.file %>"
