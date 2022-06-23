@@ -205,11 +205,11 @@ function addStyleSheets (href) {
   $link.href = href;
   $head.appendChild($link);
 };
-function get_video_dop(){
+function get_video_dop() {
   styles = document.querySelectorAll(".my_color_settings");
-  style= styles[styles.length- 1];
+  style = styles[styles.length- 1];
   settings = [];
-  if (style.href.indexOf("white") != -1) {
+  if (style.href.indexOf("a.css") != -1){
     settings += ["images/video_white",'#eeeeee','#FFFFFF']
   } else {
     settings += ["images/video_dark",'#000000','#000000']
