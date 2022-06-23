@@ -382,6 +382,7 @@ function create_preview_music(title, img_src, track_pk, list_pk){
   $media.style.overflow = "hidden";
   $h6.classList.add("music_list_item", "pointer", "music_title");
   $h6.innerHTML = title;
+  $media.append($h6);
 
   $div.append(music_preview_delete());
   $div.append($input);
