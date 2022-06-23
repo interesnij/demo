@@ -763,7 +763,6 @@ function save_playlist(post_link, counter, track_id) {
         _title=title;
         _thumbPath=tracks[i].image;
         _id=tracks[i].id;
-        console.log(_id);
                 //_duration=list[i].getAttribute("data-duration");
                 //time = msToTime(_duration);
         music_player.addTrack(_source, title, _thumbPath, null, true, false, null, _id) // 4 позиция - время (time)
