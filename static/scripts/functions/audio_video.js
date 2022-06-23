@@ -454,9 +454,9 @@ function music_onPlay() {
   if (track_id == null) {
     track_id = $playlist.getAttribute("track-pk");
   }
-  //else {
+  else {
     $playlist.setAttribute("track-pk", track_id);
-  //}
+  }
   remove_play_items(document.body);
   show_play_items(document.body, track_id);
   try { video_player.pause() } catch { null };
@@ -639,7 +639,7 @@ on('#ajax', 'click', '.music_list_item', function(e) {
   $playlist.setAttribute("track-pk", track_id);
 
   if ($playlist.getAttribute("data-type") != current_type) {
-      save_playlist('/users/progs/save_playlist/' + current_type + "/", counter);
+      save_playlist('/users/progs/save_playlist/' + current_type + "/", counter, track_id);
       $playlist.setAttribute("data-type", current_type);
   } else {
       music_player.loadPlaylist(0);
@@ -682,7 +682,7 @@ on('#ajax', 'click', '.music_list_post', function() {
   $playlist.setAttribute("track-pk", track_id);
 
   if ($playlist.getAttribute("data-type") != current_type) {
-      save_playlist('/users/progs/save_playlist/' + current_type + "/", counter);
+      save_playlist('/users/progs/save_playlist/' + current_type + "/", counter, track_id);
       $playlist.setAttribute("data-type", current_type);
   } else {
       music_player.loadPlaylist(0);
@@ -725,7 +725,7 @@ on('#ajax', 'click', '.music_list_comment', function() {
   $playlist.setAttribute("track-pk", track_id);
 
   if ($playlist.getAttribute("data-type") != current_type) {
-      save_playlist('/users/progs/save_playlist/' + current_type + "/", counter);
+      save_playlist('/users/progs/save_playlist/' + current_type + "/", counter, track_id);
       $playlist.setAttribute("data-type", current_type);
   } else {
       music_player.loadPlaylist(0);
@@ -737,7 +737,7 @@ on('#ajax', 'click', '.music_list_comment', function() {
   }
 });
 
-function save_playlist(post_link, counter) {
+function save_playlist(post_link, counter, track_id) {
   var playlist_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   playlist_link.open( 'POST', post_link, true );
   playlist_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -766,6 +766,7 @@ function save_playlist(post_link, counter) {
         music_player.addTrack(_source, title, _thumbPath, null, true, false, null) // 4 позиция - время (time)
       }
       music_player.loadPlaylist(0);
+      $playlist.setAttribute("track-pk", track_id);
       if (FWDMSP.LOAD_PLAYLIST_COMPLETE){
         setTimeout(function() {music_player.playSpecificTrack(0, counter)}, 50);
       }
