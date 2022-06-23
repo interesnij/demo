@@ -7491,7 +7491,8 @@ document.write("<script type='text/vbscript'>\r\nFunction IEBinary_getByteAt(str
 						b.showPlaylistItemBuyButton_bl || (i = !1), FWDMSPPlaylistItem.setPrototype(),
 							(e = new FWDMSPPlaylistItem(b.playlist_ar[o].title, b.playlist_ar[o].titleText, b.playlistDownloadButtonN_img, p.playlistDownloadButtonS_str, b.playlistBuyButtonN_img, p.playlistBuyButtonS_str, p.playlistItemGrad1_img, p.playlistItemGrad2_img, p.playlistItemProgress1_img, p.playlistItemProgress2_img, p.playlistPlayButtonN_img, p.playlistItemBk1_img.src, p.playlistItemBk2_img.src, b.playlistPlayButtonN_str, b.playlistPlayButtonS_str, b.playlistPauseButtonN_str, b.playlistPauseButtonS_str, p.trackTitleNormalColor_str, p.trackTitleSelected_str, p.trackDurationColor_str, o, p.playPauseButtonOffsetLeftAndRight, b.trackTitleOffsetLeft, b.durationOffsetRight, b.downloadButtonOffsetRight, b.showPlaylistItemPlayButton_bl, s, i, t, b.useHEXColorsForSkin_bl, b.normalButtonsColor_str, b.selectedButtonsColor_str, b)).addListener(FWDMSPPlaylistItem.MOUSE_UP, b.itemOnUpHandler), e.addListener(FWDMSPPlaylistItem.DOWNLOAD, b.downloadHandler), e.addListener(FWDMSPPlaylistItem.BUY, b.buyHandler), b.items_ar[o] = e, b.itemsHolder_do.addChild(e)
 					}
-				}, this.addTrack = function(e, t, o, s, i, n, l) {
+				},
+				this.addTrack = function(e, t, o, s, i, n, l) {
 					var r;
 					b.isSortedNumerical_bl = !0, b.srotAscending_bl = !0, b.ascDscButton_do && b.ascDscButton_do.setButtonState(1), b.disableSortNButton(),
 						b.sortList();
