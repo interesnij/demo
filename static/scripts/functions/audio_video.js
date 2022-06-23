@@ -20,7 +20,7 @@ function get_video_dop() {
   return settings.split(',')
 };
 
-function play_video_list(url, counter, video_pk){
+function play_video_list(url, counter, video_pk) {
   loader = document.getElementById("video_loader");
   open_video_fullscreen(url);
 
@@ -56,7 +56,8 @@ function play_video_list(url, counter, video_pk){
     };
     function videoStart() {
       new_counter = video_player.getVideoId();
-      console.log("current id ", ids[new_counter]);
+      counter = ids[new_counter];
+      console.log("current id ", counter);
       if (new_counter != counter) {
         list_block_load(info_video, "#info_video", "/video/load_video/" + ids[new_counter] + "/");
       }
