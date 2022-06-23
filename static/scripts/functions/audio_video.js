@@ -30,8 +30,8 @@ function play_video_list(url, counter, video_pk){
   setTimeout(function() {
     load_video_playlist(video_player_id + "a");
     info_video = document.body.querySelector('#info_video');
-    video_playlist = info_video.nextElementSibling.querySelector('#my_video_playlist');
-    items = video_playlist.querySelectorAll('.video_playlist_li');
+    _playlist = info_video.parentElement.querySelector('#my_video_playlist');
+    items = _playlist.querySelectorAll('.video_playlist_li');
     ids = []
     for (var i = 0; i < items.length; i++) {
       id = items[i].getAttribute("data-video-uuid");
