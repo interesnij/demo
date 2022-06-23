@@ -76,7 +76,11 @@
         </div>
     </div>
 
-    <p><%= object.description.as_deref().unwrap() %></p>
+    <% if object.description.is_some() { %>
+      <p><%= object.description.as_deref().unwrap() %></p>
+    <% } else { %>
+      <p>Без описания</p>
+    <% } %>
 
     <div class="card-footer border-top py-2">
         <div class="row">
