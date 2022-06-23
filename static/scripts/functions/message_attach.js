@@ -120,7 +120,7 @@ function video_list_message_attach(block, title, pk, count) {
   show_message_form_send_btn();
 };
 
-function music_message_attach(block, pk, counter, src) {
+function music_message_attach(block, title, img_src, pk, track_pk, countc) {
   is_full_message_attach();
   div = create_preview_music(src, pk, counter);
   block.append(div);

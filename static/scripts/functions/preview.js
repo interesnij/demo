@@ -424,7 +424,7 @@ function create_preview_playlist(name, img_src, pk, track_pk, count){
   $h6 = document.createElement("h6");
   $h6.classList.add("my-0", "mt-1", "load_music_list", "pointer");
   $h6.innerHTML = name;
-  $span = document.createElement("p");
+  $span = document.createElement("$span");
   $count_p = document.createElement("p");
   $count_p.classList.add("mt-2");
   $count_p.innerHTML = count;

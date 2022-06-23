@@ -122,7 +122,7 @@ function music_comment_attach(dropdown, pk, counter, src){
   create_drag_attach_comment(block);
   is_full_dropdown();
 };
-function playlist_comment_attach(dropdown, title, pk, count) {
+function playlist_comment_attach(dropdown, title, img_src, pk, track_pk, count) {
   is_full_dropdown();
   img_block = dropdown.parentElement.parentElement.previousElementSibling;
   div = create_preview_playlist(title, pk, count);

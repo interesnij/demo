@@ -1090,7 +1090,7 @@ on('body', 'click', '.music_attach_list', function() {
   if (document.body.querySelector(".current_file_dropdown")){
     check_playlist_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, img_src, pk, track_pk, count), close_work_fullscreen())
   } else if (document.body.querySelector(".attach_block")){
-    check_playlist_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (playlist_post_attach(document.body.querySelector(".attach_block"), name, img_src, pk, track_pk, count), close_work_fullscreen())
+    check_playlist_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (playlist_post_attach(document.body.querySelector(".attach_block"), name, img_src, pk, track_pk, count),  close_work_fullscreen())
   } else if (document.body.querySelector(".message_attach_block")){
     check_playlist_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (playlist_message_attach(document.body.querySelector(".message_attach_block"), name, img_src, pk, track_pk, count), close_work_fullscreen())
   }

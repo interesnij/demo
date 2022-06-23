@@ -67,9 +67,9 @@ function doc_list_post_attach(block, title, pk, count) {
   add_file_attach();
   is_full_attach();
 };
-function playlist_post_attach(block, title, pk, count) {
+function playlist_post_attach(block, title, img_src, pk, track_pk, count) {
   is_full_attach();
-  div = create_preview_playlist(title, pk, count);
+  div = create_preview_playlist(title, img_src, pk, track_pk, count);
   block.append(div);
   create_drag_attach_post(block);
   add_file_attach();
