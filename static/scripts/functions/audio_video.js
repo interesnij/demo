@@ -478,7 +478,6 @@ function music_update_time() {
   //try {
     blocks = document.body.querySelectorAll(".track");
     track_id = music_player.buy();
-    console.log("buy ", track_id);
     if (track_id == null) {
       track_id = $playlist.getAttribute("track-pk");
     }
@@ -738,9 +737,7 @@ on('#ajax', 'click', '.music_list_comment', function() {
       }
   }
 });
-function get_iddd() {
-  console.log("gggggggggg");
-}
+
 function save_playlist(post_link, counter, track_id) {
   var playlist_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   playlist_link.open( 'POST', post_link, true );
@@ -766,6 +763,7 @@ function save_playlist(post_link, counter, track_id) {
         _title=title;
         _thumbPath=tracks[i].image;
         _id=tracks[i].id;
+        console.log(_id);
                 //_duration=list[i].getAttribute("data-duration");
                 //time = msToTime(_duration);
         music_player.addTrack(_source, title, _thumbPath, null, true, false, null, _id) // 4 позиция - время (time)
