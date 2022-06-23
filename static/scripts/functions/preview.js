@@ -402,6 +402,7 @@ function create_preview_playlist(name, img_src, pk, track_pk, count){
   // прокладка - сначала в него, потом его в главный блок
   $wrapper_div = document.createElement("div");
   $wrapper_div.style.display = "flex";
+  $div.setAttribute("playlist-pk", pk);
 
   // элементы в figure
   $figure = document.createElement("figure");
