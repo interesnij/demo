@@ -33,7 +33,10 @@ function play_video_list(url, counter, video_pk){
     items = video_fullscreen.querySelectorAll('.video_playlist_li');
     ids = []
     for (var i = 0; i < items.length; i++) {
-      ids.push(items[i].getAttribute("data-video-uuid"))
+      id = items[i].getAttribute("data-video-uuid");
+      ids.push(id);
+      console.log("new ids ", ids);
+      console.log("new id ", id);
     };
 
     video_player.addListener(FWDUVPlayer.READY, videoReady);
@@ -53,7 +56,8 @@ function play_video_list(url, counter, video_pk){
       }
     };
     function videoStart() {
-      console.log(ids[counter]);
+      console.log("ids ", ids);
+      console.log("current id ", ids[counter]);
     };
     function videoPause() {
       console.log("video player pause!");
