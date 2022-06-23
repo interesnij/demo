@@ -1507,7 +1507,11 @@ canvas{
   margin: 10px;
 }
 .dropdown:hover .dropdown-menu, .hide_block:hover .hide_block_menu {
-  transform: scale(1);
+  transform: scale(1) !important;
+  display: block;
+}
+.dropdown-menu:hover .dropdown-item {
+  transform: scale(1) !important;
   display: block;
 }
 
