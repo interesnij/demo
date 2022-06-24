@@ -51,7 +51,7 @@ impl Notification {
     // is_group:     нужна ли спайка сигналов в группу
     // is_community: создаются сигналы сообщества
     pub fn create_notify(creator: &User, verb: String, types: i16,
-        object_id: i32, community: Option<Community>, action_community_id: Option<i32>,
+        object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
         is_group: bool, is_community: bool) -> () {
 
         let user_set_id: Option<i32>;
@@ -67,12 +67,12 @@ impl Notification {
         }
 
         let _connection = establish_connection();
-        if is_community {
-            users_ids = community.get_members_for_notify_ids();
-        }
-        else {
-            users_ids = creator.get_users_ids_for_main_news();
-        }
+        //if is_community {
+        //    users_ids = community.get_members_for_notify_ids();
+        //}
+        //else {
+        users_ids = creator.get_users_ids_for_main_news();
+        //}
         for user_id in users_ids.iter() {
             let new_notify = NewNotification {
                 recipient_id: user_id,
@@ -82,7 +82,7 @@ impl Notification {
                 status: "a".to_string(),
                 types: types,
                 object_id: object_id,
-                community_id: community.id,
+                community_id: community_id,
                 action_community_id: action_community_id,
                 user_set_id: user_set_id,
                 object_set_id: object_set_id,
@@ -134,7 +134,7 @@ pub struct NewWallObject {
 impl WallObject {
     // is_group:     нужна ли спайка сигналов в группу
     pub fn create_wall(creator: &User, verb: String, types: i16,
-        object_id: i32, community: Option<Community>, action_community_id: Option<i32>,
+        object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
         is_group: bool) -> () {
 
         let user_set_id: Option<i32>;
@@ -157,7 +157,7 @@ impl WallObject {
             status: "a".to_string(),
             types: types,
             object_id: object_id,
-            community_id: community.id,
+            community_id: community_id,
             action_community_id: action_community_id,
             user_set_id: user_set_id,
             object_set_id: object_set_id,
