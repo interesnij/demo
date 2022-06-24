@@ -23,9 +23,9 @@ pub struct Notification {
     pub recipient_id:        Option<i32>,
     pub user_id:             i32,
     pub created:             chrono::NaiveDateTime,
-    pub verb:                String,
+    pub verb:                String,     // тип уведомления
     pub status:              String,
-    pub types:               i16,  // описан в модерации тип объекта
+    pub types:               i16,        // описан в модерации тип объекта
     pub object_id:           i32,
     pub community_id:        Option<i32>,
     pub action_community_id: Option<i32>,
@@ -62,7 +62,7 @@ pub struct WallObject {
     pub created:             chrono::NaiveDateTime,
     pub verb:                String,
     pub status:              String,
-    pub types:               i16,  // описан в модерации тип объекта
+    pub types:               i16,         // описан в модерации тип объекта
     pub object_id:           i32,
     pub community_id:        Option<i32>,
     pub action_community_id: Option<i32>,

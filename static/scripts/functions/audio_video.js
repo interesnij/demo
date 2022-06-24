@@ -56,6 +56,7 @@ function play_video_list(url, counter, video_pk) {
       }
     };
     function videoStart() {
+      try { music_player.pause() } catch { null };
       new_counter = video_player.getVideoId();
       console.log("current id ", ids[new_counter]);
       if (new_counter != counter) {
