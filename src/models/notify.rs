@@ -114,7 +114,7 @@ pub struct WallObject {
     pub community_id:        Option<i32>,
     pub action_community_id: Option<i32>,
     pub user_set_id:         Option<i32>, // Например, человек лайкает несколько постов. Нужно для группировки
-    pub object_set_id:       Option<i32>, Например, несколько человек лайкает пост. Нужно для группировки
+    pub object_set_id:       Option<i32>, //Например, несколько человек лайкает пост. Нужно для группировки
 }
 #[derive(Deserialize, Insertable)]
 #[table_name="wall_objects"]

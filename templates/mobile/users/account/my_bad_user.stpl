@@ -35,7 +35,7 @@
   <div style="padding-left: 10px;">
     <span>Д. р.: </span><%= request_user.birthday.to_string() %><br>
     <span>Тел.: </span><%= request_user.phone %><br>
-    <span>Ссылка: </span>@<%= request_user.link %><br>
+    <span>Ссылка: </span><%= request_user.get_slug() %><br>
     <% if request_user.city.is_some() { %>
       <span>Город: </span><a><%= request_user.city.as_deref().unwrap() %></a><br>
     <% } %>
