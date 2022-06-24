@@ -355,6 +355,9 @@ on('#ajax', 'click', '#repost_for_wall', function() {
   create_fullscreen(url, "worker_fullscreen")
 });
 on('#ajax', 'click', '#u_repost_for_community', function() {
+  if (this.classList.contains("disable")) {
+    return
+  };
   this.querySelector("#repost_radio_community").setAttribute("checked", "true");
   parent = this.parentElement;
   parent.querySelector("#repost_radio_wall").removeAttribute("checked");
@@ -372,6 +375,9 @@ on('#ajax', 'click', '#u_repost_for_community', function() {
   create_fullscreen(url, "worker_fullscreen");
 });
 on('#ajax', 'click', '#repost_for_message', function() {
+  if (this.classList.contains("disable")) {
+    return
+  };
   this.querySelector("#repost_radio_message").setAttribute("checked", "true");
   parent = this.parentElement;
   parent.querySelector("#repost_radio_wall").removeAttribute("checked");

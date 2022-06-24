@@ -15,7 +15,7 @@
       <div class="media-body position-relative">
         <img class="image_fit_200" src="<%= object.get_image() %>" alt="">
         <div class="video_icon_play_v2 video_list_detail" video-counter="" video-pk="<%= object.id %>"></div>
-        <a><%= object.title %></a>
+        <a class="pointer"><%= object.title %></a>
       </div>
     <% } %>
 </div>
