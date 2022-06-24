@@ -380,6 +380,7 @@ function create_preview_music(title, img_src, track_pk, list_pk){
   $media.style.marginLeft = "10px";
   $media.style.marginRight = "40px";
   $media.style.overflow = "hidden";
+  $media.style.zIndex = "1";
   $h6.classList.add("music_list_item", "pointer", "music_title");
   $h6.innerHTML = title;
 
