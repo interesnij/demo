@@ -78,7 +78,7 @@ impl Notification {
                 recipient_id: Some(*user_id),
                 user_id: creator.id,
                 created: chrono::Local::now().naive_utc(),
-                verb: verb,
+                verb: verb.clone(),
                 status: "a".to_string(),
                 types: types,
                 object_id: object_id,
