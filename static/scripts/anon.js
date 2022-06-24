@@ -14,11 +14,18 @@ function close_fullscreen() {
   container.querySelector(".card_fullscreen").remove();
   if (!container.innerHTML) {
     get_document_opacity_1();
+    if (document.body.querySelector(".main-container")) {
+      document.title = document.body.querySelector(".main-container").getAttribute("data-title");
+    }
   } else {
     prev_window = container.querySelector(".card_fullscreen");
     prev_window.querySelector(".this_fullscreen_hide").style.display = "unset";
     try {prev_window.querySelector(".prev_item").style.display = "unset"} catch {null};
     try {prev_window.querySelector(".next_item").style.display = "unset"} catch {null}
+
+    if (prev_window.querySelector(".is_stat_list")) {
+      document.title = prev_window.querySelector(".is_stat_list").getAttribute("data-title");
+    }
   };
   window.history.replaceState(null, null, window.location.pathname);
   all_windows = container.querySelectorAll(".card_fullscreen");
@@ -125,6 +132,9 @@ function create_fullscreen(url, type_class) {
             }
           }
           get_music_player_support($loader);
+          if ($loader.querySelector(".is_stat_list")) {
+            document.title = $loader.querySelector(".is_stat_list").getAttribute("data-title");
+          }
       }
   };
   link.send();
@@ -166,6 +176,9 @@ function change_this_fullscreen(_this, type_class) {
             $loader.style.overflowY = "unset";
           }
           get_music_player_support($loader);
+          if ($loader.querySelector(".is_stat_list")) {
+            document.title = $loader.querySelector(".is_stat_list").getAttribute("data-title");
+          }
       }
   };
   link.send();

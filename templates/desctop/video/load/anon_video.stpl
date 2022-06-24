@@ -5,7 +5,7 @@
 
 <div id="video_player"></div>
 
-<div id="info_video" class="row hide no-gutters is_stat_list" data-pk="<%= object.id %>" style="padding-left: 25px;" data-title="<%= object.title %> - видеозапись">
+<div id="info_video" class="row hide no-gutters is_stat_list" data-pk="<%= object.id %>" style="padding-left: 10px;" data-title="<%= object.title %> - видеозапись">
   <div class="col-md-8">
     <h4><%= object.title %></h4>
 
@@ -26,7 +26,7 @@
                     <%= post_community.name %>
                   </a>
                 </h6>
-                <a class="mb-0 wall_fullscreen pointer"><%= object.created.format("%d-%m-%Y в %H:%M").to_string() %></a>
+                <p class="mb-0"><%= object.created.format("%d-%m-%Y в %H:%M").to_string() %></p>
             </div>
 
     <% } else { %>
