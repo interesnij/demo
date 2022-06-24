@@ -7,11 +7,11 @@
 
 <div id="video_player"></div>
 
-<div id="info_video" class="row no-gutters is_stat_list" data-pk="<%= object.id %>" data-type="user_video">
+<div id="info_video" class="hide row no-gutters is_stat_list" data-pk="<%= object.id %>" style="padding-left: 25px;" data-title="<%= object.title %> - видеозапись">
     <h4><%= object.title %></h4>
 
     <div class="card-header">
-        <div class="media">
+        <div class="media"> 
 
     <% if object.community_id.is_some() { %>
         <% let post_community = object.get_community(); %>

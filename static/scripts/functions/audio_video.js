@@ -44,6 +44,7 @@ function play_video_list(url, counter, video_pk) {
 
     function videoReady() {
       console.log("video player ready");
+      info_video.classList.remove("hide");
       setTimeout(function() {
         video_player.playVideo(counter);
       }, 1000);
