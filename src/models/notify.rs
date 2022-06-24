@@ -58,8 +58,8 @@ impl Notification {
         let object_set_id: Option<i32>;
         let users_ids: Vec<i32>;
         if is_group {
-            let user_set_id: Option<i32>;
-            let object_set_id: Option<i32>;
+            user_set_id = None;
+            object_set_id = None;
         }
         else {
             user_set_id = None;
@@ -75,7 +75,7 @@ impl Notification {
         //}
         for user_id in users_ids.iter() {
             let new_notify = NewNotification {
-                recipient_id: Some(*user_id), 
+                recipient_id: Some(*user_id),
                 user_id: creator.id,
                 created: chrono::Local::now().naive_utc(),
                 verb: verb,
@@ -141,8 +141,8 @@ impl WallObject {
         let object_set_id: Option<i32>;
         let users_ids: Vec<i32>;
         if is_group {
-            let user_set_id: Option<i32>;
-            let object_set_id: Option<i32>;
+            user_set_id = None;
+            object_set_id = None;
         }
         else {
             user_set_id = None;
