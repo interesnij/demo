@@ -50,7 +50,7 @@ pub struct NewNotification {
 impl Notification {
     // is_group:     нужна ли спайка сигналов в группу
     // is_community: создаются сигналы сообщества
-    pub fn create_signals(creator: &User, verb: String, types: i16,
+    pub fn create_notify(creator: &User, verb: String, types: i16,
         object_id: i32, community: Option<Community>, action_community_id: Option<i32>,
         is_group: bool, is_community: bool) -> () {
 
@@ -67,23 +67,6 @@ impl Notification {
         }
 
         let _connection = establish_connection();
-        let new_wall = NewWallObject {
-            user_id: creator.id,
-            created: chrono::Local::now().naive_utc(),
-            verb: verb,
-            status: "a".to_string(),
-            types: types,
-            object_id: object_id,
-            community_id: community.id,
-            action_community_id: action_community_id,
-            user_set_id: user_set_id,
-            object_set_id: object_set_id,
-        };
-        diesel::insert_into(schema::wall_objects::table)
-            .values(&new_wall)
-            .get_result::<WallObject>(&_connection)
-            .expect("Error.");
-
         if is_community {
             users_ids = community.get_members_for_notify_ids();
         }
@@ -146,4 +129,42 @@ pub struct NewWallObject {
     pub action_community_id: Option<i32>,
     pub user_set_id:         Option<i32>,
     pub object_set_id:       Option<i32>,
+}
+
+impl WallObject {
+    // is_group:     нужна ли спайка сигналов в группу
+    pub fn create_wall(creator: &User, verb: String, types: i16,
+        object_id: i32, community: Option<Community>, action_community_id: Option<i32>,
+        is_group: bool) -> () {
+
+        let user_set_id: Option<i32>;
+        let object_set_id: Option<i32>;
+        let users_ids: Vec<i32>;
+        if is_group {
+            let user_set_id: Option<i32>;
+            let object_set_id: Option<i32>;
+        }
+        else {
+            user_set_id = None;
+            object_set_id = None;
+        }
+
+        let _connection = establish_connection();
+        let new_wall = NewWallObject {
+            user_id: creator.id,
+            created: chrono::Local::now().naive_utc(),
+            verb: verb,
+            status: "a".to_string(),
+            types: types,
+            object_id: object_id,
+            community_id: community.id,
+            action_community_id: action_community_id,
+            user_set_id: user_set_id,
+            object_set_id: object_set_id,
+        };
+        diesel::insert_into(schema::wall_objects::table)
+            .values(&new_wall)
+            .get_result::<WallObject>(&_connection)
+            .expect("Error.");
+    }
 }
