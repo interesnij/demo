@@ -7,7 +7,7 @@
   position: relative;
 }
 
-.track .media-body, .track figure, .track svg {
+.track figure, .track svg {
   z-index: 1;
 }
 .gorizontal_scroll {
@@ -1513,7 +1513,7 @@ canvas{
 .dropdown-menu:hover .dropdown-item {
   transform: scale(1) !important;
   display: block;
-} 
+}
 
 .dropdown-menu, .hide_block_menu{
 transform: scale(1)!important;
