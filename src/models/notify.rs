@@ -75,7 +75,7 @@ impl Notification {
         //}
         for user_id in users_ids.iter() {
             let new_notify = NewNotification {
-                recipient_id: Some(user_id), 
+                recipient_id: Some(*user_id), 
                 user_id: creator.id,
                 created: chrono::Local::now().naive_utc(),
                 verb: verb,
