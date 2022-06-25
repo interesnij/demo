@@ -157,11 +157,6 @@ function view_timer(count, list) {
 function create_fullscreen(url, type_class, need_drag_items, need_replace_history) {
   container = document.body.querySelector("#fullscreens_container");
 
-  if (container.innerHTML) {
-    prev_window = container.querySelector(".card_fullscreen");
-    prev_window.classList.add("hide");
-  };
-
   try {
     if (document.body.querySelector(".video_fullscreen").style.display =="none") {
       count_items = container.querySelectorAll(".card_fullscreen").length
@@ -199,6 +194,12 @@ function create_fullscreen(url, type_class, need_drag_items, need_replace_histor
   link.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           $load_div.remove();
+          
+          if (container.innerHTML) {
+            prev_window = container.querySelector(".card_fullscreen");
+            prev_window.classList.add("hide");
+          };
+
           elem = link.responseText;
 
           $loader.innerHTML = elem;
