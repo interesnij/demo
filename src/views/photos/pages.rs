@@ -663,7 +663,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 next_page_number:            next_page_number,
                 prev:                        prev,
                 next:                        next,
-                post:                        post,
+                post:                        _post,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -696,7 +696,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 next_page_number:            next_page_number,
                 prev:                        prev,
                 next:                        next,
-                post:                        post,
+                post:                        _post,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -742,7 +742,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 object_list:               object_list,
                 next_page_number:          next_page_number,
                 prev:                      prev,
-                post:                      post,
+                post:                      _post,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -771,7 +771,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 next_page_number:           next_page_number,
                 prev:                       prev,
                 next:                       next,
-                post:                       post,
+                post:                       _post,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
