@@ -89,9 +89,6 @@ function close_fullscreen() {
     // включаем видимость кнопок нового первого окна.
     prev_window = container.querySelector(".card_fullscreen");
     prev_window.classList.remove("hide");
-    //prev_window.querySelector(".this_fullscreen_hide").style.display = "unset";
-    //try {prev_window.querySelector(".prev_item").style.display = "unset"} catch {null};
-    //try {prev_window.querySelector(".next_item").style.display = "unset"} catch {null}
 
     if (container.querySelector(".data-title")) {
       document.title = container.querySelector(".data-title").getAttribute("data-title");
@@ -163,9 +160,6 @@ function create_fullscreen(url, type_class, need_drag_items, need_replace_histor
   if (container.innerHTML) {
     prev_window = container.querySelector(".card_fullscreen");
     prev_window.classList.add("hide");
-    //prev_window.querySelector(".this_fullscreen_hide").style.display = "none";
-    //try {prev_window.querySelector(".prev_item").style.display = "none"} catch {null};
-    //try {prev_window.querySelector(".next_item").style.display = "none"} catch {null}
   };
 
   try {
