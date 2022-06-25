@@ -652,11 +652,12 @@ function load_item_window() {
     if (params[0].split("=")[1] == "url") {
       console.log("url ", params[0]);
       console.log("screen ", params[1]);
-    try {
-      url = params[0];
-      fullscreen = params[1];
-      setTimeout(create_fullscreen(url, fullscreen), 3000)
-    } catch { null };
+      try {
+        url = params[0];
+        fullscreen = params[1];
+        setTimeout(create_fullscreen(url, fullscreen), 3000)
+      } catch { null };
+    }
   }
 };
 
