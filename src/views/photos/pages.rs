@@ -778,7 +778,7 @@ pub async fn load_comment_photo_page(session: Session, req: HttpRequest, param: 
     let text : String;
     let mut prev: Option<i32> = None;
     let mut next: Option<i32> = None;
-    let comment_types : String = param.0;
+    let comment_types : String = param.0.clone();
     let photo_id : i32 = param.1;
     let mut _photos: Vec<Photo> = Vec::new();
 
