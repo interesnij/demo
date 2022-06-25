@@ -568,6 +568,8 @@ pub async fn load_photo_page(session: Session, req: HttpRequest, photo_id: web::
 }
 
 pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web::Path<(i32,i32)>) -> actix_web::Result<HttpResponse> {
+    use crate::utils::get_post;
+
     let (is_desctop, page) = get_list_variables(req);
     let mut next_page_number = 0;
     let is_open : bool;
