@@ -65,13 +65,15 @@ impl Notification {
             user_set_id = None;
             object_set_id = None;
         }
-
+        let community_id: Option<i32>;
         let _connection = establish_connection();
         if is_community && community.is_some(){
             users_ids = community.unwrap().get_members_for_notify_ids();
+            community_id = Some(community.unwrap().id);
         }
         else {
             users_ids = creator.get_users_ids_for_main_news();
+            community_id = None;
         }
         for user_id in users_ids.iter() {
             let new_notify = NewNotification {
@@ -82,7 +84,7 @@ impl Notification {
                 status: "a".to_string(),
                 types: types,
                 object_id: object_id,
-                community_id: Some(community.id),
+                community_id: community_id,
                 action_community_id: action_community_id,
                 user_set_id: user_set_id,
                 object_set_id: object_set_id,
