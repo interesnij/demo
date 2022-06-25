@@ -60,6 +60,7 @@ function close_fullscreen() {
     video_container.innerHTML == "";
     video_container.parentElement.style.display = "none";
     get_document_opacity_1();
+
     return
   };
   toggle_active_select = false;
@@ -91,8 +92,8 @@ function close_fullscreen() {
     try {prev_window.querySelector(".prev_item").style.display = "unset"} catch {null};
     try {prev_window.querySelector(".next_item").style.display = "unset"} catch {null}
 
-    if (prev_window.querySelector(".is_stat_list")) {
-      document.title = prev_window.querySelector(".is_stat_list").getAttribute("data-title");
+    if (container.querySelector(".data-title")) {
+      document.title = container.querySelector(".data-title").getAttribute("data-title");
     }
   };
   window.history.replaceState(null, null, window.location.pathname);
@@ -116,6 +117,9 @@ function close_work_fullscreen() {
   };
 
   _window.remove();
+  if (container.querySelector(".data-title")) {
+    document.title = container.querySelector(".data-title").getAttribute("data-title");
+  }
   if (toggle_active_select) {
     settings_window = container.querySelector(".card_fullscreen");
     collector_active = settings_window.querySelector(".collector_active");

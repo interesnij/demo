@@ -23,8 +23,8 @@ function close_fullscreen() {
     try {prev_window.querySelector(".prev_item").style.display = "unset"} catch {null};
     try {prev_window.querySelector(".next_item").style.display = "unset"} catch {null}
 
-    if (prev_window.querySelector(".is_stat_list")) {
-      document.title = prev_window.querySelector(".is_stat_list").getAttribute("data-title");
+    if (container.querySelector(".data-title")) {
+      document.title = container.querySelector(".data-title").getAttribute("data-title");
     }
   };
   window.history.replaceState(null, null, window.location.pathname);
@@ -182,7 +182,7 @@ function change_this_fullscreen(_this, type_class) {
           if ($loader.querySelector(".data-title")) {
             document.title = $loader.querySelector(".data-title").getAttribute("data-title");
           }
-          window.history.pushState(null, "vfgffgfgf", window.location.href + "?url=" + url + "&screen=" + type_class);
+          window.history.pushState(null, "vfgffgfgf", window.location.href + "?url=" + _this.getAttribute("href") + "&screen=" + type_class);
       }
   };
   link.send();
