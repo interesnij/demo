@@ -92,7 +92,7 @@ on('#ajax', 'click', '#good_image5', function() {
   get_image_priview(this, img);
 });
 on('#ajax', 'click', '.good_add', function() {
-  create_fullscreen('/goods/add_good_in_list/' + this.parentElement.parentElement.getAttribute("data-pk") + "/", "item_fullscreen");
+  create_fullscreen('/goods/add_good_in_list/' + this.parentElement.parentElement.getAttribute("data-pk") + "/", "item_fullscreen", false, true);
 });
 
 on('#ajax', 'click', '#add_good_btn', function() {

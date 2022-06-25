@@ -1,5 +1,5 @@
 on('#ajax', 'click', '.add_video', function() {
-  create_fullscreen("/video/add_video_in_list/" + this.parentElement.parentElement.getAttribute("data-pk") + "/", "worker_fullscreen");
+  create_fullscreen("/video/add_video_in_list/" + this.parentElement.parentElement.getAttribute("data-pk") + "/", "worker_fullscreen", false, true);
 });
 on('#ajax', 'click', '.uri_click', function() {
   this.nextElementSibling.style.display = "block";
@@ -14,7 +14,7 @@ on('#ajax', 'click', '.load_attach_video_list', function() {
 on('#ajax', 'click', '.load_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   videolist_pk = parent.getAttribute("videolist-pk");
-  create_fullscreen("/video/load_list/" + videolist_pk + "/", "item_fullscreen");
+  create_fullscreen("/video/load_list/" + videolist_pk + "/", "item_fullscreen", false, true);
 });
 
 on('#ajax', 'click', '.video_list_detail', function() {

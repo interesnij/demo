@@ -135,7 +135,7 @@ on('body', 'change', '.case_all_input', function() {
       if (!id_video_upload_start) {
         close_work_fullscreen();
         id_video_upload_start = true;
-        create_fullscreen("/video/edit_new_video/", "worker_fullscreen");
+        create_fullscreen("/video/edit_new_video/", "worker_fullscreen", false, true);
         //fullscreen_resize()
       };
       if (is_video_edit_window_loaded) {

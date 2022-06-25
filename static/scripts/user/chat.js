@@ -575,7 +575,7 @@ on('#ajax', 'click', '.hide_chat_search', function() {
 on('#ajax', 'click', '.u_chat_info', function() {
   if (this.querySelector("a")) { return };
   pk = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("chat-pk")
-  create_fullscreen("/chat/" + pk + "/info/", "worker_fullscreen");
+  create_fullscreen("/chat/" + pk + "/info/", "worker_fullscreen", false, true);
 });
 on('#ajax', 'click', '.favourite_messages_list', function() {
   create_fullscreen("/chat/favourites_messages/", "worker_fullscreen");
@@ -1031,10 +1031,10 @@ function send_message_sticker(url, value) {
 };
 
 on('#ajax', 'click', '.user_create_chat', function() {
-  create_fullscreen("/chats/create_chat/" + this.getAttribute("data-pk") + "/", "worker_fullscreen");
+  create_fullscreen("/chats/create_chat/" + this.getAttribute("data-pk") + "/", "worker_fullscreen", false, true);
 });
 on('#ajax', 'click', '.user_send_page_message', function() {
-  create_fullscreen("/chats/create_message/" + this.getAttribute("data-pk") + "/", "worker_fullscreen");
+  create_fullscreen("/chats/create_message/" + this.getAttribute("data-pk") + "/", "worker_fullscreen", false, true);
 });
 
 on('#ajax', 'click', '.u_chat_photo', function() {

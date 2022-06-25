@@ -82,23 +82,23 @@ on('#ajax', 'click', '#u_edit_password_btn', function() {
 });
 
 on('#ajax', 'click', '.edit_user_name', function() {
-  create_fullscreen("/users/settings/edit_name/", "worker_fullscreen");
+  create_fullscreen("/users/settings/edit_name/", "worker_fullscreen", false, true);
 });
 on('#ajax', 'click', '.edit_user_password', function() {
-  create_fullscreen("/users/settings/edit_password/", "worker_fullscreen");
+  create_fullscreen("/users/settings/edit_password/", "worker_fullscreen", false, true);
 });
 on('#ajax', 'click', '.edit_user_email', function() {
-  create_fullscreen("/users/settings/edit_email/", "worker_fullscreen");
+  create_fullscreen("/users/settings/edit_email/", "worker_fullscreen", false, true);
 });
 on('#ajax', 'click', '.edit_user_phone', function() {
-  create_fullscreen("/users/settings/edit_phone/", "worker_fullscreen");
+  create_fullscreen("/users/settings/edit_phone/", "worker_fullscreen", false, true);
 });
 on('#ajax', 'click', '.edit_user_custom_link', function() {
-  create_fullscreen("/users/settings/edit_link/", "worker_fullscreen");
+  create_fullscreen("/users/settings/edit_link/", "worker_fullscreen", false, true);
 });
 on('#ajax', 'click', '.user_identified_send', function() {
-  create_fullscreen("/users/settings/identify_send/", "worker_fullscreen");
+  create_fullscreen("/users/settings/identify_send/", "worker_fullscreen", false, true);
 });
 on('#ajax', 'click', '.remove_user_profile', function() {
-  create_fullscreen("/users/settings/remove_profile/", "worker_fullscreen");
+  create_fullscreen("/users/settings/remove_profile/", "worker_fullscreen", false, true);
 });

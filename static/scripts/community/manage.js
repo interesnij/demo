@@ -3,7 +3,7 @@ on('#ajax', 'click', '.show_staff_window', function() {
   parent = this.parentElement.parentElement.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("data-pk");
   uuid = parent.getAttribute("data-uuid");
-  create_fullscreen("/communities/manage/staff_window/" + pk + "/" + uuid + "/", "item_fullscreen");
+  create_fullscreen("/communities/manage/staff_window/" + pk + "/" + uuid + "/", "item_fullscreen", false, true);
 });
 
 on('#ajax', 'click', '.community_follow_view', function() {
@@ -44,7 +44,7 @@ on('#ajax', 'click', '.community_member_delete', function() {
         li.remove()
       }};
   link.send( null );
-}); 
+});
 
 on('#ajax', 'click', '#community_private_post_btn', function() {
   send_form_and_toast('/communities/manage/private_post/' + document.body.querySelector(".pk_saver").getAttribute("data-pk") + "/", document.body.querySelector("#community_private_post_form"), "Изменения приняты!")

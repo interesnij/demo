@@ -30,7 +30,7 @@ on('body', 'click', '.load_comments_list', function() {
 
 on('#ajax', 'click', '.load_posts_list', function() {
   postlist_pk = this.getAttribute("postlist-pk");
-  create_fullscreen("/posts/list/?list=" + postlist_pk, "worker_fullscreen");
+  create_fullscreen("/posts/list/?list=" + postlist_pk, "worker_fullscreen", false, true);
 });
 
 on('body', 'click', '.create_repost', function() {
@@ -39,7 +39,7 @@ on('body', 'click', '.create_repost', function() {
   if (parent.getAttribute('data-subtype')) {
     subtype = parent.getAttribute('data-subtype')
   } else { subtype = null};
-  create_fullscreen("/progs/create_repost/?types=" + type, "worker_fullscreen");
+  create_fullscreen("/progs/create_repost/?types=" + type, "worker_fullscreen", false, true);
   clear_attach_block();
 });
 
@@ -50,7 +50,7 @@ on('body', 'click', '.create_claim', function() {
   for (var i = 0; i < dropdowns.length; i++) {
     dropdowns[i].classList.remove("show")
   };
-  create_fullscreen("/users/progs/create_claim/?types=" + type, "worker_fullscreen");
+  create_fullscreen("/users/progs/create_claim/?types=" + type, "worker_fullscreen", false, true);
 });
 
 on('body', 'click', '.create_list', function() {
@@ -106,7 +106,7 @@ on('body', 'click', '.create_list', function() {
       url = "/video/add_user_list/";
     }
   }
-  create_fullscreen(url, "worker_fullscreen");
+  create_fullscreen(url, "worker_fullscreen", false, true);
 });
 on('body', 'click', '.edit_list', function() {
   parent = this.parentElement;
@@ -162,7 +162,7 @@ on('body', 'click', '.edit_list', function() {
       url = "/video/edit_user_list/";
     }
   }
-  create_fullscreen(url + pk + "/", "worker_fullscreen");
+  create_fullscreen(url + pk + "/", "worker_fullscreen", false, true);
 });
 
 on('body', 'click', '.item_reactions', function() {
@@ -173,6 +173,8 @@ on('body', 'click', '.item_reactions', function() {
     + "&reaction="
     + react.getAttribute("data-react")
     , "worker_fullscreen"
+    , false,
+    true
   );
 });
 
@@ -252,7 +254,7 @@ on('#ajax', 'click', '.fullscreen', function(e) {
   else if (e.target.classList.contains("action")) {null}
   else {
     pk = card.getAttribute('data-pk');
-    create_fullscreen("/posts/load_post/" + pk + "/", "worker_fullscreen");
+    create_fullscreen("/posts/load_post/" + pk + "/", "worker_fullscreen", false, true);
   }
 });
 
@@ -270,7 +272,7 @@ on('#ajax', 'click', '.fix_fullscreen', function(e) {
   else if (e.target.classList.contains("action")) {null}
   else {
     pk = card.getAttribute('data-pk');
-    create_fullscreen("/posts/load_fix_post/" + pk + "/", "worker_fullscreen");
+    create_fullscreen("/posts/load_fix_post/" + pk + "/", "worker_fullscreen", false, true);
   }
 });
 

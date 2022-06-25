@@ -312,7 +312,7 @@ on('#ajax', 'click', '.item_stat_f', function() {
   var parent, pk, uuid, loader
   parent = this.parentElement.parentElement.parentElement.parentElement.parentElement;
   uuid = parent.getAttribute("data-uuid");
-  create_fullscreen("/stat/item/" + uuid + "/", "item_fullscreen");
+  create_fullscreen("/stat/item/" + uuid + "/", "item_fullscreen", false, true);
 });
 
 on('#ajax', 'click', '.item_fullscreen_hide', function() {
@@ -347,7 +347,7 @@ function focus_block(value) {
   sel = window.getSelection();
   sel.removeAllRanges();
   sel.addRange(range);
-}; 
+};
 
 function private_users_send(form_post, url, action, val) {
   form = new FormData(form_post);

@@ -849,13 +849,17 @@ function if_list(block) {
       list_load(block.querySelector(".is_block_paginate"), link);
       scrolled(lenta.querySelector('.list_pk'));
   };
-    params = window.location.search.replace( '?', '').split('&');
-    if (params) {
-      if (params[0].split("=")[1] == "wall") {
-        // если есть параметр wall, значит открыт элемент стены: пост, прикрепленный элемент, и т.д.
-        create_fullscreen("/posts/load_post/" + params[2].split("=")[1] + "/", "worker_fullscreen");
-      }
+
+  params = window.location.search.replace( '?', '').split('&');
+  if (params) {
+    if (params[0].split("=")[0] == "url") {
+      try {
+        url = params[0].split("=")[1];
+        fullscreen = params[1].split("=")[1];
+        setTimeout(create_fullscreen(url, fullscreen, false), 3000)
+      } catch { null };
     }
+  }
 };
 
 function list_load(block, link) {

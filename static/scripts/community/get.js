@@ -19,5 +19,5 @@ on('#ajax', 'change', '#sub_category', function() {
 });
 
 on('#ajax', 'click', '.user_community_create_window', function() {
-  create_fullscreen("/communities/create_community/", "worker_fullscreen");
+  create_fullscreen("/communities/create_community/", "worker_fullscreen", false, true);
 });
