@@ -145,7 +145,7 @@ function create_fullscreen(url, type_class, need_drag_items, need_replace_histor
 
 
 function change_this_fullscreen(_this, type_class) {
-  _this.parentElement.classList.contains("col") ? $loader = _this.parentElement.parentElement.parentElement.parentElement : $loader = _this.parentElement.parentElement;
+  _this.parentElement.classList.contains("col") ? $loader = _this.parentElement.parentElement.parentElement.parentElement : $loader = _this.parentElement.parentElement.parentElement;
   $loader.innerHTML = "";
   $parent_div.style.opacity = "0";
   $parent_div.style.height = "35px";
