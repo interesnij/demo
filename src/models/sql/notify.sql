@@ -1,6 +1,6 @@
 CREATE TABLE notifications (
     id                    SERIAL PRIMARY KEY,
-    recipient_id          INT,
+    recipient_id          INT NOT NULL,
     user_id               INT NOT NULL,
     created               TIMESTAMP NOT NULL,
     verb                  VARCHAR(150) NOT NULL,

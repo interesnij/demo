@@ -20,7 +20,7 @@ use crate::models::{User, Community};
 #[derive(Debug, Queryable, Serialize, Identifiable, Associations)]
 pub struct Notification {
     pub id:                  i32,
-    pub recipient_id:        Option<i32>,
+    pub recipient_id:        i32,
     pub user_id:             i32,
     pub created:             chrono::NaiveDateTime,
     pub verb:                String,     // тип уведомления
@@ -35,7 +35,7 @@ pub struct Notification {
 #[derive(Deserialize, Insertable)]
 #[table_name="notifications"]
 pub struct NewNotification {
-    pub recipient_id:        Option<i32>,
+    pub recipient_id:        i32,
     pub user_id:             i32,
     pub created:             chrono::NaiveDateTime,
     pub verb:                String,
@@ -198,7 +198,7 @@ impl Notification {
 
                         Notification::create_notify (
                             creator_id,
-                            user_id,
+                            *user_id,
                             "G".to_string() + &verb,
                             types,
                             object_id,
@@ -212,7 +212,7 @@ impl Notification {
                     else {
                         Notification::create_notify (
                             creator_id,
-                            user_id,
+                            *user_id,
                             current_verb,
                             types,
                             object_id,
@@ -229,7 +229,7 @@ impl Notification {
             for user_id in users_ids.iter() {
                 Notification::create_notify (
                     creator_id,
-                    user_id,
+                    *user_id,
                     current_verb,
                     types,
                     object_id,
