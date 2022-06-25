@@ -58,14 +58,6 @@ function create_fullscreen(url, type_class, need_drag_items, need_replace_histor
   } else { hide_svg = "" };
   $hide_span = document.createElement("span");
   $hide_span.classList.add("this_fullscreen_hide");
-  $loader = document.createElement("div");
-
-  $loader.setAttribute("id", "fullscreen_loader");
-  $hide_span.innerHTML = hide_svg;
-  $parent_div.append($hide_span);
-  $parent_div.append($loader);
-  $parent_div.append(create_gif_loading ());
-  container.prepend($parent_div);
 
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
   link.open('GET', url, true);
@@ -73,12 +65,21 @@ function create_fullscreen(url, type_class, need_drag_items, need_replace_histor
 
   link.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-          $load_div.remove();
-          if (container.innerHTML) {
-            prev_window = container.querySelector(".card_fullscreen");
-            prev_window.classList.add("hide");
-          };
+        if (container.innerHTML) {
+          prev_window = container.querySelector(".card_fullscreen");
+          prev_window.classList.add("hide");
+        };
 
+        $loader = document.createElement("div");
+
+        $loader.setAttribute("id", "fullscreen_loader");
+        $hide_span.innerHTML = hide_svg;
+        $parent_div.append($hide_span);
+        $parent_div.append($loader);
+        $parent_div.append(create_gif_loading ());
+        container.prepend($parent_div);
+
+          $load_div.remove();
           elem = link.responseText;
 
           $loader.innerHTML = elem;
