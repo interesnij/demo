@@ -48,16 +48,16 @@ pub struct NewNotification {
     pub object_set_id:       Option<i32>,
 }
 impl Notification {
-    pub fn create_notify(creator_id: i32, verb: String, types: i16,
+    pub fn create_notify(creator_id: i32, recipient_id: i32, verb: String, types: i16,
         object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
         user_set_id: Option<i32>, object_set_id: Option<i32>) -> () {
 
         let _connection = establish_connection();
         let new_notify = NewNotification {
-            recipient_id: Some(*user_id),
+            recipient_id: recipient_id,
             user_id: creator_id,
             created: chrono::Local::now().naive_utc(),
-            verb: verb.clone(),
+            verb: verb,
             status: "a".to_string(),
             types: types,
             object_id: object_id,
@@ -80,10 +80,12 @@ impl Notification {
 
         let creator_id = creator.id;
         let _connection = establish_connection();
+        let current_verb = creator.get_verb_gender(verb);
+        let users_ids = creator.get_users_ids_for_main_news();
 
         if is_group {
             // если вложенность уведомлений включена
-            let current_verb = creator.get_verb_gender(verb);
+
             if types < 3 {
                 // если объект - пользователь или сообщество
                 let notifications_exists = notifications
@@ -102,6 +104,7 @@ impl Notification {
                 else {
                     Notification::create_notify (
                         creator_id,
+                        object_id,
                         current_verb,
                         types,
                         object_id,
@@ -114,14 +117,14 @@ impl Notification {
             }
             else {
                 // если объект общего порядка
-                for user_id in creator.get_users_ids_for_main_news().iter() {
+                for user_id in users_ids.iter() {
                     let notifications_exists = notifications
                         .filter(schema::notifications::user_id.eq(creator.id))
                         .filter(schema::notifications::recipient_id.eq(user_id))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
                         .filter(schema::notifications::object_id.eq(object_id))
                         .filter(schema::notifications::types.eq(types))
-                        .filter(schema::notifications::verb.ilike("%".to_owned() + verb + &"%".to_string()))
+                        .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
                         .load::<Notification>(&_connection)
                         .expect("E");
                     if notifications_exists.len() > 0 {
@@ -157,6 +160,7 @@ impl Notification {
 
                         Notification::create_notify (
                             creator_id,
+                            user_id,
                             current_verb,
                             types,
                             object_id,
@@ -174,7 +178,7 @@ impl Notification {
                         .filter(schema::notifications::types.eq(types))
                         .filter(schema::notifications::created.gt(chrono::Local::today()))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
-                        .filter(schema::notifications::verb.ilike("%".to_owned() + verb + &"%".to_string()))
+                        .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
                         .load::<Notification>(&_connection)
                         .expect("E")
                         .len() > 0 {
@@ -185,7 +189,7 @@ impl Notification {
                         .filter(schema::notifications::types.eq(types))
                         .filter(schema::notifications::created.gt(chrono::Local::today()))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
-                        .filter(schema::notifications::verb.ilike("%".to_owned() + verb + &"%".to_string()))
+                        .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
                         .load::<Notification>(&_connection)
                         .expect("E")
                         .into_iter()
@@ -194,6 +198,7 @@ impl Notification {
 
                         Notification::create_notify (
                             creator_id,
+                            user_id,
                             "G".to_string() + &verb,
                             types,
                             object_id,
@@ -207,6 +212,7 @@ impl Notification {
                     else {
                         Notification::create_notify (
                             creator_id,
+                            user_id,
                             current_verb,
                             types,
                             object_id,
@@ -220,16 +226,19 @@ impl Notification {
             }
         }
         else {
-            Notification::create_notify (
-                creator_id,
-                current_verb,
-                types,
-                object_id,
-                None,
-                action_community_id,
-                None,
-                None,
-            )
+            for user_id in users_ids.iter() {
+                Notification::create_notify (
+                    creator_id,
+                    user_id,
+                    current_verb,
+                    types,
+                    object_id,
+                    None,
+                    action_community_id,
+                    None,
+                    None,
+                )
+            }
         }
     }
 }
