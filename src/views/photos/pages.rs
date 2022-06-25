@@ -579,8 +579,8 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
     let post_id : i32 = param.0;
     let photo_id : i32 = param.1;
 
-    let _post = get_post(*post_id);
-    let _photo = get_photo(*photo_id);
+    let _post = get_post(post_id);
+    let _photo = get_photo(photo_id);
     let _list = _photo.get_list();
 
     let _photos = _post.get_attach_photos();
