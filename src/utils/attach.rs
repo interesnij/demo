@@ -656,7 +656,7 @@ pub fn add_photo(pk: i32, case: String) -> String {
         .nth(0)
         .unwrap();
 
-    return "<div class='photo'><div class='progressive replace ".to_string() + &case + &" pointer' data-href='".to_string() + &photo.file + &"' photo-pk='".to_string() + &photo.file + &"'><img class='preview image_fit' width='20' height='15' loading='lazy' src='".to_string() + &photo.preview + &"' alt='img'></div></div>".to_string();
+    return "<div class='photo'><div class='progressive replace ".to_string() + &case + &" pointer' data-href='".to_string() + &photo.file + &"' photo-pk='".to_string() + &photo.id.to_string() + &"'><img class='preview image_fit' width='20' height='15' loading='lazy' src='".to_string() + &photo.preview + &"' alt='img'></div></div>".to_string();
 }
 pub fn add_edited_photo(pk: i32, case: String) -> String {
     use crate::schema::photos::dsl::photos;
@@ -677,7 +677,7 @@ pub fn add_edited_photo(pk: i32, case: String) -> String {
         photo.id.to_string(),
         "'></span><div class='progressive replace ",
         case, " pointer' data-href='", photo.file, "' photo-pk='",
-        photo.file, "'><img class='preview image_fit' width='20' height='15' loading='lazy' src='",
+        photo.id.to_string(), "'><img class='preview image_fit' width='20' height='15' loading='lazy' src='",
         photo.preview, "' alt='img'></div></div>");
 }
 
