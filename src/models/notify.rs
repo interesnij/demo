@@ -68,7 +68,7 @@ impl Notification {
         let community_id: Option<i32>;
         let _connection = establish_connection();
         if is_community && community.is_some(){
-            users_ids = community.unwrap().get_members_for_notify_ids();
+            users_ids = community.as_ref().unwrap().get_members_for_notify_ids();
             community_id = Some(community.unwrap().id);
         }
         else {
