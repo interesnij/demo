@@ -13,19 +13,8 @@ on('#ajax', 'click', '.load_attach_video_list', function() {
 
 on('#ajax', 'click', '.load_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
-  if (parent.getAttribute("owner-pk")) {
-    videolist_pk = parent.getAttribute("videolist-pk");
-    owner_pk = parent.getAttribute("owner-pk");
-  }
-  else {
-    videolist_pk = parent.getAttribute("videolist-pk");
-    owner_pk = null;
-  };
-
+  videolist_pk = parent.getAttribute("videolist-pk");
   create_fullscreen("/video/load_list/" + videolist_pk + "/", "item_fullscreen");
-  if (owner_pk) {
-    window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=" + owner_pk + "&videolist=" + videolist_pk);
-  }
 });
 
 on('#ajax', 'click', '.video_list_detail', function() {

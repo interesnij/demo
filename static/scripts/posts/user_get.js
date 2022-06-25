@@ -29,19 +29,8 @@ on('body', 'click', '.load_comments_list', function() {
 });
 
 on('#ajax', 'click', '.load_posts_list', function() {
-  if (this.getAttribute("postlist-pk")) {
-    postlist_pk = this.getAttribute("postlist-pk");
-    owner_pk = null
-  } else {
-    card = this.parentElement.parentElement.parentElement;
-    postlist_pk = card.getAttribute("postlist-pk");
-    owner_pk = card.getAttribute("owner-pk");
-  };
-
+  postlist_pk = this.getAttribute("postlist-pk");
   create_fullscreen("/posts/list/?list=" + postlist_pk, "worker_fullscreen");
-  if (owner_pk) {
-    window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=" + owner_pk + "&postlist=" + postlist_pk);
-  }
 });
 
 on('body', 'click', '.create_repost', function() {
@@ -247,7 +236,6 @@ on('#ajax', 'click', '.wall_fullscreen', function(e) {
   card = this.parentElement.parentElement.parentElement.parentElement;
   pk = card.getAttribute('data-pk');
   create_fullscreen("/posts/load_post/" + pk + "/", "worker_fullscreen");
-  window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=" + pk + "&post_pk=" + pk);
 });
 
 on('#ajax', 'click', '.fullscreen', function(e) {
@@ -265,7 +253,6 @@ on('#ajax', 'click', '.fullscreen', function(e) {
   else {
     pk = card.getAttribute('data-pk');
     create_fullscreen("/posts/load_post/" + pk + "/", "worker_fullscreen");
-    window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=" + pk + "&post_pk=" + pk);
   }
 });
 
@@ -284,7 +271,6 @@ on('#ajax', 'click', '.fix_fullscreen', function(e) {
   else {
     pk = card.getAttribute('data-pk');
     create_fullscreen("/posts/load_fix_post/" + pk + "/", "worker_fullscreen");
-    window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=" + pk + "&post_pk=" + pk);
   }
 });
 

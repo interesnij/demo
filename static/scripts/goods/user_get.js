@@ -13,16 +13,6 @@ on('#ajax', 'click', '.good_detail', function() {
 
 on('#ajax', 'click', '.load_good_list', function() {
   parent = this.parentElement.parentElement.parentElement;
-  if (parent.getAttribute("owner-pk")) {
-    goodlist_pk = parent.getAttribute("goodlist-pk");
-    owner_pk = parent.getAttribute("owner-pk");
-  }
-  else {
-    goodlist_pk = parent.getAttribute("goodlist-pk");
-    owner_pk = null;
-  };
+  goodlist_pk = parent.getAttribute("goodlist-pk");
   create_fullscreen("/goods/load_list/" + goodlist_pk + "/", "item_fullscreen");
-  if (owner_pk) {
-    window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=" + owner_pk + "&goodlist=" + goodlist_pk);
-  }
 });

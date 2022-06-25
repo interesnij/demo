@@ -280,6 +280,7 @@ function create_fullscreen(url, type_class, need_drag_items) {
           if ($loader.querySelector(".is_stat_list")) {
             document.title = $loader.querySelector(".is_stat_list").getAttribute("data-title");
           }
+          window.history.pushState(null, "vfgffgfgf", window.location.href + "?url=" + url + "&screen=" + type_class);
       }
   };
   link.send();
@@ -648,42 +649,11 @@ function load_item_window() {
   // подгружаем окно при загрузке страницы, если есть параметры ссылки на него
   params = window.location.search.replace( '?', '').split('&');
   if (params) {
-    url = params[0];
-    console.log(url);
-    return
-
-    if (params[0].split("=")[1] == "wall") {
-      console.log(params[1]);
-      console.log(params[2]);
-      console.log(params[3]);
-      // если есть параметр wall, значит открыт элемент стены: пост, прикрепленный элемент, и т.д.
-      if (params[2].split("=")[0] == "post_pk") {
-        setTimeout(create_fullscreen("/posts/load_post/" + params[2].split("=")[1] + "/", "worker_fullscreen"), 3000)
-      } else if (params[2].split("=")[0] == "photo_pk") {
-        setTimeout(create_fullscreen("/photos/post_photo/" + params[3].split("=")[1] + "/" + params[2].split("=")[1] + "/", "photo_fullscreen"), 3000)
-      } else if (params[2].split("=")[0] == "doclist") {
-        setTimeout(create_fullscreen("/docs/load_list/" + params[2].split("=")[1] + "/", "worker_fullscreen"), 3000)
-      } else if (params[2].split("=")[0] == "photolist") {
-        setTimeout(create_fullscreen("/photos/load_list/" + params[2].split("=")[1] + "/", "worker_fullscreen"), 3000)
-      } else if (params[2].split("=")[0] == "playlist") {
-        setTimeout(create_fullscreen("/music/load_list/" + params[2].split("=")[1] + "/", "worker_fullscreen"), 3000)
-      } else if (params[2].split("=")[0] == "videolist") {
-        setTimeout(create_fullscreen("/video/load_list/" + params[2].split("=")[1] + "/", "worker_fullscreen"), 3000)
-      }
-    }
-
-    else if (params[0].split("=")[1] == "big_page") {
-      // если есть параметр big_page, значит открыта страница пользователя или сообщества
-      if (params[2].split("=")[0] == "photo_pk") {
-        setTimeout(create_fullscreen("/photos/load_photo/" + params[2].split("=")[1] + "/", "photo_fullscreen"), 3000)
-      }
-      else if (params[2].split("=")[0] == "ava_photo_pk") {
-        if (params[1].split("=")[0] == "user_id") {
-          folder = "user"
-        } else { folder = "community" };
-        setTimeout(create_fullscreen("/photos/" + folder + "/avatar/" + params[2].split("=")[1] + "/", "photo_fullscreen"), 3000)
-      }
-    }
+    try {
+      url = params[0];
+      fullscreen = params[1];
+      setTimeout(create_fullscreen(url, fullscreen), 3000)
+    } catch { null };
   }
 };
 

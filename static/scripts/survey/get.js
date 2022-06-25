@@ -5,19 +5,8 @@ on('#ajax', 'click', '.load_attach_survey_list', function() {
 
 on('#ajax', 'click', '.load_survey_list', function() {
   parent = this.parentElement.parentElement.parentElement;
-  if (parent.getAttribute("owner-pk")) {
-    surveylist_pk = parent.getAttribute("surveylist-pk");
-    owner_pk = parent.getAttribute("owner-pk");
-  }
-  else {
-    surveylist_pk = parent.getAttribute("surveylist-pk");
-    owner_pk = null;
-  };
-
+  surveylist_pk = parent.getAttribute("surveylist-pk");
   create_fullscreen("/surveys/load_list/" + surveylist_pk + "/", "item_fullscreen");
-  if (owner_pk) {
-    window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=" + owner_pk + "&surveylist=" + surveylist_pk);
-  }
 });
 
 on('#ajax', 'click', '.add_survey', function() {

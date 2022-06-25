@@ -15,7 +15,6 @@ on('#ajax', 'click', '.detail_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   document.body.querySelector(".pk_saver") ? pk = document.body.querySelector(".pk_saver").getAttribute('data-pk') : pk = card.getAttribute('data-pk');
   create_fullscreen("/photos/load_photo/" + photo_pk + "/", "photo_fullscreen");
-  window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=big_page&owner_id=" + pk + "&photo_pk=" + photo_pk);
 });
 
 on('#ajax', 'click', '.comment_photo', function() {
@@ -24,13 +23,12 @@ on('#ajax', 'click', '.comment_photo', function() {
   type = card.getAttribute('data-type');
   create_fullscreen("/photos/load_comment_photo/" + type + "/" + photo_pk + "/", "photo_fullscreen");
 });
+
 on('#ajax', 'click', '.post_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   card = this.parentElement.parentElement.parentElement;
   post_pk = card.getAttribute('data-pk');
-
-  create_fullscreen("/photos/load_post_photo/" + post_pk + "/" + photo_pk + "/", "photo_fullscreen");
-  window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=0&photo_pk=" + photo_pk + "&post_pk=" + post_pk);
+  create_fullscreen("/photos/load_post_photo/" + post_pk + "/" + photo_pk + "/" , "photo_fullscreen");
 });
 on('body', 'click', '.chat_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
@@ -40,16 +38,6 @@ on('body', 'click', '.chat_photo', function() {
 
 on('#ajax', 'click', '.load_photo_list', function() {
   parent = this.parentElement.parentElement;
-  if (parent.getAttribute("owner-pk")) {
-    photolist_pk = parent.getAttribute("photolist-pk");
-    owner_pk = parent.getAttribute("owner-pk");
-  }
-  else {
-    photolist_pk = parent.getAttribute("photolist-pk");
-    owner_pk = null;
-  };
+  photolist_pk = parent.getAttribute("photolist-pk");
   create_fullscreen("/photos/load_list/" + photolist_pk + "/", "item_fullscreen");
-  if (owner_pk) {
-  window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=" + owner_pk + "&photolist=" + photolist_pk);
-  }
 });
