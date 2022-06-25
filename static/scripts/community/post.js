@@ -10,7 +10,7 @@ on('#ajax', 'click', '#add_community_btn', function() {
 
   	form_data = new FormData(form);
     var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-      ajax_link.open( 'POST', '/communities/progs/add/', true );
+      ajax_link.open( 'POST', '/communities/create_community/', true );
       ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
       ajax_link.onreadystatechange = function () {
         if ( this.readyState == 4 && this.status == 200 ) {
