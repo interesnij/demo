@@ -649,6 +649,8 @@ function load_item_window() {
   // подгружаем окно при загрузке страницы, если есть параметры ссылки на него
   params = window.location.search.replace( '?', '').split('&');
   if (params) {
+    console.log("url ", params[0]);
+    console.log("screen ", params[1]);
     try {
       url = params[0];
       fullscreen = params[1];
