@@ -649,13 +649,10 @@ function load_item_window() {
   // подгружаем окно при загрузке страницы, если есть параметры ссылки на него
   params = window.location.search.replace( '?', '').split('&');
   if (params) {
-    console.log("url ", params[0]);
-    console.log("screen ", params[1]);
-    console.log("url ", params[0].split("=")[0]);
-    if (params[0].split("=")[1] == "url") {
+    if (params[0].split("=")[0] == "url") {
       try {
-        url = params[0];
-        fullscreen = params[1];
+        url = params[0].split("=")[1];
+        fullscreen = params[1].split("=")[1];
         setTimeout(create_fullscreen(url, fullscreen), 3000)
       } catch { null };
     }
