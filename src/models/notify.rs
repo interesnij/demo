@@ -51,7 +51,7 @@ impl Notification {
     // is_group:     нужна ли спайка сигналов в группу
     // is_community: создаются сигналы сообщества
     pub fn create_notify(creator: &User, verb: String, types: i16,
-        object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
+        object_id: i32, community: Option<Community>, action_community_id: Option<i32>,
         is_group: bool, is_community: bool) -> () {
 
         let user_set_id: Option<i32>;
@@ -67,8 +67,8 @@ impl Notification {
         }
 
         let _connection = establish_connection();
-        if is_community {
-            users_ids = community.get_members_for_notify_ids();
+        if is_community && community.is_some(){
+            users_ids = community.unwrap().get_members_for_notify_ids();
         }
         else {
             users_ids = creator.get_users_ids_for_main_news();
@@ -82,7 +82,7 @@ impl Notification {
                 status: "a".to_string(),
                 types: types,
                 object_id: object_id,
-                community_id: community_id,
+                community_id: Some(community.id),
                 action_community_id: action_community_id,
                 user_set_id: user_set_id,
                 object_set_id: object_set_id,
