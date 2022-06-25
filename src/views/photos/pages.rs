@@ -742,6 +742,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 object_list:               object_list,
                 next_page_number:          next_page_number,
                 prev:                      prev,
+                next:                      next,
                 post:                      _post,
             }
             .render_once()
