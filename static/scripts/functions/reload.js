@@ -648,6 +648,10 @@ function load_item_window() {
   // подгружаем окно при загрузке страницы, если есть параметры ссылки на него
   params = window.location.search.replace( '?', '').split('&');
   if (params) {
+    url = params[0];
+    console.log(url);
+    return
+
     if (params[0].split("=")[1] == "wall") {
       console.log(params[1]);
       console.log(params[2]);
