@@ -29,6 +29,7 @@ pub fn pages_urls(config: &mut web::ServiceConfig) {
     config.route("/photos/load_list/{list_id}/", web::get().to(load_list_page));
     config.route("/photos/load_photo/{id}/", web::get().to(load_photo_page));
     config.route("/photos/load_post_photo/{post_id}/{photo_id}/", web::get().to(load_post_photo_page));
+    config.route("/photos/load_comment_photo/{types}/{photo_id}/", web::get().to(load_comment_photo_page));
     config.route("/photos/load_comments/{id}/", web::get().to(load_comments_page));
 
     config.route("/photos/add_user_list/", web::get().to(add_user_list_page));
@@ -569,6 +570,7 @@ pub async fn load_photo_page(session: Session, req: HttpRequest, photo_id: web::
 
 pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web::Path<(i32,i32)>) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_post;
+    use crate::models::Post;
 
     let (is_desctop, page) = get_list_variables(req);
     let mut next_page_number = 0;
@@ -648,6 +650,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 next_page_number:            i32,
                 prev:                        Option<i32>,
                 next:                        Option<i32>,
+                post:                        Post,
             }
             let body = Template {
                 list:                        _list,
@@ -660,6 +663,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 next_page_number:            next_page_number,
                 prev:                        prev,
                 next:                        next,
+                post:                        post,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -679,6 +683,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 next_page_number:            i32,
                 prev:                        Option<i32>,
                 next:                        Option<i32>,
+                post:                        Post,
             }
             let body = Template {
                 list:                        _list,
@@ -691,6 +696,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 next_page_number:            next_page_number,
                 prev:                        prev,
                 next:                        next,
+                post:                        post,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -726,6 +732,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 next_page_number:          i32,
                 prev:                      Option<i32>,
                 next:                      Option<i32>,
+                post:                      Post,
             }
             let body = Template {
                 list:                      _list,
@@ -735,7 +742,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 object_list:               object_list,
                 next_page_number:          next_page_number,
                 prev:                      prev,
-                next:                      next,
+                post:                      post,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -753,6 +760,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 next_page_number:          i32,
                 prev:                      Option<i32>,
                 next:                      Option<i32>,
+                post:                      Post,
             }
             let body = Template {
                 list:                       _list,
@@ -763,6 +771,7 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
                 next_page_number:           next_page_number,
                 prev:                       prev,
                 next:                       next,
+                post:                       post,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -873,6 +882,7 @@ pub async fn load_comment_photo_page(session: Session, req: HttpRequest, param: 
                 next_page_number:            i32,
                 prev:                        Option<i32>,
                 next:                        Option<i32>,
+                types:                       String,
             }
             let body = Template {
                 list:                        _list,
@@ -885,6 +895,7 @@ pub async fn load_comment_photo_page(session: Session, req: HttpRequest, param: 
                 next_page_number:            next_page_number,
                 prev:                        prev,
                 next:                        next,
+                types:                       comment_types,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -904,6 +915,7 @@ pub async fn load_comment_photo_page(session: Session, req: HttpRequest, param: 
                 next_page_number:            i32,
                 prev:                        Option<i32>,
                 next:                        Option<i32>,
+                types:                       String,
             }
             let body = Template {
                 list:                        _list,
@@ -916,6 +928,7 @@ pub async fn load_comment_photo_page(session: Session, req: HttpRequest, param: 
                 next_page_number:            next_page_number,
                 prev:                        prev,
                 next:                        next,
+                types:                       comment_types,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -951,6 +964,7 @@ pub async fn load_comment_photo_page(session: Session, req: HttpRequest, param: 
                 next_page_number:          i32,
                 prev:                      Option<i32>,
                 next:                      Option<i32>,
+                types:                     String,
             }
             let body = Template {
                 list:                      _list,
@@ -961,6 +975,7 @@ pub async fn load_comment_photo_page(session: Session, req: HttpRequest, param: 
                 next_page_number:          next_page_number,
                 prev:                      prev,
                 next:                      next,
+                types:                     comment_types,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
@@ -978,6 +993,7 @@ pub async fn load_comment_photo_page(session: Session, req: HttpRequest, param: 
                 next_page_number:          i32,
                 prev:                      Option<i32>,
                 next:                      Option<i32>,
+                types:                     String,
             }
             let body = Template {
                 list:                       _list,
@@ -988,6 +1004,7 @@ pub async fn load_comment_photo_page(session: Session, req: HttpRequest, param: 
                 next_page_number:           next_page_number,
                 prev:                       prev,
                 next:                       next,
+                types:                      comment_types,
             }
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
