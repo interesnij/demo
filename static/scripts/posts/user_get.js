@@ -235,7 +235,7 @@ on('#ajax', 'click', '.wall_fullscreen', function(e) {
   e.preventDefault();
   card = this.parentElement.parentElement.parentElement.parentElement;
   pk = card.getAttribute('data-pk');
-  create_fullscreen("/posts/load_post/" + pk + "/", "worker_fullscreen");
+  create_fullscreen("/posts/load_post/" + pk + "/", "worker_fullscreen", false, true);
 });
 
 on('#ajax', 'click', '.fullscreen', function(e) {
