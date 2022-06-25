@@ -771,6 +771,231 @@ pub async fn load_post_photo_page(session: Session, req: HttpRequest, param: web
     }
 }
 
+pub async fn load_comment_photo_page(session: Session, req: HttpRequest, param: web::Path<(String, i32)>) -> actix_web::Result<HttpResponse> {
+    let (is_desctop, page) = get_list_variables(req);
+    let mut next_page_number = 0;
+    let is_open : bool;
+    let text : String;
+    let mut prev: Option<i32> = None;
+    let mut next: Option<i32> = None;
+    let comment_types : String = param.0;
+    let photo_id : i32 = param.1;
+    let mut _photos: Vec<Photo> = Vec::new();
+
+    let pk: i32 = comment_types[3..].parse().unwrap();
+    let code = &comment_types[..3];
+
+    if code == "cpo".to_string() {
+        use crate::utils::get_post_comment;
+        let comment = get_post_comment(pk);
+        _photos = comment.get_attach_photos();
+    }
+    else if code == "cgo".to_string() {
+        use crate::utils::get_good_comment;
+        let comment = get_good_comment(pk);
+        _photos = comment.get_attach_photos();
+    }
+    else if code == "cph".to_string() {
+        use crate::utils::get_photo_comment;
+        let comment = get_photo_comment(pk);
+        _photos = comment.get_attach_photos();
+    }
+    else if code == "cvi".to_string() {
+        use crate::utils::get_video_comment;
+        let comment = get_video_comment(pk);
+        _photos = comment.get_attach_photos();
+    }
+
+    let _photo = get_photo(photo_id);
+    let _list = _photo.get_list();
+
+    for (i, item) in _photos.iter().enumerate().rev() {
+        if item.id == _photo.id {
+            if (i + 1) != _photos.len() {
+                prev = Some(_photos[i + 1].id);
+            };
+            if i != 0 {
+                next = Some(_photos[i - 1].id);
+            };
+            break;
+        }
+    };
+
+    let object_list: Vec<PhotoComment>;
+    if page > 1 {
+        let step = (page - 1) * 20;
+        object_list = _photo.get_comments(20, step.into());
+        if _photo.comment > (page * 20).try_into().unwrap() {
+            next_page_number = page + 1;
+        }
+    }
+    else {
+        object_list = _photo.get_comments(20, 0);
+        if _photo.comment > 20.try_into().unwrap() {
+            next_page_number = 2;
+        }
+    }
+
+    if is_signed_in(&session) {
+        let _request_user = get_request_user_data(&session);
+        if _photo.community_id.is_some() {
+            let _tuple = get_community_permission(&_photo.get_community(), &_request_user);
+            is_open = _tuple.0;
+            text = _tuple.1;
+        }
+        else {
+            let _tuple = get_user_permission(&_photo.get_creator(), &_request_user);
+            is_open = _tuple.0;
+            text = _tuple.1;
+        }
+
+        let _request_user_id = &_request_user.id;
+        let is_user_can_see_photo_list = _list.is_user_can_see_el(*_request_user_id);
+        let is_user_can_see_comments = _list.is_user_can_see_comment(*_request_user_id);
+        let is_user_can_create_comments = _list.is_user_can_create_comment(*_request_user_id);
+
+        if is_open == false {
+            use crate::views::close_item;
+            return close_item(text)
+        }
+
+        else if is_desctop {
+            #[derive(TemplateOnce)]
+            #[template(path = "desctop/photos/load/comment_photo.stpl")]
+            struct Template {
+                list:                        PhotoList,
+                object:                      Photo,
+                request_user:                User,
+                is_user_can_see_photo_list:  bool,
+                is_user_can_see_comments:    bool,
+                is_user_can_create_comments: bool,
+                object_list:                 Vec<PhotoComment>,
+                next_page_number:            i32,
+                prev:                        Option<i32>,
+                next:                        Option<i32>,
+            }
+            let body = Template {
+                list:                        _list,
+                object:                      _photo,
+                request_user:                _request_user,
+                is_user_can_see_photo_list:  is_user_can_see_photo_list,
+                is_user_can_see_comments:    is_user_can_see_comments,
+                is_user_can_create_comments: is_user_can_create_comments,
+                object_list:                 object_list,
+                next_page_number:            next_page_number,
+                prev:                        prev,
+                next:                        next,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+
+        } else {
+            #[derive(TemplateOnce)]
+            #[template(path = "mobile/photos/load/comment_photo.stpl")]
+            struct Template {
+                list:                        PhotoList,
+                object:                      Photo,
+                request_user:                User,
+                is_user_can_see_photo_list:  bool,
+                is_user_can_see_comments:    bool,
+                is_user_can_create_comments: bool,
+                object_list:                 Vec<PhotoComment>,
+                next_page_number:            i32,
+                prev:                        Option<i32>,
+                next:                        Option<i32>,
+            }
+            let body = Template {
+                list:                        _list,
+                object:                      _photo,
+                request_user:                _request_user,
+                is_user_can_see_photo_list:  is_user_can_see_photo_list,
+                is_user_can_see_comments:    is_user_can_see_comments,
+                is_user_can_create_comments: is_user_can_create_comments,
+                object_list:                 object_list,
+                next_page_number:            next_page_number,
+                prev:                        prev,
+                next:                        next,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+
+        }
+    } else {
+        if _photo.community_id.is_some() {
+            let _tuple = get_anon_community_permission(&_photo.get_community());
+            is_open = _tuple.0;
+            text = _tuple.1;
+        }
+        else {
+            let _tuple = get_anon_user_permission(&_photo.get_creator());
+            is_open = _tuple.0;
+            text = _tuple.1;
+        }
+        let is_user_can_see_photo_list = _list.is_anon_user_can_see_el();
+        let is_user_can_see_comments = _list.is_anon_user_can_see_comment();
+        if is_open == false {
+            use crate::views::close_item;
+            return close_item(text)
+        }
+        else if is_desctop {
+            #[derive(TemplateOnce)]
+            #[template(path = "desctop/photos/load/anon_comment_photo.stpl")]
+            struct Template {
+                list:                      PhotoList,
+                object:                    Photo,
+                is_user_can_see_photo_list: bool,
+                is_user_can_see_comments:  bool,
+                object_list:               Vec<PhotoComment>,
+                next_page_number:          i32,
+                prev:                      Option<i32>,
+                next:                      Option<i32>,
+            }
+            let body = Template {
+                list:                      _list,
+                object:                    _photo,
+                is_user_can_see_photo_list: is_user_can_see_photo_list,
+                is_user_can_see_comments:  is_user_can_see_comments,
+                object_list:               object_list,
+                next_page_number:          next_page_number,
+                prev:                      prev,
+                next:                      next,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+
+        } else {
+            #[derive(TemplateOnce)]
+            #[template(path = "mobile/photos/load/anon_comment_photo.stpl")]
+            struct Template {
+                list:                      PhotoList,
+                object:                    Photo,
+                is_user_can_see_photo_list: bool,
+                is_user_can_see_comments:  bool,
+                object_list:               Vec<PhotoComment>,
+                next_page_number:          i32,
+                prev:                      Option<i32>,
+                next:                      Option<i32>,
+            }
+            let body = Template {
+                list:                       _list,
+                object:                     _photo,
+                is_user_can_see_photo_list: is_user_can_see_photo_list,
+                is_user_can_see_comments:   is_user_can_see_comments,
+                object_list:                object_list,
+                next_page_number:           next_page_number,
+                prev:                       prev,
+                next:                       next,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        }
+    }
+}
+
 pub async fn load_comments_page(session: Session, req: HttpRequest, photo_id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     let (is_desctop, page) = get_list_variables(req);
     let mut next_page_number = 0;
