@@ -49,7 +49,7 @@
     </div>
     <% if next.is_some() { %>
       <div class="col" style="padding:5px;">
-        <a class="btn btn-sm border prev_item" href="/photos/load_photo/<%= next.unwrap() %>" style="width: -webkit-fill-available;position:static">
+        <a class="btn btn-sm border prev_item" href="/photos/load_photo/<%= next.unwrap() %>/" style="width: -webkit-fill-available;position:static">
           <svg fill="currentColor" class="svg_default" style="width: 19px;" viewBox="0 0 24 24"><rect fill="none" /><path d="M15,5l-1.41,1.41L18.17,11H2V13h16.17l-4.59,4.59L15,19l7-7L15,5z"/></svg>
         </a>
       </div>
