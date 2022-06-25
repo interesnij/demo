@@ -1,5 +1,5 @@
 
-    <form data-title="Изменение видеоальбома" id="post_list_form" data-list="<%= list.get_code() %>" data-folder="/video" data-pk="<%= list.id %>" class="case_create">
+    <form data-title="Изменение видеоальбома" id="post_list_form" data-list="<%= list.get_code() %>" data-folder="/video" data-pk="<%= list.id %>" class="case_create data-title">
     <div class="card mb-3">
 
         <div class="card-header border-bottom">

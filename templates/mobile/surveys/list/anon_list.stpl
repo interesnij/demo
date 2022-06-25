@@ -24,7 +24,7 @@
 </div>
 
 <span class="load_block">
-<span data-title="<%= list.name %> - список опросов">
+<span class="data-title" data-title="<%= list.name %> - список опросов">
 <% if is_user_can_see_survey_list { %>
 <div class="media mt-3 uuid_saver" data-pk="<%= list.id %>" data-uuid="<%= list.id %>" style="padding-left: 7px;">
   <h5 class="mt-1">

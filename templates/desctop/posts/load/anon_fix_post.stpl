@@ -1,4 +1,4 @@
-
+<span class="data-title" data-title="<%= list.name %> - запись">
 <span class="text-hide-xs">
   <% if prev.is_some() { %>
     <a class="prev_item" href="/posts/load_fix_post/<%= prev.unwrap() %>/">
@@ -13,3 +13,4 @@
 </span>
 
 <% include!("../anon_post_detail.stpl"); %>
+</span>

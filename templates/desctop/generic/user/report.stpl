@@ -1,4 +1,4 @@
-<form class="mt-4" style="min-height:400px">
+<form class="mt-4 data-title" data-title="Создание жалобы" style="min-height:400px">
     <input type="hidden" name="types" value="<%= types %>">
     <div class="card-header">
       <h4>Создание жалобы <%= text %></h4>
