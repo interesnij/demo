@@ -152,7 +152,7 @@ function view_timer(count, list) {
     }, 1000);
 };
 
-function create_fullscreen(url, type_class, need_drag_items) {
+function create_fullscreen(url, type_class, need_drag_items, need_replace_history) {
   container = document.body.querySelector("#fullscreens_container");
 
   if (container.innerHTML) {
@@ -280,7 +280,9 @@ function create_fullscreen(url, type_class, need_drag_items) {
           if ($loader.querySelector(".is_stat_list")) {
             document.title = $loader.querySelector(".is_stat_list").getAttribute("data-title");
           }
-          window.history.pushState(null, "vfgffgfgf", window.location.href + "?url=" + url + "&screen=" + type_class);
+          if (need_replace_history) {
+            window.history.pushState(null, "vfgffgfgf", window.location.href + "?url=" + url + "&screen=" + type_class);
+          }
       }
   };
   link.send();
@@ -653,7 +655,7 @@ function load_item_window() {
       try {
         url = params[0].split("=")[1];
         fullscreen = params[1].split("=")[1];
-        setTimeout(create_fullscreen(url, fullscreen), 3000)
+        setTimeout(create_fullscreen(url, fullscreen, false), 3000)
       } catch { null };
     }
   }
