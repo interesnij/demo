@@ -19,17 +19,18 @@ on('#ajax', 'click', '.detail_photo', function() {
 });
 
 on('#ajax', 'click', '.comment_photo', function() {
-  pk = this.getAttribute('photo-pk');
-  create_fullscreen("/photos/user/comment_photo/" + pk + "/", "photo_fullscreen");
+  photo_pk = this.getAttribute('photo-pk');
+  card = this.parentElement.parentElement.parentElement.querySelector(".react_style");
+  type = card.getAttribute('data-type');
+  create_fullscreen("/photos/load_comment_photo/" + type + "/" + photo_pk + "/", "photo_fullscreen");
 });
 on('#ajax', 'click', '.post_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   card = this.parentElement.parentElement.parentElement;
-  document.body.querySelector(".pk_saver") ? pk = document.body.querySelector(".pk_saver").getAttribute('data-pk') : pk = card.getAttribute('owner-pk');
-  this.getAttribute('data-pk') ? post_pk = this.getAttribute('data-pk') : post_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
+  post_pk = card.getAttribute('data-pk');
 
-  create_fullscreen("/photos/post_photo/" + post_pk + "/" + photo_pk + "/", "photo_fullscreen");
-  window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=" + pk + "&photo_pk=" + photo_pk + "&post_pk=" + post_pk);
+  create_fullscreen("/photos/load_post_photo/" + post_pk + "/" + photo_pk + "/", "photo_fullscreen");
+  window.history.pushState(null, "vfgffgfgf", window.location.href + "?key=wall&owner_id=0&photo_pk=" + photo_pk + "&post_pk=" + post_pk);
 });
 on('body', 'click', '.chat_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
