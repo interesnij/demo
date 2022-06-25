@@ -39,7 +39,7 @@ function close_fullscreen() {
   }
 };
 
-function create_fullscreen(url, type_class) {
+function create_fullscreen(url, type_class, need_drag_items, need_replace_history) {
   container = document.body.querySelector("#fullscreens_container");
   if (container.innerHTML) {
     prev_window = container.querySelector(".card_fullscreen");
@@ -132,8 +132,11 @@ function create_fullscreen(url, type_class) {
             }
           }
           get_music_player_support($loader);
-          if ($loader.querySelector(".is_stat_list")) {
-            document.title = $loader.querySelector(".is_stat_list").getAttribute("data-title");
+          if ($loader.querySelector('[data-title=')) {
+            document.title = $loader.querySelector('[data-title=').getAttribute("data-title");
+          }
+          if (need_replace_history) {
+            window.history.pushState(null, "vfgffgfgf", window.location.href + "?url=" + url + "&screen=" + type_class);
           }
       }
   };
