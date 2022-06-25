@@ -48,51 +48,181 @@ pub struct NewNotification {
     pub object_set_id:       Option<i32>,
 }
 impl Notification {
-    // is_group:     нужна ли спайка сигналов в группу
-    // is_community: создаются сигналы сообщества
-    pub fn create_notify(creator: &User, verb: String, types: i16,
-        object_id: i32, community: Option<Community>, action_community_id: Option<i32>,
-        is_group: bool, is_community: bool) -> () {
+    pub fn create_notify(creator_id: i32, verb: String, types: i16,
+        object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
+        user_set_id: Option<i32>, object_set_id: Option<i32>) -> () {
 
-        let user_set_id: Option<i32>;
-        let object_set_id: Option<i32>;
-        let users_ids: Vec<i32>;
-        if is_group {
-            user_set_id = None;
-            object_set_id = None;
-        }
-        else {
-            user_set_id = None;
-            object_set_id = None;
-        }
-        let community_id: Option<i32>;
+        let new_notify = NewNotification {
+            recipient_id: Some(*user_id),
+            user_id: creator_id,
+            created: chrono::Local::now().naive_utc(),
+            verb: verb.clone(),
+            status: "a".to_string(),
+            types: types,
+            object_id: object_id,
+            community_id: community_id,
+            action_community_id: action_community_id,
+            user_set_id: user_set_id,
+            object_set_id: object_set_id,
+        };
+        diesel::insert_into(schema::notifications::table)
+            .values(&new_notify)
+            .get_result::<Notification>(&_connection)
+            .expect("Error.");
+    }
+
+    // is_group: нужна ли спайка сигналов в группу
+    pub fn create_user_notify(creator: &User, verb: String, types: i16,
+        object_id: i32, action_community_id: Option<i32>,
+        is_group: bool) -> () {
+
+        let creator_id = creator.id;
         let _connection = establish_connection();
-        if is_community && community.is_some(){
-            users_ids = community.as_ref().unwrap().get_members_for_notify_ids();
-            community_id = Some(community.unwrap().id);
+
+        if is_group {
+            // если вложенность уведомлений включена
+            let current_verb = creator.get_verb_gender(verb);
+            if types < 3 {
+                // если объект - пользователь или сообщество
+                let notifications_exists = notifications
+                    .filter(schema::notifications::user_id.eq(creator.id))
+                    .filter(schema::notifications::recipient_id.eq(object_id))
+                    .filter(schema::notifications::action_community_id.eq(action_community_id))
+                    .filter(schema::notifications::object_id.eq(object_id))
+                    .filter(schema::notifications::types.eq(types))
+                    .filter(schema::notifications::verb.eq(verb))
+                    .load::<Notification>(&_connection)
+                    .expect("E");
+                if notifications_exists.len() > 0 {
+                    // если подобное уведомление уже создавалось
+                    return
+                }
+                else {
+                    Notification::create_notify (
+                        creator_id,
+                        current_verb,
+                        types,
+                        object_id,
+                        action_community_id,
+                        None,
+                        None,
+                    )
+                }
+            }
+            else {
+                // если объект общего порядка
+                for user_id in creator.get_users_ids_for_main_news().iter() {
+                    let notifications_exists = notifications
+                        .filter(schema::notifications::user_id.eq(creator.id))
+                        .filter(schema::notifications::recipient_id.eq(user_id))
+                        .filter(schema::notifications::action_community_id.eq(action_community_id))
+                        .filter(schema::notifications::object_id.eq(object_id))
+                        .filter(schema::notifications::types.eq(types))
+                        .filter(schema::notifications::verb.ilike("%".to_owned() + verb + &"%".to_string()))
+                        .load::<Notification>(&_connection)
+                        .expect("E");
+                    if notifications_exists.len() > 0 {
+                        // если подобное уведомление уже создавалось
+                        return
+                    }
+
+                    // если пользователь уже совершал сегодня такие действия
+                    // на аналогичные объекты по типу
+                    else if notifications
+                        .filter(schema::notifications::user_id.eq(creator.id))
+                        .filter(schema::notifications::recipient_id.eq(user_id))
+                        .filter(schema::notifications::types.eq(types))
+                        .filter(schema::notifications::created.gt(chrono::Local::today()))
+                        .filter(schema::notifications::action_community_id.eq(action_community_id))
+                        .filter(schema::notifications::verb.eq(current_verb))
+                        .load::<Notification>(&_connection)
+                        .expect("E")
+                        .len() > 0 {
+
+                    let notify = notifications
+                        .filter(schema::notifications::user_id.eq(creator.id))
+                        .filter(schema::notifications::recipient_id.eq(user_id))
+                        .filter(schema::notifications::types.eq(types))
+                        .filter(schema::notifications::created.gt(chrono::Local::today()))
+                        .filter(schema::notifications::action_community_id.eq(action_community_id))
+                        .filter(schema::notifications::verb.eq(current_verb))
+                        .load::<Notification>(&_connection)
+                        .expect("E")
+                        .into_iter()
+                        .nth(0)
+                        .unwrap();
+
+                        Notification::create_notify (
+                            creator_id,
+                            current_verb,
+                            types,
+                            object_id,
+                            action_community_id,
+                            notify.id,
+                            None,
+                        )
+                    }
+                    // если пользователи уже совершали сегодня такие действия
+                    // на объект по типу
+                    else if notifications
+                        .filter(schema::notifications::object_id.eq(object_id))
+                        .filter(schema::notifications::recipient_id.eq(user_id))
+                        .filter(schema::notifications::types.eq(types))
+                        .filter(schema::notifications::created.gt(chrono::Local::today()))
+                        .filter(schema::notifications::action_community_id.eq(action_community_id))
+                        .filter(schema::notifications::verb.ilike("%".to_owned() + verb + &"%".to_string()))
+                        .load::<Notification>(&_connection)
+                        .expect("E")
+                        .len() > 0 {
+
+                    let notify = notifications
+                        .filter(schema::notifications::object_id.eq(object_id))
+                        .filter(schema::notifications::recipient_id.eq(user_id))
+                        .filter(schema::notifications::types.eq(types))
+                        .filter(schema::notifications::created.gt(chrono::Local::today()))
+                        .filter(schema::notifications::action_community_id.eq(action_community_id))
+                        .filter(schema::notifications::verb.ilike("%".to_owned() + verb + &"%".to_string()))
+                        .load::<Notification>(&_connection)
+                        .expect("E")
+                        .into_iter()
+                        .nth(0)
+                        .unwrap();
+
+                        Notification::create_notify (
+                            creator_id,
+                            "G".to_string() + &verb,
+                            types,
+                            object_id,
+                            action_community_id,
+                            None,
+                            notify.id,
+                        )
+                    }
+                    // если пользоваели еще не создавали уведомлений на объект
+                    else {
+                        Notification::create_notify (
+                            creator_id,
+                            current_verb,
+                            types,
+                            object_id,
+                            action_community_id,
+                            None,
+                            None,
+                        )
+                    }
+                }
+            }
         }
         else {
-            users_ids = creator.get_users_ids_for_main_news();
-            community_id = None;
-        }
-        for user_id in users_ids.iter() {
-            let new_notify = NewNotification {
-                recipient_id: Some(*user_id),
-                user_id: creator.id,
-                created: chrono::Local::now().naive_utc(),
-                verb: verb.clone(),
-                status: "a".to_string(),
-                types: types,
-                object_id: object_id,
-                community_id: community_id,
-                action_community_id: action_community_id,
-                user_set_id: user_set_id,
-                object_set_id: object_set_id,
-            };
-            diesel::insert_into(schema::notifications::table)
-                .values(&new_notify)
-                .get_result::<Notification>(&_connection)
-                .expect("Error.");
+            Notification::create_notify (
+                creator_id,
+                current_verb,
+                types,
+                object_id,
+                action_community_id,
+                None,
+                None,
+            )
         }
     }
 }
