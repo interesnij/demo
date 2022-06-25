@@ -52,6 +52,7 @@ impl Notification {
         object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
         user_set_id: Option<i32>, object_set_id: Option<i32>) -> () {
 
+        let _connection = establish_connection();
         let new_notify = NewNotification {
             recipient_id: Some(*user_id),
             user_id: creator_id,
@@ -75,6 +76,7 @@ impl Notification {
     pub fn create_user_notify(creator: &User, verb: String, types: i16,
         object_id: i32, action_community_id: Option<i32>,
         is_group: bool) -> () {
+        use crate::models::notify::notifications::dsl::notifications;
 
         let creator_id = creator.id;
         let _connection = establish_connection();
