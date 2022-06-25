@@ -67,12 +67,12 @@ impl Notification {
         }
 
         let _connection = establish_connection();
-        //if is_community {
-        //    users_ids = community.get_members_for_notify_ids();
-        //}
-        //else {
-        users_ids = creator.get_users_ids_for_main_news();
-        //}
+        if is_community {
+            users_ids = community.get_members_for_notify_ids();
+        }
+        else {
+            users_ids = creator.get_users_ids_for_main_news();
+        }
         for user_id in users_ids.iter() {
             let new_notify = NewNotification {
                 recipient_id: Some(*user_id),

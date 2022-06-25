@@ -125,7 +125,8 @@ on('#ajax', 'click', '#edit_goods_category_btn', function() {
 });
 
 on('#ajax', 'click', '#create_goods_subcategory_btn', function() {
-  send_form_and_close_window("/admin/created/create_goods_subcategory_btn/", this.parentElement.parentElement.parentElement);
+  cat_id = this.parentElement.parentElement.querySelector("#category_id").value;
+  send_form_and_close_window("/admin/created/create_goods_subcategory_btn/" + cat_id + "/", this.parentElement.parentElement.parentElement);
 });
 on('#ajax', 'click', '#edit_goods_subcategory_btn', function() {
   send_form_and_close_window("/admin/created/edit_goods_subcategory_btn/" + this.getAttribute("data-pk") + "/", this.parentElement.parentElement.parentElement);

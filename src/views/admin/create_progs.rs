@@ -27,7 +27,7 @@ pub fn create_progs_urls(config: &mut web::ServiceConfig) {
     config.route("/admin/created/edit_communities_subcategory/{id}/", web::post().to(edit_communities_subcategory));
 
     config.route("/admin/created/create_goods_category/", web::post().to(create_goods_category));
-    config.route("/admin/created/create_goods_subcategory/", web::post().to(create_goods_subcategory));
+    config.route("/admin/created/create_goods_subcategory{id}//", web::post().to(create_goods_subcategory));
     config.route("/admin/created/edit_goods_category/{id}/", web::post().to(edit_goods_category));
     config.route("/admin/created/edit_goods_subcategory/{id}/", web::post().to(edit_goods_subcategory));
 
