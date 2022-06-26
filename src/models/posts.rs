@@ -1783,8 +1783,6 @@ impl PostList {
         comment_enabled: bool, is_signature: bool,
         types: Option<String>) -> Post {
 
-        use crate::utils::get_formatted_text;
-
         let _connection = establish_connection();
         diesel::update(self)
           .set(schema::post_lists::count.eq(self.count + 1))
@@ -1802,6 +1800,7 @@ impl PostList {
         }
 
         if content.is_some() {
+            use crate::utils::get_formatted_text;
             _content = Some(get_formatted_text(&content.unwrap()));
         }
         let new_post_form = NewPost {
@@ -2287,8 +2286,14 @@ impl Post {
 
         let _connection = establish_connection();
 
+        let mut _content: Option<String> = None;
+        if content.is_some() {
+            use crate::utils::get_formatted_text;
+            _content = Some(get_formatted_text(&content.unwrap()));
+        }
+
         let edit_post = EditPost {
-            content: content,
+            content: _content,
             post_categorie_id: post_categorie_id,
             attach: attach,
             comment_enabled: comment_enabled,
@@ -2868,16 +2873,22 @@ impl Post {
 
         let _connection = establish_connection();
         diesel::update(self)
-          .set(schema::posts::comment.eq(self.comment + 1))
-          .get_result::<Post>(&_connection)
-          .expect("Error.");
+            .set(schema::posts::comment.eq(self.comment + 1))
+            .get_result::<Post>(&_connection)
+            .expect("Error.");
+
+        let mut _content: Option<String> = None;
+        if content.is_some() {
+            use crate::utils::get_formatted_text;
+            _content = Some(get_formatted_text(&content.unwrap()));
+        }
 
         let new_comment_form = NewPostComment {
             post_id:    self.id,
             user_id:    user.id,
             sticker_id: sticker_id,
             parent_id:  parent_id,
-            content:    content,
+            content:    _content,
             attach:     attach,
             types:      "a".to_string(),
             created:    chrono::Local::now().naive_utc(),

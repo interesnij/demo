@@ -1854,10 +1854,16 @@ impl GoodList {
             _title = title;
         }
 
+        let mut _description: Option<String> = None;
+        if description.is_some() {
+             use crate::utils::get_formatted_text;
+             _description = Some(get_formatted_text(&description.unwrap()));
+        }
+
         diesel::update(&*self)
-          .set(schema::good_lists::count.eq(self.count + 1))
-          .get_result::<GoodList>(&_connection)
-          .expect("Error.");
+            .set(schema::good_lists::count.eq(self.count + 1))
+            .get_result::<GoodList>(&_connection)
+            .expect("Error.");
 
         let new_good_form = NewGood {
             title: _title,
@@ -1867,7 +1873,7 @@ impl GoodList {
             good_list_id: self.id,
             price: price,
             types: "a".to_string(),
-            description: description,
+            description: _description,
             image: image,
             comment_enabled: comment_enabled,
 
@@ -2087,11 +2093,16 @@ impl Good {
         else {
             _title = title;
         }
+        let mut _description: Option<String> = None;
+        if description.is_some() {
+             use crate::utils::get_formatted_text;
+             _description = Some(get_formatted_text(&description.unwrap()));
+        }
 
         let edit_good = EditGood {
             title: _title,
             price: price,
-            description: description,
+            description: _description,
             image: image,
             comment_enabled: comment_enabled,
         };
@@ -2353,16 +2364,22 @@ impl Good {
 
         let _connection = establish_connection();
         diesel::update(self)
-          .set(schema::goods::comment.eq(self.comment + 1))
-          .get_result::<Good>(&_connection)
-          .expect("Error.");
+            .set(schema::goods::comment.eq(self.comment + 1))
+            .get_result::<Good>(&_connection)
+            .expect("Error.");
+
+        let mut _content: Option<String> = None;
+        if content.is_some() {
+             use crate::utils::get_formatted_text;
+             _content = Some(get_formatted_text(&content.unwrap()));
+        }
 
         let new_comment_form = NewGoodComment {
             good_id:    self.id,
             user_id:    user.id,
             sticker_id: sticker_id,
             parent_id:  parent_id,
-            content:    content,
+            content:    _content,
             attach:     attach,
             types:      "a".to_string(),
             created:    chrono::Local::now().naive_utc(),

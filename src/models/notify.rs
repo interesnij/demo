@@ -107,7 +107,7 @@ impl Notification {
     pub fn create_user_notify(creator: &User, verb: String, types: i16,
         object_id: i32, action_community_id: Option<i32>,
         is_group: bool) -> () {
-        use crate::models::notify::notifications::dsl::notifications;
+        use crate::schema::notifications::dsl::notifications;
         use chrono::Duration;
 
         let creator_id = creator.id;
@@ -281,7 +281,7 @@ impl Notification {
     pub fn create_community_notify(creator: &User, community: Community,
         verb: String, types: i16, object_id: i32,
         action_community_id: Option<i32>, is_group: bool) -> () {
-        use crate::models::notify::notifications::dsl::notifications;
+        use crate::schema::notifications::dsl::notifications;
         use chrono::Duration;
 
         let creator_id = creator.id;
@@ -522,7 +522,7 @@ impl WallObject {
     pub fn create_user_wall(creator: &User, verb: String, types: i16,
         object_id: i32, action_community_id: Option<i32>,
         is_group: bool) -> () {
-        use crate::models::notify::wall_objects::dsl::wall_objects;
+        use crate::schema::wall_objects::dsl::wall_objects;
         use chrono::Duration;
 
         let creator_id = creator.id;
@@ -680,7 +680,7 @@ impl WallObject {
     pub fn create_community_wall(creator: &User, community: Community,
         verb: String, types: i16, object_id: i32,
         action_community_id: Option<i32>, is_group: bool) -> () {
-        use crate::models::notify::wall_objects::dsl::wall_objects;
+        use crate::schema::wall_objects::dsl::wall_objects;
         use chrono::Duration;
 
         let creator_id = creator.id;

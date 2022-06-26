@@ -1796,9 +1796,15 @@ impl VideoList {
         }
 
         diesel::update(&*self)
-          .set(schema::video_lists::count.eq(self.count + 1))
-          .get_result::<VideoList>(&_connection)
-          .expect("Error.");
+            .set(schema::video_lists::count.eq(self.count + 1))
+            .get_result::<VideoList>(&_connection)
+            .expect("Error.");
+
+        let mut _description: Option<String> = None;
+        if description.is_some() {
+             use crate::utils::get_formatted_text;
+             _description = Some(get_formatted_text(&description.unwrap()));
+        }
 
         let new_video_form = NewVideo {
           title: _title,
@@ -1809,7 +1815,7 @@ impl VideoList {
           preview: preview,
           image: image,
           file: file,
-          description: description,
+          description: _description,
           comment_enabled: comment_enabled,
           created: chrono::Local::now().naive_utc(),
 
@@ -2246,11 +2252,17 @@ impl Video {
             _title = title;
         }
 
+        let mut _description: Option<String> = None;
+        if description.is_some() {
+             use crate::utils::get_formatted_text;
+             _description = Some(get_formatted_text(&description.unwrap()));
+        }
+
         let edit_video = EditVideo {
             title: _title,
             preview: preview,
             image: image,
-            description: description,
+            description: _description,
             comment_enabled: comment_enabled,
             category_id: category_id,
         };
@@ -2626,16 +2638,22 @@ impl Video {
 
         let _connection = establish_connection();
         diesel::update(self)
-          .set(schema::videos::comment.eq(self.comment + 1))
-          .get_result::<Video>(&_connection)
-          .expect("Error.");
+            .set(schema::videos::comment.eq(self.comment + 1))
+            .get_result::<Video>(&_connection)
+            .expect("Error.");
+
+        let mut _content: Option<String> = None;
+        if content.is_some() {
+            use crate::utils::get_formatted_text;
+            _content = Some(get_formatted_text(&content.unwrap()));
+        }
 
         let new_comment_form = NewVideoComment {
             video_id:   self.id,
             user_id:    user.id,
             sticker_id: sticker_id,
             parent_id:  parent_id,
-            content:    content,
+            content:    _content,
             attach:     attach,
             types:      "a".to_string(),
             created:    chrono::Local::now().naive_utc(),

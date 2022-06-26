@@ -2238,11 +2238,18 @@ impl Message {
     pub fn get_or_create_chat_and_send_message(&self, creator: User,
         user: &User, repost_id: Option<i32>, content: Option<String>,
         attach: Option<String>, voice: Option<String>,
-        sticker_id: Option<i32>) -> bool {
+        sticker_id: Option<i32>) -> () {
 
         let _connection = establish_connection();
         let chat_list = creator.get_all_chats(200, 0);
         let mut chat_exists = false;
+
+        let mut _content: Option<String> = None;
+        if content.is_some() {
+             use crate::utils::get_formatted_text;
+             _content = Some(get_formatted_text(&content.unwrap()));
+        }
+
         for chat in chat_list.iter() {
             if user.is_member_of_chat(chat.id) {
                 let message_form = NewMessage {
@@ -2252,7 +2259,7 @@ impl Message {
                     sticker_id: sticker_id,
                     post_id:    repost_id,
                     created:    chrono::Local::now().naive_utc(),
-                    content:    content.clone(),
+                    content:    _content.clone(),
                     unread:     true,
                     types:      1,
                     attach:     attach.clone(),
@@ -2280,7 +2287,7 @@ impl Message {
                 sticker_id: sticker_id,
                 post_id:    repost_id,
                 created:    chrono::Local::now().naive_utc(),
-                content:    content.clone(),
+                content:    _content.clone(),
                 unread:     true,
                 types:      1,
                 attach:     attach.clone(),
@@ -2292,7 +2299,41 @@ impl Message {
                 .get_result::<Message>(&_connection)
                 .expect("Error.");
         }
-        return true;
+    }
+    pub fn create_chat_message(&self, creator: User, chat: Chat,
+        user: &User, parent_id: Option<i32>, repost_id: Option<i32>, content: Option<String>,
+        attach: Option<String>, voice: Option<String>,
+        sticker_id: Option<i32>) -> () {
+
+        let _connection = establish_connection();
+        let mut _content: Option<String> = None;
+        if content.is_some() {
+             use crate::utils::get_formatted_text;
+             _content = Some(get_formatted_text(&content.unwrap()));
+        }
+        let message_form = NewMessage {
+            user_id:    creator.id,
+            chat_id:    chat.id,
+            parent_id:  parent_id,
+            sticker_id: sticker_id,
+            post_id:    repost_id,
+            created:    chrono::Local::now().naive_utc(),
+            content:    _content.clone(),
+            unread:     true,
+            types:      1,
+            attach:     attach.clone(),
+            voice:      voice.clone(),
+            reactions:  0,
+        };
+        diesel::insert_into(schema::messages::table)
+            .values(&message_form)
+            .get_result::<Message>(&_connection)
+            .expect("Error.");
+
+        diesel::update(&chat)
+            .set(schema::chats::created.eq(chrono::Local::now().naive_utc()))
+            .get_result::<Chat>(&_connection)
+            .expect("Error.");
     }
     pub fn get_attach(&self, user_id: i32) -> String {
         if self.attach.is_some() {

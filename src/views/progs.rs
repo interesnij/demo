@@ -50,12 +50,18 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
             })
         }
         else {
+            let mut _content: Option<String> = None;
+            if form.content.is_some() {
+                use crate::utils::get_formatted_text;
+                _content = Some(get_formatted_text(&form.content.unwrap()));
+            }
+
             if types == "cpo".to_string() {
                 use crate::utils::get_post_comment;
                 use crate::models::{PostComment, EditPostComment};
 
                 let edited_comment = EditPostComment {
-                    content: form.content,
+                    content: _content,
                     attach:  form.attach,
                 };
                 let item = get_post_comment(comment_id);
@@ -66,7 +72,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                         .expect("Error.");
                 }
                 return Json(JsonCommentResponse {
-                    content: edited_comment.content,
+                    content: _content,
                     attach:  edited_comment.attach,
                 })
             }
@@ -77,7 +83,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                 let item = get_good_comment(comment_id);
 
                 let edited_comment = EditGoodComment {
-                    content: form.content,
+                    content: _content,
                     attach:  form.attach,
                 };
                 if item.get_list().is_user_can_create_comment(_request_user.id) {
@@ -87,7 +93,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                         .expect("Error.");
                 }
                 return Json(JsonCommentResponse {
-                    content: edited_comment.content,
+                    content: _content,
                     attach:  edited_comment.attach,
                 })
             }
@@ -98,7 +104,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                 let item = get_photo_comment(comment_id);
 
                 let edited_comment = EditPhotoComment {
-                    content: form.content,
+                    content: _content,
                     attach:  form.attach,
                 };
                 if item.get_list().is_user_can_create_comment(_request_user.id) {
@@ -108,7 +114,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                         .expect("Error.");
                 }
                 return Json(JsonCommentResponse {
-                    content:  edited_comment.content,
+                    content:  _content,
                     attach:   edited_comment.attach,
                 })
             }
@@ -119,7 +125,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                 let item = get_video_comment(comment_id);
 
                 let edited_comment = EditVideoComment {
-                    content: form.content,
+                    content: _content,
                     attach:  form.attach,
                 };
 
@@ -130,7 +136,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                         .expect("Error.");
                 }
                 return Json(JsonCommentResponse {
-                    content: edited_comment.content,
+                    content: _content,
                     attach:  edited_comment.attach,
                 })
             }

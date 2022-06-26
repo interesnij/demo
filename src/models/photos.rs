@@ -2607,16 +2607,22 @@ impl Photo {
 
         let _connection = establish_connection();
         diesel::update(self)
-          .set(schema::photos::comment.eq(self.comment + 1))
-          .get_result::<Photo>(&_connection)
-          .expect("Error.");
+            .set(schema::photos::comment.eq(self.comment + 1))
+            .get_result::<Photo>(&_connection)
+            .expect("Error.");
+
+        let mut _content: Option<String> = None;
+        if content.is_some() {
+            use crate::utils::get_formatted_text;
+            _content = Some(get_formatted_text(&content.unwrap()));
+        }
 
         let new_comment_form = NewPhotoComment {
             photo_id:   self.id,
             user_id:    user.id,
             sticker_id: sticker_id,
             parent_id:  parent_id,
-            content:    content,
+            content:    _content,
             attach:     attach,
             types:      "a".to_string(),
             created:    chrono::Local::now().naive_utc(),
