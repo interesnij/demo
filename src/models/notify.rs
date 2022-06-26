@@ -115,7 +115,7 @@ impl Notification {
                     Notification::create_notify (
                         creator_id,
                         object_id,
-                        current_verb,
+                        current_verb.to_string(),
                         types,
                         object_id,
                         None,
@@ -171,7 +171,7 @@ impl Notification {
                         Notification::create_notify (
                             creator_id,
                             *user_id,
-                            current_verb,
+                            current_verb.to_string(),
                             types,
                             object_id,
                             None,
