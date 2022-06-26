@@ -48,6 +48,33 @@ use crate::models::{User, Community};
     // 'c' Удалено
     // 'd' Закрыто
 
+pub fn get_verb(verb: &str, is_women: bool) -> (String, String, String) {
+    let words: Vec<&str> = verb.split(" ").collect();
+    let first_word: String;
+    let group_word: String;
+
+    let mut new_verb: String;
+    for (count, word) in words.iter().enumerate() {
+        if count == 0 {
+            first_word = word;
+            if is_women {
+                new_verb.push(word + &"а");
+            }
+            else {
+                new_verb.push(word);
+            }
+            new_verb.push(" ");
+            let pop_word = word.pop();
+            group_word = pop_word + &"и".to_string();
+        }
+        else {
+            new_verb.push(word);
+            new_verb.push(" ");
+        }
+    }
+    return (first_word, group_word, new_verb);
+}
+
 #[derive(Debug, Queryable, Serialize, Identifiable, Associations)]
 pub struct Notification {
     pub id:                  i32,
@@ -112,7 +139,7 @@ impl Notification {
 
         let creator_id = creator.id;
         let _connection = establish_connection();
-        let current_verb = &creator.get_verb_gender(&verb);
+        let (first_word, group_word, current_verb) = get_verb(&verb, creator.is_women());
         let users_ids = creator.get_users_ids_for_main_news();
         let date = chrono::Local::now().naive_utc();
 
@@ -157,7 +184,7 @@ impl Notification {
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
                         .filter(schema::notifications::object_id.eq(object_id))
                         .filter(schema::notifications::types.eq(types))
-                        .filter(schema::notifications::verb.like("%".to_owned() + &verb + &"%".to_string()))
+                        .filter(schema::notifications::verb.like("%".to_owned() + &first_word + &"%".to_string()))
                         .load::<Notification>(&_connection)
                         .expect("E");
                     if notifications_exists.len() > 0 {
@@ -212,7 +239,7 @@ impl Notification {
                         .filter(schema::notifications::types.eq(types))
                         .filter(schema::notifications::created.eq(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
-                        .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
+                        .filter(schema::notifications::verb.ilike("%".to_owned() + &first_word + &"%".to_string()))
                         .filter(schema::notifications::object_set_id.is_null())
                         .load::<Notification>(&_connection)
                         .expect("E")
@@ -224,7 +251,7 @@ impl Notification {
                         .filter(schema::notifications::types.eq(types))
                         .filter(schema::notifications::created.eq(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
-                        .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
+                        .filter(schema::notifications::verb.ilike("%".to_owned() + &first_word + &"%".to_string()))
                         .load::<Notification>(&_connection)
                         .expect("E")
                         .into_iter()
@@ -234,7 +261,7 @@ impl Notification {
                         Notification::create_notify (
                             creator_id,
                             *user_id,
-                            "G".to_string() + &verb,
+                            group_word,
                             types,
                             object_id,
                             None,
@@ -287,7 +314,7 @@ impl Notification {
         let creator_id = creator.id;
         let community_id = Some(community.id);
         let _connection = establish_connection();
-        let current_verb = &creator.get_verb_gender(&verb);
+        let (first_word, group_word, current_verb) = get_verb(&verb, creator.is_women());
         let users_ids = community.get_users_ids_for_main_news();
         let date = chrono::Local::now().naive_utc();
 
@@ -332,7 +359,7 @@ impl Notification {
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
                         .filter(schema::notifications::object_id.eq(object_id))
                         .filter(schema::notifications::types.eq(types))
-                        .filter(schema::notifications::verb.like("%".to_owned() + &verb + &"%".to_string()))
+                        .filter(schema::notifications::verb.like("%".to_owned() + &first_word + &"%".to_string()))
                         .load::<Notification>(&_connection)
                         .expect("E");
                     if notifications_exists.len() > 0 {
@@ -390,7 +417,7 @@ impl Notification {
                         .filter(schema::notifications::types.eq(types))
                         .filter(schema::notifications::created.eq(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
-                        .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
+                        .filter(schema::notifications::verb.ilike("%".to_owned() + &first_word + &"%".to_string()))
                         .filter(schema::notifications::object_set_id.is_null())
                         .load::<Notification>(&_connection)
                         .expect("E")
@@ -403,7 +430,7 @@ impl Notification {
                         .filter(schema::notifications::types.eq(types))
                         .filter(schema::notifications::created.eq(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
-                        .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
+                        .filter(schema::notifications::verb.ilike("%".to_owned() + &first_word + &"%".to_string()))
                         .load::<Notification>(&_connection)
                         .expect("E")
                         .into_iter()
@@ -413,7 +440,7 @@ impl Notification {
                         Notification::create_notify (
                             creator_id,
                             *user_id,
-                            "G".to_string() + &verb,
+                            group_word,
                             types,
                             object_id,
                             community_id,
@@ -527,12 +554,11 @@ impl WallObject {
 
         let creator_id = creator.id;
         let _connection = establish_connection();
-        let current_verb = &creator.get_verb_gender(&verb);
+        let (first_word, group_word, current_verb) = get_verb(&verb, creator.is_women());
         let date = chrono::Local::now().naive_utc();
 
         if is_group {
             // если вложенность уведомлений включена
-
             if types < 3 {
                 // если объект - пользователь или сообщество
                 let wall_exists = wall_objects
@@ -567,7 +593,7 @@ impl WallObject {
                     .filter(schema::wall_objects::action_community_id.eq(action_community_id))
                     .filter(schema::wall_objects::object_id.eq(object_id))
                     .filter(schema::wall_objects::types.eq(types))
-                    .filter(schema::wall_objects::verb.like("%".to_owned() + &verb + &"%".to_string()))
+                    .filter(schema::wall_objects::verb.like("%".to_owned() + &first_word + &"%".to_string()))
                     .load::<WallObject>(&_connection)
                     .expect("E");
                 if wall_exists.len() > 0 {
@@ -618,7 +644,7 @@ impl WallObject {
                     .filter(schema::wall_objects::types.eq(types))
                     .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                     .filter(schema::wall_objects::action_community_id.eq(action_community_id))
-                    .filter(schema::wall_objects::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
+                    .filter(schema::wall_objects::verb.ilike("%".to_owned() + &first_word + &"%".to_string()))
                     .filter(schema::wall_objects::object_set_id.is_null())
                     .load::<WallObject>(&_connection)
                     .expect("E")
@@ -629,7 +655,7 @@ impl WallObject {
                         .filter(schema::wall_objects::types.eq(types))
                         .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                         .filter(schema::wall_objects::action_community_id.eq(action_community_id))
-                        .filter(schema::wall_objects::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
+                        .filter(schema::wall_objects::verb.ilike("%".to_owned() + &first_word + &"%".to_string()))
                         .load::<WallObject>(&_connection)
                         .expect("E")
                         .into_iter()
@@ -638,7 +664,7 @@ impl WallObject {
 
                     WallObject::create_wall (
                         creator_id,
-                        "G".to_string() + &verb,
+                        group_word,
                         types,
                         object_id,
                         None,
@@ -686,7 +712,7 @@ impl WallObject {
         let creator_id = creator.id;
         let community_id = Some(community.id);
         let _connection = establish_connection();
-        let current_verb = &creator.get_verb_gender(&verb);
+        let (first_word, group_word, current_verb) = get_verb(&verb, creator.is_women());
         let date = chrono::Local::now().naive_utc();
 
         if is_group {
@@ -727,7 +753,7 @@ impl WallObject {
                     .filter(schema::wall_objects::action_community_id.eq(action_community_id))
                     .filter(schema::wall_objects::object_id.eq(object_id))
                     .filter(schema::wall_objects::types.eq(types))
-                    .filter(schema::wall_objects::verb.like("%".to_owned() + &verb + &"%".to_string()))
+                    .filter(schema::wall_objects::verb.like("%".to_owned() + &first_word + &"%".to_string()))
                     .load::<WallObject>(&_connection)
                     .expect("E");
                 if wall_exists.len() > 0 {
@@ -781,7 +807,7 @@ impl WallObject {
                     .filter(schema::wall_objects::types.eq(types))
                     .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                     .filter(schema::wall_objects::action_community_id.eq(action_community_id))
-                    .filter(schema::wall_objects::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
+                    .filter(schema::wall_objects::verb.ilike("%".to_owned() + &first_word + &"%".to_string()))
                     .filter(schema::wall_objects::object_set_id.is_null())
                     .load::<WallObject>(&_connection)
                     .expect("E")
@@ -793,7 +819,7 @@ impl WallObject {
                         .filter(schema::wall_objects::types.eq(types))
                         .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                         .filter(schema::wall_objects::action_community_id.eq(action_community_id))
-                        .filter(schema::wall_objects::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
+                        .filter(schema::wall_objects::verb.ilike("%".to_owned() + &first_word + &"%".to_string()))
                         .load::<WallObject>(&_connection)
                         .expect("E")
                         .into_iter()
@@ -802,7 +828,7 @@ impl WallObject {
 
                     WallObject::create_wall (
                         creator_id,
-                        "G".to_string() + &verb,
+                        group_word,
                         types,
                         object_id,
                         community_id,

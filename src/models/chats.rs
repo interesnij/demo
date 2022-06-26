@@ -2301,7 +2301,7 @@ impl Message {
         }
     }
     pub fn create_chat_message(&self, creator: User, chat: Chat,
-        user: &User, parent_id: Option<i32>, repost_id: Option<i32>, content: Option<String>,
+        parent_id: Option<i32>, repost_id: Option<i32>, content: Option<String>,
         attach: Option<String>, voice: Option<String>,
         sticker_id: Option<i32>) -> () {
 
