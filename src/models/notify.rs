@@ -3,7 +3,14 @@ use crate::schema::{
     notifications,
     wall_objects,
 };
-use diesel::{Queryable, Insertable, RunQueryDsl, ExpressionMethods};
+use diesel::{
+    Queryable,
+    Insertable,
+    RunQueryDsl,
+    ExpressionMethods,
+    PgTextExpressionMethods,
+    QueryDsl,
+};
 use serde::{Serialize, Deserialize};
 use crate::utils::establish_connection;
 use crate::models::{User, Community};
@@ -125,8 +132,8 @@ impl Notification {
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
                         .filter(schema::notifications::object_id.eq(object_id))
                         .filter(schema::notifications::types.eq(types))
-                        .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
-                        .load::<Notification>(&_connection)
+                        .filter(schema::notifications::verb.like("%".to_owned() + &verb + &"%".to_string()))
+                        .load::<Notification>(&_connection) 
                         .expect("E");
                     if notifications_exists.len() > 0 {
                         // если подобное уведомление уже создавалось
