@@ -89,7 +89,7 @@ impl Notification {
 
         let creator_id = creator.id;
         let _connection = establish_connection();
-        let current_verb = creator.get_verb_gender(&verb);
+        let current_verb = creator.get_verb_gender(&verb).clone();
         let users_ids = creator.get_users_ids_for_main_news();
         let date = chrono::Local::now().naive_utc();
 
