@@ -212,7 +212,7 @@ impl Notification {
                         .filter(schema::notifications::types.eq(types))
                         .filter(schema::notifications::created.eq(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
-                        .filter(schema::notifications::verb.eq(current_verb))
+                        .filter(schema::notifications::verb.eq(current_verb.clone()))
                         .load::<Notification>(&_connection)
                         .expect("E")
                         .into_iter()
@@ -261,7 +261,7 @@ impl Notification {
                         Notification::create_notify (
                             creator_id,
                             *user_id,
-                            group_word,
+                            group_word.clone(),
                             types,
                             object_id,
                             None,
@@ -389,7 +389,7 @@ impl Notification {
                         .filter(schema::notifications::types.eq(types))
                         .filter(schema::notifications::created.eq(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
-                        .filter(schema::notifications::verb.eq(current_verb))
+                        .filter(schema::notifications::verb.eq(current_verb.clone()))
                         .load::<Notification>(&_connection)
                         .expect("E")
                         .into_iter()
@@ -440,7 +440,7 @@ impl Notification {
                         Notification::create_notify (
                             creator_id,
                             *user_id,
-                            group_word,
+                            group_word.clone(),
                             types,
                             object_id,
                             community_id,
