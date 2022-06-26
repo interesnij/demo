@@ -58,14 +58,14 @@ pub fn get_verb(verb: &str, is_women: bool) -> (String, String, String) {
         if count == 0 {
             first_word = word.to_string();
             if is_women {
-                new_verb.push_str(word.to_string() + &"а".to_string());
+                new_verb.push_str(&(word.to_string() + &"а".to_string()));
             }
             else {
                 new_verb.push_str(&word.to_string());
             }
             new_verb.push_str(&" ".to_string());
             let pop_word = word.to_string().pop();
-            group_word = pop_word + &"и".to_string();
+            group_word = pop_word.unwrap() + &"и".to_string();
         }
         else {
             new_verb.push_str(&word.to_string());
