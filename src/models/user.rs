@@ -703,7 +703,7 @@ impl User {
     pub fn is_can_fixed_post(&self) -> bool {
         return self.count_fix_items() < 10;
     }
-    pub fn get_verb_gender(&self, str: String) -> String {
+    pub fn get_verb_gender(&self, str: &str) -> String {
         if self.gender == "b" {
             return "W".to_string() + &str;
         }
