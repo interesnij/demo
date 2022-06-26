@@ -65,7 +65,7 @@ pub fn get_verb(verb: &str, is_women: bool) -> (String, String, String) {
             }
             new_verb.push_str(&" ".to_string());
             let pop_word = word.to_string().pop();
-            group_word = pop_word.unwrap() + &"и".to_string();
+            group_word = pop_word.unwrap().to_string() + &"и".to_string();
         }
         else {
             new_verb.push_str(&word.to_string());
