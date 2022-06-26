@@ -1,13 +1,13 @@
-use diesel::prelude::*;
 use crate::schema;
 use crate::schema::{
     notifications,
     wall_objects,
 };
-use diesel::{Queryable, Insertable};
+use diesel::{Queryable, Insertable, RunQueryDsl, ExpressionMethods};
 use serde::{Serialize, Deserialize};
 use crate::utils::establish_connection;
 use crate::models::{User, Community};
+
 
 
 /////// Notification //////
@@ -142,7 +142,7 @@ impl Notification {
                         .filter(schema::notifications::created.gt(chrono::Local::today()))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
                         .filter(schema::notifications::verb.eq(current_verb))
-                        .load::<Notification>(&_connection)  
+                        .load::<Notification>(&_connection)
                         .expect("E")
                         .len() > 0 {
 
