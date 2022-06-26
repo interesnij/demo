@@ -619,7 +619,7 @@ impl WallObject {
                         .filter(schema::wall_objects::types.eq(types))
                         .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                         .filter(schema::wall_objects::action_community_id.eq(action_community_id))
-                        .filter(schema::wall_objects::verb.eq(current_verb))
+                        .filter(schema::wall_objects::verb.eq(current_verb.clone()))
                         .load::<WallObject>(&_connection)
                         .expect("E")
                         .into_iter()
@@ -628,7 +628,7 @@ impl WallObject {
 
                     WallObject::create_wall (
                         creator_id,
-                        current_verb.to_string(),
+                        current_verb.clone(),
                         types,
                         object_id,
                         None,
@@ -781,7 +781,7 @@ impl WallObject {
                     .filter(schema::wall_objects::types.eq(types))
                     .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                     .filter(schema::wall_objects::action_community_id.eq(action_community_id))
-                    .filter(schema::wall_objects::verb.eq(current_verb))
+                    .filter(schema::wall_objects::verb.eq(current_verb.clone()))
                     .load::<WallObject>(&_connection)
                     .expect("E")
                     .into_iter()
@@ -790,7 +790,7 @@ impl WallObject {
 
                     WallObject::create_wall (
                         creator_id,
-                        current_verb.to_string(),
+                        current_verb.clone(),
                         types,
                         object_id,
                         community_id,
