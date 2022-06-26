@@ -56,20 +56,20 @@ pub fn get_verb(verb: &str, is_women: bool) -> (String, String, String) {
     let mut new_verb: String;
     for (count, word) in words.iter().enumerate() {
         if count == 0 {
-            first_word = word;
+            first_word = word.to_string();
             if is_women {
-                new_verb.push(word + &"а");
+                new_verb.push(word + &"а".to_string());
             }
             else {
-                new_verb.push(word);
+                new_verb.push(word.to_string());
             }
-            new_verb.push(" ");
+            new_verb.push(" ".to_string());
             let pop_word = word.pop();
             group_word = pop_word + &"и".to_string();
         }
         else {
-            new_verb.push(word);
-            new_verb.push(" ");
+            new_verb.push(word.to_string());
+            new_verb.push(" ".to_string());
         }
     }
     return (first_word, group_word, new_verb);
