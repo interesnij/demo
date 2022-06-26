@@ -1783,6 +1783,9 @@ impl PostList {
         comment_enabled: bool, is_signature: bool,
         types: Option<String>) -> Post {
 
+        use crate::models::WallObject;
+        use crate::utils::get_user;
+
         let _connection = establish_connection();
         diesel::update(self)
           .set(schema::post_lists::count.eq(self.count + 1))
@@ -1791,6 +1794,7 @@ impl PostList {
 
         let mut _types = "".to_string();
         let mut _content: Option<String> = None;
+        let creator = get_user(user_id);
 
         if types.is_some() {
             _types = types.unwrap();
@@ -1830,13 +1834,27 @@ impl PostList {
         if self.community_id.is_some() {
             let community = self.get_community();
             community.plus_posts(1);
+            WallObject::create_community_wall (
+                creator,
+                community,
+                "verb",
+                51,
+                new_post.id,
+                None,
+                false
+            );
             return new_post;
         }
         else {
-            use crate::utils::get_user;
-
-            let creator = get_user(user_id);
             creator.plus_posts(1);
+            WallObject::create_user_wall (
+                creator,
+                "verb",
+                51,
+                new_post.id,
+                None,
+                false
+            );
             return new_post;
         }
     }
