@@ -1835,9 +1835,9 @@ impl PostList {
             let community = self.get_community();
             community.plus_posts(1);
             WallObject::create_community_wall (
-                creator,
+                &creator,
                 community,
-                "verb",
+                "опубликовал запись".to_string(),
                 51,
                 new_post.id,
                 None,
@@ -1848,8 +1848,8 @@ impl PostList {
         else {
             creator.plus_posts(1);
             WallObject::create_user_wall (
-                creator,
-                "verb",
+                &creator,
+                "опубликовал запись".to_string(),
                 51,
                 new_post.id,
                 None,
