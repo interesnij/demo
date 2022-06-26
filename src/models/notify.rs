@@ -85,7 +85,7 @@ impl Notification {
         object_id: i32, action_community_id: Option<i32>,
         is_group: bool) -> () {
         use crate::models::notify::notifications::dsl::notifications;
-        use chrono::{Duration, Datelike};
+        use chrono::Duration;
 
         let creator_id = creator.id;
         let _connection = establish_connection();
@@ -259,7 +259,7 @@ impl Notification {
         verb: String, types: i16, object_id: i32,
         action_community_id: Option<i32>, is_group: bool) -> () {
         use crate::models::notify::notifications::dsl::notifications;
-        use chrono::{Duration, Datelike};
+        use chrono::Duration;
 
         let creator_id = creator.id;
         let community_id = Some(community.id);
@@ -472,13 +472,13 @@ pub struct NewWallObject {
 
 impl WallObject {
     // is_group:     нужна ли спайка сигналов в группу
-    pub fn create_wall(creator: &User, verb: String, types: i16,
+    pub fn create_wall(creator_id: i32, verb: String, types: i16,
         object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
         user_set_id: Option<i32>, object_set_id: Option<i32>) -> () {
 
         let _connection = establish_connection();
         let new_wall = NewWallObject {
-            user_id: creator.id,
+            user_id: creator_id,
             created: chrono::Local::now().naive_utc(),
             verb: verb,
             status: "a".to_string(),
