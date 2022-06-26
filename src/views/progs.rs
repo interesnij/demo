@@ -61,7 +61,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                 use crate::models::{PostComment, EditPostComment};
 
                 let edited_comment = EditPostComment {
-                    content: _content,
+                    content: _content.clone(),
                     attach:  form.attach,
                 };
                 let item = get_post_comment(comment_id);
@@ -72,7 +72,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                         .expect("Error.");
                 }
                 return Json(JsonCommentResponse {
-                    content: _content,
+                    content: _content.clone(),
                     attach:  edited_comment.attach,
                 })
             }
@@ -83,7 +83,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                 let item = get_good_comment(comment_id);
 
                 let edited_comment = EditGoodComment {
-                    content: _content,
+                    content: _content.clone(),
                     attach:  form.attach,
                 };
                 if item.get_list().is_user_can_create_comment(_request_user.id) {
@@ -93,7 +93,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                         .expect("Error.");
                 }
                 return Json(JsonCommentResponse {
-                    content: _content,
+                    content: _content.clone(),
                     attach:  edited_comment.attach,
                 })
             }
@@ -104,7 +104,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                 let item = get_photo_comment(comment_id);
 
                 let edited_comment = EditPhotoComment {
-                    content: _content,
+                    content: _content.clone(),
                     attach:  form.attach,
                 };
                 if item.get_list().is_user_can_create_comment(_request_user.id) {
@@ -114,7 +114,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                         .expect("Error.");
                 }
                 return Json(JsonCommentResponse {
-                    content:  _content,
+                    content:  _content.clone(),
                     attach:   edited_comment.attach,
                 })
             }
@@ -125,7 +125,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                 let item = get_video_comment(comment_id);
 
                 let edited_comment = EditVideoComment {
-                    content: _content,
+                    content: _content.clone(),
                     attach:  form.attach,
                 };
 
@@ -136,7 +136,7 @@ pub async fn edit_comment(session: Session, req: HttpRequest, mut payload: Multi
                         .expect("Error.");
                 }
                 return Json(JsonCommentResponse {
-                    content: _content,
+                    content: _content.clone(),
                     attach:  edited_comment.attach,
                 })
             }
