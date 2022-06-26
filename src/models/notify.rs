@@ -147,10 +147,11 @@ impl Notification {
                     else if notifications
                         .filter(schema::notifications::user_id.eq(creator.id))
                         .filter(schema::notifications::recipient_id.eq(user_id))
-                        .filter(schema::notifications::types.eq(types))
+                        .filter(schema::notifications::types.eq(types))user_set_id
                         .filter(schema::notifications::created.gt(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
-                        .filter(schema::notifications::verb.eq(current_verb))
+                        .filter(schema::notifications::user_set_id.is_null())
+                        .filter(schema::notifications::types.eq(types))
                         .load::<Notification>(&_connection)
                         .expect("E")
                         .len() > 0 {
@@ -189,6 +190,7 @@ impl Notification {
                         .filter(schema::notifications::created.eq(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
                         .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
+                        .filter(schema::notifications::object_set_id.is_null())
                         .load::<Notification>(&_connection)
                         .expect("E")
                         .len() > 0 {
