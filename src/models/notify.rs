@@ -50,10 +50,10 @@ use crate::models::{User, Community};
 
 pub fn get_verb(verb: &str, is_women: bool) -> (String, String, String) {
     let words: Vec<&str> = verb.split(" ").collect();
-    let first_word: String;
-    let group_word: String;
+    let mut first_word = "".to_string();
+    let mut group_word = "".to_string();
+    let mut new_verb = "".to_string();
 
-    let mut new_verb: String;
     for (count, word) in words.iter().enumerate() {
         if count == 0 {
             first_word = word.to_string();
