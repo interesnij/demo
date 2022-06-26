@@ -91,7 +91,7 @@ impl Notification {
         let _connection = establish_connection();
         let current_verb = creator.get_verb_gender(verb);
         let users_ids = creator.get_users_ids_for_main_news();
-        let date = chrono::Local::now();
+        let date = chrono::Local::now().naive_utc();
 
         if is_group {
             // если вложенность уведомлений включена
