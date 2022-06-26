@@ -10,6 +10,7 @@ use diesel::{
     ExpressionMethods,
     PgTextExpressionMethods,
     QueryDsl,
+    TextExpressionMethods,
 };
 use serde::{Serialize, Deserialize};
 use crate::utils::establish_connection;
@@ -174,7 +175,7 @@ impl Notification {
                             object_id,
                             None,
                             action_community_id,
-                            notify.id,
+                            Some(notify.id),
                             None,
                         )
                     }
@@ -213,7 +214,7 @@ impl Notification {
                             None,
                             action_community_id,
                             None,
-                            notify.id,
+                            Some(notify.id),
                         )
                     }
                     // если пользоваели еще не создавали уведомлений на объект
