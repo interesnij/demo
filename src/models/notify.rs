@@ -147,7 +147,7 @@ impl Notification {
                     else if notifications
                         .filter(schema::notifications::user_id.eq(creator.id))
                         .filter(schema::notifications::recipient_id.eq(user_id))
-                        .filter(schema::notifications::types.eq(types))user_set_id
+                        .filter(schema::notifications::types.eq(types))
                         .filter(schema::notifications::created.gt(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
                         .filter(schema::notifications::user_set_id.is_null())
