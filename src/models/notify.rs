@@ -171,7 +171,7 @@ impl Notification {
                         Notification::create_notify (
                             creator_id,
                             *user_id,
-                            current_verb,
+                            current_verb.clone(),
                             types,
                             object_id,
                             None,
@@ -223,7 +223,7 @@ impl Notification {
                         Notification::create_notify (
                             creator_id,
                             *user_id,
-                            current_verb,
+                            current_verb.clone(),
                             types,
                             object_id,
                             None,
@@ -240,7 +240,7 @@ impl Notification {
                 Notification::create_notify (
                     creator_id,
                     *user_id,
-                    current_verb,
+                    current_verb.clone(),
                     types,
                     object_id,
                     None,
