@@ -85,13 +85,13 @@ impl Notification {
         object_id: i32, action_community_id: Option<i32>,
         is_group: bool) -> () {
         use crate::models::notify::notifications::dsl::notifications;
-        use chrono::Duration;
+        use chrono::{Duration, Datelike};
 
         let creator_id = creator.id;
         let _connection = establish_connection();
         let current_verb = creator.get_verb_gender(verb);
         let users_ids = creator.get_users_ids_for_main_news();
-        let date = chrono::Local::now().day();
+        let date = chrono::Local::now();
 
         if is_group {
             // если вложенность уведомлений включена
@@ -159,7 +159,7 @@ impl Notification {
                         .filter(schema::notifications::user_id.eq(creator.id))
                         .filter(schema::notifications::recipient_id.eq(user_id))
                         .filter(schema::notifications::types.eq(types))
-                        .filter(schema::notifications::created.eq(date))
+                        .filter(schema::notifications::created.eq(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
                         .filter(schema::notifications::verb.eq(current_verb))
                         .load::<Notification>(&_connection)
@@ -186,7 +186,7 @@ impl Notification {
                         .filter(schema::notifications::object_id.eq(object_id))
                         .filter(schema::notifications::recipient_id.eq(user_id))
                         .filter(schema::notifications::types.eq(types))
-                        .filter(schema::notifications::created.eq(date))
+                        .filter(schema::notifications::created.eq(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
                         .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
                         .load::<Notification>(&_connection)
@@ -197,7 +197,7 @@ impl Notification {
                         .filter(schema::notifications::object_id.eq(object_id))
                         .filter(schema::notifications::recipient_id.eq(user_id))
                         .filter(schema::notifications::types.eq(types))
-                        .filter(schema::notifications::created.eq(date))
+                        .filter(schema::notifications::created.eq(date - Duration::hours(24)))
                         .filter(schema::notifications::action_community_id.eq(action_community_id))
                         .filter(schema::notifications::verb.ilike("%".to_owned() + &verb + &"%".to_string()))
                         .load::<Notification>(&_connection)
