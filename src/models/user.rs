@@ -705,7 +705,7 @@ impl User {
     }
     pub fn get_verb_gender(&self, str: &str) -> &str {
         if self.gender == "b" {
-            return "W".to_string() + &str;
+            return &("W".to_string() + &str);
         }
         else {
             return str;
