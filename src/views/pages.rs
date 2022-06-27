@@ -73,32 +73,144 @@ pub async fn link_page(session: Session, req: HttpRequest, slug: web::Path<Strin
     }
 }
 
+pub async fn news_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+    if is_signed_in(&session) {
+        let (is_desctop, page, is_ajax) = get_device_and_page_and_ajax(&req);
+        let mut next_page_number = 0;
+        let object_list: Vec<Post>;
+
+        let _request_user = get_request_user_data(&session);
+        let count = _request_user.news_list_count();
+
+        if page > 1 {
+            let step = (page - 1) * 20;
+            object_list = _request_user.get_news_list(20, step.into());
+            if count > (page * 20).try_into().unwrap() {
+                next_page_number = page + 1;
+            }
+        }
+        else {
+            object_list = _request_user.get_news_list(20, 0);
+            if count > 20.try_into().unwrap() {
+                next_page_number = 2;
+            }
+        }
+        if is_desctop {
+            #[derive(TemplateOnce)]
+            #[template(path = "desctop/main/lists/news_list.stpl")]
+            struct Template {
+                request_user:     User,
+                count:            usize,
+                next_page_number: i32,
+                object_list:      Vec<Post>,
+                is_ajax:          bool,
+            }
+            let body = Template {
+                request_user:     _request_user,
+                count:            count,
+                next_page_number: next_page_number,
+                object_list:      object_list,
+                is_ajax:          is_ajax,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        } else {
+            #[derive(TemplateOnce)]
+            #[template(path = "mobile/main/lists/news_list.stpl")]
+            struct Template {
+                request_user:     User,
+                count:            usize,
+                next_page_number: i32,
+                object_list:      Vec<Post>,
+                is_ajax:          bool,
+            }
+            let body = Template {
+                request_user:     _request_user,
+                count:            count,
+                next_page_number: next_page_number,
+                object_list:      object_list,
+                is_ajax:          is_ajax,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        }
+    } else {
+        Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body("Ошибка доступа."))
+    }
+}
+
+pub async fn featured_news_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
+    if is_signed_in(&session) {
+        let (is_desctop, page, is_ajax) = get_device_and_page_and_ajax(&req);
+        let mut next_page_number = 0;
+        let object_list: Vec<Post>;
+
+        let _request_user = get_request_user_data(&session);
+        let count = _request_user.featured_news_list_count();
+
+        if page > 1 {
+            let step = (page - 1) * 20;
+            object_list = _request_user.get_featured_news_list(20, step.into());
+            if count > (page * 20).try_into().unwrap() {
+                next_page_number = page + 1;
+            }
+        }
+        else {
+            object_list = _request_user.get_featured_news_list(20, 0);
+            if count > 20.try_into().unwrap() {
+                next_page_number = 2;
+            }
+        }
+        if is_desctop {
+            #[derive(TemplateOnce)]
+            #[template(path = "desctop/main/lists/featured_list.stpl")]
+            struct Template {
+                request_user:     User,
+                count:            usize,
+                next_page_number: i32,
+                object_list:      Vec<Post>,
+                is_ajax:          bool,
+            }
+            let body = Template {
+                request_user:     _request_user,
+                count:            count,
+                next_page_number: next_page_number,
+                object_list:      object_list,
+                is_ajax:          is_ajax,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        } else {
+            #[derive(TemplateOnce)]
+            #[template(path = "mobile/main/lists/featured_list.stpl")]
+            struct Template {
+                request_user:     User,
+                count:            usize,
+                next_page_number: i32,
+                object_list:      Vec<Post>,
+                is_ajax:          bool,
+            }
+            let body = Template {
+                request_user:     _request_user,
+                count:            count,
+                next_page_number: next_page_number,
+                object_list:      object_list,
+                is_ajax:          is_ajax,
+            }
+            .render_once()
+            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
+        }
+    } else {
+        Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body("Ошибка доступа."))
+    }
+}
+
 pub async fn index_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     let _connection = establish_connection();
-
-    #[derive(TemplateOnce)]
-    #[template(path = "desctop/main/auth/auth.stpl")]
-    struct DesctopAuthTemplate {
-        is_ajax: bool,
-    }
-    #[derive(TemplateOnce)]
-    #[template(path = "desctop/main/lists/news_list.stpl")]
-    struct DesctopNewsListTemplate {
-        request_user: User,
-        is_ajax:      bool,
-    }
-
-    #[derive(TemplateOnce)]
-    #[template(path = "mobile/main/auth/auth.stpl")]
-    struct MobileAuthTemplate {
-        is_ajax: bool,
-    }
-    #[derive(TemplateOnce)]
-    #[template(path = "mobile/main/lists/news_list.stpl")]
-    struct MobileNewsListTemplate {
-        request_user: User,
-        is_ajax:      bool,
-    }
 
     let _connection = establish_connection();
     let (is_desctop, is_ajax) = get_device_and_ajax(&req);
@@ -107,6 +219,12 @@ pub async fn index_page(session: Session, req: HttpRequest) -> actix_web::Result
         let _request_user = get_request_user_data(&session);
 
         if is_desctop {
+            #[derive(TemplateOnce)]
+            #[template(path = "desctop/main/lists/news_list.stpl")]
+            struct DesctopNewsListTemplate {
+                request_user: User,
+                is_ajax:      bool,
+            }
             let body = DesctopNewsListTemplate {
                 request_user: _request_user,
                 is_ajax:      is_ajax,
@@ -116,6 +234,12 @@ pub async fn index_page(session: Session, req: HttpRequest) -> actix_web::Result
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
         }
         else {
+            #[derive(TemplateOnce)]
+            #[template(path = "mobile/main/lists/news_list.stpl")]
+            struct MobileNewsListTemplate {
+                request_user: User,
+                is_ajax:      bool,
+            }
             let body = MobileNewsListTemplate {
                 request_user: _request_user,
                 is_ajax:      is_ajax,
@@ -127,6 +251,11 @@ pub async fn index_page(session: Session, req: HttpRequest) -> actix_web::Result
 
     } else {
         if is_desctop {
+            #[derive(TemplateOnce)]
+            #[template(path = "desctop/main/auth/auth.stpl")]
+            struct DesctopAuthTemplate {
+                is_ajax: bool,
+            }
             let body = DesctopAuthTemplate {
                 is_ajax: is_ajax,
             }
@@ -135,6 +264,11 @@ pub async fn index_page(session: Session, req: HttpRequest) -> actix_web::Result
             Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
         }
         else {
+            #[derive(TemplateOnce)]
+            #[template(path = "mobile/main/auth/auth.stpl")]
+            struct MobileAuthTemplate {
+                is_ajax: bool,
+            }
             let body = MobileAuthTemplate {is_ajax: is_ajax,}
             .render_once()
             .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
