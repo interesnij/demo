@@ -75,6 +75,8 @@ pub async fn link_page(session: Session, req: HttpRequest, slug: web::Path<Strin
 
 pub async fn news_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     if is_signed_in(&session) {
+        use crate::models::Post;
+        
         let (is_desctop, page, is_ajax) = get_device_and_page_and_ajax(&req);
         let mut next_page_number = 0;
         let object_list: Vec<Post>;
@@ -143,6 +145,8 @@ pub async fn news_page(session: Session, req: HttpRequest) -> actix_web::Result<
 
 pub async fn featured_news_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     if is_signed_in(&session) {
+        use crate::models::Post;
+
         let (is_desctop, page, is_ajax) = get_device_and_page_and_ajax(&req);
         let mut next_page_number = 0;
         let object_list: Vec<Post>;

@@ -3561,10 +3561,37 @@ impl User {
         }
         return count
     }
+
+    pub fn get_ids_for_notifications(&self) -> (Vec<i32>, Vec<i32>) {
+        use crate::schema::notify_user_communities::dsl::notify_user_communities;
+        use crate::models::NotifyUserCommunitie;
+
+        let _connection = establish_connection();
+        let news = notify_user_communities
+            .filter(schema::notify_user_communities::owner.eq(self.id))
+            .filter(schema::notify_user_communities::mute.eq(false))
+            .filter(schema::notify_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
+            .filter(schema::notify_user_communities::user_set_id.is_null())
+            .filter(schema::notify_user_communities::object_set_id.is_null())
+            .load::<NotifyUserCommunitie>(&_connection)
+            .expect("E.");
+        let mut users_stack = Vec::new();
+        let mut communities_stack = Vec::new();
+        for i in news.iter() {
+            if i.community_id.is_some() {
+                communities_stack.push(i.community_id.unwrap());
+            }
+            else {
+                users_stack.push(i.user_id);
+            }
+        }
+        return (users_stack, communities_stack);
+    }
     pub fn get_user_notifications(&self) -> Vec<Notification> {
         use crate::schema::notifications::dsl::notifications;
 
         let _connection = establish_connection();
+        let (users_stack, communities_stack) = self.get_ids_for_notifications();
         return notifications
             .filter(schema::notifications::user_id.eq_any(self.get_users_ids_for_main_notifications()))
             .or_filter(schema::notifications::community_id.eq_any(self.get_communities_ids_for_main_notifications()))
