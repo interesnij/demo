@@ -3595,8 +3595,8 @@ impl User {
         let _connection = establish_connection();
         let (users_stack, communities_stack) = self.get_ids_for_notifications();
         return notifications
-            .filter(schema::notifications::user_id.eq_any(self.get_users_ids_for_main_notifications()))
-            .or_filter(schema::notifications::community_id.eq_any(self.get_communities_ids_for_main_notifications()))
+            .filter(schema::notifications::user_id.eq_any(users_stack))
+            .or_filter(schema::notifications::community_id.eq_any(communities_stack))
             .filter(schema::notifications::user_set_id.is_null())
             .filter(schema::notifications::object_set_id.is_null())
             .load::<Notification>(&_connection)

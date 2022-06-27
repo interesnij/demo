@@ -140,7 +140,7 @@ impl Notification {
         let creator_id = creator.id;
         let _connection = establish_connection();
         let (first_word, group_word, current_verb) = get_verb(&verb, creator.is_women());
-        let users_ids = creator.get_users_ids_for_main_news();
+        let (users_ids, _communities_ids) = creator.get_ids_for_notifications();
         let date = chrono::Local::now().naive_utc();
 
         if is_group {
@@ -315,7 +315,7 @@ impl Notification {
         let community_id = Some(community.id);
         let _connection = establish_connection();
         let (first_word, group_word, current_verb) = get_verb(&verb, creator.is_women());
-        let users_ids = community.get_users_ids_for_main_news();
+        let (_users_ids, communities_ids) = creator.get_ids_for_notifications();
         let date = chrono::Local::now().naive_utc();
 
         if is_group {
@@ -351,7 +351,7 @@ impl Notification {
             }
             else {
                 // если объект общего порядка
-                for user_id in users_ids.iter() {
+                for user_id in communities_ids.iter() {
                     let notifications_exists = notifications
                         .filter(schema::notifications::user_id.eq(creator.id))
                         .filter(schema::notifications::recipient_id.eq(user_id))
