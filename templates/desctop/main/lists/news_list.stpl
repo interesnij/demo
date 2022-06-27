@@ -5,8 +5,9 @@
         <div class="col-md-8 mt-3">
           <span class="is_paginate">
             <% if count > 0 { %>
+              <% use crate::utils::get_post; %>
               <% for object in object_list.iter() { %>
-                ffff
+                <%- get_post(object.object_id) %>
               <% } %>
             <% } else { %>
             <div class="card mb-3 items_empty centered">

@@ -3369,7 +3369,6 @@ impl User {
     }
     pub fn get_main_news(&self, limit: i64, offset: i64) -> Vec<WallObject> {
         use crate::schema::wall_objects::dsl::wall_objects;
-        use crate::models::WallObject;
 
         let _connection = establish_connection();
         let (users_stack, communities_stack) = self.get_ids_for_main_news();
@@ -3387,7 +3386,6 @@ impl User {
 
     pub fn count_main_featured_news(&self) -> usize {
         use crate::schema::wall_objects::dsl::wall_objects;
-        use crate::models::WallObject;
 
         let _connection = establish_connection();
         let (users_stack, communities_stack) = self.get_ids_for_featured_news();
