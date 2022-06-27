@@ -75,12 +75,12 @@ pub async fn link_page(session: Session, req: HttpRequest, slug: web::Path<Strin
 
 pub async fn news_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     if is_signed_in(&session) {
-        use crate::models::Post;
+        use crate::models::WallObject;
         use crate::utils::get_device_and_page_and_ajax;
 
         let (is_desctop, page, is_ajax) = get_device_and_page_and_ajax(&req);
         let mut next_page_number = 0;
-        let object_list: Vec<Post>;
+        let object_list: Vec<WallObject>;
 
         let _request_user = get_request_user_data(&session);
         let count = _request_user.count_main_news();
@@ -105,7 +105,7 @@ pub async fn news_page(session: Session, req: HttpRequest) -> actix_web::Result<
                 request_user:     User,
                 count:            usize,
                 next_page_number: i32,
-                object_list:      Vec<Post>,
+                object_list:      Vec<WallObject>,
                 is_ajax:          bool,
             }
             let body = Template {
@@ -125,7 +125,7 @@ pub async fn news_page(session: Session, req: HttpRequest) -> actix_web::Result<
                 request_user:     User,
                 count:            usize,
                 next_page_number: i32,
-                object_list:      Vec<Post>,
+                object_list:      Vec<WallObject>,
                 is_ajax:          bool,
             }
             let body = Template {
@@ -146,12 +146,12 @@ pub async fn news_page(session: Session, req: HttpRequest) -> actix_web::Result<
 
 pub async fn featured_news_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     if is_signed_in(&session) {
-        use crate::models::Post;
+        use crate::models::WallObject;
         use crate::utils::get_device_and_page_and_ajax;
 
         let (is_desctop, page, is_ajax) = get_device_and_page_and_ajax(&req);
         let mut next_page_number = 0;
-        let object_list: Vec<Post>;
+        let object_list: Vec<WallObject>;
 
         let _request_user = get_request_user_data(&session);
         let count = _request_user.count_main_featured_news();
@@ -176,7 +176,7 @@ pub async fn featured_news_page(session: Session, req: HttpRequest) -> actix_web
                 request_user:     User,
                 count:            usize,
                 next_page_number: i32,
-                object_list:      Vec<Post>,
+                object_list:      Vec<WallObject>,
                 is_ajax:          bool,
             }
             let body = Template {
@@ -196,7 +196,7 @@ pub async fn featured_news_page(session: Session, req: HttpRequest) -> actix_web
                 request_user:     User,
                 count:            usize,
                 next_page_number: i32,
-                object_list:      Vec<Post>,
+                object_list:      Vec<WallObject>,
                 is_ajax:          bool,
             }
             let body = Template {

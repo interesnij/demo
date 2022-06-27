@@ -3584,7 +3584,7 @@ impl User {
                 communities_stack.push(i.community_id.unwrap());
             }
             else {
-                users_stack.push(i.user_i.unwrap());
+                users_stack.push(i.user_id.unwrap());
             }
         }
         return (users_stack, communities_stack);
