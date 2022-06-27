@@ -467,7 +467,7 @@ impl Notification {
             }
         }
         else {
-            for user_id in users_ids.iter() {
+            for user_id in communities_ids.iter() {
                 Notification::create_notify (
                     creator_id,
                     *user_id,
