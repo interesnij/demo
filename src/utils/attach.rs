@@ -68,13 +68,13 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
         let community = post.get_community();
         name = community.name.clone();
         link = community.link.clone();
-        image = community.get_bb_avatar();
+        image = community.get_s_avatar();
     }
     else {
         let creator = post.get_creator();
         name = creator.get_full_name().clone();
         link = creator.link.clone();
-        image = creator.get_bb_avatar();
+        image = creator.get_s_avatar();
     }
 
     let mut comment_enabled = "".to_string();
