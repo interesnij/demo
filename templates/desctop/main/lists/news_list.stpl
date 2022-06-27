@@ -7,7 +7,7 @@
             <% if count > 0 { %>
               <% use crate::utils::get_post; %>
               <% for object in object_list.iter() { %>
-                <%- get_post(object.object_id) %>
+                <%- get_post(object.id) %>
               <% } %>
             <% } else { %>
             <div class="card mb-3 items_empty centered">
