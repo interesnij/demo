@@ -23,7 +23,7 @@ use crate::models::User;
 
 pub fn pages_routes(config: &mut web::ServiceConfig) {
     config.route("/", web::get().to(index_page));
-    config.route("/featured/", web::get().to(featured_list_page));
+    config.route("/featured/", web::get().to(featured_news_page));
     config.route("/all-users/", web::get().to(all_users_page));
     config.route("/all-communities/", web::get().to(all_communities_page));
     config.route("/mobile-menu/", web::get().to(mobile_menu_page));
@@ -251,48 +251,6 @@ pub async fn index_page(session: Session, req: HttpRequest) -> actix_web::Result
         }
     }
 }
-
-pub async fn featured_list_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
-    let _connection = establish_connection();
-    let (is_desctop, is_ajax) = get_device_and_ajax(&req);
-    if is_signed_in(&session) {
-        let _request_user = get_request_user_data(&session);
-
-        if is_desctop {
-            #[derive(TemplateOnce)]
-            #[template(path = "desctop/main/lists/featured_list.stpl")]
-            struct DesctopFeaturedListTemplate {
-                request_user: User,
-                is_ajax:      bool,
-            }
-            let body = DesctopFeaturedListTemplate {
-                request_user: _request_user,
-                is_ajax:      is_ajax,
-            }
-            .render_once()
-            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
-            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
-        }
-        else {
-            #[derive(TemplateOnce)]
-            #[template(path = "mobile/main/lists/featured_list.stpl")]
-            struct MobileFeaturedListTemplate {
-                request_user: User,
-                is_ajax:      bool,
-            }
-            let body = MobileFeaturedListTemplate {
-                request_user: _request_user,
-                is_ajax:      is_ajax,
-            }
-            .render_once()
-            .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
-            Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
-        }
-    } else {
-        Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
-    }
-}
-
 
 pub async fn all_users_page(session: Session, req: HttpRequest) -> actix_web::Result<HttpResponse> {
     use crate::utils::get_device_and_page_and_ajax;
