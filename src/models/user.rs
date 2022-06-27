@@ -3313,8 +3313,6 @@ impl User {
             .filter(schema::news_user_communities::owner.eq(self.id))
             .filter(schema::news_user_communities::mute.eq(false))
             .filter(schema::news_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
-            .filter(schema::news_user_communities::user_set_id.is_null())
-            .filter(schema::news_user_communities::object_set_id.is_null())
             .load::<NewsUserCommunitie>(&_connection)
             .expect("E.");
         let mut users_stack = Vec::new();
@@ -3338,8 +3336,6 @@ impl User {
             .filter(schema::featured_user_communities::owner.eq(self.id))
             .filter(schema::featured_user_communities::mute.eq(false))
             .filter(schema::featured_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
-            .filter(schema::featured_user_communities::user_set_id.is_null())
-            .filter(schema::featured_user_communities::object_set_id.is_null())
             .load::<FeaturedUserCommunitie>(&_connection)
             .expect("E.");
         let mut users_stack = Vec::new();
@@ -3365,11 +3361,13 @@ impl User {
             .filter(schema::wall_objects::user_id.eq(self.id))
             .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
             .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
+            .filter(schema::wall_objects::user_set_id.is_null())
+            .filter(schema::wall_objects::object_set_id.is_null())
             .load::<WallObject>(&_connection)
             .expect("E.")
             .len();
     }
-    pub fn get_main_news(&self, limit: i64, offset: i64) -> Post {
+    pub fn get_main_news(&self, limit: i64, offset: i64) -> Vec<Post> {
         use crate::schema::wall_objects::dsl::wall_objects;
         use crate::models::WallObject;
 
@@ -3379,6 +3377,8 @@ impl User {
             .filter(schema::wall_objects::user_id.eq(self.id))
             .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
             .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
+            .filter(schema::wall_objects::user_set_id.is_null())
+            .filter(schema::wall_objects::object_set_id.is_null())
             .limit(limit)
             .offset(offset)
             .load::<WallObject>(&_connection)
@@ -3395,11 +3395,13 @@ impl User {
             .filter(schema::wall_objects::user_id.eq(self.id))
             .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
             .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
+            .filter(schema::wall_objects::user_set_id.is_null())
+            .filter(schema::wall_objects::object_set_id.is_null())
             .load::<WallObject>(&_connection)
             .expect("E.")
             .len();
     }
-    pub fn get_main_featured_news(&self, limit: i64, offset: i64) -> Post {
+    pub fn get_main_featured_news(&self, limit: i64, offset: i64) -> Vec<Post> {
         use crate::schema::wall_objects::dsl::wall_objects;
         use crate::models::WallObject;
 
@@ -3409,6 +3411,8 @@ impl User {
             .filter(schema::wall_objects::user_id.eq(self.id))
             .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
             .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
+            .filter(schema::wall_objects::user_set_id.is_null())
+            .filter(schema::wall_objects::object_set_id.is_null())
             .limit(limit)
             .offset(offset)
             .load::<WallObject>(&_connection)
@@ -3571,8 +3575,6 @@ impl User {
             .filter(schema::notify_user_communities::owner.eq(self.id))
             .filter(schema::notify_user_communities::mute.eq(false))
             .filter(schema::notify_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
-            .filter(schema::notify_user_communities::user_set_id.is_null())
-            .filter(schema::notify_user_communities::object_set_id.is_null())
             .load::<NotifyUserCommunitie>(&_connection)
             .expect("E.");
         let mut users_stack = Vec::new();
