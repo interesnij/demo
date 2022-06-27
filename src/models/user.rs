@@ -3353,7 +3353,6 @@ impl User {
 
     pub fn count_main_news(&self) -> usize {
         use crate::schema::wall_objects::dsl::wall_objects;
-        use crate::models::WallObject;
 
         let _connection = establish_connection();
         let (users_stack, communities_stack) = self.get_ids_for_main_news();
@@ -3390,8 +3389,7 @@ impl User {
         let _connection = establish_connection();
         let (users_stack, communities_stack) = self.get_ids_for_featured_news();
         return wall_objects
-            .filter(schema::wall_objects::user_id.eq(self.id))
-            .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
+            .filter(schema::wall_objects::user_id.eq_any(users_stack))
             .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
             .filter(schema::wall_objects::user_set_id.is_null())
             .filter(schema::wall_objects::object_set_id.is_null())
@@ -3401,13 +3399,11 @@ impl User {
     }
     pub fn get_main_featured_news(&self, limit: i64, offset: i64) -> Vec<WallObject> {
         use crate::schema::wall_objects::dsl::wall_objects;
-        use crate::models::WallObject;
 
         let _connection = establish_connection();
         let (users_stack, communities_stack) = self.get_ids_for_featured_news();
         return wall_objects
-            .filter(schema::wall_objects::user_id.eq(self.id))
-            .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
+            .filter(schema::wall_objects::user_id.eq_any(users_stack))
             .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
             .filter(schema::wall_objects::user_set_id.is_null())
             .filter(schema::wall_objects::object_set_id.is_null())
