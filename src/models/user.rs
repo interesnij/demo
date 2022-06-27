@@ -3373,7 +3373,7 @@ impl User {
 
         let _connection = establish_connection();
         let (users_stack, communities_stack) = self.get_ids_for_main_news();
-        return wall_items = wall_objects
+        return wall_objects
             .filter(schema::wall_objects::user_id.eq(self.id))
             .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
             .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
