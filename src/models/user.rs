@@ -3303,83 +3303,118 @@ impl User {
             " друзей".to_string(),
         );
     }
-    pub fn get_users_ids_for_main_news(&self) -> Vec<i32> {
+
+    pub fn get_ids_for_main_news(&self) -> (Vec<i32>, Vec<i32>) {
         use crate::schema::news_user_communities::dsl::news_user_communities;
         use crate::models::NewsUserCommunitie;
 
         let _connection = establish_connection();
-
-        let news_users = news_user_communities
+        let news = news_user_communities
             .filter(schema::news_user_communities::owner.eq(self.id))
-            .filter(schema::news_user_communities::community_id.is_null())
             .filter(schema::news_user_communities::mute.eq(false))
             .filter(schema::news_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
+            .filter(schema::news_user_communities::user_set_id.is_null()))
+            .filter(schema::news_user_communities::object_set_id.is_null()))
             .load::<NewsUserCommunitie>(&_connection)
             .expect("E.");
-        let mut stack = Vec::new();
-        for member in news_users.iter() {
-            stack.push(member.user_id.unwrap());
+        let mut users_stack = Vec::new();
+        let mut communities_stack = Vec::new();
+        for i in news.iter() {
+            if i.community_id.is_some() {
+                communities_stack.push(i.community_id.unwrap());
+            }
+            else {
+                users_stack.push(i.user_id);
+            }
         }
-        return stack;
+        return (users_stack, communities_stack);
     }
-    pub fn get_communities_ids_for_main_news(&self) -> Vec<i32> {
-        //use crate::schema::users::dsl::users;
-        use crate::schema::news_user_communities::dsl::news_user_communities;
-        use crate::models::NewsUserCommunitie;
+    pub fn get_ids_for_featured_news(&self) -> (Vec<i32>, Vec<i32>) {
+        use crate::schema::featured_user_communities::dsl::featured_user_communities;
+        use crate::models::FeaturedUserCommunitie;
 
         let _connection = establish_connection();
-
-        let news_users = news_user_communities
-            .filter(schema::news_user_communities::owner.eq(self.id))
-            .filter(schema::news_user_communities::user_id.is_null())
-            .filter(schema::news_user_communities::mute.eq(false))
-            .filter(schema::news_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
-            .load::<NewsUserCommunitie>(&_connection)
+        let news = featured_user_communities
+            .filter(schema::featured_user_communities::owner.eq(self.id))
+            .filter(schema::featured_user_communities::mute.eq(false))
+            .filter(schema::featured_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
+            .filter(schema::featured_user_communities::user_set_id.is_null()))
+            .filter(schema::featured_user_communities::object_set_id.is_null()))
+            .load::<FeaturedUserCommunitie>(&_connection)
             .expect("E.");
-        let mut stack = Vec::new();
-        for member in news_users.iter() {
-            stack.push(member.community_id.unwrap());
+        let mut users_stack = Vec::new();
+        let mut communities_stack = Vec::new();
+        for i in news.iter() {
+            if i.community_id.is_some() {
+                communities_stack.push(i.community_id.unwrap());
+            }
+            else {
+                users_stack.push(i.user_id);
+            }
         }
-        return stack;
+        return (users_stack, communities_stack);
     }
-    pub fn get_users_ids_for_main_notifications(&self) -> Vec<i32> {
-        use crate::schema::notify_user_communities::dsl::notify_user_communities;
-        use crate::models::NotifyUserCommunitie;
+
+    pub fn count_main_news(&self) -> usize {
+        use crate::schema::wall_objects::dsl::wall_objects;
+        use crate::models::WallObject;
 
         let _connection = establish_connection();
-
-        let news_users = notify_user_communities
-            .filter(schema::notify_user_communities::owner.eq(self.id))
-            .filter(schema::notify_user_communities::community_id.is_null())
-            .filter(schema::notify_user_communities::mute.eq(false))
-            .filter(schema::notify_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
-            .load::<NotifyUserCommunitie>(&_connection)
-            .expect("E.");
-        let mut stack = Vec::new();
-        for member in news_users.iter() {
-            stack.push(member.user_id.unwrap());
-        }
-        return stack;
+        let (users_stack, communities_stack) = self.get_ids_for_main_news();
+        return wall_objects
+            .filter(schema::wall_objects::user_id.eq(self.id))
+            .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
+            .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
+            .load::<WallObject>(&_connection)
+            .expect("E.")
+            .len();
     }
-    pub fn get_communities_ids_for_main_notifications(&self) -> Vec<i32> {
-        use crate::schema::notify_user_communities::dsl::notify_user_communities;
-        use crate::models::NotifyUserCommunitie;
+    pub fn get_main_news(&self, limit: i64, offset: i64) -> Post {
+        use crate::schema::wall_objects::dsl::wall_objects;
+        use crate::models::WallObject;
 
         let _connection = establish_connection();
-
-        let news_users = notify_user_communities
-            .filter(schema::notify_user_communities::owner.eq(self.id))
-            .filter(schema::notify_user_communities::user_id.is_null())
-            .filter(schema::notify_user_communities::mute.eq(false))
-            .filter(schema::notify_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
-            .load::<NotifyUserCommunitie>(&_connection)
+        let (users_stack, communities_stack) = self.get_ids_for_main_news();
+        return wall_items = wall_objects
+            .filter(schema::wall_objects::user_id.eq(self.id))
+            .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
+            .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
+            .limit(limit)
+            .offset(offset)
+            .load::<WallObject>(&_connection)
             .expect("E.");
-        let mut stack = Vec::new();
-        for member in news_users.iter() {
-            stack.push(member.community_id.unwrap());
-        }
-        return stack;
     }
+
+    pub fn count_main_featured_news(&self) -> usize {
+        use crate::schema::wall_objects::dsl::wall_objects,
+        use crate::models::WallObject;
+
+        let _connection = establish_connection();
+        let (users_stack, communities_stack) = self.get_ids_for_featured_news();
+        return wall_objects
+            .filter(schema::wall_objects::user_id.eq(self.id))
+            .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
+            .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
+            .load::<WallObject>(&_connection)
+            .expect("E.")
+            .len();
+    }
+    pub fn get_main_featured_news(&self, limit: i64, offset: i64) -> Post {
+        use crate::schema::wall_objects::dsl::wall_objects;
+        use crate::models::WallObject;
+
+        let _connection = establish_connection();
+        let (users_stack, communities_stack) = self.get_ids_for_featured_news();
+        return wall_objects
+            .filter(schema::wall_objects::user_id.eq(self.id))
+            .or_filter(schema::wall_objects::user_id.eq_any(users_stack))
+            .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
+            .limit(limit)
+            .offset(offset)
+            .load::<WallObject>(&_connection)
+            .expect("E.");
+    }
+
     pub fn get_longest_penalties(&self) -> String {
         use crate::schema::moderated_penalties::dsl::moderated_penalties;
         use crate::models::ModeratedPenaltie;
