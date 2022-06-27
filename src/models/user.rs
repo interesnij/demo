@@ -9,7 +9,7 @@ use crate::models::{
     Post, Photo, Music, Video,
     //Survey,
     StickerCategorie,
-    Doc, Good, SmileCategorie,
+    Doc, Good, SmileCategorie, WallObject,
     PostList, PhotoList, MusicList, VideoList, SurveyList, DocList, GoodList,
     Follow, Notification, UserPrivate, UserBlock, PostCategorie,
 };
@@ -3322,7 +3322,7 @@ impl User {
                 communities_stack.push(i.community_id.unwrap());
             }
             else {
-                users_stack.push(i.user_id);
+                users_stack.push(i.user_id.unwrap());
             }
         }
         return (users_stack, communities_stack);
@@ -3345,7 +3345,7 @@ impl User {
                 communities_stack.push(i.community_id.unwrap());
             }
             else {
-                users_stack.push(i.user_id);
+                users_stack.push(i.user_id.unwrap());
             }
         }
         return (users_stack, communities_stack);
@@ -3367,7 +3367,7 @@ impl User {
             .expect("E.")
             .len();
     }
-    pub fn get_main_news(&self, limit: i64, offset: i64) -> Vec<Post> {
+    pub fn get_main_news(&self, limit: i64, offset: i64) -> Vec<WallObject> {
         use crate::schema::wall_objects::dsl::wall_objects;
         use crate::models::WallObject;
 
@@ -3401,7 +3401,7 @@ impl User {
             .expect("E.")
             .len();
     }
-    pub fn get_main_featured_news(&self, limit: i64, offset: i64) -> Vec<Post> {
+    pub fn get_main_featured_news(&self, limit: i64, offset: i64) -> Vec<WallObject> {
         use crate::schema::wall_objects::dsl::wall_objects;
         use crate::models::WallObject;
 
@@ -3584,7 +3584,7 @@ impl User {
                 communities_stack.push(i.community_id.unwrap());
             }
             else {
-                users_stack.push(i.user_id);
+                users_stack.push(i.user_i.unwrap());
             }
         }
         return (users_stack, communities_stack);
