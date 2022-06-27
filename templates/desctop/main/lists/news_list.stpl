@@ -5,8 +5,14 @@
         <div class="col-md-8 mt-3">
           <span class="is_paginate">
             <% if count > 0 { %>
+              <%
+                use crate::utils::add_post;
+                let is_staff = request_user.is_manager();
+                let user_id = request_user.id;
+              %>
+
               <% for object in object_list.iter() { %>
-                <%- object.get_html() %>
+                <%- add_post(object.object_id, user_id, is_staff) %>
               <% } %>
             <% } else { %>
             <div class="card mb-3 items_empty centered">
