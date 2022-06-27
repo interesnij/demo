@@ -74,7 +74,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
         let creator = post.get_creator();
         name = creator.get_full_name().clone();
         link = creator.link.clone();
-        image = creator.get_50_avatar0();
+        image = creator.get_50_avatar();
     }
 
     let mut comment_enabled = "".to_string();
