@@ -3386,7 +3386,7 @@ impl User {
     }
 
     pub fn count_main_featured_news(&self) -> usize {
-        use crate::schema::wall_objects::dsl::wall_objects,
+        use crate::schema::wall_objects::dsl::wall_objects;
         use crate::models::WallObject;
 
         let _connection = establish_connection();
