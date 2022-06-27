@@ -3313,8 +3313,8 @@ impl User {
             .filter(schema::news_user_communities::owner.eq(self.id))
             .filter(schema::news_user_communities::mute.eq(false))
             .filter(schema::news_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
-            .filter(schema::news_user_communities::user_set_id.is_null()))
-            .filter(schema::news_user_communities::object_set_id.is_null()))
+            .filter(schema::news_user_communities::user_set_id.is_null())
+            .filter(schema::news_user_communities::object_set_id.is_null())
             .load::<NewsUserCommunitie>(&_connection)
             .expect("E.");
         let mut users_stack = Vec::new();
@@ -3338,8 +3338,8 @@ impl User {
             .filter(schema::featured_user_communities::owner.eq(self.id))
             .filter(schema::featured_user_communities::mute.eq(false))
             .filter(schema::featured_user_communities::sleep.lt(chrono::Local::now().naive_utc()))
-            .filter(schema::featured_user_communities::user_set_id.is_null()))
-            .filter(schema::featured_user_communities::object_set_id.is_null()))
+            .filter(schema::featured_user_communities::user_set_id.is_null())
+            .filter(schema::featured_user_communities::object_set_id.is_null())
             .load::<FeaturedUserCommunitie>(&_connection)
             .expect("E.");
         let mut users_stack = Vec::new();
