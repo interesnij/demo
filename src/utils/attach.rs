@@ -101,7 +101,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
         link, "' class='ajax'><figure>",
         image, "</figure></a><div class='media-body'><h6 class='mb-0'><a href='",
         link, "' class='ajax'>", name,
-        "</a></h6><p class='mb-0 fullscreen_2 pointer'>",
+        "</a></h6><p class='mb-0 wall_fullscreen pointer'>",
         post.created.format("%d-%m-%Y в %H:%M").to_string(),
         "</p></div><div class='dropdown'><a class='icon-circle icon-30 btn_default drop pointer'>
         <svg class='svg_info' fill='currentColor' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' /></svg>
@@ -110,7 +110,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
         drops, "</div></div></div></div><div class='fullscreen text_support pointer'>",
         post.get_format_text(), "</div>", post.get_attach(user_id),
         "<div class='card-footer border-top py-2'><div class='row'>
-        <div class='col interaction' data-type='pos'",
+        <div class='col interaction' data-type='pos",
         post.id.to_string(), "'>",
         react_container,
         "<span title='Комментарий' class='pointer load_comments_list btn_default'
