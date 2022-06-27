@@ -43,7 +43,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                         user.get_full_name(),
                         "' flow='up' style='padding-right:10px' data-pk='",
                         user.id.to_string(), "'><figure style='margin: 0;'>",
-                        user.get_s_avatar(), "</figure></a>"
+                        user.get_50_avatar(), "</figure></a>"
                     );
                 }
                 reacts = concat_string!(
@@ -68,13 +68,13 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
         let community = post.get_community();
         name = community.name.clone();
         link = community.link.clone();
-        image = community.get_s_avatar();
+        image = community.get_50_avatar();
     }
     else {
         let creator = post.get_creator();
         name = creator.get_full_name().clone();
         link = creator.link.clone();
-        image = creator.get_s_avatar();
+        image = creator.get_50_avatar0();
     }
 
     let mut comment_enabled = "".to_string();
