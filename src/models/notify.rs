@@ -106,6 +106,15 @@ pub struct NewNotification {
     pub object_set_id:       Option<i32>,
 }
 impl Notification {
+    pub fn get_html(&self) -> String {
+        if self.types == 51 {
+            use crate::utils::get_post;
+            return get_post(self.object_id);
+        }
+        else {
+            return "".to_string();
+        }
+    }
     pub fn create_notify(creator_id: i32, recipient_id: i32, verb: String, types: i16,
         object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
         user_set_id: Option<i32>, object_set_id: Option<i32>) -> () {
@@ -521,6 +530,15 @@ pub struct NewWallObject {
 }
 
 impl WallObject {
+    pub fn get_html(&self) -> String {
+        if self.types == 51 {
+            use crate::utils::get_post;
+            return get_post(self.object_id);
+        }
+        else {
+            return "".to_string();
+        }
+    }
     // is_group:     нужна ли спайка сигналов в группу
     pub fn create_wall(creator_id: i32, verb: String, types: i16,
         object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
