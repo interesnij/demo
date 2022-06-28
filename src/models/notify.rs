@@ -627,7 +627,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
                 return
             }
             else {
-                WallObject::create_wall (
+                create_wall (
                     creator_id,
                     current_verb.to_string(),
                     types,
@@ -679,7 +679,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
                     .nth(0)
                     .unwrap();
 
-                WallObject::create_wall (
+                create_wall (
                     creator_id,
                     current_verb.clone(),
                     types,
@@ -715,7 +715,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
                     .nth(0)
                     .unwrap();
 
-                WallObject::create_wall (
+                create_wall (
                     creator_id,
                     group_word,
                     types,
@@ -728,7 +728,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
             }
             // если пользоваели еще не создавали уведомлений на объект
             else {
-                WallObject::create_wall (
+                create_wall (
                     creator_id,
                     current_verb.clone(),
                     types,
@@ -742,7 +742,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
         }
     }
     else {
-        WallObject::create_wall (
+        create_wall (
             creator_id,
             current_verb.clone(),
             types,
@@ -786,7 +786,7 @@ pub fn create_community_wall(creator: &User, community: Community,
                 return
             }
             else {
-                WallObject::create_wall (
+                create_wall (
                     creator_id,
                     current_verb.to_string(),
                     types,
@@ -841,7 +841,7 @@ pub fn create_community_wall(creator: &User, community: Community,
                 .nth(0)
                 .unwrap();
 
-                WallObject::create_wall (
+                create_wall (
                     creator_id,
                     current_verb.clone(),
                     types,
@@ -879,7 +879,7 @@ pub fn create_community_wall(creator: &User, community: Community,
                     .nth(0)
                     .unwrap();
 
-                WallObject::create_wall (
+                create_wall (
                     creator_id,
                     group_word,
                     types,
@@ -892,7 +892,7 @@ pub fn create_community_wall(creator: &User, community: Community,
             }
             // если пользоваели еще не создавали уведомлений на объект
             else {
-                WallObject::create_wall (
+                create_wall (
                     creator_id,
                     current_verb.clone(),
                     types,
@@ -906,7 +906,7 @@ pub fn create_community_wall(creator: &User, community: Community,
         }
     }
     else {
-        WallObject::create_wall (
+        create_wall (
             creator_id,
             current_verb.clone(),
             types,
@@ -975,7 +975,7 @@ pub fn create_user_notify(creator: &User, verb: String, types: i16,
                 return
             }
             else {
-                Notification::create_notify (
+                create_notify (
                     creator_id,
                     object_id,
                     current_verb.to_string(),
@@ -1032,7 +1032,7 @@ pub fn create_user_notify(creator: &User, verb: String, types: i16,
                     .nth(0)
                     .unwrap();
 
-                    Notification::create_notify (
+                    create_notify (
                         creator_id,
                         *user_id,
                         current_verb.to_string(),
@@ -1071,7 +1071,7 @@ pub fn create_user_notify(creator: &User, verb: String, types: i16,
                     .nth(0)
                     .unwrap();
 
-                    Notification::create_notify (
+                    create_notify (
                         creator_id,
                         *user_id,
                         group_word.clone(),
@@ -1085,7 +1085,7 @@ pub fn create_user_notify(creator: &User, verb: String, types: i16,
                 }
                 // если пользоваели еще не создавали уведомлений на объект
                 else {
-                    Notification::create_notify (
+                    create_notify (
                         creator_id,
                         *user_id,
                         current_verb.clone(),
@@ -1102,7 +1102,7 @@ pub fn create_user_notify(creator: &User, verb: String, types: i16,
     }
     else {
         for user_id in users_ids.iter() {
-            Notification::create_notify (
+            create_notify (
                 creator_id,
                 *user_id,
                 current_verb.clone(),
@@ -1149,7 +1149,7 @@ pub fn create_community_notify(creator: &User, community: Community,
                 return
             }
             else {
-                Notification::create_notify (
+                create_notify (
                     creator_id,
                     object_id,
                     current_verb.to_string(),
@@ -1209,7 +1209,7 @@ pub fn create_community_notify(creator: &User, community: Community,
                     .nth(0)
                     .unwrap();
 
-                    Notification::create_notify (
+                    create_notify (
                         creator_id,
                         *user_id,
                         current_verb.to_string(),
@@ -1250,7 +1250,7 @@ pub fn create_community_notify(creator: &User, community: Community,
                     .nth(0)
                     .unwrap();
 
-                    Notification::create_notify (
+                    create_notify (
                         creator_id,
                         *user_id,
                         group_word.clone(),
@@ -1264,7 +1264,7 @@ pub fn create_community_notify(creator: &User, community: Community,
                 }
                 // если пользоваели еще не создавали уведомлений на объект
                 else {
-                    Notification::create_notify (
+                    create_notify (
                         creator_id,
                         *user_id,
                         current_verb.clone(),
@@ -1281,7 +1281,7 @@ pub fn create_community_notify(creator: &User, community: Community,
     }
     else {
         for user_id in communities_ids.iter() {
-            Notification::create_notify (
+            create_notify (
                 creator_id,
                 *user_id,
                 current_verb.clone(),
