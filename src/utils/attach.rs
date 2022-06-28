@@ -119,7 +119,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                 reactions_window, "</span></div></span>"
             );
         }
-
+    }
     if post.community_id.is_some() {
         let community = post.get_community();
         name = community.name.clone();
