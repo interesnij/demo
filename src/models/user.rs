@@ -3377,6 +3377,7 @@ impl User {
             .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
             .filter(schema::wall_objects::user_set_id.is_null())
             .filter(schema::wall_objects::object_set_id.is_null())
+            .order(schema::wall_objects::created.desc())
             .limit(limit)
             .offset(offset)
             .load::<WallObject>(&_connection)
@@ -3407,6 +3408,7 @@ impl User {
             .or_filter(schema::wall_objects::community_id.eq_any(communities_stack))
             .filter(schema::wall_objects::user_set_id.is_null())
             .filter(schema::wall_objects::object_set_id.is_null())
+            .order(schema::wall_objects::created.desc())
             .limit(limit)
             .offset(offset)
             .load::<WallObject>(&_connection)
@@ -3593,6 +3595,7 @@ impl User {
             .or_filter(schema::notifications::community_id.eq_any(communities_stack))
             .filter(schema::notifications::user_set_id.is_null())
             .filter(schema::notifications::object_set_id.is_null())
+            .order(schema::notifications::created.desc())
             .load::<Notification>(&_connection)
             .expect("E");
     }
