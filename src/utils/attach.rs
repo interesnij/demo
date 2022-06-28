@@ -11,6 +11,8 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
     let link : String;
     let image : String;
     let react_container : String;
+    let mut reacts_window_container = "".to_string();
+    let mut reactions_window = "".to_string();
 
     let post = get_post(pk);
     let post_list = post.get_list();
