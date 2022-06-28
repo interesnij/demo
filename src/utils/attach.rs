@@ -11,14 +11,14 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
     let link : String;
     let image : String;
     let react_container : String;
-    let mut reacts_window_container = "".to_string();
-    let mut reactions_window = "".to_string();
+    let reacts_window_container : String;
 
     let post = get_post(pk);
     let post_list = post.get_list();
     let reactions_list = post_list.get_reactions_list();
     if post.reactions == 0 {
         react_container = "<span class='react_items' data-type='pos".to_owned() + &post.id.to_string() + &"' style='display: inline-flex'></span>".to_string();
+        reacts_window_container = "".to_string();
     }
     else {
         let object_reactions_count = post.get_or_create_react_model();
@@ -27,7 +27,9 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
             user_reaction = post.get_user_reaction(user_id);
         }
         let mut reacts = "".to_string();
+        let mut reactions_window = "".to_string();
         for reaction in reactions_list.iter() {
+            let reaction_str = reaction.to_string();
             let count = object_reactions_count.count_reactions_of_types(*reaction);
             let mut border_radius = "".to_string();
             if count != 0 {
@@ -37,7 +39,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                 if &user_reaction == reaction {
                     border_radius = "border_radius".to_string();
                 }
-                let reaction_str = reaction.to_string();
+
                 let mut users_html = "".to_string();
                 for user in users.iter() {
                     users_html = concat_string!(
@@ -59,11 +61,29 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                     users_html, "</span></div></span></span>"
                 );
             }
+            reactions_window = concat_string!(
+                reactions_window,
+                "<img class='react_window_toggle' src='/static/images/reactions/'",
+                reaction_str, ".png' data-pk='",
+                reaction_str," alt='img' />"
+            );
         }
         react_container = concat_string!(
             "<span class='react_items' data-type='pos",
             post.id.to_string(),
-            "' style='display: inline-flex'>", reacts, "</span>");
+            "' style='display: inline-flex'>", reacts, "</span>"
+        );
+        reacts_window_container = concat_string!(
+            "<span class='like react_shower' style='display:none' title='Реакция'>
+            <svg fill='currentColor' class='svg_info pointer svg_default' style='width:17px;' viewBox='0 0 24 24'>
+              <rect fill='none' height='24' width='24' />
+              <path d='M7,9.5C7,8.67,7.67,8,8.5,8S10,8.67,10,9.5c0,0.83-0.67,1.5-1.5,1.5S7,10.33,7,9.5z M12,17.5c2.33,0,4.31-1.46,5.11-3.5 H6.89C7.69,16.04,9.67,17.5,12,17.5z M15.5,11c0.83,0,1.5-0.67,1.5-1.5C17,8.67,16.33,8,15.5,8S14,8.67,14,9.5 C14,10.33,14.67,11,15.5,11z M22,1h-2v2h-2v2h2v2h2V5h2V3h-2V1z M20,12c0,4.42-3.58,8-8,8s-8-3.58-8-8c0-4.42,3.58-8,8-8 c1.46,0,2.82,0.4,4,1.08V2.84C14.77,2.3,13.42,2,11.99,2C6.47,2,2,6.48,2,12c0,5.52,4.47,10,9.99,10C17.52,22,22,17.52,22,12 c0-1.05-0.17-2.05-0.47-3h-2.13C19.78,9.93,20,10.94,20,12z' />
+            </svg>
+            <span class='small all_reactions'>",
+              object.reactions.to_string(),
+            "</span></span><span class='like_window react_window'><div class='like_pop'><span style='display: flex;flex-wrap:wrap;'>",
+             reactions_window, "</span></div></span>"
+        );
     }
 
     if post.community_id.is_some() {
