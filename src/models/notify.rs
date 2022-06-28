@@ -140,8 +140,6 @@ impl Notification {
             .filter(schema::notifications::user_set_id.eq(self.id))
             .or_filter(schema::notifications::id.eq(self.id))
             .filter(schema::notifications::status.eq_any(vec!["a","b"]))
-            .limit(limit)
-            .offset(offset)
             .load::<Notification>(&_connection)
             .expect("E")
             .len() + 1;
