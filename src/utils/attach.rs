@@ -14,7 +14,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
 
     let post = get_post(pk);
     let post_list = post.get_list();
-    if !post_list.is_user_can_see_item(user_id) {
+    if !post_list.is_user_can_see_el(user_id) {
         return "".to_string();
     }
     else {
