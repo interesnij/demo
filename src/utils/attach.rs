@@ -11,6 +11,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
     let link : String;
     let image : String;
     let react_container : String;
+    let mut react_container = "".to_string();
 
     let post = get_post(pk);
     let post_list = post.get_list();
@@ -29,6 +30,14 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                 user_reaction = post.get_user_reaction(user_id);
             }
             let mut reacts = "".to_string();
+
+            let mut reacts_window = "".to_string();
+            react_container = concat_string!(
+                "<span class='like react_shower' style='display:none' title='Реакция'><svg fill='currentColor' class='svg_info pointer svg_default' style='width:17px;' viewBox='0 0 24 24'><rect fill='none' height='24' width='24' /><path d='M7,9.5C7,8.67,7.67,8,8.5,8S10,8.67,10,9.5c0,0.83-0.67,1.5-1.5,1.5S7,10.33,7,9.5z M12,17.5c2.33,0,4.31-1.46,5.11-3.5 H6.89C7.69,16.04,9.67,17.5,12,17.5z M15.5,11c0.83,0,1.5-0.67,1.5-1.5C17,8.67,16.33,8,15.5,8S14,8.67,14,9.5 C14,10.33,14.67,11,15.5,11z M22,1h-2v2h-2v2h2v2h2V5h2V3h-2V1z M20,12c0,4.42-3.58,8-8,8s-8-3.58-8-8c0-4.42,3.58-8,8-8 c1.46,0,2.82,0.4,4,1.08V2.84C14.77,2.3,13.42,2,11.99,2C6.47,2,2,6.48,2,12c0,5.52,4.47,10,9.99,10C17.52,22,22,17.52,22,12 c0-1.05-0.17-2.05-0.47-3h-2.13C19.78,9.93,20,10.94,20,12z' /></svg><span class='small all_reactions'>",
+                post.reactions.to_string(),
+                "</span></span><span class='like_window react_window'><div class='like_pop'><span style='display:flex;flex-wrap:wrap;'"
+            )
+
             for reaction in reactions_list.iter() {
                 let count = object_reactions_count.count_reactions_of_types(*reaction);
                 let mut border_radius = "".to_string();
@@ -61,6 +70,12 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                         users_html, "</span></div></span></span>"
                     );
                 }
+                reacts_window = concat_string! (
+                    reacts_window,
+                    "<img class='react_window_toggle' src='/static/images/reactions/",
+                    reaction_str, ".png' data-pk='",
+                    reaction_str, "' alt='img' />"
+                )
             }
             react_container = concat_string!(
                 "<span class='react_items' data-type='pos",
@@ -125,10 +140,14 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
             post.count_comments().to_string(),
             "</span></span> <span title='Поделиться' class='create_repost btn_default pointer'><svg class='svg_info repost_style_btn' viewBox='0 0 24 24' fill='currentColor'><path d='m0 0h24v24h-24z' fill='none'></path><path fill='currentColor' d='m12.1 7.87v-3.47a1.32 1.32 0 0 1 2.17-1l8.94 7.6a1.32 1.32 0 0 1 .15 1.86l-.15.15-8.94 7.6a1.32 1.32 0 0 1 -2.17-1v-3.45c-4.68.11-8 1.09-9.89 2.87a1.15 1.15 0 0 1 -1.9-1.11c1.53-6.36 5.51-9.76 11.79-10.05zm1.8-2.42v4.2h-.9c-5.3 0-8.72 2.25-10.39 6.86 2.45-1.45 5.92-2.16 10.39-2.16h.9v4.2l7.71-6.55z'></path></svg><span class='repost_count'>",
             post.count_reposts().to_string(),
-            "</span></span></div><span class='small' style='float: right;' title='Просмотры'>
+            "</span></span></div><span style='float: right;'>",
+
+            react_container, reacts_window,
+
+            "</span></div></span><span title='Просмотры'>
             <svg fill='currentColor' class='svg_info svg_default' style='width:17px;'
             viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path d='M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z' /></svg>
-            </span></div><div class='load_comments'></div></div></div>"
+            <span class="small">0</span></span></span></div><div class='load_comments'></div></div></div>"
         );
     }
 }
