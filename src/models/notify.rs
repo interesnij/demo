@@ -107,6 +107,9 @@ pub struct NewNotification {
 }
 impl Notification {
     pub fn is_have_user_set(&self) -> bool {
+        use crate::schema::notifications::dsl::notifications;
+
+        let _connection = establish_connection();
         return notifications
             .filter(schema::notifications::user_set_id.eq(self.id))
             .filter(schema::notifications::status.eq_any(vec!["a","b"]))
@@ -116,6 +119,9 @@ impl Notification {
             .len() > 0;
     }
     pub fn get_user_set(&self, limit: i64, offset: i64) -> Vec<Notification> {
+        use crate::schema::notifications::dsl::notifications;
+
+        let _connection = establish_connection();
         return notifications
             .filter(schema::notifications::user_set_id.eq(self.id))
             .or_filter(schema::notifications::id.eq(self.id))
@@ -127,7 +133,9 @@ impl Notification {
     }
     pub fn count_user_set(&self) -> String {
         use crate::utils::get_count_usize_for_ru;
+        use crate::schema::notifications::dsl::notifications;
 
+        let _connection = establish_connection();
         let count = notifications
             .filter(schema::notifications::user_set_id.eq(self.id))
             .or_filter(schema::notifications::id.eq(self.id))
@@ -146,6 +154,9 @@ impl Notification {
         );
     }
     pub fn get_6_user_set(&self) -> Vec<Notification> {
+        use crate::schema::notifications::dsl::notifications;
+
+        let _connection = establish_connection();
         return notifications
             .filter(schema::notifications::user_set_id.eq(self.id))
             .filter(schema::notifications::status.eq_any(vec!["a","b"]))
