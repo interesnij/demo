@@ -137,9 +137,9 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
             <svg viewBox='0 0 24 24' class='svg_info' fill='currentColor'>
             <path d='M0 0h24v24H0V0z' fill='none'></path><path d='M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z'></path></svg><span class='comment-count'>",
             post.count_comments().to_string(),
-            "</span></span> <span title='Поделиться' class='create_repost btn_default pointer'><svg class='svg_info repost_style_btn' viewBox='0 0 24 24' fill='currentColor'><path d='m0 0h24v24h-24z' fill='none'></path><path fill='currentColor' d='m12.1 7.87v-3.47a1.32 1.32 0 0 1 2.17-1l8.94 7.6a1.32 1.32 0 0 1 .15 1.86l-.15.15-8.94 7.6a1.32 1.32 0 0 1 -2.17-1v-3.45c-4.68.11-8 1.09-9.89 2.87a1.15 1.15 0 0 1 -1.9-1.11c1.53-6.36 5.51-9.76 11.79-10.05zm1.8-2.42v4.2h-.9c-5.3 0-8.72 2.25-10.39 6.86 2.45-1.45 5.92-2.16 10.39-2.16h.9v4.2l7.71-6.55z'></path></svg><span class='repost_count'>",
+            "</span></span><span title='Поделиться' class='create_repost btn_default pointer'><svg class='svg_info repost_style_btn' viewBox='0 0 24 24' fill='currentColor'><path d='m0 0h24v24h-24z' fill='none'></path><path fill='currentColor' d='m12.1 7.87v-3.47a1.32 1.32 0 0 1 2.17-1l8.94 7.6a1.32 1.32 0 0 1 .15 1.86l-.15.15-8.94 7.6a1.32 1.32 0 0 1 -2.17-1v-3.45c-4.68.11-8 1.09-9.89 2.87a1.15 1.15 0 0 1 -1.9-1.11c1.53-6.36 5.51-9.76 11.79-10.05zm1.8-2.42v4.2h-.9c-5.3 0-8.72 2.25-10.39 6.86 2.45-1.45 5.92-2.16 10.39-2.16h.9v4.2l7.71-6.55z'></path></svg><span class='repost_count'>",
             post.count_reposts().to_string(),
-            "</span></span></div><span style='float: right;'>",
+            "</span></span><span style='float: right;'>",
 
             react_window_container, reacts_window,
 
