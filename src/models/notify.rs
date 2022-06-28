@@ -161,10 +161,10 @@ impl Notification {
 
     pub fn get_current_notify(&self) -> &Notification {
         if self.is_have_object_set() {
-            return &self.get_first_object_set();
+            return self.get_first_object_set();
         }
         else if self.is_have_user_set() {
-            return &self.get_first_user_set();
+            return self.get_first_user_set();
         }
         else {
             return &self;
@@ -913,7 +913,7 @@ impl WallObject {
     }
 
     pub fn get_verb(&self) -> String {
-        let verb = self.verb;
+        let verb = &self.verb;
         if verb.contains("опуб") {
             return "".to_string();
         }
