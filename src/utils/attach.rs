@@ -11,129 +11,121 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
     let link : String;
     let image : String;
     let react_container : String;
-    let mut react_window_container = "".to_string();
-    let mut reacts_window = "".to_string();
 
     let post = get_post(pk);
     let post_list = post.get_list();
-    if !post_list.is_user_can_see_el(user_id) {
-        return "".to_string();
+    let reactions_list = post_list.get_reactions_list();
+    if post.reactions == 0 {
+        react_container = "<span class='react_items' data-type='pos".to_owned() + &post.id.to_string() + &"' style='display: inline-flex'></span>".to_string();
     }
     else {
-        let reactions_list = post_list.get_reactions_list();
-        if post.reactions == 0 {
-            react_container = "<span class='react_items' data-type='pos".to_owned() + &post.id.to_string() + &"' style='display: inline-flex'></span>".to_string();
+        let object_reactions_count = post.get_or_create_react_model();
+        let mut user_reaction = 0;
+        if post.is_have_user_reaction(user_id) {
+            user_reaction = post.get_user_reaction(user_id);
         }
-        else {
-            let object_reactions_count = post.get_or_create_react_model();
-            let mut user_reaction = 0;
-            if post.is_have_user_reaction(user_id) {
-                user_reaction = post.get_user_reaction(user_id);
-            }
-            let mut reacts = "".to_string();
-            react_window_container = concat_string!(
-                "<span class='like react_shower' style='display:none' title='Реакция'><svg fill='currentColor' class='svg_info pointer svg_default' style='width:17px;' viewBox='0 0 24 24'><rect fill='none' height='24' width='24' /><path d='M7,9.5C7,8.67,7.67,8,8.5,8S10,8.67,10,9.5c0,0.83-0.67,1.5-1.5,1.5S7,10.33,7,9.5z M12,17.5c2.33,0,4.31-1.46,5.11-3.5 H6.89C7.69,16.04,9.67,17.5,12,17.5z M15.5,11c0.83,0,1.5-0.67,1.5-1.5C17,8.67,16.33,8,15.5,8S14,8.67,14,9.5 C14,10.33,14.67,11,15.5,11z M22,1h-2v2h-2v2h2v2h2V5h2V3h-2V1z M20,12c0,4.42-3.58,8-8,8s-8-3.58-8-8c0-4.42,3.58-8,8-8 c1.46,0,2.82,0.4,4,1.08V2.84C14.77,2.3,13.42,2,11.99,2C6.47,2,2,6.48,2,12c0,5.52,4.47,10,9.99,10C17.52,22,22,17.52,22,12 c0-1.05-0.17-2.05-0.47-3h-2.13C19.78,9.93,20,10.94,20,12z' /></svg><span class='small all_reactions'>",
-                post.reactions.to_string(),
-                "</span></span><span class='like_window react_window'><div class='like_pop'><span style='display:flex;flex-wrap:wrap;'>"
-            );
+        let mut reacts = "".to_string();
+        for reaction in reactions_list.iter() {
+            let count = object_reactions_count.count_reactions_of_types(*reaction);
+            let mut border_radius = "".to_string();
+            if count != 0 {
+                let count_str = count.to_string();
 
-            for reaction in reactions_list.iter() {
-                let count = object_reactions_count.count_reactions_of_types(*reaction);
-                let mut border_radius = "".to_string();
-                if count != 0 {
-                    let count_str = count.to_string();
-
-                    let users = post.get_6_reactions_users_of_types(*reaction);
-                    if &user_reaction == reaction {
-                        border_radius = "border_radius".to_string();
-                    }
-                    let reaction_str = reaction.to_string();
-                    let mut users_html = "".to_string();
-                    for user in users.iter() {
-                        users_html = concat_string!(
-                            "<a href='", user.link, "' target='_blank' tooltip='",
-                            user.get_full_name(),
-                            "' flow='up' style='padding-right:10px' data-pk='",
-                            user.id.to_string(), "'><figure style='margin: 0;'>",
-                            user.get_50_avatar(), "</figure></a>"
-                        );
-                    }
-                    reacts = concat_string!(
-                        reacts, "<span class='react' data-react='", reaction_str,
-                        "'><span class='like send_react ", border_radius,
-                        "<img style='width:17px' src='/static/images/reactions/",
-                        reaction_str, ".png' alt='img' /><span class='reactions_count'>",
-                        count_str, "</span></span><span class='like_window'><div class='like_pop'>
-                        <span class='item_reactions pointer'>Отреагировали: <span data-count='like'>",
-                        count_str, "<span class='like_list' style='display:flex;flex-wrap:wrap;margin-top:10px;'>",
-                        users_html, "</span></div></span></span>"
+                let users = post.get_6_reactions_users_of_types(*reaction);
+                if &user_reaction == reaction {
+                    border_radius = "border_radius".to_string();
+                }
+                let reaction_str = reaction.to_string();
+                let mut users_html = "".to_string();
+                for user in users.iter() {
+                    users_html = concat_string!(
+                        "<a href='", user.link, "' target='_blank' tooltip='",
+                        user.get_full_name(),
+                        "' flow='up' style='padding-right:10px' data-pk='",
+                        user.id.to_string(), "'><figure style='margin: 0;'>",
+                        user.get_50_avatar(), "</figure></a>"
                     );
                 }
-                reacts_window = concat_string! (
-                    reacts_window,
-                    "<img class='react_window_toggle' src='/static/images/reactions/",
-                    reaction.to_string(), ".png' data-pk='",
-                    reaction.to_string(), "' alt='img' />"
-                )
+                reacts = concat_string!(
+                    reacts, "<span class='react' data-react='", reaction_str,
+                    "'><span class='like send_react ", border_radius,
+                    "<img style='width:17px' src='/static/images/reactions/",
+                    reaction_str, ".png' alt='img' /><span class='reactions_count'>",
+                    count_str, "</span></span><span class='like_window'><div class='like_pop'>
+                    <span class='item_reactions pointer'>Отреагировали: <span data-count='like'>",
+                    count_str, "<span class='like_list' style='display:flex;flex-wrap:wrap;margin-top:10px;'>",
+                    users_html, "</span></div></span></span>"
+                );
             }
-            react_container = concat_string!(
-                "<span class='react_items' data-type='pos",
-                post.id.to_string(),
-                "' style='display: inline-flex'>", reacts, "</span>");
         }
-
-        if post.community_id.is_some() {
-            let community = post.get_community();
-            name = community.name.clone();
-            link = community.link.clone();
-            image = community.get_50_avatar();
-        }
-        else {
-            let creator = post.get_creator();
-            name = creator.get_full_name().clone();
-            link = creator.link.clone();
-            image = creator.get_50_avatar();
-        }
-
-        let mut comment_enabled = "".to_string();
-        if !post.comment_enabled {
-            comment_enabled = "style='display:none'".to_string();
-        }
-
-
-        let mut drops = "<span class='dropdown-item create_repost'>Добавить</span><span class='dropdown-item copy_link'>Копировать ссылку</span>".to_string();
-        if post.is_user_can_edit_delete_item(user_id) {
-            drops = drops + &"<span class='dropdown-item post_edit'>Изменить</span><span class='dropdown-item post_remove'>Удалить</span>".to_string();
-        }
-        else if is_staff == true {
-            drops = drops + &"<span class='dropdown-item create_close'>Закрыть</span>".to_string();
-        }
-        else {
-            drops = drops + &"<span class='dropdown-item create_claim'>Пожаловаться</span>".to_string();
-        }
-
-        return concat_string!(
-            "<div class='pag card mb-3' data-type='user_post' data-pk='",
+        react_container = concat_string!(
+            "<span class='react_items' data-type='pos",
             post.id.to_string(),
-            "'><div class='card-header'><div class='media'><a href='",
-            link, "' class='ajax'><figure>",
-            image, "</figure></a><div class='media-body'><h6 class='mb-0'><a href='",
-            link, "' class='ajax'>", name,
-            "</a></h6><a class='mb-0 wall_fullscreen pointer'>",
-            post.created.format("%d-%m-%Y в %H:%M").to_string(),
-            "</a></div><div class='dropdown'><a class='icon-circle icon-30 btn_default drop pointer'>
-            <svg class='svg_info' fill='currentColor' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' /></svg>
-            </a><div class='dropdown-menu dropdown-menu-right'><span>
-            <span class='dropdown-item item_reactions pointer'>Реакции</span></span>",
-            drops, "</div></div></div></div><div class='fullscreen text_support pointer'>",
-            post.get_format_text(), "</div>", post.get_attach(user_id),
-            "<div class='card-footer border-top py-2'><div class='row'>
-            <div class='col interaction react_style' data-type='pos",
-            post.id.to_string(), ">",
-
-            "</div></div><div class='load_comments'></div></div></div>"
-        );
+            "' style='display: inline-flex'>", reacts, "</span>");
     }
+
+    if post.community_id.is_some() {
+        let community = post.get_community();
+        name = community.name.clone();
+        link = community.link.clone();
+        image = community.get_50_avatar();
+    }
+    else {
+        let creator = post.get_creator();
+        name = creator.get_full_name().clone();
+        link = creator.link.clone();
+        image = creator.get_50_avatar();
+    }
+
+    let mut comment_enabled = "".to_string();
+    if !post.comment_enabled {
+        comment_enabled = "style='display:none'".to_string();
+    }
+
+
+    let mut drops = "<span class='dropdown-item create_repost'>Добавить</span><span class='dropdown-item copy_link'>Копировать ссылку</span>".to_string();
+    if post.is_user_can_edit_delete_item(user_id) {
+        drops = drops + &"<span class='dropdown-item post_edit'>Изменить</span><span class='dropdown-item post_remove'>Удалить</span>".to_string();
+    }
+    else if is_staff == true {
+        drops = drops + &"<span class='dropdown-item create_close'>Закрыть</span>".to_string();
+    }
+    else {
+        drops = drops + &"<span class='dropdown-item create_claim'>Пожаловаться</span>".to_string();
+    }
+
+    return concat_string!(
+        "<div class='pag card mb-3' data-type='user_post' data-pk='",
+        post.id.to_string(),
+        "'><div class='card-header'><div class='media'><a href='",
+        link, "' class='ajax'><figure>",
+        image, "</figure></a><div class='media-body'><h6 class='mb-0'><a href='",
+        link, "' class='ajax'>", name,
+        "</a></h6><a class='mb-0 wall_fullscreen pointer'>",
+        post.created.format("%d-%m-%Y в %H:%M").to_string(),
+        "</a></div><div class='dropdown'><a class='icon-circle icon-30 btn_default drop pointer'>
+        <svg class='svg_info' fill='currentColor' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' /></svg>
+        </a><div class='dropdown-menu dropdown-menu-right'><span>
+        <span class='dropdown-item item_reactions pointer'>Реакции</span></span>",
+        drops, "</div></div></div></div><div class='fullscreen text_support pointer'>",
+        post.get_format_text(), "</div>", post.get_attach(user_id),
+        "<div class='card-footer border-top py-2'><div class='row'>
+        <div class='col interaction react_style' data-type='pos",
+        post.id.to_string(), "'>",
+        react_container,
+        "<span title='Комментарий' class='pointer load_comments_list btn_default'
+        style='margin-right: 5px;",
+        comment_enabled, "'>
+        <svg viewBox='0 0 24 24' class='svg_info' fill='currentColor'>
+        <path d='M0 0h24v24H0V0z' fill='none'></path><path d='M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z'></path></svg><span class='comment-count'>",
+        post.count_comments().to_string(),
+        "</span></span> <span title='Поделиться' class='create_repost btn_default pointer'><svg class='svg_info repost_style_btn' viewBox='0 0 24 24' fill='currentColor'><path d='m0 0h24v24h-24z' fill='none'></path><path fill='currentColor' d='m12.1 7.87v-3.47a1.32 1.32 0 0 1 2.17-1l8.94 7.6a1.32 1.32 0 0 1 .15 1.86l-.15.15-8.94 7.6a1.32 1.32 0 0 1 -2.17-1v-3.45c-4.68.11-8 1.09-9.89 2.87a1.15 1.15 0 0 1 -1.9-1.11c1.53-6.36 5.51-9.76 11.79-10.05zm1.8-2.42v4.2h-.9c-5.3 0-8.72 2.25-10.39 6.86 2.45-1.45 5.92-2.16 10.39-2.16h.9v4.2l7.71-6.55z'></path></svg><span class='repost_count'>",
+        post.count_reposts().to_string(),
+        "</span></span></div><span class='small' style='float: right;' title='Просмотры'>
+        <svg fill='currentColor' class='svg_info svg_default' style='width:17px;'
+        viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path d='M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z' /></svg>
+        </span></div><div class='load_comments'></div></div></div>"
+    );
 }
 
 pub fn add_post_list(pk: i32) -> String {
