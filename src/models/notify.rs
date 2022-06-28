@@ -162,7 +162,7 @@ impl Notification {
             .load::<Notification>(&_connection)
             .expect("E");
     }
-    pub fn get_first_user_set(&self) -> Notification {
+    pub fn get_first_user_set(&self) -> &Notification {
         return self.get_6_user_set().last().unwrap();
     }
 
