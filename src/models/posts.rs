@@ -1837,7 +1837,7 @@ impl PostList {
             community.plus_posts(1);
             create_community_wall (
                 &creator,
-                community,
+                &community,
                 "опубликовал запись".to_string(),
                 51,
                 new_post.id,
@@ -1846,7 +1846,7 @@ impl PostList {
             );
             create_community_notify (
                 &creator,
-                community,
+                &community,
                 "опубликовал запись".to_string(),
                 51,
                 new_post.id,

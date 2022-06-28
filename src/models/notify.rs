@@ -756,7 +756,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
 }
 
 // is_group: нужна ли спайка сигналов в группу
-pub fn create_community_wall(creator: &User, community: Community,
+pub fn create_community_wall(creator: &User, community: &Community,
     verb: String, types: i16, object_id: i32,
     action_community_id: Option<i32>, is_group: bool) -> () {
     use crate::schema::wall_objects::dsl::wall_objects;
@@ -1118,7 +1118,7 @@ pub fn create_user_notify(creator: &User, verb: String, types: i16,
 }
 
 // is_group: нужна ли спайка сигналов в группу
-pub fn create_community_notify(creator: &User, community: Community,
+pub fn create_community_notify(creator: &User, community: &Community,
     verb: String, types: i16, object_id: i32,
     action_community_id: Option<i32>, is_group: bool) -> () {
     use crate::schema::notifications::dsl::notifications;
