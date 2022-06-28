@@ -129,8 +129,9 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
             post.get_format_text(), "</div>", post.get_attach(user_id),
             "<div class='card-footer border-top py-2'><div class='row'>
             <div class='col interaction react_style' data-type='pos",
+            post.id.to_string(), ">",
 
-            "</div><div class='load_comments'></div></div></div>"
+            "</div></div><div class='load_comments'></div></div></div>"
         );
     }
 }
