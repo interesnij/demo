@@ -163,7 +163,15 @@ impl Notification {
             .expect("E");
     }
     pub fn get_first_user_set(&self) -> Notification {
-        return self.get_6_user_set().into_iter().nth(0).unwrap();
+        use crate::schema::notifications::dsl::notifications;
+
+        let _connection = establish_connection();
+        return notifications
+            .filter(schema::notifications::user_set_id.eq(self.id))
+            .filter(schema::notifications::status.eq_any(vec!["a","b"]))
+            .limit(1)
+            .load::<Notification>(&_connection)
+            .expect("E");
     }
 
     pub fn create_notify(creator_id: i32, recipient_id: i32, verb: String, types: i16,
