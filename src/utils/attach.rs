@@ -72,8 +72,8 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                 reacts_window = concat_string! (
                     reacts_window,
                     "<img class='react_window_toggle' src='/static/images/reactions/",
-                    reaction_str, ".png' data-pk='",
-                    reaction_str, "' alt='img' />"
+                    reaction.to_string(), ".png' data-pk='",
+                    reaction.to_string(), "' alt='img' />"
                 )
             }
             react_container = concat_string!(
