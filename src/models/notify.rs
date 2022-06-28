@@ -727,6 +727,47 @@ pub struct NewWallObject {
 }
 
 impl WallObject {
+    pub fn get_creator(&self) -> User {
+        use crate::schema::users::dsl::users;
+
+        let _connection = establish_connection();
+        return users
+            .filter(schema::users::id.eq(self.user_id))
+            .filter(schema::users::types.lt(10))
+            .load::<User>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+    }
+
+    pub fn get_community(&self) -> Community {
+        use crate::schema::communitys::dsl::communitys;
+
+        let _connection = establish_connection();
+        return communitys
+            .filter(schema::communitys::id.eq(self.community_id.unwrap()))
+            .filter(schema::communitys::types.lt(10))
+            .load::<Community>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+    }
+    pub fn get_action_community(&self) -> Community {
+        use crate::schema::communitys::dsl::communitys;
+
+        let _connection = establish_connection();
+        return communitys
+            .filter(schema::communitys::id.eq(self.action_community_id.unwrap()))
+            .filter(schema::communitys::types.lt(10))
+            .load::<Community>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+    }
+
     pub fn is_have_object_set(&self) -> bool {
         use crate::schema::wall_objects::dsl::wall_objects;
 
