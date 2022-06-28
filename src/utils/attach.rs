@@ -10,7 +10,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
     let name : String;
     let link : String;
     let image : String;
-    let react_container : String;
+    let mut react_container = "".to_string();
     let reacts_window_container : String;
 
     let post = get_post(pk);
@@ -18,7 +18,6 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
     let reactions_list = post_list.get_reactions_list();
 
     if reactions_list.len() == 0 {
-        react_container = "".to_string();
         reacts_window_container = "".to_string();
     }
     else if post.reactions == 0 {
