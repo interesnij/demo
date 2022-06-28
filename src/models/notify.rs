@@ -160,10 +160,7 @@ impl Notification {
             .filter(schema::notifications::status.eq_any(vec!["a","b"]))
             .limit(6)
             .load::<Notification>(&_connection)
-            .expect("E")
-            .into_iter()
-            .nth(0)
-            .unwrap();
+            .expect("E");
     }
     pub fn get_first_user_set(&self) -> Notification {
         use crate::schema::notifications::dsl::notifications;
@@ -175,7 +172,9 @@ impl Notification {
             .limit(1)
             .load::<Notification>(&_connection)
             .expect("E")
-            ;
+            .into_iter()
+            .nth(0)
+            .unwrap();
     }
 
     pub fn create_notify(creator_id: i32, recipient_id: i32, verb: String, types: i16,
