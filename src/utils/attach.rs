@@ -102,11 +102,6 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                     reaction_str," alt='img' />"
                 );
             }
-            react_container = concat_string! (
-                "<span class='react_items' data-type='pos",
-                post.id.to_string(),
-                "' style='display: inline-flex'>", reacts, "</span>"
-            );
             reacts_window_container = concat_string!(
                 "<span class='like react_shower' style='display:none' title='Реакция'>
                 <svg fill='currentColor' class='svg_info pointer svg_default' style='width:17px;' viewBox='0 0 24 24'>
