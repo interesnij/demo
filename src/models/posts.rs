@@ -1831,7 +1831,7 @@ impl PostList {
             .expect("Error.");
 
         if self.community_id.is_some() {
-            use crate::models::create_community_wall;
+            use crate::models::{create_community_wall, create_community_notify};
 
             let community = self.get_community();
             community.plus_posts(1);
@@ -1844,10 +1844,18 @@ impl PostList {
                 None,
                 false
             );
-            return new_post;
+            create_community_notify (
+                &creator,
+                community,
+                "опубликовал запись".to_string(),
+                51,
+                new_post.id,
+                None,
+                false
+            );
         }
         else {
-            use crate::models::create_user_wall;
+            use crate::models::{create_user_wall, create_user_notify};
 
             creator.plus_posts(1);
             create_user_wall (
@@ -1858,8 +1866,16 @@ impl PostList {
                 None,
                 false
             );
-            return new_post;
+            create_user_notify (
+                &creator,
+                "опубликовал запись".to_string(),
+                51,
+                new_post.id,
+                None,
+                false
+            );
         }
+        return new_post;
     }
 }
 
