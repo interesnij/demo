@@ -119,12 +119,16 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
         <svg viewBox='0 0 24 24' class='svg_info' fill='currentColor'>
         <path d='M0 0h24v24H0V0z' fill='none'></path><path d='M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z'></path></svg><span class='comment-count'>",
         post.count_comments().to_string(),
-        "</span></span> <span title='Поделиться' class='create_repost btn_default pointer'><svg class='svg_info repost_style_btn' viewBox='0 0 24 24' fill='currentColor'><path d='m0 0h24v24h-24z' fill='none'></path><path fill='currentColor' d='m12.1 7.87v-3.47a1.32 1.32 0 0 1 2.17-1l8.94 7.6a1.32 1.32 0 0 1 .15 1.86l-.15.15-8.94 7.6a1.32 1.32 0 0 1 -2.17-1v-3.45c-4.68.11-8 1.09-9.89 2.87a1.15 1.15 0 0 1 -1.9-1.11c1.53-6.36 5.51-9.76 11.79-10.05zm1.8-2.42v4.2h-.9c-5.3 0-8.72 2.25-10.39 6.86 2.45-1.45 5.92-2.16 10.39-2.16h.9v4.2l7.71-6.55z'></path></svg><span class='repost_count'>",
+        "</span></span><span title='Поделиться' class='create_repost btn_default pointer'>
+        <svg class='svg_info repost_style_btn' viewBox='0 0 24 24' fill='currentColor'><path d='m0 0h24v24h-24z' fill='none'></path><path fill='currentColor' d='m12.1 7.87v-3.47a1.32 1.32 0 0 1 2.17-1l8.94 7.6a1.32 1.32 0 0 1 .15 1.86l-.15.15-8.94 7.6a1.32 1.32 0 0 1 -2.17-1v-3.45c-4.68.11-8 1.09-9.89 2.87a1.15 1.15 0 0 1 -1.9-1.11c1.53-6.36 5.51-9.76 11.79-10.05zm1.8-2.42v4.2h-.9c-5.3 0-8.72 2.25-10.39 6.86 2.45-1.45 5.92-2.16 10.39-2.16h.9v4.2l7.71-6.55z'></path></svg>
+        <span class='repost_count'>",
         post.count_reposts().to_string(),
-        "</span></span></div><span class='small' style='float: right;' title='Просмотры'>
-        <svg fill='currentColor' class='svg_info svg_default' style='width:17px;'
-        viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path d='M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z' /></svg>
-        </span></div><div class='load_comments'></div></div></div>"
+        "</span></span>
+        <span style='float: right;'>",
+        reacts_window_container,
+        "<span title='Просмотры'><svg fill='currentColor' class='svg_info svg_default' style='width:17px' viewBox='0 0 24 24'><path d='M0 0h24v24H0V0z' fill='none'></path><path d='M12 6c3.79 0 7.17 2.13 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5C4.83 8.13 8.21 6 12 6m0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14 12 14s-2.5-1.12-2.5-2.5S10.62 9 12 9m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z'></path></svg><span class='small'>0</span></span>
+
+        </span></div></div><div class='load_comments'></div></div>"
     );
 }
 
