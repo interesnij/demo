@@ -19,6 +19,11 @@
     <% for object in object_list.iter() { %>
       <%- add_post(object.object_id, user_id, is_staff) %>
     <% } %>
+    <% if next_page_number > 0 { %>
+    <div class="load centered m-1 next_page_list" data-link="/featured/?page=<%= next_page_number %>">
+      <img src="/static/images/preloader.gif">
+    </div>
+    <% } %>
   <% } else { %>
   <div class="card mb-3 items_empty centered">
     <div class="card-body">

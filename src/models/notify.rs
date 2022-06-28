@@ -106,6 +106,57 @@ pub struct NewNotification {
     pub object_set_id:       Option<i32>,
 }
 impl Notification {
+    pub fn is_have_user_set(&self) -> bool {
+        return notifications
+            .filter(schema::notifications::user_set_id.eq(self.id))
+            .filter(schema::notifications::status.eq_any(vec!["a","b"]))
+            .limit(1)
+            .load::<Notification>(&_connection)
+            .expect("E")
+            .len() > 0;
+    }
+    pub fn get_user_set(&self, limit: i64, offset: i64) -> Vec<Notification> {
+        return notifications
+            .filter(schema::notifications::user_set_id.eq(self.id))
+            .or_filter(schema::notifications::id.eq(self.id))
+            .filter(schema::notifications::status.eq_any(vec!["a","b"]))
+            .limit(limit)
+            .offset(offset)
+            .load::<Notification>(&_connection)
+            .expect("E");
+    }
+    pub fn count_user_set(&self) -> String {
+        use crate::utils::get_count_usize_for_ru;
+
+        let count = notifications
+            .filter(schema::notifications::user_set_id.eq(self.id))
+            .or_filter(schema::notifications::id.eq(self.id))
+            .filter(schema::notifications::status.eq_any(vec!["a","b"]))
+            .limit(limit)
+            .offset(offset)
+            .load::<Notification>(&_connection)
+            .expect("E")
+            .len() + 1;
+
+        return get_count_usize_for_ru(
+            count,
+            " запись".to_string(),
+            " записи".to_string(),
+            " записей".to_string(),
+        );
+    }
+    pub fn get_6_user_set(&self) -> Vec<Notification> {
+        return notifications
+            .filter(schema::notifications::user_set_id.eq(self.id))
+            .filter(schema::notifications::status.eq_any(vec!["a","b"]))
+            .limit(6)
+            .load::<Notification>(&_connection)
+            .expect("E");
+    }
+    pub fn get_first_user_set(&self) -> Notification {
+        return self.get_6_user_set().last().unwrap();
+    }
+
     pub fn create_notify(creator_id: i32, recipient_id: i32, verb: String, types: i16,
         object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
         user_set_id: Option<i32>, object_set_id: Option<i32>) -> () {

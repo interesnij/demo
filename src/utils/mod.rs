@@ -126,7 +126,7 @@ pub fn get_current_user(session: &Session) -> Result<SessionUser, AuthError> {
 //        )
 //}
 
-pub fn get_count_for_ru(count:i32, word1: String, word2: String, word3: String) -> String {
+pub fn get_count_usize_for_ru(count: usize, word1: String, word2: String, word3: String) -> String {
     let a = count % 10;
     let b = count % 100;
     let count_str: String = count.to_string().parse().unwrap();
@@ -140,7 +140,22 @@ pub fn get_count_for_ru(count:i32, word1: String, word2: String, word3: String) 
         return count_str + &word3;
     }
 }
-pub fn get_count_for_ru_alt(count:i32, word1: String, word2: String, word3: String) -> String {
+
+pub fn get_count_for_ru(count: i32, word1: String, word2: String, word3: String) -> String {
+    let a = count % 10;
+    let b = count % 100;
+    let count_str: String = count.to_string().parse().unwrap();
+    if a == 1 && b != 11 {
+        return count_str + &word1;
+    }
+    else if a >= 2 && a <= 4 && (b < 10 || b >= 20) {
+        return count_str + &word2;
+    }
+    else {
+        return count_str + &word3;
+    }
+}
+pub fn get_count_for_ru_alt(count: i32, word1: String, word2: String, word3: String) -> String {
     let a = count % 10;
     let b = count % 100;
     if a == 1 && b != 11 {
@@ -154,7 +169,7 @@ pub fn get_count_for_ru_alt(count:i32, word1: String, word2: String, word3: Stri
     }
 }
 
-pub fn get_users_from_ids(ids:Vec<i32>) -> Vec<User> {
+pub fn get_users_from_ids(ids: Vec<i32>) -> Vec<User> {
     use crate::schema::users::dsl::users;
 
     let _connection = establish_connection();
