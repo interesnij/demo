@@ -77,7 +77,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                 reacts = concat_string!(
                     reacts, "<span class='react' data-react='", reaction_str,
                     "'><span class='like send_react ", border_radius,
-                    "<img style='width:17px' src='/static/images/reactions/",
+                    "'><img style='width:17px' src='/static/images/reactions/",
                     reaction_str, ".png' alt='img' /><span class='reactions_count'>",
                     count_str, "</span></span><span class='like_window'><div class='like_pop'>
                     <span class='item_reactions pointer'>Отреагировали: <span data-count='like'>",
