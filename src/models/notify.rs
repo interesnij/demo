@@ -106,6 +106,88 @@ pub struct NewNotification {
     pub object_set_id:       Option<i32>,
 }
 impl Notification {
+    pub fn get_current_notify(&self) -> Notification {
+        if self.is_have_object_set() {
+            return self.get_first_object_set();
+        }
+        else if self.is_have_user_set() {
+            return self.get_first_user_set();
+        }
+        else {
+            return self;
+        }
+    }
+    pub fn is_have_object_set(&self) -> bool {
+        use crate::schema::notifications::dsl::notifications;
+
+        let _connection = establish_connection();
+        return notifications
+            .filter(schema::notifications::object_set_id.eq(self.id))
+            .filter(schema::notifications::status.eq_any(vec!["a","b"]))
+            .limit(1)
+            .load::<Notification>(&_connection)
+            .expect("E")
+            .len() > 0;
+    }
+    pub fn get_object_set(&self, limit: i64, offset: i64) -> Vec<Notification> {
+        use crate::schema::notifications::dsl::notifications;
+
+        let _connection = establish_connection();
+        return notifications
+            .filter(schema::notifications::object_set_id.eq(self.id))
+            .or_filter(schema::notifications::id.eq(self.id))
+            .filter(schema::notifications::status.eq_any(vec!["a","b"]))
+            .limit(limit)
+            .offset(offset)
+            .load::<Notification>(&_connection)
+            .expect("E");
+    }
+    pub fn count_object_set(&self) -> String {
+        use crate::utils::get_count_usize_for_ru;
+        use crate::schema::notifications::dsl::notifications;
+
+        let _connection = establish_connection();
+        let count = notifications
+            .filter(schema::notifications::object_set_id.eq(self.id))
+            .or_filter(schema::notifications::id.eq(self.id))
+            .filter(schema::notifications::status.eq_any(vec!["a","b"]))
+            .load::<Notification>(&_connection)
+            .expect("E")
+            .len() + 1;
+
+        return get_count_usize_for_ru(
+            count,
+            " человек".to_string(),
+            " человека".to_string(),
+            " людей".to_string(),
+        );
+    }
+    pub fn get_6_object_set(&self) -> Vec<Notification> {
+        use crate::schema::notifications::dsl::notifications;
+
+        let _connection = establish_connection();
+        return notifications
+            .filter(schema::notifications::object_set_id.eq(self.id))
+            .filter(schema::notifications::status.eq_any(vec!["a","b"]))
+            .limit(6)
+            .load::<Notification>(&_connection)
+            .expect("E");
+    }
+    pub fn get_first_object_set(&self) -> Notification {
+        use crate::schema::notifications::dsl::notifications;
+
+        let _connection = establish_connection();
+        return notifications
+            .filter(schema::notifications::object_set_id.eq(self.id))
+            .filter(schema::notifications::status.eq_any(vec!["a","b"]))
+            .limit(1)
+            .load::<Notification>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+    }
+
     pub fn is_have_user_set(&self) -> bool {
         use crate::schema::notifications::dsl::notifications;
 
@@ -146,9 +228,9 @@ impl Notification {
 
         return get_count_usize_for_ru(
             count,
-            " запись".to_string(),
-            " записи".to_string(),
-            " записей".to_string(),
+            " раз".to_string(),
+            " раза".to_string(),
+            " раз".to_string(),
         );
     }
     pub fn get_6_user_set(&self) -> Vec<Notification> {
@@ -592,6 +674,78 @@ pub struct NewWallObject {
 }
 
 impl WallObject {
+    pub fn is_have_object_set(&self) -> bool {
+        use crate::schema::wall_objects::dsl::wall_objects;
+
+        let _connection = establish_connection();
+        return wall_objects
+            .filter(schema::wall_objects::object_set_id.eq(self.id))
+            .filter(schema::wall_objects::status.eq_any(vec!["a","b"]))
+            .limit(1)
+            .load::<WallObject>(&_connection)
+            .expect("E")
+            .len() > 0;
+    }
+    pub fn get_object_set(&self, limit: i64, offset: i64) -> Vec<WallObject> {
+        use crate::schema::wall_objects::dsl::wall_objects;
+
+        let _connection = establish_connection();
+        return wall_objects
+            .filter(schema::wall_objects::object_set_id.eq(self.id))
+            .or_filter(schema::wall_objects::id.eq(self.id))
+            .filter(schema::wall_objects::status.eq_any(vec!["a","b"]))
+            .limit(limit)
+            .offset(offset)
+            .load::<WallObject>(&_connection)
+            .expect("E");
+    }
+    pub fn count_object_set(&self) -> String {
+        use crate::utils::get_count_usize_for_ru;
+        use crate::schema::wall_objects::dsl::wall_objects;
+
+        let _connection = establish_connection();
+        let count = wall_objects
+            .filter(schema::wall_objects::object_set_id.eq(self.id))
+            .or_filter(schema::wall_objects::id.eq(self.id))
+            .filter(schema::wall_objects::status.eq_any(vec!["a","b"]))
+            .load::<WallObject>(&_connection)
+            .expect("E")
+            .len();
+
+        return get_count_usize_for_ru(
+            count,
+            " человек".to_string(),
+            " человека".to_string(),
+            " людей".to_string(),
+        );
+    }
+    pub fn get_6_object_set(&self) -> Vec<WallObject> {
+        use crate::schema::wall_objects::dsl::wall_objects;
+
+        let _connection = establish_connection();
+        return wall_objects
+            .filter(schema::wall_objects::object_set_id.eq(self.id))
+            .filter(schema::wall_objects::status.eq_any(vec!["a","b"]))
+            .limit(6)
+            .load::<WallObject>(&_connection)
+            .expect("E");
+    }
+
+    pub fn get_first_object_set(&self) -> WallObject {
+        use crate::schema::wall_objects::dsl::wall_objects;
+
+        let _connection = establish_connection();
+        return wall_objects
+            .filter(schema::wall_objects::object_set_id.eq(self.id))
+            .filter(schema::wall_objects::status.eq_any(vec!["a","b"]))
+            .limit(1)
+            .load::<WallObject>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+    }
+
     pub fn is_have_user_set(&self) -> bool {
         use crate::schema::wall_objects::dsl::wall_objects;
 
@@ -632,9 +786,9 @@ impl WallObject {
 
         return get_count_usize_for_ru(
             count,
-            " запись".to_string(),
-            " записи".to_string(),
-            " записей".to_string(),
+            " раз".to_string(),
+            " раза".to_string(),
+            " раз".to_string(),
         );
     }
     pub fn get_6_user_set(&self) -> Vec<WallObject> {
@@ -648,6 +802,7 @@ impl WallObject {
             .load::<WallObject>(&_connection)
             .expect("E");
     }
+
     pub fn get_first_user_set(&self) -> WallObject {
         use crate::schema::wall_objects::dsl::wall_objects;
 
@@ -662,7 +817,56 @@ impl WallObject {
             .nth(0)
             .unwrap();
     }
-    
+
+    pub fn get_verb(&self) -> String {
+        let verb = self.verb;
+        if verb.contains("опуб") {
+            return "".to_string();
+        }
+        else {
+            if self.is_have_object_set() {
+                let first_notify = notify.get_first_object_set();
+                let creator = first_notify.get_creator();
+                return concat_string!(
+                    "<p style='padding-left: 7px;'><a href='",
+                    creator.link,
+                    "' class='ajax' style='font-weight: bold;'>",
+                    creator.get_full_name(),
+                    "</a> и ещё ",
+                    self.count_object_set(),
+                    self.verb,
+                    " </p>"
+                );
+            }
+            else if self.is_have_user_set() {
+                let creator = self.get_creator();
+                return concat_string!(
+                    "<p style='padding-left: 7px'><a href='",
+                    creator.link,
+                    "' class='ajax' style='font-weight: bold;'>",
+                    creator.get_full_name(),
+                    "</a> ",
+                    self.verb,
+                    self.count_user_set(),
+                    "</p>"
+                );
+            }
+            else {
+                let creator = self.get_creator();
+                return concat_string!(
+                    "<p style='padding-left: 7px'><a href='",
+                    creator.link,
+                    "' class='ajax' style='font-weight: bold;'>",
+                    creator.get_full_name(),
+                    "</a> ",
+                    self.verb,
+                    self.count_user_set(),
+                    "</p>"
+                );
+            }
+        }
+    }
+
     // is_group:     нужна ли спайка сигналов в группу
     pub fn create_wall(creator_id: i32, verb: String, types: i16,
         object_id: i32, community_id: Option<i32>, action_community_id: Option<i32>,
