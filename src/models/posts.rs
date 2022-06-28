@@ -1783,7 +1783,6 @@ impl PostList {
         comment_enabled: bool, is_signature: bool,
         types: Option<String>) -> Post {
 
-        use crate::models::WallObject;
         use crate::utils::get_user;
 
         let _connection = establish_connection();
@@ -1832,9 +1831,11 @@ impl PostList {
             .expect("Error.");
 
         if self.community_id.is_some() {
+            use crate::models::create_community_wall;
+
             let community = self.get_community();
             community.plus_posts(1);
-            WallObject::create_community_wall (
+            create_community_wall (
                 &creator,
                 community,
                 "опубликовал запись".to_string(),
@@ -1846,8 +1847,10 @@ impl PostList {
             return new_post;
         }
         else {
+            use crate::models::create_user_wall;
+
             creator.plus_posts(1);
-            WallObject::create_user_wall (
+            create_user_wall (
                 &creator,
                 "опубликовал запись".to_string(),
                 51,
