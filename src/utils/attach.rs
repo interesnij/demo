@@ -29,7 +29,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                 reactions_window,
                 "<img class='react_window_toggle' src='/static/images/reactions/'",
                 reaction_str, ".png' data-pk='",
-                reaction_str," alt='img' />"
+                reaction_str,"' alt='img' />"
             );
         }
         reacts_window_container = concat_string!(
@@ -89,7 +89,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
                 reactions_window,
                 "<img class='react_window_toggle' src='/static/images/reactions/'",
                 reaction_str, ".png' data-pk='",
-                reaction_str," alt='img' />"
+                reaction_str,"' alt='img' />"
             );
         }
         react_container = concat_string!(
