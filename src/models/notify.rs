@@ -164,7 +164,7 @@ impl Notification {
             return &self.get_first_object_set();
         }
         else if self.is_have_user_set() {
-            return self.get_first_user_set();
+            return &self.get_first_user_set();
         }
         else {
             return &self;
