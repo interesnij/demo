@@ -162,8 +162,8 @@ impl Notification {
             .load::<Notification>(&_connection)
             .expect("E");
     }
-    pub fn get_first_user_set(&self) -> &Notification {
-        return self.get_6_user_set().last().unwrap();
+    pub fn get_first_user_set(&self) -> Notification {
+        return self.get_6_user_set().into_iter().nth(0).unwrap();
     }
 
     pub fn create_notify(creator_id: i32, recipient_id: i32, verb: String, types: i16,
