@@ -27,7 +27,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
             let reaction_str = reaction.to_string();
             reactions_window = concat_string!(
                 reactions_window,
-                "<img class='react_window_toggle' src='/static/images/reactions/'",
+                "<img class='react_window_toggle' src='/static/images/reactions/",
                 reaction_str, ".png' data-pk='",
                 reaction_str,"' alt='img' />"
             );
@@ -87,7 +87,7 @@ pub fn add_post(pk: i32, user_id: i32, is_staff: bool) -> String {
             }
             reactions_window = concat_string!(
                 reactions_window,
-                "<img class='react_window_toggle' src='/static/images/reactions/'",
+                "<img class='react_window_toggle' src='/static/images/reactions/",
                 reaction_str, ".png' data-pk='",
                 reaction_str,"' alt='img' />"
             );
