@@ -3137,7 +3137,7 @@ impl VideoComment {
                 return _content[..50].to_string();
             }
             else {
-                return _content;
+                return _content.to_string();
             }
         }
         else {
