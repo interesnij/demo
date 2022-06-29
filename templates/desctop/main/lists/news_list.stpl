@@ -21,6 +21,7 @@
               <% for object in object_list.iter() { %>
                 <%- object.get_verb() %>
                 <%- object.get_item(user_id, is_staff) %>
+                <%= object.object_id %>
               <% } %>
               <% if next_page_number > 0 { %>
               <div class="load centered m-1 next_page_list" data-link="/?page=<%= next_page_number %>">
