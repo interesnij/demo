@@ -552,10 +552,10 @@ impl WallObject {
     pub fn get_verb(&self) -> String {
         let verb: String;
         if self.types > 80 && self.types < 100 {
-            verb = self.verb + &self.get_comment_verb();
+            verb = self.verb.clone() + &self.get_comment_verb();
         }
         else {
-            verb = self.verb;
+            verb = self.verb.clone();
         }
 
         if verb.contains("опуб") {
