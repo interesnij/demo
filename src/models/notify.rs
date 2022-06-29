@@ -574,7 +574,7 @@ impl WallObject {
         }
     }
     pub fn get_item(&self, user_id: i32, is_staff: bool) -> String {
-        return match self.object_id {
+        return match self.types {
             1 => {
                 use crate::utils::add_user;
                 add_user(self.object_id)
