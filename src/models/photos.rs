@@ -2646,7 +2646,7 @@ impl Photo {
                     88,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
                 create_community_notify (
                     &user,
@@ -2655,7 +2655,7 @@ impl Photo {
                     88,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
             }
             else {
@@ -2666,7 +2666,7 @@ impl Photo {
                     82,
                     self.id,
                     None,
-                    false
+                    true
                 );
                 create_community_notify (
                     &user,
@@ -2675,7 +2675,7 @@ impl Photo {
                     82,
                     self.id,
                     None,
-                    false
+                    true
                 );
             }
         }
@@ -2689,7 +2689,7 @@ impl Photo {
                     88,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
                 create_user_notify (
                     &user,
@@ -2697,7 +2697,7 @@ impl Photo {
                     88,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
             }
             else {
@@ -2707,7 +2707,7 @@ impl Photo {
                     82,
                     self.id,
                     None,
-                    false
+                    true
                 );
                 create_user_notify (
                     &user,
@@ -2715,7 +2715,7 @@ impl Photo {
                     82,
                     self.id,
                     None,
-                    false
+                    true
                 );
             }
         }

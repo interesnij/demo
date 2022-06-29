@@ -2677,7 +2677,7 @@ impl Video {
                     89,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
                 create_community_notify (
                     &user,
@@ -2686,7 +2686,7 @@ impl Video {
                     89,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
             }
             else {
@@ -2697,7 +2697,7 @@ impl Video {
                     83,
                     self.id,
                     None,
-                    false
+                    true
                 );
                 create_community_notify (
                     &user,
@@ -2706,7 +2706,7 @@ impl Video {
                     83,
                     self.id,
                     None,
-                    false
+                    true
                 );
             }
         }
@@ -2720,7 +2720,7 @@ impl Video {
                     89,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
                 create_user_notify (
                     &user,
@@ -2728,7 +2728,7 @@ impl Video {
                     89,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
             }
             else {
@@ -2738,7 +2738,7 @@ impl Video {
                     83,
                     self.id,
                     None,
-                    false
+                    true
                 );
                 create_user_notify (
                     &user,
@@ -2746,7 +2746,7 @@ impl Video {
                     83,
                     self.id,
                     None,
-                    false
+                    true
                 );
             }
         }

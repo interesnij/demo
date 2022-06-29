@@ -2403,7 +2403,7 @@ impl Good {
                     90,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
                 create_community_notify (
                     &user,
@@ -2412,7 +2412,7 @@ impl Good {
                     90,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
             }
             else {
@@ -2423,7 +2423,7 @@ impl Good {
                     84,
                     self.id,
                     None,
-                    false
+                    true
                 );
                 create_community_notify (
                     &user,
@@ -2432,7 +2432,7 @@ impl Good {
                     84,
                     self.id,
                     None,
-                    false
+                    true
                 );
             }
         }
@@ -2446,7 +2446,7 @@ impl Good {
                     90,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
                 create_user_notify (
                     &user,
@@ -2454,7 +2454,7 @@ impl Good {
                     90,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
             }
             else {
@@ -2464,7 +2464,7 @@ impl Good {
                     84,
                     self.id,
                     None,
-                    false
+                    true
                 );
                 create_user_notify (
                     &user,
@@ -2472,7 +2472,7 @@ impl Good {
                     84,
                     self.id,
                     None,
-                    false
+                    true
                 );
             }
         }

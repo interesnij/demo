@@ -2949,7 +2949,7 @@ impl Post {
                     87,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
                 create_community_notify (
                     &user,
@@ -2958,7 +2958,7 @@ impl Post {
                     87,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
             }
             else {
@@ -2969,7 +2969,7 @@ impl Post {
                     81,
                     self.id,
                     None,
-                    false
+                    true
                 );
                 create_community_notify (
                     &user,
@@ -2978,7 +2978,7 @@ impl Post {
                     81,
                     self.id,
                     None,
-                    false
+                    true
                 );
             }
         }
@@ -2992,7 +2992,7 @@ impl Post {
                     87,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
                 create_user_notify (
                     &user,
@@ -3000,7 +3000,7 @@ impl Post {
                     87,
                     parent_id.unwrap(),
                     None,
-                    false
+                    true
                 );
             }
             else {
@@ -3010,7 +3010,7 @@ impl Post {
                     81,
                     self.id,
                     None,
-                    false
+                    true
                 );
                 create_user_notify (
                     &user,
