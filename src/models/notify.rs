@@ -555,7 +555,7 @@ impl WallObject {
             verb = self.get_comment_verb();
         }
         else {
-            verb = self.verb;
+            verb = self.verb.clone();
         }
 
         if verb.contains("опуб") {
