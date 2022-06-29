@@ -530,7 +530,6 @@ impl WallObject {
             return "".to_string();
         }
         else {
-
             if self.is_have_object_set() {
                 let first_notify = self.get_first_object_set();
                 let creator = first_notify.get_creator();
@@ -573,6 +572,11 @@ impl WallObject {
             }
         }
     }
+    pub fn get_wall_item(&self, user_id: i32, is_staff: bool) -> String {
+        let verb = self.get_verb();
+        let item = self.get_item(user_id, is_staff);
+        return verb + &item;
+    }
     pub fn get_item(&self, user_id: i32, is_staff: bool) -> String {
         return match self.types {
             1 => {
@@ -613,6 +617,10 @@ impl WallObject {
             26 => {
                 use crate::utils::add_good_list;
                 add_good_list(self.object_id)
+            },
+            51 => {
+                use crate::utils::add_post;
+                add_post(self.object_id, user_id, is_staff)
             },
             51 => {
                 use crate::utils::add_post;
