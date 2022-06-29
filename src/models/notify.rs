@@ -598,8 +598,9 @@ impl WallObject {
                 add_doc_list(self.object_id)
             },
             23 => {
-                use crate::utils::add_survey_list;
-                add_survey_list(self.object_id)
+                //use crate::utils::add_survey_list;
+                //add_survey_list(self.object_id)
+                "".to_string()
             },
             24 => {
                 use crate::utils::add_photo_list;
