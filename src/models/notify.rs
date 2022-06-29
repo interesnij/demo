@@ -524,6 +524,24 @@ impl WallObject {
             .unwrap();
     }
 
+    pub fn get_comment_verb(&self) -> String {
+        return match self.types {
+            81 => {
+                use crate::utils::get_post_comment;
+                let comment = get_post_comment(self.object_id);
+                if comment.content.is_some() {
+                    comment.content.as_deref().unwrap()
+                }
+            },
+            82 => {
+                use crate::utils::get_photo_comment;
+                let comment = get_photo_comment(self.object_id);
+                if comment.content.is_some() {
+                    comment.content.as_deref().unwrap()
+                }
+            },
+        };
+    }
     pub fn get_verb(&self) -> String {
         let verb: String;
         if self.types > 80 && self.types < 100 {
