@@ -532,12 +532,18 @@ impl WallObject {
                 if comment.content.is_some() {
                     comment.content.as_deref().unwrap().to_string()
                 }
+                else {
+                    "".to_string()
+                }
             },
             82 => {
                 use crate::utils::get_photo_comment;
                 let comment = get_photo_comment(self.object_id);
                 if comment.content.is_some() {
                     comment.content.as_deref().unwrap().to_string()
+                }
+                else {
+                    "".to_string()
                 }
             },
             _ => "".to_string(),
