@@ -783,6 +783,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
         else {
             // если объект общего порядка
             println!("объект общего порядка");
+            println!("word_ilike {:?}", &word_ilike);
             let wall_exists = wall_objects
                 .filter(schema::wall_objects::user_id.eq(creator.id))
                 .filter(schema::wall_objects::action_community_id.eq(action_community_id))
