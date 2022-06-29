@@ -525,7 +525,14 @@ impl WallObject {
     }
 
     pub fn get_verb(&self) -> String {
-        let verb = &self.verb;
+        let verb: String;
+        if self.types > 80 && self.types < 100 {
+            verb = self.get_comment_verb();
+        }
+        else {
+            verb = &self.verb;
+        }
+
         if verb.contains("опуб") {
             return "".to_string();
         }
@@ -540,7 +547,7 @@ impl WallObject {
                     creator.get_full_name(),
                     "</a> и ещё ",
                     self.count_object_set(),
-                    self.verb,
+                    verb,
                     " </p>"
                 );
             }
@@ -552,7 +559,7 @@ impl WallObject {
                     "' class='ajax' style='font-weight: bold;'>",
                     creator.get_full_name(),
                     "</a> ",
-                    self.verb,
+                    verb,
                     self.count_user_set(),
                     "</p>"
                 );
@@ -565,7 +572,7 @@ impl WallObject {
                     "' class='ajax' style='font-weight: bold;'>",
                     creator.get_full_name(),
                     "</a> ",
-                    self.verb,
+                    verb,
                     "</p>"
                 );
             }
