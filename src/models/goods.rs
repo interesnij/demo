@@ -2401,7 +2401,7 @@ impl Good {
                     &community,
                     "ответил на комментарий к товару".to_string(),
                     90,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2410,7 +2410,7 @@ impl Good {
                     &community,
                     "ответил на комментарий к товару".to_string(),
                     90,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2421,7 +2421,7 @@ impl Good {
                     &community,
                     "оставил комментарий к товару".to_string(),
                     84,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );
@@ -2430,7 +2430,7 @@ impl Good {
                     &community,
                     "оставил комментарий к товару".to_string(),
                     84,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );

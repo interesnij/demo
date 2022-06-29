@@ -2947,7 +2947,7 @@ impl Post {
                     &community,
                     "ответил на комментарий к записи".to_string(),
                     87,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2956,7 +2956,7 @@ impl Post {
                     &community,
                     "ответил на комментарий к записи".to_string(),
                     87,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2967,7 +2967,7 @@ impl Post {
                     &community,
                     "оставил комментарий к записи".to_string(),
                     81,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );
@@ -2976,7 +2976,7 @@ impl Post {
                     &community,
                     "оставил комментарий к записи".to_string(),
                     81,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );

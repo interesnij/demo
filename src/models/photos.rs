@@ -2644,7 +2644,7 @@ impl Photo {
                     &community,
                     "ответил на комментарий к фотографии".to_string(),
                     88,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2653,7 +2653,7 @@ impl Photo {
                     &community,
                     "ответил на комментарий к фотографии".to_string(),
                     88,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2664,7 +2664,7 @@ impl Photo {
                     &community,
                     "оставил комментарий к фотографии".to_string(),
                     82,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );
@@ -2673,7 +2673,7 @@ impl Photo {
                     &community,
                     "оставил комментарий к фотографии".to_string(),
                     82,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );
@@ -2809,7 +2809,7 @@ impl PhotoComment {
             return "".to_string();
         }
     }
-    
+
     pub fn is_deleted(&self) -> bool {
         return self.types == "c" && self.types == "d";
     }
