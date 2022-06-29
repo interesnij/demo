@@ -540,6 +540,7 @@ impl WallObject {
                     comment.content.as_deref().unwrap().to_string()
                 }
             },
+            _ => "".to_string(),
         };
     }
     pub fn get_verb(&self) -> String {
