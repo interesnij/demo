@@ -5579,7 +5579,7 @@ impl User {
 
         community.add_new_subscriber(self.id);
 
-        let new_member = NewCommunitiesMembership{
+        let new_member = NewCommunitiesMembership {
             user_id: self.id,
             community_id: community.id,
             is_administrator: false,

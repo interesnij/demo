@@ -3889,7 +3889,9 @@ impl CommunitiesMembership {
             .get_result::<CommunitiesMembership>(&_connection)
             .expect("E.");
 
-        community.add_notify_subscriber(user.id);
+        if is_administrator || is_editor || is_moderator {
+            community.add_notify_subscriber(user.id);
+        }
         community.add_new_subscriber(user.id);
         community.plus_members(1);
         user.plus_communities(1);

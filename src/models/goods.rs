@@ -2391,6 +2391,92 @@ impl Good {
             .get_result::<GoodComment>(&_connection)
             .expect("Error.");
 
+        if self.community_id.is_some() {
+            use crate::models::{create_community_wall, create_community_notify};
+
+            let community = self.get_community();
+            if parent_id.is_some() {
+                create_community_wall (
+                    &creator,
+                    &community,
+                    "ответил на комментарий".to_string(),
+                    90,
+                    new_post.id,
+                    None,
+                    false
+                );
+                create_community_notify (
+                    &creator,
+                    &community,
+                    "ответил на комментарий".to_string(),
+                    90,
+                    new_post.id,
+                    None,
+                    false
+                );
+            }
+            else {
+                create_community_wall (
+                    &creator,
+                    &community,
+                    "оставил комментарий к товару".to_string(),
+                    84,
+                    new_post.id,
+                    None,
+                    false
+                );
+                create_community_notify (
+                    &creator,
+                    &community,
+                    "оставил комментарий к товару".to_string(),
+                    84,
+                    new_post.id,
+                    None,
+                    false
+                );
+            }
+        }
+        else {
+            use crate::models::{create_user_wall, create_user_notify};
+
+            if parent_id.is_some() {
+                create_user_wall (
+                    &creator,
+                    "ответил на комментарий".to_string(),
+                    90,
+                    new_post.id,
+                    None,
+                    false
+                );
+                create_user_notify (
+                    &creator,
+                    "ответил на комментарий".to_string(),
+                    90,
+                    new_post.id,
+                    None,
+                    false
+                );
+            }
+            else {
+                create_user_wall (
+                    &creator,
+                    "оставил комментарий к товару".to_string(),
+                    84,
+                    new_post.id,
+                    None,
+                    false
+                );
+                create_user_notify (
+                    &creator,
+                    "оставил комментарий к товару".to_string(),
+                    84,
+                    new_post.id,
+                    None,
+                    false
+                );
+            }
+        }
+
         return new_comment;
     }
 
