@@ -2401,7 +2401,7 @@ impl Good {
                     &community,
                     "ответил на комментарий".to_string(),
                     90,
-                    new_post.id,
+                    new_comment.id,
                     None,
                     false
                 );
@@ -2410,7 +2410,7 @@ impl Good {
                     &community,
                     "ответил на комментарий".to_string(),
                     90,
-                    new_post.id,
+                    new_comment.id,
                     None,
                     false
                 );
@@ -2421,7 +2421,7 @@ impl Good {
                     &community,
                     "оставил комментарий к товару".to_string(),
                     84,
-                    new_post.id,
+                    new_comment.id,
                     None,
                     false
                 );
@@ -2430,7 +2430,7 @@ impl Good {
                     &community,
                     "оставил комментарий к товару".to_string(),
                     84,
-                    new_post.id,
+                    new_comment.id,
                     None,
                     false
                 );
@@ -2444,7 +2444,7 @@ impl Good {
                     &creator,
                     "ответил на комментарий".to_string(),
                     90,
-                    new_post.id,
+                    new_comment.id,
                     None,
                     false
                 );
@@ -2452,7 +2452,7 @@ impl Good {
                     &creator,
                     "ответил на комментарий".to_string(),
                     90,
-                    new_post.id,
+                    new_comment.id,
                     None,
                     false
                 );
@@ -2462,7 +2462,7 @@ impl Good {
                     &creator,
                     "оставил комментарий к товару".to_string(),
                     84,
-                    new_post.id,
+                    new_comment.id,
                     None,
                     false
                 );
@@ -2470,7 +2470,7 @@ impl Good {
                     &creator,
                     "оставил комментарий к товару".to_string(),
                     84,
-                    new_post.id,
+                    new_comment.id,
                     None,
                     false
                 );
