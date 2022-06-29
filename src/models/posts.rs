@@ -2937,6 +2937,92 @@ impl Post {
             .get_result::<PostComment>(&_connection)
             .expect("Error.");
 
+        if self.community_id.is_some() {
+            use crate::models::{create_community_wall, create_community_notify};
+
+            let community = self.get_community();
+            if parent_id.is_some() {
+                create_community_wall (
+                    &user,
+                    &community,
+                    "ответил на комментарий к записи".to_string(),
+                    87,
+                    new_comment.id,
+                    None,
+                    false
+                );
+                create_community_notify (
+                    &user,
+                    &community,
+                    "ответил на комментарий к записи".to_string(),
+                    87,
+                    new_comment.id,
+                    None,
+                    false
+                );
+            }
+            else {
+                create_community_wall (
+                    &user,
+                    &community,
+                    "оставил комментарий к записи".to_string(),
+                    81,
+                    new_comment.id,
+                    None,
+                    false
+                );
+                create_community_notify (
+                    &user,
+                    &community,
+                    "оставил комментарий к записи".to_string(),
+                    81,
+                    new_comment.id,
+                    None,
+                    false
+                );
+            }
+        }
+        else {
+            use crate::models::{create_user_wall, create_user_notify};
+
+            if parent_id.is_some() {
+                create_user_wall (
+                    &user,
+                    "ответил на комментарий к записи".to_string(),
+                    87,
+                    new_comment.id,
+                    None,
+                    false
+                );
+                create_user_notify (
+                    &user,
+                    "ответил на комментарий к записи".to_string(),
+                    87,
+                    new_comment.id,
+                    None,
+                    false
+                );
+            }
+            else {
+                create_user_wall (
+                    &user,
+                    "оставил комментарий к записи".to_string(),
+                    81,
+                    new_comment.id,
+                    None,
+                    false
+                );
+                create_user_notify (
+                    &user,
+                    "оставил комментарий к записи".to_string(),
+                    81,
+                    new_comment.id,
+                    None,
+                    false
+                );
+            }
+        }
+
         return new_comment;
     }
     pub fn get_parent(&self) -> Post {

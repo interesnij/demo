@@ -2399,7 +2399,7 @@ impl Good {
                 create_community_wall (
                     &user,
                     &community,
-                    "ответил на комментарий".to_string(),
+                    "ответил на комментарий к товару".to_string(),
                     90,
                     new_comment.id,
                     None,
@@ -2408,7 +2408,7 @@ impl Good {
                 create_community_notify (
                     &user,
                     &community,
-                    "ответил на комментарий".to_string(),
+                    "ответил на комментарий к товару".to_string(),
                     90,
                     new_comment.id,
                     None,
@@ -2442,7 +2442,7 @@ impl Good {
             if parent_id.is_some() {
                 create_user_wall (
                     &user,
-                    "ответил на комментарий".to_string(),
+                    "ответил на комментарий к товару".to_string(),
                     90,
                     new_comment.id,
                     None,
@@ -2450,7 +2450,7 @@ impl Good {
                 );
                 create_user_notify (
                     &user,
-                    "ответил на комментарий".to_string(),
+                    "ответил на комментарий к товару".to_string(),
                     90,
                     new_comment.id,
                     None,
