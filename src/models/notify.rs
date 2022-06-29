@@ -540,7 +540,7 @@ impl WallObject {
         };
     }
     pub fn get_verb(&self) -> String {
-        let verb = self.verb;
+        let verb = &self.verb;
 
         // можно добавить текст комментов и так далее...
         //if self.types > 80 && self.types < 100 {
