@@ -20,7 +20,7 @@
               %>
 
               <% for object in object_list.iter() { %>
-                <%= object.get_verb() %>
+                <%- object.get_verb() %>
                 <%- add_post(object.object_id, user_id, is_staff) %>
               <% } %>
               <% if next_page_number > 0 { %>
