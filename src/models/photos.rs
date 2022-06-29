@@ -2687,7 +2687,7 @@ impl Photo {
                     &user,
                     "ответил на комментарий к фотографии".to_string(),
                     88,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2695,7 +2695,7 @@ impl Photo {
                     &user,
                     "ответил на комментарий к фотографии".to_string(),
                     88,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2705,7 +2705,7 @@ impl Photo {
                     &user,
                     "оставил комментарий к фотографии".to_string(),
                     82,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );
@@ -2713,7 +2713,7 @@ impl Photo {
                     &user,
                     "оставил комментарий к фотографии".to_string(),
                     82,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );

@@ -2444,7 +2444,7 @@ impl Good {
                     &user,
                     "ответил на комментарий к товару".to_string(),
                     90,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2452,7 +2452,7 @@ impl Good {
                     &user,
                     "ответил на комментарий к товару".to_string(),
                     90,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2462,7 +2462,7 @@ impl Good {
                     &user,
                     "оставил комментарий к товару".to_string(),
                     84,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );
@@ -2470,7 +2470,7 @@ impl Good {
                     &user,
                     "оставил комментарий к товару".to_string(),
                     84,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );

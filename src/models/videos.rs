@@ -2718,7 +2718,7 @@ impl Video {
                     &user,
                     "ответил на комментарий к видеозаписи".to_string(),
                     89,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2726,7 +2726,7 @@ impl Video {
                     &user,
                     "ответил на комментарий к видеозаписи".to_string(),
                     89,
-                    new_comment.id,
+                    parent_id.unwrap(),
                     None,
                     false
                 );
@@ -2736,7 +2736,7 @@ impl Video {
                     &user,
                     "оставил комментарий к видеозаписи".to_string(),
                     83,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );
@@ -2744,7 +2744,7 @@ impl Video {
                     &user,
                     "оставил комментарий к видеозаписи".to_string(),
                     83,
-                    new_comment.id,
+                    self.id,
                     None,
                     false
                 );
