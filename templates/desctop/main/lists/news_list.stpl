@@ -14,14 +14,13 @@
           <span class="is_paginate">
             <% if count > 0 { %>
               <%
-                use crate::utils::add_post;
                 let is_staff = request_user.is_manager();
                 let user_id = request_user.id;
               %>
 
               <% for object in object_list.iter() { %>
                 <%- object.get_verb() %>
-                <%- add_post(object.object_id, user_id, is_staff) %>
+                <%- object.get_item(user_id, is_staff) %>
               <% } %>
               <% if next_page_number > 0 { %>
               <div class="load centered m-1 next_page_list" data-link="/?page=<%= next_page_number %>">

@@ -530,6 +530,7 @@ impl WallObject {
             return "".to_string();
         }
         else {
+
             if self.is_have_object_set() {
                 let first_notify = self.get_first_object_set();
                 let creator = first_notify.get_creator();
@@ -571,6 +572,20 @@ impl WallObject {
                 );
             }
         }
+    }
+    pub fn get_item(&self, user_id: i32, is_staff: bool) -> String {
+        return match self.object_id {
+            1 => {
+                use crate::utils::add_user;
+                add_user(self.object_id)
+            },
+            2 => {
+                use crate::utils::add_community;
+                add_community(self.object_id)
+            },
+            _ => "".to_string(),
+        };
+
     }
 }
 
