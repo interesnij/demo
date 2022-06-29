@@ -3132,7 +3132,7 @@ impl VideoComment {
 
     pub fn get_small_content(&self) -> String {
         if self.content.is_some() {
-            _content = self.content.as_deref().unwrap();
+            let _content = self.content.as_deref().unwrap();
             if _content.len() > 50 {
                 return _content[..50].to_string();
             }
