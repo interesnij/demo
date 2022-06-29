@@ -788,7 +788,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
                 .filter(schema::wall_objects::action_community_id.eq(action_community_id))
                 .filter(schema::wall_objects::object_id.eq(object_id))
                 .filter(schema::wall_objects::types.eq(types))
-                .filter(schema::wall_objects::verb.like(word_ilike))
+                .filter(schema::wall_objects::verb.like(&word_ilike))
                 .load::<WallObject>(&_connection)
                 .expect("E");
             if wall_exists.len() > 0 {
@@ -841,7 +841,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
                 .filter(schema::wall_objects::types.eq(types))
                 //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                 .filter(schema::wall_objects::action_community_id.eq(action_community_id))
-                .filter(schema::wall_objects::verb.ilike("%".to_owned() + &word_ilike + &"%".to_string()))
+                .filter(schema::wall_objects::verb.ilike(&word_ilike))
                 .filter(schema::wall_objects::object_set_id.is_null())
                 .load::<WallObject>(&_connection)
                 .expect("E")
@@ -853,7 +853,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
                     .filter(schema::wall_objects::types.eq(types))
                     //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                     .filter(schema::wall_objects::action_community_id.eq(action_community_id))
-                    .filter(schema::wall_objects::verb.ilike("%".to_owned() + &word_ilike + &"%".to_string()))
+                    .filter(schema::wall_objects::verb.ilike(&word_ilike))
                     .load::<WallObject>(&_connection)
                     .expect("E")
                     .into_iter()
