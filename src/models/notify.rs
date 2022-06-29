@@ -50,13 +50,13 @@ use crate::models::{User, Community};
 
 pub fn get_verb(verb: &str, is_women: bool) -> (String, String, String) {
     let words: Vec<&str> = verb.split(" ").collect();
-    let mut first_word = "".to_string();
+    let mut word_ilike = "".to_string();
     let mut group_word = "".to_string();
     let mut new_verb = "".to_string();
 
     for (count, word) in words.iter().enumerate() {
         if count == 0 {
-            first_word = word.to_string();
+            word_ilike = word.to_string();
             if is_women {
                 new_verb.push_str(&(word.to_string() + &"а".to_string()));
             }
@@ -72,7 +72,7 @@ pub fn get_verb(verb: &str, is_women: bool) -> (String, String, String) {
             new_verb.push_str(&" ".to_string());
         }
     }
-    return (first_word, group_word, new_verb);
+    return (word_ilike, group_word, new_verb);
 }
 
 #[derive(Debug, Queryable, Serialize, Identifiable, Associations)]
@@ -746,12 +746,13 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
 
     let creator_id = creator.id;
     let _connection = establish_connection();
-    let (first_word, group_word, current_verb) = get_verb(&verb, creator.is_women());
+    let (word_ilike, group_word, current_verb) = get_verb(&verb, creator.is_women());
     let date = chrono::Local::now().naive_utc();
 
     if is_group {
         // если вложенность уведомлений включена
         if types < 3 {
+            println!("Пользователь или сообщество");
             // если объект - пользователь или сообщество
             let wall_exists = wall_objects
                 .filter(schema::wall_objects::user_id.eq(creator.id))
@@ -762,6 +763,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
                 .load::<WallObject>(&_connection)
                 .expect("E");
             if wall_exists.len() > 0 {
+                println!("подобное уведомление уже создавалось");
                 // если подобное уведомление уже создавалось
                 return
             }
@@ -780,15 +782,17 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
         }
         else {
             // если объект общего порядка
+            println!("объект общего порядка");
             let wall_exists = wall_objects
                 .filter(schema::wall_objects::user_id.eq(creator.id))
                 .filter(schema::wall_objects::action_community_id.eq(action_community_id))
                 .filter(schema::wall_objects::object_id.eq(object_id))
                 .filter(schema::wall_objects::types.eq(types))
-                .filter(schema::wall_objects::verb.like("%".to_owned() + &first_word + &"%".to_string()))
+                .filter(schema::wall_objects::verb.like("%".to_owned() + &word_ilike + &"%".to_string()))
                 .load::<WallObject>(&_connection)
                 .expect("E");
             if wall_exists.len() > 0 {
+                println!("уведомление уже создавалось");
                 // если подобное уведомление уже создавалось
                 return
             }
@@ -798,7 +802,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
             else if wall_objects
                 .filter(schema::wall_objects::user_id.eq(creator.id))
                 .filter(schema::wall_objects::types.eq(types))
-                .filter(schema::wall_objects::created.gt(date - Duration::hours(24)))
+                //.filter(schema::wall_objects::created.gt(date - Duration::hours(24)))
                 .filter(schema::wall_objects::action_community_id.eq(action_community_id))
                 .filter(schema::wall_objects::user_set_id.is_null())
                 .filter(schema::wall_objects::types.eq(types))
@@ -806,10 +810,11 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
                 .expect("E")
                 .len() > 0 {
 
+                println!("пользователь уже совершал сегодня такие действия на аналогичные объекты по типу");
                 let notify = wall_objects
                     .filter(schema::wall_objects::user_id.eq(creator.id))
                     .filter(schema::wall_objects::types.eq(types))
-                    .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+                    //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                     .filter(schema::wall_objects::action_community_id.eq(action_community_id))
                     .filter(schema::wall_objects::verb.eq(current_verb.clone()))
                     .load::<WallObject>(&_connection)
@@ -834,20 +839,21 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
             else if wall_objects
                 .filter(schema::wall_objects::object_id.eq(object_id))
                 .filter(schema::wall_objects::types.eq(types))
-                .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+                //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                 .filter(schema::wall_objects::action_community_id.eq(action_community_id))
-                .filter(schema::wall_objects::verb.ilike("%".to_owned() + &first_word + &"%".to_string()))
+                .filter(schema::wall_objects::verb.ilike("%".to_owned() + &word_ilike + &"%".to_string()))
                 .filter(schema::wall_objects::object_set_id.is_null())
                 .load::<WallObject>(&_connection)
                 .expect("E")
                 .len() > 0 {
 
+                println!("пользователи уже совершали сегодня такие действия на объект по типу");
                 let notify = wall_objects
                     .filter(schema::wall_objects::object_id.eq(object_id))
                     .filter(schema::wall_objects::types.eq(types))
-                    .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+                    //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
                     .filter(schema::wall_objects::action_community_id.eq(action_community_id))
-                    .filter(schema::wall_objects::verb.ilike("%".to_owned() + &first_word + &"%".to_string()))
+                    .filter(schema::wall_objects::verb.ilike("%".to_owned() + &word_ilike + &"%".to_string()))
                     .load::<WallObject>(&_connection)
                     .expect("E")
                     .into_iter()
@@ -867,6 +873,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
             }
             // если пользоваели еще не создавали уведомлений на объект
             else {
+                println!("пользователи еще не создавали уведомлений на объект");
                 create_wall (
                     creator_id,
                     current_verb.clone(),
@@ -881,6 +888,7 @@ pub fn create_user_wall(creator: &User, verb: String, types: i16,
         }
     }
     else {
+        println!("пользователи еще не создавали уведомлений");
         create_wall (
             creator_id,
             current_verb.clone(),
