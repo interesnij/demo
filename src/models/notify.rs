@@ -566,7 +566,6 @@ impl WallObject {
                     creator.get_full_name(),
                     "</a> ",
                     self.verb,
-                    self.count_user_set(),
                     "</p>"
                 );
             }
