@@ -530,14 +530,14 @@ impl WallObject {
                 use crate::utils::get_post_comment;
                 let comment = get_post_comment(self.object_id);
                 if comment.content.is_some() {
-                    comment.content.as_deref().unwrap()
+                    comment.content.as_deref().unwrap().to_string()
                 }
             },
             82 => {
                 use crate::utils::get_photo_comment;
                 let comment = get_photo_comment(self.object_id);
                 if comment.content.is_some() {
-                    comment.content.as_deref().unwrap()
+                    comment.content.as_deref().unwrap().to_string()
                 }
             },
         };
@@ -548,7 +548,7 @@ impl WallObject {
             verb = self.get_comment_verb();
         }
         else {
-            verb = &self.verb;
+            verb = self.verb;
         }
 
         if verb.contains("опуб") {
