@@ -583,6 +583,40 @@ impl WallObject {
                 use crate::utils::add_community;
                 add_community(self.object_id)
             },
+            3 => "".to_string(),
+            4 => "".to_string(),
+            20 => {
+                use crate::utils::add_post_list;
+                add_post_list(self.object_id)
+            },
+            21 => {
+                use crate::utils::add_music_list;
+                add_music_list(self.object_id)
+            },
+            22 => {
+                use crate::utils::add_doc_list;
+                add_doc_list(self.object_id)
+            },
+            23 => {
+                use crate::utils::add_survey_list;
+                add_survey_list(self.object_id)
+            },
+            24 => {
+                use crate::utils::add_photo_list;
+                add_photo_list(self.object_id)
+            },
+            25 => {
+                use crate::utils::add_video_list;
+                add_video_list(self.object_id)
+            },
+            26 => {
+                use crate::utils::add_good_list;
+                add_good_list(self.object_id)
+            },
+            51 => {
+                use crate::utils::add_post;
+                add_post(self.object_id, user_id, is_staff)
+            },
             _ => "".to_string(),
         };
 
