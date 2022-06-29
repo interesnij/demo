@@ -530,7 +530,7 @@ impl WallObject {
                 use crate::utils::get_post_comment;
                 let comment = get_post_comment(self.object_id);
                 comment.get_small_content()
-            }, 
+            },
             82 => {
                 use crate::utils::get_photo_comment;
                 let comment = get_photo_comment(self.object_id);
@@ -541,12 +541,14 @@ impl WallObject {
     }
     pub fn get_verb(&self) -> String {
         let verb: String;
-        if self.types > 80 && self.types < 100 {
-            verb = self.verb.clone() + &self.get_comment_verb();
-        }
-        else {
-            verb = self.verb.clone();
-        }
+
+        // можно добавить текст комментов и так далее...
+        //if self.types > 80 && self.types < 100 {
+        //    verb = self.verb.clone() + &self.get_comment_verb();
+        //}
+        //else {
+        //    verb = self.verb.clone();
+        //}
 
         if verb.contains("опуб") {
             return "".to_string();
@@ -639,14 +641,72 @@ impl WallObject {
                 use crate::utils::add_good_list;
                 add_good_list(self.object_id)
             },
+
             51 => {
                 use crate::utils::add_post;
                 add_post(self.object_id, user_id, is_staff)
             },
-            51 => {
+            81 => {
                 use crate::utils::add_post;
                 add_post(self.object_id, user_id, is_staff)
             },
+            87 => {
+                use crate::utils::add_post;
+                add_post(self.object_id, user_id, is_staff)
+            },
+
+            52 => {
+                use crate::utils::add_music;
+                add_music(self.object_id, is_staff, user_id, "music_list_item".to_string())
+            },
+            53 => {
+                use crate::utils::add_doc;
+                add_doc(self.object_id, is_staff, user_id)
+            },
+            54 => {
+                use crate::utils::add_survey;
+                add_survey(self.object_id, is_staff, user_id)
+            },
+
+            55 => {
+                use crate::utils::add_photo;
+                add_photo(self.object_id, "detail_photo".to_string())
+            },
+            82 => {
+                use crate::utils::add_photo;
+                add_photo(self.object_id, "detail_photo".to_string())
+            },
+            88 => {
+                use crate::utils::add_photo;
+                add_photo(self.object_id, "detail_photo".to_string())
+            },
+
+            56 => {
+                use crate::utils::add_video;
+                add_video(self.object_id, "video_list_detail".to_string())
+            },
+            83 => {
+                use crate::utils::add_video;
+                add_video(self.object_id, "video_list_detail".to_string())
+            },
+            89 => {
+                use crate::utils::add_video;
+                add_video(self.object_id, "video_list_detail".to_string())
+            },
+
+            57 => {
+                use crate::utils::add_good;
+                add_good(self.object_id)
+            },
+            84 => {
+                use crate::utils::add_good;
+                add_good(self.object_id)
+            },
+            90 => {
+                use crate::utils::add_good;
+                add_good(self.object_id)
+            },
+
             _ => "".to_string(),
         };
 
