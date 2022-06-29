@@ -2397,7 +2397,7 @@ impl Good {
             let community = self.get_community();
             if parent_id.is_some() {
                 create_community_wall (
-                    &creator,
+                    &user,
                     &community,
                     "ответил на комментарий".to_string(),
                     90,
@@ -2406,7 +2406,7 @@ impl Good {
                     false
                 );
                 create_community_notify (
-                    &creator,
+                    &user,
                     &community,
                     "ответил на комментарий".to_string(),
                     90,
@@ -2417,7 +2417,7 @@ impl Good {
             }
             else {
                 create_community_wall (
-                    &creator,
+                    &user,
                     &community,
                     "оставил комментарий к товару".to_string(),
                     84,
@@ -2426,7 +2426,7 @@ impl Good {
                     false
                 );
                 create_community_notify (
-                    &creator,
+                    &user,
                     &community,
                     "оставил комментарий к товару".to_string(),
                     84,
@@ -2441,7 +2441,7 @@ impl Good {
 
             if parent_id.is_some() {
                 create_user_wall (
-                    &creator,
+                    &user,
                     "ответил на комментарий".to_string(),
                     90,
                     new_comment.id,
@@ -2449,7 +2449,7 @@ impl Good {
                     false
                 );
                 create_user_notify (
-                    &creator,
+                    &user,
                     "ответил на комментарий".to_string(),
                     90,
                     new_comment.id,
@@ -2459,7 +2459,7 @@ impl Good {
             }
             else {
                 create_user_wall (
-                    &creator,
+                    &user,
                     "оставил комментарий к товару".to_string(),
                     84,
                     new_comment.id,
@@ -2467,7 +2467,7 @@ impl Good {
                     false
                 );
                 create_user_notify (
-                    &creator,
+                    &user,
                     "оставил комментарий к товару".to_string(),
                     84,
                     new_comment.id,
