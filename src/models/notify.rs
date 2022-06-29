@@ -529,22 +529,12 @@ impl WallObject {
             81 => {
                 use crate::utils::get_post_comment;
                 let comment = get_post_comment(self.object_id);
-                if comment.content.is_some() {
-                    comment.content.as_deref().unwrap().to_string()
-                }
-                else {
-                    "".to_string()
-                }
-            },
+                comment.get_small_content()
+            }, 
             82 => {
                 use crate::utils::get_photo_comment;
                 let comment = get_photo_comment(self.object_id);
-                if comment.content.is_some() {
-                    comment.content.as_deref().unwrap().to_string()
-                }
-                else {
-                    "".to_string()
-                }
+                comment.get_small_content()
             },
             _ => "".to_string(),
         };

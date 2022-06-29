@@ -3639,6 +3639,21 @@ impl GoodComment {
         return get_users_from_ids(stack);
     }
 
+    pub fn get_small_content(&self) -> String {
+        if self.content.is_some() {
+            _content = self.content.as_deref().unwrap();
+            if _content.len() > 50 {
+                return _content[..50].to_string();
+            }
+            else {
+                return _content;
+            }
+        }
+        else {
+            return "".to_string();
+        }
+    }
+
     pub fn plus_reactions(&self, count: i32) -> bool {
         let _connection = establish_connection();
         diesel::update(self)

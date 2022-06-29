@@ -3130,7 +3130,20 @@ impl VideoComment {
         return stack;
     }
 
-
+    pub fn get_small_content(&self) -> String {
+        if self.content.is_some() {
+            _content = self.content.as_deref().unwrap();
+            if _content.len() > 50 {
+                return _content[..50].to_string();
+            }
+            else {
+                return _content;
+            }
+        }
+        else {
+            return "".to_string();
+        }
+    }
 
     pub fn get_replies(&self) -> Vec<VideoComment> {
         use crate::schema::video_comments::dsl::video_comments;

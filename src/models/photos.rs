@@ -2601,7 +2601,20 @@ impl Photo {
         }
         return true;
     }
-
+    pub fn get_small_content(&self) -> String {
+        if self.content.is_some() {
+            _content = self.content.as_deref().unwrap();
+            if _content.len() > 50 {
+                return _content[..50].to_string();
+            }
+            else {
+                return _content;
+            }
+        }
+        else {
+            return "".to_string();
+        }
+    }
     pub fn create_comment(&self, user: &User, attach: Option<String>,
         parent_id: Option<i32>, content: Option<String>, sticker_id: Option<i32>) -> PhotoComment {
 
