@@ -2729,6 +2729,7 @@ impl Photo {
         return photo_comments
             .filter(schema::photo_comments::photo_id.eq(self.id))
             .filter(schema::photo_comments::types.eq_any(vec!["a","b"]))
+            .filter(schema::photo_comments::parent_id.is_null()))
             .limit(limit)
             .offset(offset)
             .load::<PhotoComment>(&_connection)
