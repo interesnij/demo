@@ -124,6 +124,72 @@ impl SurveyList {
     pub fn get_code(&self) -> String {
         return "lsu".to_string() + &self.get_str_id();
     }
+    pub fn hide_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(23))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("d"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(23))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("d"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+    pub fn show_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(23))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("b"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(23))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("b"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
     pub fn get_longest_penalties(&self) -> String {
         use crate::schema::moderated_penalties::dsl::moderated_penalties;
         use crate::models::ModeratedPenaltie;
@@ -1174,7 +1240,8 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unclose_item(&self) -> bool {
         let _connection = establish_connection();
@@ -1191,7 +1258,8 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
 
     pub fn delete_item(&self) -> bool {
@@ -1240,7 +1308,8 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn restore_item(&self) -> bool {
         let _connection = establish_connection();
@@ -1288,7 +1357,8 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
 
     pub fn suspend_item(&self) -> bool {
@@ -1306,7 +1376,8 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unsuspend_item(&self) -> bool {
         let _connection = establish_connection();
@@ -1323,7 +1394,8 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
         if self.community_id.is_some() {
@@ -1596,6 +1668,73 @@ impl Survey {
             .limit(6)
             .load::<Post>(&_connection)
             .expect("E");
+    }
+
+    pub fn hide_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(54))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("d"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(54))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("d"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+    pub fn show_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(54))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("b"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(54))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("b"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
     }
 
     pub fn get_time_description(&self) -> String {
@@ -1881,7 +2020,8 @@ impl Survey {
             let creator = self.get_creator();
             creator.minus_surveys(1);
         }
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unclose_item(&self) -> bool {
         let _connection = establish_connection();
@@ -1908,8 +2048,9 @@ impl Survey {
         else {
             let creator = self.get_creator();
             creator.plus_surveys(1);
-         }
-       return true;
+        }
+        show_wall_notify_items();
+        return true;
     }
     pub fn count_reposts(&self) -> String {
         if self.repost > 0 {

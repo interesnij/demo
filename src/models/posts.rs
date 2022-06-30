@@ -184,6 +184,72 @@ impl PostList {
     pub fn get_code(&self) -> String {
         return "lpo".to_string() + &self.get_str_id();
     }
+    pub fn hide_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(20))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("d"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(20))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("d"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+    pub fn show_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(20))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("b"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(20))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("b"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
     pub fn is_open(&self) -> bool {
         return self.types < 10;
     }
@@ -1617,7 +1683,8 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unclose_item(&self) -> bool {
         let _connection = establish_connection();
@@ -1634,7 +1701,8 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
 
     pub fn delete_item(&self) -> bool {
@@ -1683,7 +1751,8 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn restore_item(&self) -> bool {
         let _connection = establish_connection();
@@ -1731,7 +1800,8 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
 
     pub fn suspend_item(&self) -> bool {
@@ -1749,7 +1819,8 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unsuspend_item(&self) -> bool {
         let _connection = establish_connection();
@@ -1766,7 +1837,8 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
         if self.community_id.is_some() {
@@ -1968,6 +2040,72 @@ impl Post {
     }
     pub fn get_folder(&self) -> String {
         return "posts".to_string();
+    }
+    pub fn hide_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(51))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("d"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(51))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("d"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+    pub fn show_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(51))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("b"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(51))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("b"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
     }
     pub fn get_longest_penalties(&self) -> String {
         use crate::schema::moderated_penalties::dsl::moderated_penalties;
@@ -2419,8 +2557,9 @@ impl Post {
         else {
             let creator = self.get_creator();
             creator.minus_posts(1);
-         }
-      return true;
+        }
+        hide_wall_notify_items();
+        return true;
     }
     pub fn restore_item(&self) -> bool {
         let _connection = establish_connection();
@@ -2449,8 +2588,9 @@ impl Post {
         else {
             let creator = self.get_creator();
             creator.plus_posts(1);
-         }
-       return true;
+        }
+        show_wall_notify_items();
+        return true;
     }
 
     pub fn close_item(&self) -> bool {
@@ -2479,7 +2619,8 @@ impl Post {
             let creator = self.get_creator();
             creator.minus_posts(1);
         }
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unclose_item(&self) -> bool {
         let _connection = establish_connection();
@@ -2506,8 +2647,9 @@ impl Post {
         else {
             let creator = self.get_creator();
             creator.plus_posts(1);
-         }
-       return true;
+        }
+        show_wall_notify_items();
+        return true;
     }
     pub fn get_format_text(&self) -> String {
         if self.content.is_some() {
@@ -3354,6 +3496,87 @@ impl PostComment {
         return stack;
     }
 
+    pub fn hide_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let type_int: i16;
+        if self.parent_id.is_some() {
+            type_int = 87
+        }
+        else {
+            type_int = 81
+        }
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(type_int))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("d"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(type_int))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("d"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+    pub fn show_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let type_int: i16;
+        if self.parent_id.is_some() {
+            type_int = 87
+        }
+        else {
+            type_int = 81
+        }
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(type_int))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("b"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(type_int))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("b"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+
     pub fn get_replies(&self) -> Vec<PostComment> {
         use crate::schema::post_comments::dsl::post_comments;
 
@@ -3396,7 +3619,8 @@ impl PostComment {
             .set(schema::post_comments::types.eq(close_case))
             .get_result::<PostComment>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unclose_item(&self) -> bool {
         let _connection = establish_connection();
@@ -3416,7 +3640,8 @@ impl PostComment {
             .set(schema::post_comments::types.eq(close_case))
             .get_result::<PostComment>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
 
     pub fn delete_item(&self) -> bool {
@@ -3437,7 +3662,8 @@ impl PostComment {
             .set(schema::post_comments::types.eq(close_case))
             .get_result::<PostComment>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn restore_item(&self) -> bool {
         let _connection = establish_connection();
@@ -3457,7 +3683,8 @@ impl PostComment {
             .set(schema::post_comments::types.eq(close_case))
             .get_result::<PostComment>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
     pub fn get_count_attach(&self) -> String {
         if self.attach.is_some() {

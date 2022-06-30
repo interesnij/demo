@@ -150,6 +150,7 @@ impl Chat {
             .set(schema::chats::types.eq(close_case))
             .get_result::<Chat>(&_connection)
             .expect("E");
+       hide_wall_notify_items();
        return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -171,6 +172,7 @@ impl Chat {
             .set(schema::chats::types.eq(close_case))
             .get_result::<Chat>(&_connection)
             .expect("E");
+       show_wall_notify_items();
        return true;
     }
 
@@ -188,7 +190,9 @@ impl Chat {
             .set(schema::chats::types.eq(close_case))
             .get_result::<Chat>(&_connection)
             .expect("E");
-       return true;
+
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unclose_item(&self) -> bool {
         let _connection = establish_connection();
@@ -204,8 +208,76 @@ impl Chat {
             .set(schema::chats::types.eq(close_case))
             .get_result::<Chat>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
+    pub fn hide_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(30))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("d"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(30))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("d"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+    pub fn show_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(30))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("b"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(30))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("b"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+
     pub fn get_str_id(&self) -> String {
         return self.id.to_string();
     }

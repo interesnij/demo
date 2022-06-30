@@ -186,6 +186,72 @@ impl VideoList {
     pub fn is_video_list(&self) -> bool {
         return true;
     }
+    pub fn hide_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(25))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("d"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(25))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("d"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+    pub fn show_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(25))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("b"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(25))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("b"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
     pub fn get_code(&self) -> String {
         return "lvi".to_string() + &self.get_str_id();
     }
@@ -1620,7 +1686,8 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unclose_item(&self) -> bool {
         let _connection = establish_connection();
@@ -1637,7 +1704,8 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
 
     pub fn delete_item(&self) -> bool {
@@ -1686,7 +1754,8 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn restore_item(&self) -> bool {
         let _connection = establish_connection();
@@ -1734,7 +1803,8 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
 
     pub fn suspend_item(&self) -> bool {
@@ -1752,7 +1822,8 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unsuspend_item(&self) -> bool {
         let _connection = establish_connection();
@@ -1769,7 +1840,8 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
         if self.community_id.is_some() {
@@ -2381,8 +2453,9 @@ impl Video {
         else {
             let creator = self.get_creator();
             creator.minus_videos(1);
-         }
-      return true;
+        }
+        hide_wall_notify_items();
+        return true;
     }
     pub fn restore_item(&self) -> bool {
         let _connection = establish_connection();
@@ -2411,8 +2484,9 @@ impl Video {
         else {
             let creator = self.get_creator();
             creator.plus_videos(1);
-         }
-       return true;
+        }
+        show_wall_notify_items();
+        return true;
     }
 
     pub fn close_item(&self) -> bool {
@@ -2441,7 +2515,8 @@ impl Video {
             let creator = self.get_creator();
             creator.minus_videos(1);
         }
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unclose_item(&self) -> bool {
         let _connection = establish_connection();
@@ -2468,8 +2543,9 @@ impl Video {
         else {
             let creator = self.get_creator();
             creator.plus_videos(1);
-         }
-       return true;
+        }
+        show_wall_notify_items();
+        return true;
     }
     pub fn get_format_text(&self) -> String {
         if self.description.is_some() {
@@ -2885,6 +2961,72 @@ impl Video {
             .load::<Post>(&_connection)
             .expect("E");
     }
+    pub fn hide_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(56))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("d"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(56))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("d"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+    pub fn show_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(56))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("b"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(56))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("b"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
 }
 /////// VideoComment //////
 
@@ -3233,7 +3375,8 @@ impl VideoComment {
             .set(schema::video_comments::types.eq(close_case))
             .get_result::<VideoComment>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn unclose_item(&self) -> bool {
         let _connection = establish_connection();
@@ -3253,7 +3396,8 @@ impl VideoComment {
             .set(schema::video_comments::types.eq(close_case))
             .get_result::<VideoComment>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
 
     pub fn delete_item(&self) -> bool {
@@ -3274,7 +3418,8 @@ impl VideoComment {
             .set(schema::video_comments::types.eq(close_case))
             .get_result::<VideoComment>(&_connection)
             .expect("E");
-       return true;
+        hide_wall_notify_items();
+        return true;
     }
     pub fn restore_item(&self) -> bool {
         let _connection = establish_connection();
@@ -3294,7 +3439,8 @@ impl VideoComment {
             .set(schema::video_comments::types.eq(close_case))
             .get_result::<VideoComment>(&_connection)
             .expect("E");
-       return true;
+        show_wall_notify_items();
+        return true;
     }
     pub fn get_count_attach(&self) -> String {
         if self.attach.is_some() {
@@ -3608,6 +3754,87 @@ impl VideoComment {
             .get_result::<VideoComment>(&_connection)
             .expect("Error.");
         return true;
+    }
+
+    pub fn hide_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let type_int: i16;
+        if self.parent_id.is_some() {
+            type_int = 89
+        }
+        else {
+            type_int = 83
+        }
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(type_int))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("d"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(type_int))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("d"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+    pub fn show_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let type_int: i16;
+        if self.parent_id.is_some() {
+            type_int = 89
+        }
+        else {
+            type_int = 83
+        }
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(type_int))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("b"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(type_int))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("b"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
     }
 }
 

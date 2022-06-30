@@ -2323,6 +2323,73 @@ impl Community {
         return true;
     }
 
+    pub fn hide_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(2))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("d"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(2))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("d"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+    pub fn show_wall_notify_items(&self) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+        use crate::models::{Notification, WallObject};
+
+        let _connection = establish_connection();
+        let notifiers = notifications
+            .filter(schema::notifications::types.eq(2))
+            .filter(schema::notifications::object_id.eq(self.id))
+            .load::<Notification>(&_connection)
+            .expect("E");
+
+        for item in notifiers.iter() {
+            diesel::update(item)
+                .set(schema::notifications::status.eq("b"))
+                .get_result::<Notification>(&_connection)
+                .expect("Error.");
+        }
+
+        let walls = wall_objects
+            .filter(schema::wall_objects::types.eq(2))
+            .filter(schema::wall_objects::object_id.eq(self.id))
+            .load::<WallObject>(&_connection)
+            .expect("E");
+        for item in walls.iter() {
+            diesel::update(item)
+                .set(schema::wall_objects::status.eq("b"))
+                .get_result::<WallObject>(&_connection)
+                .expect("Error.");
+        }
+    }
+
     pub fn get_members_ids(&self) -> Vec<i32> {
         use crate::schema::communities_memberships::dsl::communities_memberships;
 
