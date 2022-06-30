@@ -2947,7 +2947,8 @@ impl Post {
                     &community,
                     "к записи".to_string(),
                     87,
-                    parent_id.unwrap(),
+                    self.id,
+                    None,
                     new_comment.id,
                     parent_id
                 );
@@ -2956,7 +2957,7 @@ impl Post {
                     &community,
                     "к записи".to_string(),
                     87,
-                    parent_id.unwrap(),
+                    self.id,
                     None,
                     new_comment.id,
                     parent_id
