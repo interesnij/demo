@@ -2761,7 +2761,7 @@ impl Video {
         return video_comments
             .filter(schema::video_comments::video_id.eq(self.id))
             .filter(schema::video_comments::types.eq_any(vec!["a","b"]))
-            .filter(schema::video_comments::parent_id.is_null()))
+            .filter(schema::video_comments::parent_id.is_null())
             .limit(limit)
             .offset(offset)
             .load::<VideoComment>(&_connection)

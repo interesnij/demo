@@ -2488,7 +2488,7 @@ impl Good {
         return good_comments
             .filter(schema::good_comments::good_id.eq(self.id))
             .filter(schema::good_comments::types.eq_any(vec!["a","b"]))
-            .filter(schema::good_comments::parent_id.is_null()))
+            .filter(schema::good_comments::parent_id.is_null())
             .limit(limit)
             .offset(offset)
             .load::<GoodComment>(&_connection)

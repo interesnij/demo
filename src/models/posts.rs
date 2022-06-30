@@ -3054,7 +3054,7 @@ impl Post {
         return post_comments
             .filter(schema::post_comments::post_id.eq(self.id))
             .filter(schema::post_comments::types.eq_any(vec!["a","b"]))
-            .filter(schema::post_comments::parent_id.is_null()))
+            .filter(schema::post_comments::parent_id.is_null())
             .limit(limit)
             .offset(offset)
             .load::<PostComment>(&_connection)
