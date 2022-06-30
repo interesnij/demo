@@ -20,11 +20,11 @@
         <div id="subcat"></div>
       </div>
       <div class="form-group ">
-        <label>Тип открытости</label>
+        <label>Тип сообщества</label>
         <select class="form-control" id="id_type" name="type" data-live-search="true" tabindex="-1" aria-hidden="true">
-          <option value="PUB">Публичный</option>
-          <option value="CLO">Закрытый</option>
-          <option value="PRI">Частный</option>
+          <option value="3">Публичный</option>
+          <option value="2">Закрытый</option>
+          <option value="1">Частный</option>
         </select>
       </div>
     </div>

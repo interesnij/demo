@@ -61,7 +61,7 @@ pub async fn create_community(session: Session, req: HttpRequest, mut payload: M
                     if field.name() == "category_id" {
                         let _int: i32 = data_string.parse().unwrap();
                         form.category_id = _int;
-                    }
+                    } 
                     else if field.name() == "types" {
                         let _int: i16 = data_string.parse().unwrap();
                         form.types = _int;
@@ -95,6 +95,7 @@ pub async fn get_community_subcategories(session: Session, req: HttpRequest, cat
         let _connection = establish_connection();
         let cats = community_subcategorys
             .order(schema::community_subcategorys::position.desc())
+            .filter(schema::community_subcategorys::category_id.eq(*cat_id))
             .load::<CommunitySubcategory>(&_connection)
             .expect("E");
         #[derive(TemplateOnce)]
