@@ -7,7 +7,7 @@ use actix_web::{
     error::InternalError,
     http::StatusCode,
 };
-use crate::diesel::{QueryDsl, RunQueryDsl};
+use crate::diesel::{QueryDsl, RunQueryDsl, ExpressionMethods};
 use crate::utils::{
     is_signed_in,
     get_request_user_data,
