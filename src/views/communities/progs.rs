@@ -32,6 +32,7 @@ use serde::{Serialize, Deserialize};
 
 pub fn progs_urls(config: &mut web::ServiceConfig) {
     config.route("/communities/create_community/", web::post().to(create_community));
+    config.route("/communities/progs/cat/{id}/", web::get().to(get_community_subcategories));
 }
 
 pub async fn create_community(session: Session, req: HttpRequest, mut payload: Multipart) -> actix_web::Result<HttpResponse> {
@@ -81,6 +82,31 @@ pub async fn create_community(session: Session, req: HttpRequest, mut payload: M
         );
         return community_page(session, req, "/public".to_owned() + &new_community.to_string()).await;
 
+    } else {
+        Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
+    }
+}
+
+pub async fn get_community_subcategories(session: Session, req: HttpRequest, cat_id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+    if is_signed_in(&session) {
+        use crate::models::CommunitySubcategory;
+        use crate::schema::community_subcategorys::dsl::community_subcategorys;
+
+        let cats = community_subcategorys
+            .order(schema::community_subcategorys::position.desc())
+            .load::<CommunitySubcategory>(&_connection)
+            .expect("E");
+        #[derive(TemplateOnce)]
+        #[template(path = "desctop/generic/community/cats.stpl")]
+        struct Template {
+            cats: Vec<CommunitySubcategory>,
+        }
+        let body = Template {
+            cats: cats,
+        }
+        .render_once()
+        .map_err(|e| InternalError::new(e, StatusCode::INTERNAL_SERVER_ERROR))?;
+        Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(body))
     } else {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
     }
