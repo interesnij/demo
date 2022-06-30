@@ -3359,7 +3359,7 @@ impl PostComment {
 
         let _connection = establish_connection();
         return post_comments
-            .filter(schema::post_comments::post_id.eq(self.id))
+            .filter(schema::post_comments::parent_id.eq(self.id))
             .filter(schema::post_comments::types.eq_any(vec!["a", "b"]))
             .load::<PostComment>(&_connection)
             .expect("E");
