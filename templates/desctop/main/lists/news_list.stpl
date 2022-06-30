@@ -19,9 +19,7 @@
               %>
 
               <% for object in object_list.iter() { %>
-                object_set <%= object.object_set_id.is_some() %>
-                <br>user_set <%= object.user_set_id.is_some() %>
-                <br><%- object.get_wall_item(user_id, is_staff) %>
+                <%- object.get_wall_item(user_id, is_staff) %>
               <% } %>
               <% if next_page_number > 0 { %>
               <div class="load centered m-1 next_page_list" data-link="/?page=<%= next_page_number %>">

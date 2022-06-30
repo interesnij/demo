@@ -1491,6 +1491,8 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
         .filter(schema::wall_objects::object_id.eq(object_id))
         .filter(schema::wall_objects::created.gt(date - Duration::hours(24)))
         .filter(schema::wall_objects::verb.ilike(&_q_standalone))
+        .filter(schema::wall_objects::user_set_id.is_null())
+        .limit(1)
         .load::<WallObject>(&_connection)
         .expect("E")
         .len() > 0 {
@@ -1581,6 +1583,7 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
     let community_id = Some(community.id);
     let dop_verb: String;
     let _connection = establish_connection();
+    let _q_standalone = "%".to_owned() + &verb + &"%".to_string();
 
     let date = chrono::Local::now().naive_utc();
     if parent_id.is_some() {
@@ -1609,9 +1612,8 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
         .filter(schema::wall_objects::user_id.eq(creator_id))
         .filter(schema::wall_objects::types.eq(types))
         .filter(schema::wall_objects::object_id.eq(object_id))
-        //.filter(schema::wall_objects::created.gt(date - Duration::hours(24)))
-        //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
-        .filter(schema::wall_objects::verb.ilike(&word_ilike))
+        .filter(schema::wall_objects::created.gt(date - Duration::hours(24)))
+        .filter(schema::wall_objects::verb.ilike(&_q_standalone))
         .load::<WallObject>(&_connection)
         .expect("E")
         .len() > 0 {
@@ -1621,9 +1623,8 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
             .filter(schema::wall_objects::user_id.eq(creator_id))
             .filter(schema::wall_objects::types.eq(types))
             .filter(schema::wall_objects::object_id.eq(object_id))
-            //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
-            //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
-            .filter(schema::wall_objects::verb.ilike(&word_ilike))
+            .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+            .filter(schema::wall_objects::verb.ilike(&_q_standalone))
             .filter(schema::wall_objects::user_set_id.is_null())
             .load::<WallObject>(&_connection)
             .expect("E")
@@ -1647,8 +1648,7 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
     else if wall_objects
         .filter(schema::wall_objects::object_id.eq(object_id))
         .filter(schema::wall_objects::types.eq(types))
-        //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
-        //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
+        .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
         .filter(schema::wall_objects::verb.ilike(&word_ilike))
         .load::<WallObject>(&_connection)
         .expect("E")
@@ -1658,9 +1658,8 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
         let wall = wall_objects
             .filter(schema::wall_objects::object_id.eq(object_id))
             .filter(schema::wall_objects::types.eq(types))
-            //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
-            //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
-            .filter(schema::wall_objects::verb.ilike(&word_ilike))
+            .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+            .filter(schema::wall_objects::verb.ilike(&_q_standalone))
             .filter(schema::wall_objects::object_set_id.is_null())
             .load::<WallObject>(&_connection)
             .expect("E")
@@ -1705,6 +1704,7 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
     let creator_id = creator.id;
     let dop_verb: String;
     let _connection = establish_connection();
+    let _q_standalone = "%".to_owned() + &verb + &"%".to_string();
     let (users_ids, _communities_ids) = creator.get_ids_for_notifications();
 
     let date = chrono::Local::now().naive_utc();
@@ -1736,9 +1736,8 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
         .filter(schema::notifications::recipient_id.eq(user_id))
         .filter(schema::notifications::types.eq(types))
         .filter(schema::notifications::object_id.eq(object_id))
-        //.filter(schema::notifications::created.gt(date - Duration::hours(24)))
-        //.filter(schema::notifications::action_community_id.eq(action_community_id))
-        .filter(schema::notifications::verb.ilike(&word_ilike))
+        .filter(schema::notifications::created.gt(date - Duration::hours(24)))
+        .filter(schema::notifications::verb.ilike(&_q_standalone))
         .load::<Notification>(&_connection)
         .expect("E")
         .len() > 0 {
@@ -1749,9 +1748,8 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
             .filter(schema::notifications::recipient_id.eq(user_id))
             .filter(schema::notifications::types.eq(types))
             .filter(schema::notifications::object_id.eq(object_id))
-            //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
-            //.filter(schema::notifications::action_community_id.eq(action_community_id))
-            .filter(schema::notifications::verb.ilike(&word_ilike))
+            .filter(schema::notifications::created.eq(date - Duration::hours(24)))
+            .filter(schema::notifications::verb.ilike(&_q_standalone))
             .filter(schema::notifications::user_set_id.is_null())
             .load::<Notification>(&_connection)
             .expect("E")
@@ -1777,9 +1775,8 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
         .filter(schema::notifications::object_id.eq(object_id))
         .filter(schema::notifications::recipient_id.eq(user_id))
         .filter(schema::notifications::types.eq(types))
-        //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
-        //.filter(schema::notifications::action_community_id.eq(action_community_id))
-        .filter(schema::notifications::verb.ilike(&word_ilike))
+        .filter(schema::notifications::created.eq(date - Duration::hours(24)))
+        .filter(schema::notifications::verb.ilike(&_q_standalone))
         .load::<Notification>(&_connection)
         .expect("E")
         .len() > 0 {
@@ -1789,9 +1786,8 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
             .filter(schema::notifications::object_id.eq(object_id))
             .filter(schema::notifications::recipient_id.eq(user_id))
             .filter(schema::notifications::types.eq(types))
-            //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
-            //.filter(schema::notifications::action_community_id.eq(action_community_id))
-            .filter(schema::notifications::verb.ilike(&word_ilike))
+            .filter(schema::notifications::created.eq(date - Duration::hours(24)))
+            .filter(schema::notifications::verb.ilike(&_q_standalone))
             .filter(schema::notifications::object_set_id.is_null())
             .load::<Notification>(&_connection)
             .expect("E")
@@ -1839,6 +1835,7 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
     let community_id = Some(community.id);
     let dop_verb: String;
     let _connection = establish_connection();
+    let _q_standalone = "%".to_owned() + &verb + &"%".to_string();
     let (_users_ids, communities_ids) = creator.get_ids_for_notifications();
 
     let date = chrono::Local::now().naive_utc();
@@ -1869,9 +1866,8 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
         .filter(schema::notifications::recipient_id.eq(user_id))
         .filter(schema::notifications::types.eq(types))
         .filter(schema::notifications::object_id.eq(object_id))
-        //.filter(schema::notifications::created.gt(date - Duration::hours(24)))
-        //.filter(schema::notifications::action_community_id.eq(action_community_id))
-        .filter(schema::notifications::verb.ilike(&word_ilike))
+        .filter(schema::notifications::created.gt(date - Duration::hours(24)))
+        .filter(schema::notifications::verb.ilike(&_q_standalone))
         .load::<Notification>(&_connection)
         .expect("E")
         .len() > 0 {
@@ -1882,9 +1878,8 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
             .filter(schema::notifications::recipient_id.eq(user_id))
             .filter(schema::notifications::types.eq(types))
             .filter(schema::notifications::object_id.eq(object_id))
-            //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
-            //.filter(schema::notifications::action_community_id.eq(action_community_id))
-            .filter(schema::notifications::verb.ilike(&word_ilike))
+            .filter(schema::notifications::created.eq(date - Duration::hours(24)))
+            .filter(schema::notifications::verb.ilike(&_q_standalone))
             .filter(schema::notifications::user_set_id.is_null())
             .load::<Notification>(&_connection)
             .expect("E")
@@ -1910,9 +1905,8 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
         .filter(schema::notifications::object_id.eq(object_id))
         .filter(schema::notifications::recipient_id.eq(user_id))
         .filter(schema::notifications::types.eq(types))
-        //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
-        //.filter(schema::notifications::action_community_id.eq(action_community_id))
-        .filter(schema::notifications::verb.ilike(&word_ilike))
+        .filter(schema::notifications::created.eq(date - Duration::hours(24)))
+        .filter(schema::notifications::verb.ilike(&_q_standalone))
         .load::<Notification>(&_connection)
         .expect("E")
         .len() > 0 {
@@ -1922,9 +1916,8 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
             .filter(schema::notifications::object_id.eq(object_id))
             .filter(schema::notifications::recipient_id.eq(user_id))
             .filter(schema::notifications::types.eq(types))
-            //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
-            //.filter(schema::notifications::action_community_id.eq(action_community_id))
-            .filter(schema::notifications::verb.ilike(&word_ilike))
+            .filter(schema::notifications::created.eq(date - Duration::hours(24)))
+            .filter(schema::notifications::verb.ilike(&_q_standalone))
             .filter(schema::notifications::object_set_id.is_null())
             .load::<Notification>(&_connection)
             .expect("E")
