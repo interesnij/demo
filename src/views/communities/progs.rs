@@ -1,3 +1,4 @@
+use crate::schema;
 use actix_web::{
     HttpResponse,
     HttpRequest,
@@ -6,13 +7,11 @@ use actix_web::{
     error::InternalError,
     http::StatusCode,
 };
-use crate::diesel::QueryDsl;
+use crate::diesel::{QueryDsl, RunQueryDsl};
 use crate::utils::{
     is_signed_in,
     get_request_user_data,
-    //get_community,
-    //get_community_permission,
-    //get_user_permission,
+    establish_connection,
 };
 use actix_session::Session;
 use sailfish::TemplateOnce;
@@ -93,6 +92,7 @@ pub async fn get_community_subcategories(session: Session, req: HttpRequest, cat
         use crate::models::CommunitySubcategory;
         use crate::schema::community_subcategorys::dsl::community_subcategorys;
 
+        let _connection = establish_connection();
         let cats = community_subcategorys
             .order(schema::community_subcategorys::position.desc())
             .load::<CommunitySubcategory>(&_connection)
