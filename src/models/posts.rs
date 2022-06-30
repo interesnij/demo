@@ -1838,7 +1838,7 @@ impl PostList {
             create_community_wall (
                 &creator,
                 &community,
-                "опубликовал запись".to_string(),
+                "создал запись".to_string(),
                 51,
                 new_post.id,
                 None,
@@ -1847,7 +1847,7 @@ impl PostList {
             create_community_notify (
                 &creator,
                 &community,
-                "опубликовал запись".to_string(),
+                "создал запись".to_string(),
                 51,
                 new_post.id,
                 None,
@@ -1860,7 +1860,7 @@ impl PostList {
             creator.plus_posts(1);
             create_user_wall (
                 &creator,
-                "опубликовал запись".to_string(),
+                "создал запись".to_string(),
                 51,
                 new_post.id,
                 None,
@@ -1868,7 +1868,7 @@ impl PostList {
             );
             create_user_notify (
                 &creator,
-                "опубликовал запись".to_string(),
+                "создал запись".to_string(),
                 51,
                 new_post.id,
                 None,
@@ -3006,7 +3006,7 @@ impl Post {
                     self.id,
                     None,
                     new_comment.id,
-                    None
+                    parent_id
                 );
             }
             else {

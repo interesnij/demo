@@ -1338,6 +1338,8 @@ impl SurveyList {
         image: Option<String>, is_anonymous: bool,
         is_multiple: bool, is_no_edited: bool, time_end: Option<String>) -> Survey {
 
+        use crate::utils::get_user;
+
         let _connection = establish_connection();
         let _title: String;
         if title.len() > 99 {
@@ -1369,23 +1371,58 @@ impl SurveyList {
             position: (self.count).try_into().unwrap(),
             vote: 0,
           };
+
           let new_survey = diesel::insert_into(schema::surveys::table)
-              .values(&new_survey_form)
-              .get_result::<Survey>(&_connection)
-              .expect("Error.");
+            .values(&new_survey_form)
+            .get_result::<Survey>(&_connection)
+            .expect("Error.");
 
-        if community_id.is_some() {
-            let community = self.get_community();
-            community.plus_surveys(1);
-            return new_survey;
-        }
-        else {
-            use crate::utils::get_user;
+          if community_id.is_some() {
+              use crate::models::{create_community_wall, create_community_notify};
 
-            let creator = get_user(user_id);
-            creator.plus_surveys(1);
-            return new_survey;
-        }
+              let community = self.get_community();
+              community.plus_surveys(1);
+              create_community_wall (
+                  &creator,
+                  &community,
+                  "создал опрос".to_string(),
+                  54,
+                  new_survey.id,
+                  None,
+                  false
+              );
+              create_community_notify (
+                  &creator,
+                  &community,
+                  "создал опрос".to_string(),
+                  54,
+                  new_survey.id,
+                  None,
+                  false
+              );
+          }
+          else {
+              use crate::models::{create_user_wall, create_user_notify};
+
+              creator.plus_surveys(1);
+              create_user_wall (
+                  &creator,
+                  "создал опрос".to_string(),
+                  54,
+                  new_survey.id,
+                  None,
+                  false
+              );
+              create_user_notify (
+                  &creator,
+                  "создал опрос".to_string(),
+                  54,
+                  new_survey.id,
+                  None,
+                  false
+              );
+          }
+          return new_survey;
     }
 }
 /////// Survey //////

@@ -1344,7 +1344,10 @@ impl DocList {
     pub fn create_doc(&self, title: String, community_id: Option<i32>, user_id: i32,
         types_2: String, file: String) -> Doc {
 
+        use crate::utils::get_user;
+
         let _connection = establish_connection();
+        let creator = get_user(user_id);
         let _title: String;
         if title.len() > 199 {
             _title = title[..200].to_string();
@@ -1373,17 +1376,52 @@ impl DocList {
               .expect("Error.");
 
         if community_id.is_some() {
+            use crate::models::{create_community_wall, create_community_notify};
+
             let community = self.get_community();
             community.plus_docs(1);
-            return new_doc;
+            create_community_wall (
+                &creator,
+                &community,
+                "создал документ".to_string(),
+                53,
+                new_doc.id,
+                None,
+                true
+            );
+            create_community_notify (
+                &creator,
+                &community,
+                "создал документ".to_string(),
+                53,
+                new_doc.id,
+                None,
+                true
+            );
         }
         else {
-            use crate::utils::get_user;
+            use crate::models::{create_user_wall, create_user_notify};
 
-            let creator = get_user(user_id);
+            create_user_wall (
+                &creator,
+                "создал документ".to_string(),
+                53,
+                new_doc.id,
+                None,
+                true
+            );
+            create_user_notify (
+                &creator,
+                "создал документ".to_string(),
+                53,
+                new_doc.id,
+                None,
+                true
+            );
             creator.plus_docs(1);
-            return new_doc;
         }
+
+        return new_doc;
     }
 }
 

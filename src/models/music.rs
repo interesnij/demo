@@ -1514,6 +1514,8 @@ impl MusicList {
         user_id: i32, genre_id: Option<i32>, artist_id: Option<i32>,
         file: String, image: Option<String>) -> Music {
 
+        use crate::utils::get_user;
+
         let _connection = establish_connection();
         let _title: String;
         if title.len() > 99 {
@@ -1546,17 +1548,51 @@ impl MusicList {
               .expect("Error.");
 
         if community_id.is_some() {
+            use crate::models::{create_community_wall, create_community_notify};
+
             let community = self.get_community();
             community.plus_tracks(1);
-            return new_music;
+            create_community_wall (
+                &creator,
+                &community,
+                "создал аудиозапись".to_string(),
+                52,
+                new_music.id,
+                None,
+                true
+            );
+            create_community_notify (
+                &creator,
+                &community,
+                "создал аудиозапись".to_string(),
+                52,
+                new_music.id,
+                None,
+                true
+            );
         }
         else {
-            use crate::utils::get_user;
+            use crate::models::{create_user_wall, create_user_notify};
 
-            let creator = get_user(user_id);
             creator.plus_tracks(1);
-            return new_music;
+            create_user_wall (
+                &creator,
+                "создал аудиозапись".to_string(),
+                52,
+                new_music.id,
+                None,
+                true
+            );
+            create_user_notify (
+                &creator,
+                "создал аудиозапись".to_string(),
+                52,
+                new_music.id,
+                None,
+                true
+            );
         }
+        return new_music;
     }
     pub fn get_image(&self) -> String {
         if self.image.is_some() {

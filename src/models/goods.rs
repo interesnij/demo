@@ -1845,6 +1845,8 @@ impl GoodList {
         image: Option<String>, comment_enabled: bool,
         images: Vec<String>) -> Good {
 
+        use crate::utils::get_user;
+
         let _connection = establish_connection();
         let _title: String;
         if title.len() > 99 {
@@ -1901,17 +1903,51 @@ impl GoodList {
                 .expect("Error saving good image.");
             }
         if community_id.is_some() {
+            use crate::models::{create_community_wall, create_community_notify};
+
             let community = self.get_community();
             community.plus_goods(1);
-            return new_good;
+            create_community_wall (
+                &creator,
+                &community,
+                "создал товар".to_string(),
+                57,
+                new_good.id,
+                None,
+                true
+            );
+            create_community_notify (
+                &creator,
+                &community,
+                "создал товар".to_string(),
+                57,
+                new_good.id,
+                None,
+                true
+            );
         }
         else {
-            use crate::utils::get_user;
+            use crate::models::{create_user_wall, create_user_notify};
 
-            let creator = get_user(user_id);
             creator.plus_goods(1);
-            return new_good;
+            create_user_wall (
+                &creator,
+                "создал товар".to_string(),
+                57,
+                new_good.id,
+                None,
+                true
+            );
+            create_user_notify (
+                &creator,
+                "создал товар".to_string(),
+                57,
+                new_good.id,
+                None,
+                true
+            );
         }
+        return new_good;
     }
 }
 /////// Good //////
@@ -2387,92 +2423,100 @@ impl Good {
             reactions:  0,
         };
         let new_comment = diesel::insert_into(schema::good_comments::table)
-            .values(&new_comment_form)
-            .get_result::<GoodComment>(&_connection)
-            .expect("Error.");
+        .values(&new_comment_form)
+        .get_result::<GoodComment>(&_connection)
+        .expect("Error.");
 
         if self.community_id.is_some() {
-            use crate::models::{create_community_wall, create_community_notify};
+            use crate::models::{create_comment_community_wall, create_comment_community_notify};
 
             let community = self.get_community();
             if parent_id.is_some() {
-                create_community_wall (
+                create_comment_community_wall (
                     &user,
                     &community,
-                    "ответил на комментарий к товару".to_string(),
+                    "товару".to_string(),
                     90,
-                    parent_id.unwrap(),
+                    self.id,
                     None,
-                    true
+                    new_comment.id,
+                    parent_id
                 );
-                create_community_notify (
+                create_comment_community_notify (
                     &user,
                     &community,
-                    "ответил на комментарий к товару".to_string(),
+                    "товару".to_string(),
                     90,
-                    parent_id.unwrap(),
+                    self.id,
                     None,
-                    true
+                    new_comment.id,
+                    parent_id
                 );
             }
             else {
-                create_community_wall (
+                create_comment_community_wall (
                     &user,
                     &community,
-                    "оставил комментарий к товару".to_string(),
+                    "товару".to_string(),
                     84,
                     self.id,
                     None,
-                    true
+                    new_comment.id,
+                    None
                 );
-                create_community_notify (
+                create_comment_community_notify (
                     &user,
                     &community,
-                    "оставил комментарий к товару".to_string(),
+                    "товару".to_string(),
                     84,
                     self.id,
                     None,
-                    true
+                    new_comment.id,
+                    None
                 );
             }
         }
         else {
-            use crate::models::{create_user_wall, create_user_notify};
+            use crate::models::{create_comment_user_wall, create_comment_user_notify};
 
             if parent_id.is_some() {
-                create_user_wall (
+                create_comment_user_wall (
                     &user,
-                    "ответил на комментарий к товару".to_string(),
+                    "товару".to_string(),
                     90,
-                    parent_id.unwrap(),
+                    self.id,
                     None,
-                    true
+                    new_comment.id,
+                    parent_id
                 );
-                create_user_notify (
+                create_comment_user_notify (
                     &user,
-                    "ответил на комментарий к товару".to_string(),
+                    "товару".to_string(),
                     90,
-                    parent_id.unwrap(),
+                    self.id,
                     None,
-                    true
+                    new_comment.id,
+                    parent_id
                 );
             }
             else {
-                create_user_wall (
+                create_comment_user_wall (
                     &user,
-                    "оставил комментарий к товару".to_string(),
+                    "товару".to_string(),
                     84,
                     self.id,
                     None,
-                    true
+                    new_comment.id,
+                    None
                 );
-                create_user_notify (
+                create_comment_user_notify (
                     &user,
-                    "оставил комментарий к товару".to_string(),
+                    "товару".to_string(),
                     84,
                     self.id,
                     None,
-                    true
+                    new_comment.id,
+                    None
                 );
             }
         }
