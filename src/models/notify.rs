@@ -958,7 +958,7 @@ pub fn create_community_wall(creator: &User, community: &Community,
                 .filter(schema::wall_objects::action_community_id.eq(action_community_id))
                 .filter(schema::wall_objects::object_id.eq(object_id))
                 .filter(schema::wall_objects::types.eq(types))
-                .filter(schema::wall_objects::verb.like(_q_standalone))
+                .filter(schema::wall_objects::verb.like(&_q_standalone))
                 .load::<WallObject>(&_connection)
                 .expect("E");
             if wall_exists.len() > 0 {
@@ -1154,7 +1154,7 @@ pub fn create_user_notify(creator: &User, verb: String, types: i16,
                     .filter(schema::notifications::action_community_id.eq(action_community_id))
                     .filter(schema::notifications::object_id.eq(object_id))
                     .filter(schema::notifications::types.eq(types))
-                    .filter(schema::notifications::verb.like(_q_standalone))
+                    .filter(schema::notifications::verb.like(&_q_standalone))
                     .load::<Notification>(&_connection)
                     .expect("E");
                 if notifications_exists.len() > 0 {
@@ -1334,7 +1334,7 @@ pub fn create_community_notify(creator: &User, community: &Community,
                     .filter(schema::notifications::action_community_id.eq(action_community_id))
                     .filter(schema::notifications::object_id.eq(object_id))
                     .filter(schema::notifications::types.eq(types))
-                    .filter(schema::notifications::verb.like(_q_standalone))
+                    .filter(schema::notifications::verb.like(&_q_standalone))
                     .load::<Notification>(&_connection)
                     .expect("E");
                 if notifications_exists.len() > 0 {
