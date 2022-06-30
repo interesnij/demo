@@ -3006,7 +3006,7 @@ impl Post {
                     self.id,
                     None,
                     new_comment.id,
-                    parent_id
+                    None
                 );
             }
             else {

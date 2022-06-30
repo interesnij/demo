@@ -1459,6 +1459,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
 
     let creator_id = creator.id;
     let dop_verb: String;
+    let alike_word: String;
     let _connection = establish_connection();
 
     let date = chrono::Local::now().naive_utc();
@@ -1470,7 +1471,8 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
             parent_id.unwrap().to_string(),
             "'>комментарий</a> к <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
             object_id.to_string(), "'>", verb, "</a>"
-        )
+        );
+        alike_word = "ответ".to_string();
     }
     else {
         dop_verb = concat_string!(
@@ -1478,10 +1480,11 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
             comment_id.to_string(),
             "'>комментарий</a> к <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
             object_id.to_string(), "'>", verb, "</a>"
-        )
+        );
+        alike_word = "комментарий".to_string();
     }
-    let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
-    let _q_standalone = "%".to_owned() + &word_ilike + &"%".to_string();
+    let (_word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
+    let _q_standalone = "%".to_owned() + &alike_word + &"%".to_string();
     // если пользователь уже совершал сегодня такие действия
     // на аналогичные объекты по типу
     if wall_objects
