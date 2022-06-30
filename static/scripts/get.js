@@ -156,16 +156,16 @@ on('body', 'click', '.reply_comment_btn', function() {
   block = form.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
   type = this.getAttribute('data-types');
   pk = type.slice(3);
-  if (type.indexOf('pos') !== -1) {
+  if (type.indexOf('cpo') !== -1) {
     url = "/posts/add_reply/" + pk + "/";
   }
-  else if (type.indexOf('goo') !== -1) {
+  else if (type.indexOf('cgo') !== -1) {
     url = "/goods/add_reply/" + pk + "/";
   }
-  else if (type.indexOf('pho') !== -1) {
+  else if (type.indexOf('cph') !== -1) {
     url = "/photos/add_reply/" + pk + "/";
   }
-  else if (type.indexOf('vid') !== -1) {
+  else if (type.indexOf('cvi') !== -1) {
     url = "/video/add_reply/" + pk + "/";
   }
 
