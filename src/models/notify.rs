@@ -1468,16 +1468,16 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
             comment_id.to_string(),
             "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
             parent_id.unwrap().to_string(),
-            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> к ", verb, "</a>"
+            "'>комментарий</a> к <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
         )
     }
     else {
         dop_verb = concat_string!(
             "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
             comment_id.to_string(),
-            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> к ", verb, "</a>"
+            "'>комментарий</a> к <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
@@ -1489,7 +1489,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
         .filter(schema::wall_objects::types.eq(types))
         .filter(schema::wall_objects::object_id.eq(object_id))
         //.filter(schema::wall_objects::created.gt(date - Duration::hours(24)))
-        .filter(schema::wall_objects::verb.like(&word_ilike))
+        .filter(schema::wall_objects::verb.like("написал"))
         .load::<WallObject>(&_connection)
         .expect("E")
         .len() > 0 {
@@ -1500,7 +1500,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
             .filter(schema::wall_objects::types.eq(types))
             .filter(schema::wall_objects::object_id.eq(object_id))
             //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
-            .filter(schema::wall_objects::verb.like(&word_ilike))
+            .filter(schema::wall_objects::verb.like("написал"))
             .filter(schema::wall_objects::user_set_id.is_null())
             .load::<WallObject>(&_connection)
             .expect("E")
@@ -1525,7 +1525,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
         .filter(schema::wall_objects::object_id.eq(object_id))
         .filter(schema::wall_objects::types.eq(types))
         //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
-        .filter(schema::wall_objects::verb.like(&word_ilike))
+        .filter(schema::wall_objects::verb.like("написал"))
         .load::<WallObject>(&_connection)
         .expect("E")
         .len() > 0 {
@@ -1535,7 +1535,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
             .filter(schema::wall_objects::object_id.eq(object_id))
             .filter(schema::wall_objects::types.eq(types))
             //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
-            .filter(schema::wall_objects::verb.like(&word_ilike))
+            .filter(schema::wall_objects::verb.like("написал"))
             .filter(schema::wall_objects::object_set_id.is_null())
             .load::<WallObject>(&_connection)
             .expect("E")
@@ -1588,16 +1588,16 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
             comment_id.to_string(),
             "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
             parent_id.unwrap().to_string(),
-            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> к ", verb, "</a>"
+            "'>комментарий</a> к <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
         )
     }
     else {
         dop_verb = concat_string!(
             "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
             comment_id.to_string(),
-            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> к ", verb, "</a>"
+            "'>комментарий</a> к <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
@@ -1713,16 +1713,16 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
             comment_id.to_string(),
             "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
             parent_id.unwrap().to_string(),
-            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> к ", verb, "</a>"
+            "'>комментарий</a> к <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
         )
     }
     else {
         dop_verb = concat_string!(
             "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
             comment_id.to_string(),
-            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> к ", verb, "</a>"
+            "'>комментарий</a> к <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
@@ -1847,16 +1847,16 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
             comment_id.to_string(),
             "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
             parent_id.unwrap().to_string(),
-            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> к ", verb, "</a>"
+            "'>комментарий</a> к <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
         )
     }
     else {
         dop_verb = concat_string!(
             "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
             comment_id.to_string(),
-            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> к ", verb, "</a>"
+            "'>комментарий</a> к <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
