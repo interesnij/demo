@@ -1,0 +1,7 @@
+-- Your SQL goes here
+
+ALTER TABLE wall_objects ALTER COLUMN verb SET
+DATA TYPE VARCHAR(300); 
+
+ALTER TABLE notifications ALTER COLUMN verb SET
+DATA TYPE VARCHAR(300);
