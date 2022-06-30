@@ -3,9 +3,10 @@ use actix_web::{
     HttpRequest,
     web,
     //web::Json,
-    //error::InternalError,
-    //http::StatusCode,
+    error::InternalError,
+    http::StatusCode,
 };
+use crate::diesel::QueryDsl;
 use crate::utils::{
     is_signed_in,
     get_request_user_data,
@@ -14,7 +15,7 @@ use crate::utils::{
     //get_user_permission,
 };
 use actix_session::Session;
-//use sailfish::TemplateOnce;
+use sailfish::TemplateOnce;
 use crate::models::{
     Community,
     //User
