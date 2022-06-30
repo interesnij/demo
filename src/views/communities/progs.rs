@@ -61,7 +61,7 @@ pub async fn create_community(session: Session, req: HttpRequest, mut payload: M
                     if field.name() == "category_id" {
                         let _int: i32 = data_string.parse().unwrap();
                         form.category_id = _int;
-                    } 
+                    }
                     else if field.name() == "types" {
                         let _int: i16 = data_string.parse().unwrap();
                         form.types = _int;
@@ -87,7 +87,7 @@ pub async fn create_community(session: Session, req: HttpRequest, mut payload: M
     }
 }
 
-pub async fn get_community_subcategories(session: Session, req: HttpRequest, cat_id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
+pub async fn get_community_subcategories(session: Session, cat_id: web::Path<i32>) -> actix_web::Result<HttpResponse> {
     if is_signed_in(&session) {
         use crate::models::CommunitySubcategory;
         use crate::schema::community_subcategorys::dsl::community_subcategorys;

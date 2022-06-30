@@ -144,7 +144,7 @@ pub struct NewCommunitySubcategory {
 
 /////// Тип сообщества //////
     // 1 приватное сообщество
-    // 2 закрытое сообщество 
+    // 2 закрытое сообщество
     // 3 публичное сообщество
     // 13 удаленное публичное
     // 11 удаленное приватное
@@ -1050,8 +1050,6 @@ impl Community {
 
         let community_id = new_community.id;
 
-        CommunitiesMembership::create_membership(&user, new_community, true, false, false, false);
-
         // записываем профиль нового пользователя
         let _community_info = NewCommunityInfo {
             community_id: community_id,
@@ -1188,6 +1186,7 @@ impl Community {
             .get_result::<CommunitySurveyNotification>(&_connection)
             .expect("Error saving community_survey_notification.");
 
+        CommunitiesMembership::create_membership(&user, new_community, true, false, false, false);
         return community_id;
     }
     pub fn get_draft_posts(&self) -> Vec<Post> {
