@@ -1,6 +1,5 @@
 <% let creator = comment.get_commenter(); %>
 <div class="comment react_style">
-  parent - <%= comment.parent_id.is_some() %>
     <div class="media">
       <a href="<%= creator.link %>" class="ajax">
         <figure>

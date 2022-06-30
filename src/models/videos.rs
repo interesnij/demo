@@ -3151,7 +3151,7 @@ impl VideoComment {
 
         let _connection = establish_connection();
         return video_comments
-            .filter(schema::video_comments::video_id.eq(self.id))
+            .filter(schema::video_comments::parent_id.eq(self.id))
             .filter(schema::video_comments::types.eq_any(vec!["a", "b"]))
             .load::<VideoComment>(&_connection)
             .expect("E");

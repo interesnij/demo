@@ -3237,7 +3237,7 @@ impl GoodComment {
 
         let _connection = establish_connection();
         return good_comments
-            .filter(schema::good_comments::good_id.eq(self.id))
+            .filter(schema::good_comments::parent_id.eq(self.id))
             .filter(schema::good_comments::types.eq_any(vec!["a", "b"]))
             .load::<GoodComment>(&_connection)
             .expect("E");

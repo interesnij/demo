@@ -1462,7 +1462,6 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
     let _connection = establish_connection();
 
     let date = chrono::Local::now().naive_utc();
-    let _q_standalone = "%".to_owned() + &verb + &"%".to_string();
     if parent_id.is_some() {
         dop_verb = concat_string!(
             "написал <a class='underline pointer show_reply_comment' reply-comment-pk='",
@@ -1482,7 +1481,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
-
+    let _q_standalone = "%".to_owned() + &word_ilike + &"%".to_string();
     // если пользователь уже совершал сегодня такие действия
     // на аналогичные объекты по типу
     if wall_objects
@@ -1586,7 +1585,6 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
     let community_id = Some(community.id);
     let dop_verb: String;
     let _connection = establish_connection();
-    let _q_standalone = "%".to_owned() + &verb + &"%".to_string();
 
     let date = chrono::Local::now().naive_utc();
     if parent_id.is_some() {
@@ -1608,7 +1606,7 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
-
+    let _q_standalone = "%".to_owned() + &word_ilike + &"%".to_string();
     // если пользователь уже совершал сегодня такие действия
     // на аналогичные объекты по типу
     if wall_objects
@@ -1707,7 +1705,6 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
     let creator_id = creator.id;
     let dop_verb: String;
     let _connection = establish_connection();
-    let _q_standalone = "%".to_owned() + &verb + &"%".to_string();
     let (users_ids, _communities_ids) = creator.get_ids_for_notifications();
 
     let date = chrono::Local::now().naive_utc();
@@ -1730,7 +1727,7 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
-
+    let _q_standalone = "%".to_owned() + &word_ilike + &"%".to_string();
     // если пользователь уже совершал сегодня такие действия
     // на аналогичные объекты по типу
     for user_id in users_ids.iter() {
@@ -1838,7 +1835,6 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
     let community_id = Some(community.id);
     let dop_verb: String;
     let _connection = establish_connection();
-    let _q_standalone = "%".to_owned() + &verb + &"%".to_string();
     let (_users_ids, communities_ids) = creator.get_ids_for_notifications();
 
     let date = chrono::Local::now().naive_utc();
@@ -1861,6 +1857,7 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
+    let _q_standalone = "%".to_owned() + &word_ilike + &"%".to_string();
     for user_id in communities_ids.iter() {
         // если пользователь уже совершал сегодня такие действия
         // на аналогичные объекты по типу

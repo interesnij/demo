@@ -3052,7 +3052,7 @@ impl PhotoComment {
 
         let _connection = establish_connection();
         return photo_comments
-            .filter(schema::photo_comments::photo_id.eq(self.id))
+            .filter(schema::photo_comments::parent_id.eq(self.id))
             .filter(schema::photo_comments::types.eq_any(vec!["a", "b"]))
             .load::<PhotoComment>(&_connection)
             .expect("E");
