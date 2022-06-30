@@ -2945,7 +2945,7 @@ impl Post {
                 create_comment_community_wall (
                     &user,
                     &community,
-                    "к записи".to_string(),
+                    "записи".to_string(),
                     87,
                     self.id,
                     None,
@@ -2955,7 +2955,7 @@ impl Post {
                 create_comment_community_notify (
                     &user,
                     &community,
-                    "к записи".to_string(),
+                    "записи".to_string(),
                     87,
                     self.id,
                     None,
@@ -2967,7 +2967,7 @@ impl Post {
                 create_comment_community_wall (
                     &user,
                     &community,
-                    "к записи".to_string(),
+                    "записи".to_string(),
                     81,
                     self.id,
                     None,
@@ -2977,7 +2977,7 @@ impl Post {
                 create_comment_community_notify (
                     &user,
                     &community,
-                    "к записи".to_string(),
+                    "записи".to_string(),
                     81,
                     self.id,
                     None,
@@ -2992,7 +2992,7 @@ impl Post {
             if parent_id.is_some() {
                 create_comment_user_wall (
                     &user,
-                    "к записи".to_string(),
+                    "записи".to_string(),
                     87,
                     self.id,
                     None,
@@ -3001,7 +3001,7 @@ impl Post {
                 );
                 create_comment_user_notify (
                     &user,
-                    "к записи".to_string(),
+                    "записи".to_string(),
                     87,
                     self.id,
                     None,
@@ -3012,7 +3012,7 @@ impl Post {
             else {
                 create_comment_user_wall (
                     &user,
-                    "к записи".to_string(),
+                    "записи".to_string(),
                     87,
                     self.id,
                     None,
@@ -3021,7 +3021,7 @@ impl Post {
                 );
                 create_comment_user_notify (
                     &user,
-                    "к записи".to_string(),
+                    "записи".to_string(),
                     87,
                     self.id,
                     None,

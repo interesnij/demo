@@ -1469,7 +1469,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
             "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
             parent_id.unwrap().to_string(),
             "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> ", verb, "</a>"
+            object_id.to_string(), "'> к ", verb, "</a>"
         )
     }
     else {
@@ -1477,7 +1477,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
             "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
             comment_id.to_string(),
             "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> ", verb, "</a>"
+            object_id.to_string(), "'> к ", verb, "</a>"
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
@@ -1589,7 +1589,7 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
             "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
             parent_id.unwrap().to_string(),
             "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> ", verb, "</a>"
+            object_id.to_string(), "'> к ", verb, "</a>"
         )
     }
     else {
@@ -1597,7 +1597,7 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
             "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
             comment_id.to_string(),
             "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> ", verb, "</a>"
+            object_id.to_string(), "'> к ", verb, "</a>"
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
@@ -1714,7 +1714,7 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
             "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
             parent_id.unwrap().to_string(),
             "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> ", verb, "</a>"
+            object_id.to_string(), "'> к ", verb, "</a>"
         )
     }
     else {
@@ -1722,7 +1722,7 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
             "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
             comment_id.to_string(),
             "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> ", verb, "</a>"
+            object_id.to_string(), "'> к ", verb, "</a>"
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
@@ -1848,7 +1848,7 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
             "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
             parent_id.unwrap().to_string(),
             "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> ", verb, "</a>"
+            object_id.to_string(), "'> к ", verb, "</a>"
         )
     }
     else {
@@ -1856,7 +1856,7 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
             "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
             comment_id.to_string(),
             "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
-            object_id.to_string(), "'> ", verb, "</a>"
+            object_id.to_string(), "'> к ", verb, "</a>"
         )
     }
     let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
