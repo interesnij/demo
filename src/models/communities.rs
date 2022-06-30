@@ -518,13 +518,36 @@ impl Community {
         use crate::schema::community_infos::dsl::community_infos;
 
         let _connection = establish_connection();
-        return community_infos
+        infos = community_infos
             .filter(schema::community_infos::id.eq(self.id))
             .load::<CommunityInfo>(&_connection)
-            .expect("E.")
-            .into_iter()
-            .nth(0)
-            .unwrap();
+            .expect("E.");
+
+        if infos.len() > 0 {
+            return infos.into_iter().nth(0).unwrap();
+        }
+        else {
+            let _community_info = NewCommunityInfo {
+                community_id: self.id,
+                posts:        0,
+                members:      0,
+                photos:       0,
+                goods:        0,
+                tracks:       0,
+                videos:       0,
+                docs:         0,
+                articles:     0,
+                survey:       0,
+                planners:     0,
+                avatar_id:    None,
+            };
+            let new_info = diesel::insert_into(schema::community_infos::table)
+                .values(&_community_info)
+                .get_result::<CommunityInfo>(&_connection)
+                .expect("Error saving user_profile.");
+
+            return new_info;
+        }
     }
     pub fn plus_photos(&self, count: i32) -> bool {
         let profile = self.get_info_model();
