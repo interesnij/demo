@@ -166,7 +166,6 @@ impl User {
             notifications::dsl::notifications,
             wall_objects::dsl::wall_objects,
         };
-        use crate::models::{Notification, WallObject};
 
         let _connection = establish_connection();
         let notifiers = notifications
@@ -199,7 +198,6 @@ impl User {
             notifications::dsl::notifications,
             wall_objects::dsl::wall_objects,
         };
-        use crate::models::{Notification, WallObject};
 
         let _connection = establish_connection();
         let notifiers = notifications
