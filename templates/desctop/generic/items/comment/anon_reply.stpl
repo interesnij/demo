@@ -28,11 +28,10 @@
       <% } %>
     <% } %>
 
-      <% if comment.reactions == 0 { %>
+      <% if comment.reactions != 0 && c_reactions_list.len() != 0 { %>
         <div class="">
             <div class="row">
                 <div class="col" data-type="<%= reply.get_code() %>" data-subtype="comment">
-                <% if c_reactions_list.len() != 0 { %>
                     <% let reply_reactions_count = reply.get_or_create_react_model(); %>
 
                     <span class="react_items comments" data-type="<%= reply.get_code() %>" style="display: inline-flex">
@@ -60,7 +59,6 @@
                         <% } %>
                       <% } %>
                     </span>
-                <% } %>
                 </div>
             </div>
         </div>
