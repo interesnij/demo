@@ -313,7 +313,7 @@ impl PhotoList {
         use crate::utils::get_user;
 
         let _connection = establish_connection();
-
+        let creator = get_user(user_id);
         let new_photo_form = NewPhoto {
           community_id: community_id,
           user_id: user_id,

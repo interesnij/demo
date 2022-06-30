@@ -1517,6 +1517,7 @@ impl MusicList {
         use crate::utils::get_user;
 
         let _connection = establish_connection();
+        let creator = get_user(user_id);
         let _title: String;
         if title.len() > 99 {
             _title = title[..100].to_string();
