@@ -1502,7 +1502,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
             .filter(schema::wall_objects::user_id.eq(creator_id))
             .filter(schema::wall_objects::types.eq(types))
             .filter(schema::wall_objects::object_id.eq(object_id))
-            .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+            .filter(schema::wall_objects::created.gt(date - Duration::hours(24)))
             .filter(schema::wall_objects::verb.ilike(&_q_standalone))
             .filter(schema::wall_objects::user_set_id.is_null())
             .load::<WallObject>(&_connection)
@@ -1529,6 +1529,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
         .filter(schema::wall_objects::types.eq(types))
         .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
         .filter(schema::wall_objects::verb.ilike(&_q_standalone))
+        .filter(schema::wall_objects::object_set_id.is_null())
         .load::<WallObject>(&_connection)
         .expect("E")
         .len() > 0 {
