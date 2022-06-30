@@ -1671,7 +1671,7 @@ pub fn create_comment_community_wall(creator: &User, community: &Community,
         .filter(schema::wall_objects::object_id.eq(object_id))
         .filter(schema::wall_objects::types.eq(types))
         .filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
-        .filter(schema::wall_objects::verb.ilike(&word_ilike))
+        .filter(schema::wall_objects::verb.ilike(&_q_standalone))
         .filter(schema::wall_objects::object_set_id.is_null())
         .limit(1)
         .load::<WallObject>(&_connection)
@@ -1754,6 +1754,7 @@ pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
     }
     let (_word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
     let _q_standalone = "%".to_owned() + &alike_word + &"%".to_string();
+    let (users_ids, _communities_ids) = creator.get_ids_for_notifications();
     // если пользователь уже совершал сегодня такие действия
     // на аналогичные объекты по типу
     for user_id in users_ids.iter() {
@@ -1892,6 +1893,7 @@ pub fn create_comment_community_notify(creator: &User, community: &Community,
     }
     let (_word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
     let _q_standalone = "%".to_owned() + &alike_word + &"%".to_string();
+    let (_users_ids, communities_ids) = creator.get_ids_for_notifications();
     for user_id in communities_ids.iter() {
         // если пользователь уже совершал сегодня такие действия
         // на аналогичные объекты по типу
