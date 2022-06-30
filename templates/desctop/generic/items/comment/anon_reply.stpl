@@ -28,7 +28,7 @@
       <% } %>
     <% } %>
 
-      <% if comment.reactions != 0 && c_reactions_list.len() != 0 { %>
+      <% if reply.reactions != 0 && c_reactions_list.len() != 0 { %>
         <div class="">
             <div class="row">
                 <div class="col" data-type="<%= reply.get_code() %>" data-subtype="comment">
