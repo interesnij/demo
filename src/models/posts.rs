@@ -2938,87 +2938,95 @@ impl Post {
             .expect("Error.");
 
         if self.community_id.is_some() {
-            use crate::models::{create_community_wall, create_community_notify};
+            use crate::models::{create_comment_community_wall, create_comment_community_notify};
 
             let community = self.get_community();
             if parent_id.is_some() {
-                create_community_wall (
+                create_comment_community_wall (
                     &user,
                     &community,
-                    "ответил на комментарий к записи".to_string(),
+                    "к записи".to_string(),
                     87,
                     parent_id.unwrap(),
-                    None,
-                    true
+                    new_comment.id,
+                    parent_id.unwrap(),
+
                 );
-                create_community_notify (
+                create_comment_community_notify (
                     &user,
                     &community,
-                    "ответил на комментарий к записи".to_string(),
+                    "к записи".to_string(),
                     87,
                     parent_id.unwrap(),
                     None,
-                    true
+                    new_comment.id,
+                    parent_id.unwrap()
                 );
             }
             else {
-                create_community_wall (
+                create_comment_community_wall (
                     &user,
                     &community,
-                    "оставил комментарий к записи".to_string(),
+                    "к записи".to_string(),
                     81,
                     self.id,
                     None,
-                    true
+                    new_comment.id,
+                    None
                 );
-                create_community_notify (
+                create_comment_community_notify (
                     &user,
                     &community,
-                    "оставил комментарий к записи".to_string(),
+                    "к записи".to_string(),
                     81,
                     self.id,
                     None,
-                    true
+                    new_comment.id,
+                    None
                 );
             }
         }
         else {
-            use crate::models::{create_user_wall, create_user_notify};
+            use crate::models::{create_comment_user_wall, create_comment_user_notify};
 
             if parent_id.is_some() {
-                create_user_wall (
+                create_comment_user_wall (
                     &user,
-                    "ответил на комментарий к записи".to_string(),
+                    "к записи".to_string(),
                     87,
-                    parent_id.unwrap(),
+                    self.id,
                     None,
-                    true
+                    new_comment.id,
+                    parent_id.unwrap()
                 );
-                create_user_notify (
+                create_comment_user_notify (
                     &user,
-                    "ответил на комментарий к записи".to_string(),
+                    "к записи".to_string(),
                     87,
-                    parent_id.unwrap(),
+                    self.id,
                     None,
-                    true
+                    new_comment.id,
+                    parent_id.unwrap()
                 );
             }
             else {
-                create_user_wall (
+                create_comment_user_wall (
                     &user,
-                    "оставил комментарий к записи".to_string(),
-                    81,
+                    "к записи".to_string(),
+                    87,
                     self.id,
                     None,
-                    true
+                    new_comment.id,
+                    None
                 );
-                create_user_notify (
+                create_comment_user_notify (
                     &user,
-                    "оставил комментарий к записи".to_string(),
-                    81,
+                    "к записи".to_string(),
+                    87,
                     self.id,
                     None,
-                    false
+                    new_comment.id,
+                    None
                 );
             }
         }

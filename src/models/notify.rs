@@ -51,6 +51,7 @@ use crate::models::{User, Community};
 pub fn get_verb(verb: &str, is_women: bool) -> (String, String, String) {
     let words: Vec<&str> = verb.split(" ").collect();
     let mut word_ilike = "".to_string();
+    let mut gender_word = "".to_string();
     let mut group_word = "".to_string();
     let mut new_verb = "".to_string();
 
@@ -58,12 +59,11 @@ pub fn get_verb(verb: &str, is_women: bool) -> (String, String, String) {
         if count == 0 {
             word_ilike = word.to_string();
             if is_women {
-                new_verb.push_str(&(word.to_string() + &"а".to_string()));
+                gender_word = word.to_string() + &"а".to_string();
             }
             else {
-                new_verb.push_str(&word.to_string());
+                gender_word = word.to_string()
             }
-            new_verb.push_str(&" ".to_string());
             let pop_word = word.to_string().pop();
             group_word = pop_word.unwrap().to_string() + &"и".to_string();
         }
@@ -72,7 +72,9 @@ pub fn get_verb(verb: &str, is_women: bool) -> (String, String, String) {
             new_verb.push_str(&" ".to_string());
         }
     }
-    return (word_ilike, group_word, new_verb);
+    let curr_group_verb = group_word + &new_verb;
+    new_verb = gender_word + &new_verb;
+    return (word_ilike, curr_group_verb, new_verb);
 }
 
 #[derive(Debug, Queryable, Serialize, Identifiable, Associations)]
@@ -738,6 +740,8 @@ pub fn create_wall(creator_id: i32, verb: String, types: i16,
 }
 
 // is_group: нужна ли спайка сигналов в группу
+// нужна переменная parent_id - ответ на какой коммент
+// нужна переменная owner_id - на какой объект написан коммент или ответ
 pub fn create_user_wall(creator: &User, verb: String, types: i16,
     object_id: i32, action_community_id: Option<i32>,
     is_group: bool) -> () {
@@ -1440,6 +1444,523 @@ pub fn create_community_notify(creator: &User, community: &Community,
                 None,
                 None,
             )
+        }
+    }
+}
+
+
+// нужна переменная parent_id - ответ на какой коммент
+// нужна переменная owner_id - на какой объект написан коммент или ответ
+pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
+    object_id: i32, action_community_id: Option<i32>,
+    comment_id: i32, parent_id: Option<i32>) -> () {
+    use crate::schema::wall_objects::dsl::wall_objects;
+    use chrono::Duration;
+
+    let creator_id = creator.id;
+    let dop_verb: String;
+    let _connection = establish_connection();
+
+    let date = chrono::Local::now().naive_utc();
+    if parent_id.is_some() {
+        dop_verb = concat_string!(
+            "написал <a class='underline pointer show_reply_comment' reply-comment-pk='",
+            comment_id.to_string(),
+            "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
+            parent_id.unwrap().to_string(),
+            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
+        )
+    }
+    else {
+        dop_verb = concat_string!(
+            "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
+            comment_id.to_string(),
+            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
+        )
+    }
+    let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
+
+    // если пользователь уже совершал сегодня такие действия
+    // на аналогичные объекты по типу
+    if wall_objects
+        .filter(schema::wall_objects::user_id.eq(creator_id))
+        .filter(schema::wall_objects::types.eq(types))
+        .filter(schema::wall_objects::object_id.eq(object_id))
+        //.filter(schema::wall_objects::created.gt(date - Duration::hours(24)))
+        //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
+        .filter(schema::wall_objects::verb.ilike(&word_ilike))
+        .load::<WallObject>(&_connection)
+        .expect("E")
+        .len() > 0 {
+
+        println!("пользователь уже совершал сегодня такие действия на аналогичные объекты по типу");
+        let wall = wall_objects
+            .filter(schema::wall_objects::user_id.eq(creator_id))
+            .filter(schema::wall_objects::types.eq(types))
+            .filter(schema::wall_objects::object_id.eq(object_id))
+            //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+            //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
+            .filter(schema::wall_objects::verb.ilike(&word_ilike))
+            .filter(schema::wall_objects::user_set_id.is_null())
+            .load::<WallObject>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+
+        create_wall (
+            creator_id,
+            current_verb.clone(),
+            types,
+            object_id,
+            None,
+            action_community_id,
+            Some(wall.id),
+            None,
+        );
+    }
+    // если пользователи уже совершали сегодня такие действия
+    // на объект по типу
+    else if wall_objects
+        .filter(schema::wall_objects::object_id.eq(object_id))
+        .filter(schema::wall_objects::types.eq(types))
+        //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+        //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
+        .filter(schema::wall_objects::verb.ilike(&word_ilike))
+        .load::<WallObject>(&_connection)
+        .expect("E")
+        .len() > 0 {
+
+        println!("пользователи уже совершали сегодня такие действия на объект по типу");
+        let wall = wall_objects
+            .filter(schema::wall_objects::object_id.eq(object_id))
+            .filter(schema::wall_objects::types.eq(types))
+            //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+            //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
+            .filter(schema::wall_objects::verb.ilike(&word_ilike))
+            .filter(schema::wall_objects::object_set_id.is_null())
+            .load::<WallObject>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+
+        create_wall (
+            creator_id,
+            group_word,
+            types,
+            object_id,
+            None,
+            action_community_id,
+            None,
+            Some(wall.id),
+        );
+    }
+    // если пользоваели еще не создавали уведомлений на объект
+    else {
+        println!("пользователи еще не создавали уведомлений на объект");
+        create_wall (
+            creator_id,
+            current_verb.clone(),
+            types,
+            object_id,
+            None,
+            action_community_id,
+            None,
+            None,
+        );
+    }
+}
+
+pub fn create_comment_community_wall(creator: &User, community: &Community,
+    verb: String, types: i16, object_id: i32, action_community_id: Option<i32>,
+    comment_id: i32, parent_id: Option<i32>) -> () {
+    use crate::schema::wall_objects::dsl::wall_objects;
+    use chrono::Duration;
+
+    let creator_id = creator.id;
+    let community_id = Some(community.id);
+    let dop_verb: String;
+    let _connection = establish_connection();
+
+    let date = chrono::Local::now().naive_utc();
+    if parent_id.is_some() {
+        dop_verb = concat_string!(
+            "написал <a class='underline pointer show_reply_comment' reply-comment-pk='",
+            comment_id.to_string(),
+            "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
+            parent_id.unwrap().to_string(),
+            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
+        )
+    }
+    else {
+        dop_verb = concat_string!(
+            "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
+            comment_id.to_string(),
+            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
+        )
+    }
+    let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
+
+    // если пользователь уже совершал сегодня такие действия
+    // на аналогичные объекты по типу
+    if wall_objects
+        .filter(schema::wall_objects::user_id.eq(creator_id))
+        .filter(schema::wall_objects::types.eq(types))
+        .filter(schema::wall_objects::object_id.eq(object_id))
+        //.filter(schema::wall_objects::created.gt(date - Duration::hours(24)))
+        //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
+        .filter(schema::wall_objects::verb.ilike(&word_ilike))
+        .load::<WallObject>(&_connection)
+        .expect("E")
+        .len() > 0 {
+
+        println!("пользователь уже совершал сегодня такие действия на аналогичные объекты по типу");
+        let wall = wall_objects
+            .filter(schema::wall_objects::user_id.eq(creator_id))
+            .filter(schema::wall_objects::types.eq(types))
+            .filter(schema::wall_objects::object_id.eq(object_id))
+            //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+            //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
+            .filter(schema::wall_objects::verb.ilike(&word_ilike))
+            .filter(schema::wall_objects::user_set_id.is_null())
+            .load::<WallObject>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+
+        create_wall (
+            creator_id,
+            current_verb.clone(),
+            types,
+            object_id,
+            community_id,
+            action_community_id,
+            Some(wall.id),
+            None,
+        );
+    }
+    // если пользователи уже совершали сегодня такие действия
+    // на объект по типу
+    else if wall_objects
+        .filter(schema::wall_objects::object_id.eq(object_id))
+        .filter(schema::wall_objects::types.eq(types))
+        //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+        //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
+        .filter(schema::wall_objects::verb.ilike(&word_ilike))
+        .load::<WallObject>(&_connection)
+        .expect("E")
+        .len() > 0 {
+
+        println!("пользователи уже совершали сегодня такие действия на объект по типу");
+        let wall = wall_objects
+            .filter(schema::wall_objects::object_id.eq(object_id))
+            .filter(schema::wall_objects::types.eq(types))
+            //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
+            //.filter(schema::wall_objects::action_community_id.eq(action_community_id))
+            .filter(schema::wall_objects::verb.ilike(&word_ilike))
+            .filter(schema::wall_objects::object_set_id.is_null())
+            .load::<WallObject>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+
+        create_wall (
+            creator_id,
+            group_word,
+            types,
+            object_id,
+            community_id,
+            action_community_id,
+            None,
+            Some(wall.id),
+        );
+    }
+    // если пользоваели еще не создавали уведомлений на объект
+    else {
+        println!("пользователи еще не создавали уведомлений на объект");
+        create_wall (
+            creator_id,
+            current_verb.clone(),
+            types,
+            object_id,
+            community_id,
+            action_community_id,
+            None,
+            None,
+        );
+    }
+}
+
+
+pub fn create_comment_user_notify(creator: &User, verb: String, types: i16,
+    object_id: i32, action_community_id: Option<i32>,
+    comment_id: i32, parent_id: Option<i32>) -> () {
+    use crate::schema::notifications::dsl::notifications;
+    use chrono::Duration;
+
+    let creator_id = creator.id;
+    let dop_verb: String;
+    let _connection = establish_connection();
+    let (users_ids, _communities_ids) = creator.get_ids_for_notifications();
+
+    let date = chrono::Local::now().naive_utc();
+    if parent_id.is_some() {
+        dop_verb = concat_string!(
+            "написал <a class='underline pointer show_reply_comment' reply-comment-pk='",
+            comment_id.to_string(),
+            "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
+            parent_id.unwrap().to_string(),
+            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
+        )
+    }
+    else {
+        dop_verb = concat_string!(
+            "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
+            comment_id.to_string(),
+            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
+        )
+    }
+    let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
+
+    // если пользователь уже совершал сегодня такие действия
+    // на аналогичные объекты по типу
+    for user_id in users_ids.iter() {
+        if notifications
+        .filter(schema::notifications::user_id.eq(creator_id))
+        .filter(schema::notifications::recipient_id.eq(user_id))
+        .filter(schema::notifications::types.eq(types))
+        .filter(schema::notifications::object_id.eq(object_id))
+        //.filter(schema::notifications::created.gt(date - Duration::hours(24)))
+        //.filter(schema::notifications::action_community_id.eq(action_community_id))
+        .filter(schema::notifications::verb.ilike(&word_ilike))
+        .load::<Notification>(&_connection)
+        .expect("E")
+        .len() > 0 {
+
+        println!("пользователь уже совершал сегодня такие действия на аналогичные объекты по типу");
+        let notify = notifications
+            .filter(schema::notifications::user_id.eq(creator_id))
+            .filter(schema::notifications::recipient_id.eq(user_id))
+            .filter(schema::notifications::types.eq(types))
+            .filter(schema::notifications::object_id.eq(object_id))
+            //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
+            //.filter(schema::notifications::action_community_id.eq(action_community_id))
+            .filter(schema::notifications::verb.ilike(&word_ilike))
+            .filter(schema::notifications::user_set_id.is_null())
+            .load::<Notification>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+
+        create_notify (
+            creator_id,
+            *user_id,
+            current_verb.clone(),
+            types,
+            object_id,
+            None,
+            action_community_id,
+            Some(notify.id),
+            None,
+        );
+        }
+        // если пользователи уже совершали сегодня такие действия
+        // на объект по типу
+        else if notifications
+        .filter(schema::notifications::object_id.eq(object_id))
+        .filter(schema::notifications::recipient_id.eq(user_id))
+        .filter(schema::notifications::types.eq(types))
+        //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
+        //.filter(schema::notifications::action_community_id.eq(action_community_id))
+        .filter(schema::notifications::verb.ilike(&word_ilike))
+        .load::<Notification>(&_connection)
+        .expect("E")
+        .len() > 0 {
+
+        println!("пользователи уже совершали сегодня такие действия на объект по типу");
+        let notify = notifications
+            .filter(schema::notifications::object_id.eq(object_id))
+            .filter(schema::notifications::recipient_id.eq(user_id))
+            .filter(schema::notifications::types.eq(types))
+            //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
+            //.filter(schema::notifications::action_community_id.eq(action_community_id))
+            .filter(schema::notifications::verb.ilike(&word_ilike))
+            .filter(schema::notifications::object_set_id.is_null())
+            .load::<Notification>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+
+        create_notify (
+            creator_id,
+            *user_id,
+            group_word,
+            types,
+            object_id,
+            None,
+            action_community_id,
+            None,
+            Some(notify.id),
+        );
+        }
+        // если пользоваели еще не создавали уведомлений на объект
+        else {
+        println!("пользователи еще не создавали уведомлений на объект");
+        create_notify (
+            creator_id,
+            *user_id,
+            current_verb.clone(),
+            types,
+            object_id,
+            None,
+            action_community_id,
+            None,
+            None,
+        );
+        }
+    }
+}
+
+pub fn create_comment_community_notify(creator: &User, community: &Community,
+    verb: String, types: i16, object_id: i32, action_community_id: Option<i32>,
+    comment_id: i32, parent_id: Option<i32>) -> () {
+    use crate::schema::notifications::dsl::notifications;
+    use chrono::Duration;
+
+    let creator_id = creator.id;
+    let community_id = Some(community.id);
+    let dop_verb: String;
+    let _connection = establish_connection();
+    let (_users_ids, communities_ids) = creator.get_ids_for_notifications();
+
+    let date = chrono::Local::now().naive_utc();
+    if parent_id.is_some() {
+        dop_verb = concat_string!(
+            "написал <a class='underline pointer show_reply_comment' reply-comment-pk='",
+            comment_id.to_string(),
+            "'>ответ</a> на <a class='underline pointer show_parent_comment' parent-comment-pk='",
+            parent_id.unwrap().to_string(),
+            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
+        )
+    }
+    else {
+        dop_verb = concat_string!(
+            "написал <a class='underline pointer show_parent_comment' parent-comment-pk='",
+            comment_id.to_string(),
+            "'>комментарий</a> <a class='underline pointer show_owner_comment_item' owner-comment-pk='",
+            object_id.to_string(), "'>", verb, "</a>"
+        )
+    }
+    let (word_ilike, group_word, current_verb) = get_verb(&dop_verb, creator.is_women());
+    for user_id in communities_ids.iter() {
+        // если пользователь уже совершал сегодня такие действия
+        // на аналогичные объекты по типу
+        if notifications
+        .filter(schema::notifications::user_id.eq(creator_id))
+        .filter(schema::notifications::recipient_id.eq(user_id))
+        .filter(schema::notifications::types.eq(types))
+        .filter(schema::notifications::object_id.eq(object_id))
+        //.filter(schema::notifications::created.gt(date - Duration::hours(24)))
+        //.filter(schema::notifications::action_community_id.eq(action_community_id))
+        .filter(schema::notifications::verb.ilike(&word_ilike))
+        .load::<Notification>(&_connection)
+        .expect("E")
+        .len() > 0 {
+
+        println!("пользователь уже совершал сегодня такие действия на аналогичные объекты по типу");
+        let notify = notifications
+            .filter(schema::notifications::user_id.eq(creator_id))
+            .filter(schema::notifications::recipient_id.eq(user_id))
+            .filter(schema::notifications::types.eq(types))
+            .filter(schema::notifications::object_id.eq(object_id))
+            //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
+            //.filter(schema::notifications::action_community_id.eq(action_community_id))
+            .filter(schema::notifications::verb.ilike(&word_ilike))
+            .filter(schema::notifications::user_set_id.is_null())
+            .load::<Notification>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+
+        create_notify (
+            creator_id,
+            *user_id,
+            current_verb.clone(),
+            types,
+            object_id,
+            community_id,
+            action_community_id,
+            Some(notify.id),
+            None,
+        );
+        }
+        // если пользователи уже совершали сегодня такие действия
+        // на объект по типу
+        else if notifications
+        .filter(schema::notifications::object_id.eq(object_id))
+        .filter(schema::notifications::recipient_id.eq(user_id))
+        .filter(schema::notifications::types.eq(types))
+        //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
+        //.filter(schema::notifications::action_community_id.eq(action_community_id))
+        .filter(schema::notifications::verb.ilike(&word_ilike))
+        .load::<Notification>(&_connection)
+        .expect("E")
+        .len() > 0 {
+
+        println!("пользователи уже совершали сегодня такие действия на объект по типу");
+        let notify = notifications
+            .filter(schema::notifications::object_id.eq(object_id))
+            .filter(schema::notifications::recipient_id.eq(user_id))
+            .filter(schema::notifications::types.eq(types))
+            //.filter(schema::notifications::created.eq(date - Duration::hours(24)))
+            //.filter(schema::notifications::action_community_id.eq(action_community_id))
+            .filter(schema::notifications::verb.ilike(&word_ilike))
+            .filter(schema::notifications::object_set_id.is_null())
+            .load::<Notification>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+
+        create_notify (
+            creator_id,
+            *user_id,
+            group_word,
+            types,
+            object_id,
+            community_id,
+            action_community_id,
+            None,
+            Some(notify.id),
+        );
+        }
+        // если пользоваели еще не создавали уведомлений на объект
+        else {
+        println!("пользователи еще не создавали уведомлений на объект");
+        create_notify (
+            creator_id,
+            *user_id,
+            current_verb.clone(),
+            types,
+            object_id,
+            community_id,
+            action_community_id,
+            None,
+            None,
+        );
         }
     }
 }
