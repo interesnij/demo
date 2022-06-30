@@ -383,7 +383,7 @@ impl User {
             .set(schema::users::types.eq(close_case))
             .get_result::<User>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -400,7 +400,7 @@ impl User {
             .set(schema::users::types.eq(close_case))
             .get_result::<User>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn suspend_item(&self) -> bool {
@@ -417,7 +417,7 @@ impl User {
             .set(schema::users::types.eq(close_case))
             .get_result::<User>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unsuspend_item(&self) -> bool {
@@ -434,7 +434,7 @@ impl User {
             .set(schema::users::types.eq(close_case))
             .get_result::<User>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn delete_item(&self) -> bool {
@@ -451,7 +451,7 @@ impl User {
             .set(schema::users::types.eq(close_case))
             .get_result::<User>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -468,7 +468,7 @@ impl User {
             .set(schema::users::types.eq(close_case))
             .get_result::<User>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 

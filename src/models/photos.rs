@@ -1739,7 +1739,7 @@ impl PhotoList {
             .set(schema::photo_lists::types.eq(close_case))
             .get_result::<PhotoList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -1757,8 +1757,8 @@ impl PhotoList {
             .set(schema::photo_lists::types.eq(close_case))
             .get_result::<PhotoList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
-       return true;
+        self.show_wall_notify_items();
+        return true;
     }
 
     pub fn delete_item(&self) -> bool {
@@ -1807,7 +1807,7 @@ impl PhotoList {
             .set(schema::photo_lists::types.eq(close_case))
             .get_result::<PhotoList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -1856,7 +1856,7 @@ impl PhotoList {
             .set(schema::photo_lists::types.eq(close_case))
             .get_result::<PhotoList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1875,7 +1875,7 @@ impl PhotoList {
             .set(schema::photo_lists::types.eq(close_case))
             .get_result::<PhotoList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unsuspend_item(&self) -> bool {
@@ -1893,7 +1893,7 @@ impl PhotoList {
             .set(schema::photo_lists::types.eq(close_case))
             .get_result::<PhotoList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
@@ -2487,7 +2487,7 @@ impl Photo {
             let creator = self.get_creator();
             creator.minus_photos(1);
          }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -2518,7 +2518,7 @@ impl Photo {
             let creator = self.get_creator();
             creator.plus_photos(1);
          }
-         show_wall_notify_items();
+         self.show_wall_notify_items();
          return true;
     }
 
@@ -2548,7 +2548,7 @@ impl Photo {
             let creator = self.get_creator();
             creator.minus_photos(1);
         }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -2577,7 +2577,7 @@ impl Photo {
             let creator = self.get_creator();
             creator.plus_photos(1);
          }
-         show_wall_notify_items();
+         self.show_wall_notify_items();
          return true;
     }
     pub fn get_format_text(&self) -> String {
@@ -3277,7 +3277,7 @@ impl PhotoComment {
             .set(schema::photo_comments::types.eq(close_case))
             .get_result::<PhotoComment>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -3298,7 +3298,7 @@ impl PhotoComment {
             .set(schema::photo_comments::types.eq(close_case))
             .get_result::<PhotoComment>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -3320,7 +3320,7 @@ impl PhotoComment {
             .set(schema::photo_comments::types.eq(close_case))
             .get_result::<PhotoComment>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -3341,7 +3341,7 @@ impl PhotoComment {
             .set(schema::photo_comments::types.eq(close_case))
             .get_result::<PhotoComment>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn get_count_attach(&self) -> String {

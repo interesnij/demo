@@ -1746,7 +1746,7 @@ impl GoodList {
             .set(schema::good_lists::types.eq(close_case))
             .get_result::<GoodList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -1764,7 +1764,7 @@ impl GoodList {
             .set(schema::good_lists::types.eq(close_case))
             .get_result::<GoodList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1814,7 +1814,7 @@ impl GoodList {
             .set(schema::good_lists::types.eq(close_case))
             .get_result::<GoodList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -1863,7 +1863,7 @@ impl GoodList {
             .set(schema::good_lists::types.eq(close_case))
             .get_result::<GoodList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1882,7 +1882,7 @@ impl GoodList {
             .set(schema::good_lists::types.eq(close_case))
             .get_result::<GoodList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unsuspend_item(&self) -> bool {
@@ -1900,7 +1900,7 @@ impl GoodList {
             .set(schema::good_lists::types.eq(close_case))
             .get_result::<GoodList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
@@ -2847,7 +2847,7 @@ impl Good {
             let creator = self.get_creator();
             creator.minus_goods(1);
          }
-         hide_wall_notify_items();
+         self.hide_wall_notify_items();
          return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -2878,7 +2878,7 @@ impl Good {
             let creator = self.get_creator();
             creator.plus_goods(1);
          }
-         show_wall_notify_items();
+         self.show_wall_notify_items();
          return true;
     }
 
@@ -2908,7 +2908,7 @@ impl Good {
             let creator = self.get_creator();
             creator.minus_goods(1);
         }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -2937,7 +2937,7 @@ impl Good {
             let creator = self.get_creator();
             creator.plus_goods(1);
          }
-         show_wall_notify_items();
+         self.show_wall_notify_items();
          return true;
     }
 
@@ -3542,7 +3542,7 @@ impl GoodComment {
             .set(schema::good_comments::types.eq(close_case))
             .get_result::<GoodComment>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -3563,8 +3563,8 @@ impl GoodComment {
             .set(schema::good_comments::types.eq(close_case))
             .get_result::<GoodComment>(&_connection)
             .expect("E");
-        show_wall_notify_items();
-       return true;
+        self.show_wall_notify_items();
+        return true;
     }
 
     pub fn delete_item(&self) -> bool {
@@ -3585,7 +3585,7 @@ impl GoodComment {
             .set(schema::good_comments::types.eq(close_case))
             .get_result::<GoodComment>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -3606,7 +3606,7 @@ impl GoodComment {
             .set(schema::good_comments::types.eq(close_case))
             .get_result::<GoodComment>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn is_deleted(&self) -> bool {

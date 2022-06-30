@@ -1414,7 +1414,7 @@ impl MusicList {
             .set(schema::music_lists::types.eq(close_case))
             .get_result::<MusicList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -1432,7 +1432,7 @@ impl MusicList {
             .set(schema::music_lists::types.eq(close_case))
             .get_result::<MusicList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1482,7 +1482,7 @@ impl MusicList {
             .set(schema::music_lists::types.eq(close_case))
             .get_result::<MusicList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -1531,7 +1531,7 @@ impl MusicList {
             .set(schema::music_lists::types.eq(close_case))
             .get_result::<MusicList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1550,7 +1550,7 @@ impl MusicList {
             .set(schema::music_lists::types.eq(close_case))
             .get_result::<MusicList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unsuspend_item(&self) -> bool {
@@ -1568,7 +1568,7 @@ impl MusicList {
             .set(schema::music_lists::types.eq(close_case))
             .get_result::<MusicList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1907,7 +1907,7 @@ impl Music {
             let creator = self.get_creator();
             creator.minus_tracks(1);
          }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -1938,7 +1938,7 @@ impl Music {
             let creator = self.get_creator();
             creator.plus_tracks(1);
          }
-         show_wall_notify_items();
+         self.show_wall_notify_items();
          return true;
     }
 
@@ -1968,7 +1968,7 @@ impl Music {
             let creator = self.get_creator();
             creator.minus_tracks(1);
         }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -1997,7 +1997,7 @@ impl Music {
             let creator = self.get_creator();
             creator.plus_tracks(1);
          }
-         show_wall_notify_items();
+         self.show_wall_notify_items();
          return true;
     }
 

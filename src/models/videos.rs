@@ -1686,7 +1686,7 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -1704,7 +1704,7 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1754,7 +1754,7 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -1803,7 +1803,7 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1822,7 +1822,7 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unsuspend_item(&self) -> bool {
@@ -1840,7 +1840,7 @@ impl VideoList {
             .set(schema::video_lists::types.eq(close_case))
             .get_result::<VideoList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
@@ -2454,7 +2454,7 @@ impl Video {
             let creator = self.get_creator();
             creator.minus_videos(1);
         }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -2485,7 +2485,7 @@ impl Video {
             let creator = self.get_creator();
             creator.plus_videos(1);
         }
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -2515,7 +2515,7 @@ impl Video {
             let creator = self.get_creator();
             creator.minus_videos(1);
         }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -2544,7 +2544,7 @@ impl Video {
             let creator = self.get_creator();
             creator.plus_videos(1);
         }
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn get_format_text(&self) -> String {
@@ -3375,7 +3375,7 @@ impl VideoComment {
             .set(schema::video_comments::types.eq(close_case))
             .get_result::<VideoComment>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -3396,7 +3396,7 @@ impl VideoComment {
             .set(schema::video_comments::types.eq(close_case))
             .get_result::<VideoComment>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -3418,7 +3418,7 @@ impl VideoComment {
             .set(schema::video_comments::types.eq(close_case))
             .get_result::<VideoComment>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -3439,7 +3439,7 @@ impl VideoComment {
             .set(schema::video_comments::types.eq(close_case))
             .get_result::<VideoComment>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn get_count_attach(&self) -> String {

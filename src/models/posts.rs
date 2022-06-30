@@ -1683,7 +1683,7 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -1701,7 +1701,7 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1751,7 +1751,7 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -1800,7 +1800,7 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1819,7 +1819,7 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unsuspend_item(&self) -> bool {
@@ -1837,7 +1837,7 @@ impl PostList {
             .set(schema::post_lists::types.eq(close_case))
             .get_result::<PostList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
@@ -2558,7 +2558,7 @@ impl Post {
             let creator = self.get_creator();
             creator.minus_posts(1);
         }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -2589,7 +2589,7 @@ impl Post {
             let creator = self.get_creator();
             creator.plus_posts(1);
         }
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -2619,7 +2619,7 @@ impl Post {
             let creator = self.get_creator();
             creator.minus_posts(1);
         }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -2648,7 +2648,7 @@ impl Post {
             let creator = self.get_creator();
             creator.plus_posts(1);
         }
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn get_format_text(&self) -> String {
@@ -3619,7 +3619,7 @@ impl PostComment {
             .set(schema::post_comments::types.eq(close_case))
             .get_result::<PostComment>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -3640,7 +3640,7 @@ impl PostComment {
             .set(schema::post_comments::types.eq(close_case))
             .get_result::<PostComment>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -3662,7 +3662,7 @@ impl PostComment {
             .set(schema::post_comments::types.eq(close_case))
             .get_result::<PostComment>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -3683,7 +3683,7 @@ impl PostComment {
             .set(schema::post_comments::types.eq(close_case))
             .get_result::<PostComment>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn get_count_attach(&self) -> String {

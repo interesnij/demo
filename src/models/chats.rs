@@ -150,7 +150,7 @@ impl Chat {
             .set(schema::chats::types.eq(close_case))
             .get_result::<Chat>(&_connection)
             .expect("E");
-       hide_wall_notify_items();
+       self.hide_wall_notify_items();
        return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -172,7 +172,7 @@ impl Chat {
             .set(schema::chats::types.eq(close_case))
             .get_result::<Chat>(&_connection)
             .expect("E");
-       show_wall_notify_items();
+       self.show_wall_notify_items();
        return true;
     }
 
@@ -191,7 +191,7 @@ impl Chat {
             .get_result::<Chat>(&_connection)
             .expect("E");
 
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -208,7 +208,7 @@ impl Chat {
             .set(schema::chats::types.eq(close_case))
             .get_result::<Chat>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn hide_wall_notify_items(&self) -> () {

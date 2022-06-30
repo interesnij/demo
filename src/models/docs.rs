@@ -1254,7 +1254,7 @@ impl DocList {
             .set(schema::doc_lists::types.eq(close_case))
             .get_result::<DocList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -1272,7 +1272,7 @@ impl DocList {
             .set(schema::doc_lists::types.eq(close_case))
             .get_result::<DocList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1322,7 +1322,7 @@ impl DocList {
             .set(schema::doc_lists::types.eq(close_case))
             .get_result::<DocList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -1372,7 +1372,7 @@ impl DocList {
             .set(schema::doc_lists::types.eq(close_case))
             .get_result::<DocList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1391,7 +1391,7 @@ impl DocList {
             .set(schema::doc_lists::types.eq(close_case))
             .get_result::<DocList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unsuspend_item(&self) -> bool {
@@ -1409,7 +1409,7 @@ impl DocList {
             .set(schema::doc_lists::types.eq(close_case))
             .get_result::<DocList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1934,7 +1934,7 @@ impl Doc {
             let creator = self.get_creator();
             creator.minus_docs(1);
         }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -1963,7 +1963,7 @@ impl Doc {
             let creator = self.get_creator();
             creator.plus_docs(1);
          }
-         show_wall_notify_items();
+         self.show_wall_notify_items();
          return true;
     }
 
@@ -1993,7 +1993,7 @@ impl Doc {
             let creator = self.get_creator();
             creator.minus_docs(1);
         }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -2021,8 +2021,8 @@ impl Doc {
         else {
             let creator = self.get_creator();
             creator.plus_docs(1);
-         }
-         show_wall_notify_items();
+        }
+        self.show_wall_notify_items();
         return true;
     }
 

@@ -1240,7 +1240,7 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -1258,7 +1258,7 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1308,7 +1308,7 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn restore_item(&self) -> bool {
@@ -1357,7 +1357,7 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
 
@@ -1376,7 +1376,7 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unsuspend_item(&self) -> bool {
@@ -1394,7 +1394,7 @@ impl SurveyList {
             .set(schema::survey_lists::types.eq(close_case))
             .get_result::<SurveyList>(&_connection)
             .expect("E");
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn is_user_can_edit_delete_item(&self, user_id: i32) -> bool {
@@ -2020,7 +2020,7 @@ impl Survey {
             let creator = self.get_creator();
             creator.minus_surveys(1);
         }
-        hide_wall_notify_items();
+        self.hide_wall_notify_items();
         return true;
     }
     pub fn unclose_item(&self) -> bool {
@@ -2049,7 +2049,7 @@ impl Survey {
             let creator = self.get_creator();
             creator.plus_surveys(1);
         }
-        show_wall_notify_items();
+        self.show_wall_notify_items();
         return true;
     }
     pub fn count_reposts(&self) -> String {
