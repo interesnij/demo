@@ -334,7 +334,7 @@ on('#ajax', 'click', '.show_replies', function() {
 });
 
 on('body', 'click', '.reply_comment', function() {
-  div = this.nextElementSibling;
+  div = this.nextElementSibling.nextElementSibling;
   input = div.querySelector(".comment_text");
   input.innerHTML = this.previousElementSibling.innerHTML + ',&nbsp;';
   div.style.display = "block";
