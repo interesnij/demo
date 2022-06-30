@@ -136,7 +136,6 @@ on('body', 'change', '.case_all_input', function() {
         close_work_fullscreen();
         id_video_upload_start = true;
         create_fullscreen("/video/edit_new_video/", "worker_fullscreen", false, true);
-        //fullscreen_resize()
       };
       if (is_video_edit_window_loaded) {
         try {
@@ -158,7 +157,8 @@ on('body', 'change', '.case_all_input', function() {
       info = btn.parentElement.parentElement.querySelector("#onload_info");
       if (case_video) {
         info.innerHTML = "Видео загружено!";
-        btn.classList.remove("hidden")
+        btn.classList.remove("hidden");
+        fullscreen_resize();
       } else { info.innerHTML = "" }
     } catch { null }
   };

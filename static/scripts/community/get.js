@@ -11,6 +11,7 @@ on('#ajax', 'change', '#sub_category', function() {
           if ( link.status == 200 ) {
               var sub = document.getElementById("subcat");
               sub.innerHTML = link.responseText;
+              fullscreen_resize();
           }
       }
   };
