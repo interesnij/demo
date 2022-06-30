@@ -2949,8 +2949,7 @@ impl Post {
                     87,
                     parent_id.unwrap(),
                     new_comment.id,
-                    parent_id.unwrap(),
-
+                    parent_id
                 );
                 create_comment_community_notify (
                     &user,
@@ -2960,7 +2959,7 @@ impl Post {
                     parent_id.unwrap(),
                     None,
                     new_comment.id,
-                    parent_id.unwrap()
+                    parent_id
                 );
             }
             else {
@@ -2997,7 +2996,7 @@ impl Post {
                     self.id,
                     None,
                     new_comment.id,
-                    parent_id.unwrap()
+                    parent_id
                 );
                 create_comment_user_notify (
                     &user,
@@ -3006,7 +3005,7 @@ impl Post {
                     self.id,
                     None,
                     new_comment.id,
-                    parent_id.unwrap()
+                    parent_id
                 );
             }
             else {
