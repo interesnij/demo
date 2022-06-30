@@ -1462,6 +1462,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
     let _connection = establish_connection();
 
     let date = chrono::Local::now().naive_utc();
+    let _q_standalone = "%".to_owned() + &verb + &"%".to_string();
     if parent_id.is_some() {
         dop_verb = concat_string!(
             "написал <a class='underline pointer show_reply_comment' reply-comment-pk='",
@@ -1489,7 +1490,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
         .filter(schema::wall_objects::types.eq(types))
         .filter(schema::wall_objects::object_id.eq(object_id))
         //.filter(schema::wall_objects::created.gt(date - Duration::hours(24)))
-        //.filter(schema::wall_objects::verb.like("написал"))
+        .filter(schema::wall_objects::verb.ilike(&_q_standalone))
         .load::<WallObject>(&_connection)
         .expect("E")
         .len() > 0 {
@@ -1500,7 +1501,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
             .filter(schema::wall_objects::types.eq(types))
             .filter(schema::wall_objects::object_id.eq(object_id))
             //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
-            .filter(schema::wall_objects::verb.like("написал"))
+            .filter(schema::wall_objects::verb.ilike(&_q_standalone))
             .filter(schema::wall_objects::user_set_id.is_null())
             .load::<WallObject>(&_connection)
             .expect("E")
@@ -1525,7 +1526,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
         .filter(schema::wall_objects::object_id.eq(object_id))
         .filter(schema::wall_objects::types.eq(types))
         //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
-        .filter(schema::wall_objects::verb.like("написал"))
+        .filter(schema::wall_objects::verb.ilike(&_q_standalone))
         .load::<WallObject>(&_connection)
         .expect("E")
         .len() > 0 {
@@ -1535,7 +1536,7 @@ pub fn create_comment_user_wall(creator: &User, verb: String, types: i16,
             .filter(schema::wall_objects::object_id.eq(object_id))
             .filter(schema::wall_objects::types.eq(types))
             //.filter(schema::wall_objects::created.eq(date - Duration::hours(24)))
-            .filter(schema::wall_objects::verb.like("написал"))
+            .filter(schema::wall_objects::verb.ilike(&_q_standalone))
             .filter(schema::wall_objects::object_set_id.is_null())
             .load::<WallObject>(&_connection)
             .expect("E")
