@@ -4,7 +4,7 @@ on('#ajax', 'click', '#add_community_btn', function() {
     form.querySelector("#id_name").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!");
     return
-  } else if (!form.querySelector("#sub_category").value){
+  } else if (!form.querySelector("#sub_category").value || !form.querySelector("#subcat").firstChild){
     form.querySelector("#sub_category").style.border = "1px #FF0000 solid";
     toast_error("Тематика - обязательное поле!");
     return
