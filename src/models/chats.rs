@@ -2732,7 +2732,7 @@ impl Message {
             .filter(schema::wall_objects::object_id.eq(self.id))
             .load::<WallObject>(&_connection)
             .expect("E");
-        for item in notifiers.iter() {
+        for item in walls.iter() {
             diesel::update(item)
                 .set(schema::wall_objects::status.eq("d"))
                 .get_result::<WallObject>(&_connection)
@@ -2765,7 +2765,7 @@ impl Message {
             .filter(schema::wall_objects::object_id.eq(self.id))
             .load::<WallObject>(&_connection)
             .expect("E");
-        for item in notifiers.iter() {
+        for item in walls.iter() {
             diesel::update(item)
                 .set(schema::wall_objects::status.eq("b"))
                 .get_result::<WallObject>(&_connection)
