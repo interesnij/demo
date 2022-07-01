@@ -2446,21 +2446,89 @@ impl Message {
             return self.get_type_text();
         }
     }
-    pub fn plus_reactions(&self, count: i32) -> bool {
+    pub fn plus_reactions(&self, count: i32, user: &User,
+        community:Option<&Community>) -> () {
+
         let _connection = establish_connection();
         diesel::update(self)
             .set(schema::messages::reactions.eq(self.reactions + count))
             .get_result::<Message>(&_connection)
             .expect("Error.");
-        return true;
+
+        if community.is_some() {
+            use crate::models::{create_community_wall, create_community_notify};
+
+            let community = community.unwrap();
+            create_community_wall (
+                &user,
+                &community,
+                "отреагировал на сообщение".to_string(),
+                61,
+                self.id,
+                None,
+                true
+            );
+            create_community_notify (
+                &user,
+                &community,
+                "отреагировал на сообщение".to_string(),
+                61,
+                self.id,
+                None,
+                true
+            );
+        }
+        else {
+            use crate::models::{create_user_wall, create_user_notify};
+
+            create_user_wall (
+                &user,
+                "отреагировал на сообщение".to_string(),
+                61,
+                self.id,
+                None,
+                true
+            );
+            create_user_notify (
+                &user,
+                "отреагировал на сообщение".to_string(),
+                61,
+                self.id,
+                None,
+                true
+            );
+        }
     }
-    pub fn minus_reactions(&self, count: i32) -> bool {
+    pub fn minus_reactions(&self, count: i32) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+
         let _connection = establish_connection();
         diesel::update(self)
             .set(schema::messages::reactions.eq(self.reactions - count))
             .get_result::<Message>(&_connection)
             .expect("Error.");
-        return true;
+
+        let _q_standalone = "%".to_owned() + &"отреагировал на сообщение".to_string() + &"%".to_string();
+        diesel::delete (
+            notifications
+                .filter(schema::notifications::types.eq(61))
+                .filter(schema::notifications::object_id.eq(self.id))
+                .filter(schema::notifications::verb.ilike(&_q_standalone))
+            )
+            .execute(&_connection)
+            .expect("E");
+
+        diesel::delete (
+            wall_objects
+                .filter(schema::wall_objects::types.eq(61))
+                .filter(schema::wall_objects::object_id.eq(self.id))
+                .filter(schema::wall_objects::verb.ilike(&_q_standalone))
+            )
+            .execute(&_connection)
+            .expect("E");
     }
     pub fn get_manager_text(&self) -> String {
         if self.parent_id.is_some() {
@@ -2845,7 +2913,7 @@ impl Message {
         }
     }
 
-    pub fn send_reaction(&self, user_id: i32, types: i16) -> Json<JsonItemReactions> {
+    pub fn send_reaction(&self, user: User, types: i16) -> Json<JsonItemReactions> {
         use crate::schema::message_votes::dsl::message_votes;
 
         let _connection = establish_connection();
@@ -2856,9 +2924,8 @@ impl Message {
         let mut old_type = 0;
 
         if reactions_of_list.iter().any(|&i| i==types) && list.get_members_ids().iter().any(|&i| i==user_id) {
-
             let votes = message_votes
-                .filter(schema::message_votes::user_id.eq(user_id))
+                .filter(schema::message_votes::user_id.eq(user.id))
                 .filter(schema::message_votes::message_id.eq(self.id))
                 .load::<MessageVote>(&_connection)
                 .expect("E.");
@@ -2870,7 +2937,7 @@ impl Message {
                 // если пользователь уже реагировал этой реакцией на этот товар
                 if vote.reaction == types {
                     diesel::delete(message_votes
-                        .filter(schema::message_votes::user_id.eq(user_id))
+                        .filter(schema::message_votes::user_id.eq(user.id))
                         .filter(schema::message_votes::message_id.eq(self.id))
                         )
                         .execute(&_connection)
@@ -2894,7 +2961,7 @@ impl Message {
             else {
                 let new_vote = NewMessageVote {
                     vote:       1,
-                    user_id:    user_id,
+                    user_id:    user.id,
                     message_id: self.id,
                     reaction:   types,
                 };
