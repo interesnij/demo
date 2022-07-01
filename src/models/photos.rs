@@ -2065,7 +2065,7 @@ impl Photo {
         }
     }
 
-    pub fn send_reaction(&self, user_id: i32, types: i16) -> Json<JsonItemReactions> {
+    pub fn send_reaction(&self, user: User, types: i16) -> Json<JsonItemReactions> {
         use crate::schema::photo_votes::dsl::photo_votes;
 
         let _connection = establish_connection();
@@ -3419,7 +3419,7 @@ impl PhotoComment {
         }
     }
 
-    pub fn send_reaction(&self, user_id: i32, types: i16) -> Json<JsonItemReactions> {
+    pub fn send_reaction(&self, user: User, types: i16) -> Json<JsonItemReactions> {
         use crate::schema::photo_comment_votes::dsl::photo_comment_votes;
 
         let _connection = establish_connection();

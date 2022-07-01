@@ -2134,7 +2134,7 @@ impl Video {
         }
     }
 
-    pub fn send_reaction(&self, user_id: i32, types: i16) -> Json<JsonItemReactions> {
+    pub fn send_reaction(&self, user: User, types: i16) -> Json<JsonItemReactions> {
         use crate::schema::video_votes::dsl::video_votes;
 
         let _connection = establish_connection();
@@ -3516,7 +3516,7 @@ impl VideoComment {
         }
     }
 
-    pub fn send_reaction(&self, user_id: i32, types: i16) -> Json<JsonItemReactions> {
+    pub fn send_reaction(&self, user: User, types: i16) -> Json<JsonItemReactions> {
         use crate::schema::video_comment_votes::dsl::video_comment_votes;
 
         let _connection = establish_connection();

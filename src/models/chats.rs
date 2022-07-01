@@ -2446,8 +2446,7 @@ impl Message {
             return self.get_type_text();
         }
     }
-    pub fn plus_reactions(&self, count: i32, user: &User,
-        community:Option<&Community>) -> () {
+    pub fn plus_reactions(&self, count: i32, user: &User) -> () {
 
         let _connection = establish_connection();
         diesel::update(self)
@@ -2455,10 +2454,12 @@ impl Message {
             .get_result::<Message>(&_connection)
             .expect("Error.");
 
-        if community.is_some() {
+        let list = self.get_list();
+
+        if list.community_id.is_some() {
             use crate::models::{create_community_wall, create_community_notify};
 
-            let community = community.unwrap();
+            let community = list.get_community();
             create_community_wall (
                 &user,
                 &community,
@@ -2923,7 +2924,7 @@ impl Message {
         let mut new_plus = false;
         let mut old_type = 0;
 
-        if reactions_of_list.iter().any(|&i| i==types) && list.get_members_ids().iter().any(|&i| i==user_id) {
+        if reactions_of_list.iter().any(|&i| i==types) && list.get_members_ids().iter().any(|&i| i==user.id) {
             let votes = message_votes
                 .filter(schema::message_votes::user_id.eq(user.id))
                 .filter(schema::message_votes::message_id.eq(self.id))
@@ -2971,7 +2972,7 @@ impl Message {
                     .expect("Error.");
 
                 react_model.update_model(types, None, true);
-                self.plus_reactions(1);
+                self.plus_reactions(1, &user);
                 new_plus = true;
             }
         }
