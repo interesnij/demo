@@ -2454,7 +2454,7 @@ impl Message {
             .get_result::<Message>(&_connection)
             .expect("Error.");
 
-        let list = self.get_list();
+        let list = self.get_chat();
 
         if list.community_id.is_some() {
             use crate::models::{create_community_wall, create_community_notify};
