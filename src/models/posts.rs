@@ -2188,6 +2188,7 @@ impl Post {
     pub fn send_reaction(&self, user: User, types: i16) -> Json<JsonItemReactions> {
         use crate::schema::post_votes::dsl::post_votes;
 
+        let user_id = user.id;
         let _connection = establish_connection();
         let list = self.get_list();
         let reactions_of_list = list.get_reactions_list();
@@ -3763,6 +3764,7 @@ impl PostComment {
     pub fn send_reaction(&self, user: User, types: i16) -> Json<JsonItemReactions> {
         use crate::schema::post_comment_votes::dsl::post_comment_votes;
 
+        let user_id = user.id;
         let _connection = establish_connection();
         let list = self.get_list();
         let reactions_of_list = list.get_reactions_list();

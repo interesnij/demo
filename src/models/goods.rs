@@ -2721,6 +2721,7 @@ impl Good {
     pub fn send_reaction(&self, user: User, types: i16) -> Json<JsonItemReactions> {
         use crate::schema::good_votes::dsl::good_votes;
 
+        let user_id = user.id;
         let _connection = establish_connection();
         let list = self.get_list();
         let reactions_of_list = list.get_reactions_list();
@@ -3692,6 +3693,7 @@ impl GoodComment {
     pub fn send_reaction(&self, user: User, types: i16) -> Json<JsonItemReactions> {
         use crate::schema::good_comment_votes::dsl::good_comment_votes;
 
+        let user_id = user.id;
         let _connection = establish_connection();
         let list = self.get_list();
         let reactions_of_list = list.get_reactions_list();
