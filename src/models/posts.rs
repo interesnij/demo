@@ -4077,7 +4077,7 @@ impl PostComment {
             create_community_wall (
                 &user,
                 &community,
-                verb_str,
+                verb_str.clone(),
                 types_int,
                 self.id,
                 None,
@@ -4086,7 +4086,7 @@ impl PostComment {
             create_community_notify (
                 &user,
                 &community,
-                verb_str,
+                verb_str.clone(),
                 types_int,
                 self.id,
                 None,
@@ -4098,7 +4098,7 @@ impl PostComment {
 
             create_user_wall (
                 &user,
-                verb_str,
+                verb_str.clone(),
                 types_int,
                 self.id,
                 None,
@@ -4106,7 +4106,7 @@ impl PostComment {
             );
             create_user_notify (
                 &user,
-                verb_str,
+                verb_str.clone(),
                 types_int,
                 self.id,
                 None,
