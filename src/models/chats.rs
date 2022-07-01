@@ -278,6 +278,19 @@ impl Chat {
         }
     }
 
+    pub fn get_community(&self) -> Community {
+        use crate::schema::communitys::dsl::communitys;
+
+        let _connection = establish_connection();
+        return communitys
+            .filter(schema::communitys::id.eq(self.community_id.unwrap()))
+            .filter(schema::communitys::types.lt(10))
+            .load::<Community>(&_connection)
+            .expect("E")
+            .into_iter()
+            .nth(0)
+            .unwrap();
+    }
     pub fn get_str_id(&self) -> String {
         return self.id.to_string();
     }
