@@ -2310,21 +2310,88 @@ impl Good {
         return true;
     }
 
-    pub fn plus_reactions(&self, count: i32) -> bool {
+    pub fn plus_reactions(&self, count: i32, user: &User) -> () {
+
         let _connection = establish_connection();
         diesel::update(self)
             .set(schema::goods::reactions.eq(self.reactions + count))
             .get_result::<Good>(&_connection)
             .expect("Error.");
-        return true;
+
+        if self.community_id.is_some() {
+            use crate::models::{create_community_wall, create_community_notify};
+
+            let community = self.get_community();
+            create_community_wall (
+                &user,
+                &community,
+                "отреагировал на товар".to_string(),
+                57,
+                self.id,
+                None,
+                true
+            );
+            create_community_notify (
+                &user,
+                &community,
+                "отреагировал на товар".to_string(),
+                57,
+                self.id,
+                None,
+                true
+            );
+        }
+        else {
+            use crate::models::{create_user_wall, create_user_notify};
+
+            create_user_wall (
+                &user,
+                "отреагировал на товар".to_string(),
+                57,
+                self.id,
+                None,
+                true
+            );
+            create_user_notify (
+                &user,
+                "отреагировал на товар".to_string(),
+                57,
+                self.id,
+                None,
+                true
+            );
+        }
     }
-    pub fn minus_reactions(&self, count: i32) -> bool {
+    pub fn minus_reactions(&self, count: i32) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+
         let _connection = establish_connection();
         diesel::update(self)
             .set(schema::goods::reactions.eq(self.reactions - count))
             .get_result::<Good>(&_connection)
             .expect("Error.");
-        return true;
+
+        let _q_standalone = "%".to_owned() + &"отреагировал на товар".to_string() + &"%".to_string();
+        diesel::delete (
+            notifications
+                .filter(schema::notifications::types.eq(57))
+                .filter(schema::notifications::object_id.eq(self.id))
+                .filter(schema::notifications::verb.ilike(&_q_standalone))
+            )
+            .execute(&_connection)
+            .expect("E");
+
+        diesel::delete (
+            wall_objects
+                .filter(schema::wall_objects::types.eq(57))
+                .filter(schema::wall_objects::object_id.eq(self.id))
+                .filter(schema::wall_objects::verb.ilike(&_q_standalone))
+            )
+            .execute(&_connection)
+            .expect("E");
     }
 
     pub fn minus_comments(&self, count: i32) -> bool {
@@ -2778,7 +2845,7 @@ impl Good {
                     .expect("Error.");
 
                 react_model.update_model(types, None, true);
-                self.plus_reactions(1);
+                self.plus_reactions(1, &user);
                 new_plus = true;
             }
         }
@@ -3750,7 +3817,7 @@ impl GoodComment {
                     .expect("Error.");
 
                 react_model.update_model(types, None, true);
-                self.plus_reactions(1);
+                self.plus_reactions(1, &user);
                 new_plus = true;
             }
         }
@@ -3929,21 +3996,108 @@ impl GoodComment {
         }
     }
 
-    pub fn plus_reactions(&self, count: i32) -> bool {
+    pub fn plus_reactions(&self, count: i32, user: &User) -> () {
         let _connection = establish_connection();
         diesel::update(self)
             .set(schema::good_comments::reactions.eq(self.reactions + count))
             .get_result::<GoodComment>(&_connection)
             .expect("Error.");
-        return true;
+
+        let types_int: i16;
+        let verb_str: String;
+        if self.parent_id.is_some() {
+            types_int = 90;
+            verb_str = "отреагировал на ответ на комментарий к товару".to_string();
+        }
+        else {
+            types_int = 84;
+            verb_str = "отреагировал на комментарий к товару".to_string();
+        }
+
+        if self.get_item().community_id.is_some() {
+            use crate::models::{create_community_wall, create_community_notify};
+
+            let community = self.get_item().get_community();
+            create_community_wall (
+                &user,
+                &community,
+                verb_str,
+                types_int,
+                self.id,
+                None,
+                true
+            );
+            create_community_notify (
+                &user,
+                &community,
+                verb_str,
+                types_int,
+                self.id,
+                None,
+                true
+            );
+        }
+        else {
+            use crate::models::{create_user_wall, create_user_notify};
+
+            create_user_wall (
+                &user,
+                verb_str,
+                types_int,
+                self.id,
+                None,
+                true
+            );
+            create_user_notify (
+                &user,
+                verb_str,
+                types_int,
+                self.id,
+                None,
+                true
+            );
+        }
     }
-    pub fn minus_reactions(&self, count: i32) -> bool {
+    pub fn minus_reactions(&self, count: i32) -> () {
+        use crate::schema::{
+            notifications::dsl::notifications,
+            wall_objects::dsl::wall_objects,
+        };
+
+        let types_int: i16;
+        let verb_str: String;
+        if self.parent_id.is_some() {
+            types_int = 90;
+            verb_str = "отреагировал на ответ на комментарий к товару".to_string();
+        }
+        else {
+            types_int = 84;
+            verb_str = "отреагировал на комментарий к товару".to_string();
+        }
         let _connection = establish_connection();
         diesel::update(self)
             .set(schema::good_comments::reactions.eq(self.reactions - count))
             .get_result::<GoodComment>(&_connection)
             .expect("Error.");
-        return true;
+
+        let _q_standalone = "%".to_owned() + &verb_str + &"%".to_string();
+        diesel::delete (
+            notifications
+                .filter(schema::notifications::types.eq(types_int))
+                .filter(schema::notifications::object_id.eq(self.id))
+                .filter(schema::notifications::verb.ilike(&_q_standalone))
+            )
+            .execute(&_connection)
+            .expect("E");
+
+        diesel::delete (
+            wall_objects
+                .filter(schema::wall_objects::types.eq(types_int))
+                .filter(schema::wall_objects::object_id.eq(self.id))
+                .filter(schema::wall_objects::verb.ilike(&_q_standalone))
+            )
+            .execute(&_connection)
+            .expect("E");
     }
 }
 
