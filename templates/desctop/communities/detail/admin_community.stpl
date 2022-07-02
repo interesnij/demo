@@ -72,7 +72,7 @@
                 <div class="card mt-1 mb-1" style="padding: 10px;" data-type="com<%=community.id %>">
                   <a class="create_repost pointer">Поделиться</a>
                   <a href="" class="ajax">Статистика</a>
-                  <a href="/community/<%= community.id %>/settings/" class="ajax">Управление</a>
+                  <a href="/communities/<%= community.id %>/settings/" class="ajax">Управление</a>
                 </div>
           </div>
 

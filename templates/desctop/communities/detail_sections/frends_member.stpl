@@ -2,7 +2,7 @@
 <div class="card mb-3">
     <div class="p-1">
         <div class="media">
-          <a href="/community/<%=community.id %>/common_friends/" class="ajax">
+          <a href="/communities/<%=community.id %>/common_friends/" class="ajax">
             <div class="media-body">
                 <h6 class="content-color-primary mb-0">Друзья в группе</h6>
             </div>
@@ -14,7 +14,7 @@
     <div class="card border-top">
         <div class="p-1">
             <div class="media">
-              <% include!("../../generic/user/card_go_profile.stpl"); %>
+              <% include!("../../generic/user/card_small_profile.stpl"); %>
             </div>
         </div>
     </div>

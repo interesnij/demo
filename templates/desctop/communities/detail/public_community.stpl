@@ -81,7 +81,7 @@
                   <a href="" class="ajax">Статистика</a>
                 <% } %>
                 <% if private_bools[13] == true { %>
-                  <a href="/community/<%=community.id %>/settings/" class="ajax">Управление</a>
+                  <a href="/communities/<%=community.id %>/settings/" class="ajax">Управление</a>
                 <% } %>
               </div>
               </div>
