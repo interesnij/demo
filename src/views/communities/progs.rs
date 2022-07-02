@@ -80,7 +80,8 @@ pub async fn create_community(session: Session, req: HttpRequest, mut payload: M
             &_request_user,
             form.types,
         );
-        return community_page(session, req, new_community_link).await;
+        _community_link = new_community_link.replace("/", "");
+        return community_page(session, req, _community_link).await;
 
     } else {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
