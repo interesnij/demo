@@ -13,9 +13,9 @@
       <% if user.id == request_user.id && user.is_staffed_user() { %>
       <div class="card-header p-0">
         <ul class="nav nav-tabs justify-content-center">
-          <li class="nav-item active">
-            <a>Сообщества</a>
-          </li>
+          <li class="nav-item">
+            <a class="nav-link active">Сообщества</a>
+          </li> 
 
           <li class="nav-item">
             <a class="nav-link ajax" href="/id<%= user.id %>/staff-communities/">

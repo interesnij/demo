@@ -19,8 +19,8 @@
             </a>
           </li>
 
-          <li class="nav-item active">
-            Управление
+          <li class="nav-item">
+            <a class="nav-link active">Управление</a>
           </li>
         </ul>
       </div>

@@ -22,7 +22,7 @@ on('#ajax', 'click', '#add_community_btn', function() {
             rtr = document.getElementById('ajax');
             rtr.innerHTML = ajax.innerHTML;
             pk = rtr.querySelector(".pk_saver").getAttribute("data-pk");
-            window.scrollTo(0,0);
+            window.scrollTo(0,0); 
             document.title = elem_.querySelector('title').innerHTML;
             close_work_fullscreen();
             if_list(rtr);
