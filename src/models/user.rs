@@ -2077,7 +2077,6 @@ impl User {
     }
     pub fn get_6_communities(&self) -> Vec<Community> {
         use crate::schema::communities_memberships::dsl::communities_memberships;
-        use crate::schema::communitys::dsl::communitys;
         use crate::models::CommunitiesMembership;
         use crate::utils::get_community;
 
