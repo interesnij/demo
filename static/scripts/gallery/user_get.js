@@ -13,7 +13,6 @@ on('#ajax', 'click', '.photo_edit', function() {
 
 on('#ajax', 'click', '.detail_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
-  document.body.querySelector(".pk_saver") ? pk = document.body.querySelector(".pk_saver").getAttribute('data-pk') : pk = card.getAttribute('data-pk');
   create_fullscreen("/photos/load_photo/" + photo_pk + "/", "photo_fullscreen", false, true);
 });
 

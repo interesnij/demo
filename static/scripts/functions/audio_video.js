@@ -524,10 +524,6 @@ function music_update_time() {
   //} catch { null };
 }
 
-function update_player() {
-  //music_player.update();
-  music_player.loadPlaylist(0);
-}
 ///////////////////////////
 
 function show_active_track(block, list_pk, track_pk) {
@@ -816,6 +812,5 @@ function add_html_tracks_in_player (html) {
     _id=tracks[i].id;
     music_player.addTrack(_source, title, _thumbPath, null, true, false, _id)
   }
-  music_player.update();
   fullscreen_resize();
 };
