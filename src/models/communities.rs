@@ -1209,7 +1209,7 @@ impl Community {
             .get_result::<CommunitySurveyNotification>(&_connection)
             .expect("Error saving community_survey_notification.");
 
-        CommunitiesMembership::create_membership(&user, new_community, true, false, false, false);
+        CommunitiesMembership::create_membership(&user, &new_community, true, false, false, false);
         return new_community.link;
     }
     pub fn get_draft_posts(&self) -> Vec<Post> {
@@ -3960,7 +3960,7 @@ pub struct NewCommunitiesMembership {
     pub visited:          i32,
 }
 impl CommunitiesMembership {
-    pub fn create_membership(user: &User, community: Community, is_administrator: bool, is_editor: bool, is_advertiser: bool, is_moderator: bool) -> CommunitiesMembership {
+    pub fn create_membership(user: &User, community: &Community, is_administrator: bool, is_editor: bool, is_advertiser: bool, is_moderator: bool) -> CommunitiesMembership {
         let _connection = establish_connection();
 
         let new_member_form = NewCommunitiesMembership {
