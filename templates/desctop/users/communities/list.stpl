@@ -13,7 +13,7 @@
       <% if user.id == request_user.id && user.is_staffed_user() { %>
       <div class="card-header p-0">
         <ul class="nav nav-tabs justify-content-center">
-          <li class="nav-item">
+          <li class="nav-item active">
             Сообщества
           </li>
 

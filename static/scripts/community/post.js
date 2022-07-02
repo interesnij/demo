@@ -24,9 +24,10 @@ on('#ajax', 'click', '#add_community_btn', function() {
             pk = rtr.querySelector(".pk_saver").getAttribute("data-pk");
             window.scrollTo(0,0);
             document.title = elem_.querySelector('title').innerHTML;
+            close_work_fullscreen();
             if_list(rtr);
             window.history.pushState(null, "vfgffgfgf", "/public" + pk + "/");
-            close_work_fullscreen()
+
         } else { this.disabled = false }
       }
       ajax_link.send(form_data);
