@@ -2079,6 +2079,7 @@ impl User {
         use crate::schema::communities_memberships::dsl::communities_memberships;
         use crate::schema::communitys::dsl::communitys;
         use crate::models::CommunitiesMembership;
+        use crate::utils::get_community;
 
         let _connection = establish_connection();
         let _user_communities = communities_memberships
@@ -2089,12 +2090,9 @@ impl User {
             .expect("E.");
         let mut stack = Vec::new();
         for _item in _user_communities.iter() {
-            stack.push(_item.community_id);
+            stack.push(get_community(_item.community_id));
         };
-        return communitys
-            .filter(schema::communitys::id.eq_any(stack))
-            .load::<Community>(&_connection)
-            .expect("E.");
+        return stack;
     }
     pub fn get_online_friends(&self, limit: i64, offset: i64) -> Vec<User> {
         use crate::schema::users::dsl::users;
