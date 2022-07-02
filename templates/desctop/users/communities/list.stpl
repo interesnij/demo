@@ -51,7 +51,7 @@
                     <li class="list-group-item">
                       <div class="media">
                         <a href="<%= community.link %>" class="ajax">
-                          <figure style="width:30px;">
+                          <figure style="width:50px;">
                             <% if community.s_avatar.is_some() { %>
                             <img src="<%= community.s_avatar.as_deref().unwrap() %>" style="border-radius:30px;" alt="image">
                             <% } else { %>
