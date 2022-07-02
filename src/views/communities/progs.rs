@@ -80,7 +80,7 @@ pub async fn create_community(session: Session, req: HttpRequest, mut payload: M
             &_request_user,
             form.types,
         );
-        _community_link = new_community_link.replace("/", "");
+        let _community_link = new_community_link.replace("/", "");
         return community_page(session, req, _community_link).await;
 
     } else {
