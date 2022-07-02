@@ -53,7 +53,7 @@
                         <a href="<%= community.link %>" class="ajax">
                           <figure style="width:50px;">
                             <% if community.s_avatar.is_some() { %>
-                              <img src="<%= community.s_avatar.as_deref().unwrap() %>" style="border-radius:30px;" alt="image">
+                              <img src="<%= community.s_avatar.as_deref().unwrap() %>" style="border-radius:50px;" alt="image">
                             <% } else { %>
                               <svg fill="currentColor" class="svg_default svg_default_50" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0z" fill="none" />
