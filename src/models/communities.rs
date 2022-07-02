@@ -1049,11 +1049,11 @@ impl Community {
             }
         return false;
     }
-    pub fn create_community(name: String, category_id: i32, user: &User, types: i16) -> i32 {
+    pub fn create_community(name: String, category_id: i32, user: &User, types: i16) -> String {
         let user_id = user.id;
 
         let _connection = establish_connection();
-        let count = Community::count_communities() + 1; 
+        let count = Community::count_communities() + 1;
         let link = "/public".to_string() + &count.to_string() + &"/".to_string();
         let new_community_form = NewCommunity {
                 name:                     name,
@@ -1210,7 +1210,7 @@ impl Community {
             .expect("Error saving community_survey_notification.");
 
         CommunitiesMembership::create_membership(&user, new_community, true, false, false, false);
-        return community_id;
+        return new_community.link;
     }
     pub fn get_draft_posts(&self) -> Vec<Post> {
         use crate::schema::posts::dsl::posts;
