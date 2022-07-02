@@ -74,13 +74,13 @@ pub async fn create_community(session: Session, req: HttpRequest, mut payload: M
         }
 
         let _request_user = get_request_user_data(&session);
-        let new_community = Community::create_community (
+        let new_community_link = Community::create_community (
             form.name,
             form.category_id,
             &_request_user,
             form.types,
         );
-        return community_page(session, req, new_community.link).await;
+        return community_page(session, req, new_community_link.link).await;
 
     } else {
         Ok(HttpResponse::Ok().content_type("text/html; charset=utf-8").body(""))
