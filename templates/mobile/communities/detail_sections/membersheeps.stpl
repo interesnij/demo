@@ -1,7 +1,7 @@
 <% if community.count_members() > 0 { %>
 
 <div class="card mb-3">
-  <a href="/community/<%=community.id %>/members/" class="ajax">
+  <a href="/communities/<%=community.id %>/members/" class="ajax">
     <div class="card-body py-2">
         <div class="media">
           <div class="media-body">

@@ -71,6 +71,6 @@
   <% } %>
   <% include!("../detail_sections/stat.stpl"); %>
 
-  <div class="load_block mt-3 post_view_generator" community-pk="<%= community.id %>"></div>
+  <div class="load_block post_view_generator" data-link="/communities/<%= community.id %>/wall/<%= community.get_selected_post_list_pk() %>/"></div>
 
 <% include!("../../../base_block/base_mobile_footer.stpl"); %>

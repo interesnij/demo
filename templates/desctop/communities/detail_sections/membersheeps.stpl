@@ -16,8 +16,8 @@
     <div class="card border-top">
         <div class="p-1">
             <div class="media">
-              <% include!("../../generic/user/card_go_profile.stpl"); %>
-            </div>
+              <% include!("../../generic/user/card_small_profile.stpl"); %>
+            </div> 
         </div>
     </div>
     <% } %>

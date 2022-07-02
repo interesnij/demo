@@ -2,7 +2,7 @@
 
 <div class="card mt-3">
   <div class="p-1">
-    <a href="/community/<%=community.id %>/goods/" class="ajax">
+    <a href="/communities/<%=community.id %>/goods/" class="ajax">
       <div class="media">
           <div class="media-body">
               <h6 class="content-color-primary mb-0">Товары</h6>
@@ -44,7 +44,7 @@
 <div class="card mt-3">
     <div class="card-header">
         <div class="media centered">
-            <a href="/community/<%=community.id %>/goods/" class="ajax">
+            <a href="/communities/<%=community.id %>/goods/" class="ajax">
                 <div class="media-body">
                     <h6 class="content-color-primary mb-0">Товары</h6>
                 </div>
