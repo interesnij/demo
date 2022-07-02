@@ -14,7 +14,7 @@
       <div class="card-header p-0">
         <ul class="nav nav-tabs justify-content-center">
           <li class="nav-item active">
-            Сообщества
+            <a>Сообщества</a>
           </li>
 
           <li class="nav-item">
