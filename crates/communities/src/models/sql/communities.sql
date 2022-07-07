@@ -66,24 +66,24 @@ CREATE TABLE community_infos (
 CREATE UNIQUE INDEX community_infos_unq ON community_infos (id, community_id);
 
 CREATE TABLE community_privates (
-    id                SERIAL PRIMARY KEY,
-    community_id      INT NOT NULL,
-    can_see_member    "char" NOT NULL, -- Кто видит сообщества
-    can_see_info      "char" NOT NULL, -- Кто видит информацию
-    can_send_message  "char" NOT NULL, -- Кто пишет сообщения
-    can_see_post      "char" NOT NULL, -- Кто видит записи
-    can_see_photo     "char" NOT NULL, -- Кто видит фотографии
-    can_see_good      "char" NOT NULL, -- Кто видит товары
-    can_see_video     "char" NOT NULL, -- Кто видит видеозаписи
-    can_see_music     "char" NOT NULL, -- Кто видит аудиозапис
-    can_see_planner   "char" NOT NULL, -- Кто видит раздел планирования
-    can_see_doc       "char" NOT NULL, -- Кто видит документы
-    can_see_survey    "char" NOT NULL, -- Кто видит опросы
+    id               SERIAL PRIMARY KEY,
+    community_id     INT NOT NULL,
+    can_see_member   "char" NOT NULL, -- Кто видит сообщества
+    can_see_info     "char" NOT NULL, -- Кто видит информацию
+    can_send_message "char" NOT NULL, -- Кто пишет сообщения
+    can_see_post     "char" NOT NULL, -- Кто видит записи
+    can_see_photo    "char" NOT NULL, -- Кто видит фотографии
+    can_see_good     "char" NOT NULL, -- Кто видит товары
+    can_see_video    "char" NOT NULL, -- Кто видит видеозаписи
+    can_see_music    "char" NOT NULL, -- Кто видит аудиозапис
+    can_see_planner  "char" NOT NULL, -- Кто видит раздел планирования
+    can_see_doc      "char" NOT NULL, -- Кто видит документы
+    can_see_survey   "char" NOT NULL, -- Кто видит опросы
 
-    can_see_settings  "char" NOT NULL, -- Кто видит настройки
-    can_see_log       "char" NOT NULL, -- Кто видит логи
-    can_see_stat      "char" NOT NULL, -- Кто видит статистику
-    can_see_forum     "char" NOT NULL -- Кто видит опросы
+    can_see_settings "char" NOT NULL, -- Кто видит настройки
+    can_see_log      "char" NOT NULL, -- Кто видит логи
+    can_see_stat     "char" NOT NULL, -- Кто видит статистику
+    can_see_forum    "char" NOT NULL -- Кто видит опросы
 );
 CREATE UNIQUE INDEX community_privates_unq ON community_privates (id, community_id);
 

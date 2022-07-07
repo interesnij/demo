@@ -2,11 +2,13 @@
 CREATE TABLE post_lists (
     id              SERIAL PRIMARY KEY,
     name            VARCHAR(100) NOT NULL,
+
     community_id    INT,
     user_id         INT NOT NULL,
     owner_name      VARCHAR(200) NOT NULL,
     owner_link      VARCHAR(200) NOT NULL,
     owner_image     VARCHAR(500),
+
     types           SMALLINT NOT NULL,
     description     VARCHAR(500),
     image           VARCHAR(500),
@@ -30,12 +32,14 @@ CREATE INDEX post_lists_community_id_idx ON post_lists (community_id);
 CREATE TABLE posts (
     id              SERIAL PRIMARY KEY,
     content         VARCHAR(5000),
+
     community_id    INT,
     user_id         INT NOT NULL,
     owner_name      VARCHAR(200) NOT NULL,
     owner_link      VARCHAR(200) NOT NULL,
     owner_image     VARCHAR(500),
     post_list_id    INT NOT NULL,
+
     types           "char" NOT NULL,
     attach          VARCHAR(200),
     comment_enabled BOOLEAN NOT NULL DEFAULT true,
@@ -64,20 +68,22 @@ CREATE INDEX posts_list_id_idx ON posts (post_list_id);
 CREATE INDEX posts_parent_id_idx ON posts (parent_id);
 
 CREATE TABLE post_comments (
-    id          SERIAL PRIMARY KEY,
-    post_id     INT NOT NULL,
-    user_id     INT NOT NULL,
-    user_name   VARCHAR(200) NOT NULL,
-    user_link   VARCHAR(200) NOT NULL,
-    user_image  VARCHAR(500),
-    sticker_id  INT,
-    parent_id   INT,
-    content     VARCHAR(1000),
-    attach      VARCHAR(200),
-    types       "char" NOT NULL,
-    created     TIMESTAMP NOT NULL,
-    repost      INT NOT NULL,
-    reactions   INT NOT NULL,
+    id         SERIAL PRIMARY KEY,
+
+    post_id    INT NOT NULL,
+    user_id    INT NOT NULL,
+    user_name  VARCHAR(200) NOT NULL,
+    user_link  VARCHAR(200) NOT NULL,
+    user_image VARCHAR(500),
+    sticker_id INT,
+    parent_id  INT,
+
+    content    VARCHAR(1000),
+    attach     VARCHAR(200),
+    types      "char" NOT NULL,
+    created    TIMESTAMP NOT NULL,
+    repost     INT NOT NULL,
+    reactions  INT NOT NULL,
 
     CONSTRAINT fk_post_comment
         FOREIGN KEY(post_id)
@@ -178,14 +184,14 @@ CREATE UNIQUE INDEX post_comment_reactions_unq ON post_comment_reactions (post_c
 
 -- Уведомления записей -------
 CREATE TABLE user_post_notifications (
-    id                      SERIAL PRIMARY KEY,
-    user_id                 INT NOT NULL,
-    comment                 BOOLEAN NOT NULL DEFAULT true,
-    comment_reply           BOOLEAN NOT NULL DEFAULT true,
-    mention                 BOOLEAN NOT NULL DEFAULT true,
-    comment_mention         BOOLEAN NOT NULL DEFAULT true,
-    repost                  BOOLEAN NOT NULL DEFAULT true,
-    reactions               BOOLEAN NOT NULL DEFAULT true
+    id              SERIAL PRIMARY KEY,
+    user_id         INT NOT NULL,
+    comment         BOOLEAN NOT NULL DEFAULT true,
+    comment_reply   BOOLEAN NOT NULL DEFAULT true,
+    mention         BOOLEAN NOT NULL DEFAULT true,
+    comment_mention BOOLEAN NOT NULL DEFAULT true,
+    repost          BOOLEAN NOT NULL DEFAULT true,
+    reactions       BOOLEAN NOT NULL DEFAULT true
 );
 CREATE UNIQUE INDEX user_post_notifications_unq ON user_post_notifications (user_id, id);
 
@@ -204,11 +210,11 @@ CREATE UNIQUE INDEX community_post_notifications_unq ON community_post_notificat
 
 -- Порядок следования списка записей -------
 CREATE TABLE user_post_list_positions (
-    id           SERIAL PRIMARY KEY,
-    user_id      INT NOT NULL,     -- Пользователь
-    list_id         INT NOT NULL,     -- Список записей
-    position     SMALLINT NOT NULL, -- Порядок отображения
-    types        "char" NOT NULL     -- 1 - открыт, 0 - недоступен (например, удален)
+    id       SERIAL PRIMARY KEY,
+    user_id  INT NOT NULL,     -- Пользователь
+    list_id  INT NOT NULL,     -- Список записей
+    position SMALLINT NOT NULL, -- Порядок отображения
+    types    "char" NOT NULL     -- 1 - открыт, 0 - недоступен (например, удален)
 );
 
 -- Порядок следования списка записей -------
